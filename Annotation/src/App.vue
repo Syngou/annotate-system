@@ -43,14 +43,14 @@
           </FormItem>
         </Form>
         <p slot="header" style="color: #f60; text-align: center">
-          <span>Login</span>
+          <span>登录</span>
         </p>
         <div
           slot="footer"
           style="display: flex; justify-content: center; align-items: center"
         >
           <Button type="primary" @click="handleSubmit('formInline')"
-            >Signin</Button
+            >登录</Button
           >
         </div>
       </Modal>
@@ -63,11 +63,7 @@
         </p>
       </Modal>
       <Modal v-model="upload_modal" title="功能介绍">
-        <Upload
-          multiple
-          type="drag"
-          action="//jsonplaceholder.typicode.com/posts/"
-        >
+        <Upload multiple type="drag" action="127.0.0.1">
           <div style="padding: 20px 0">
             <Icon
               type="ios-cloud-upload"
@@ -205,7 +201,7 @@
           <label>自定义颜色</label>
           <input type="color" onchange="changeColor(this,'relations-color');" />
           <div>
-            <textarea id="relations-color" v-model="relations_list"></textarea>
+            <textarea id="relations-color"></textarea>
           </div>
         </div>
         <div class="card">
@@ -217,7 +213,7 @@
           <label>自定义颜色</label>
           <input type="color" onchange="changeColor(this,'name-color');" />
           <div>
-            <textarea id="name-color" v-model="names_list"></textarea>
+            <textarea id="name-color"></textarea>
           </div>
         </div>
         <div class="card">
@@ -227,7 +223,7 @@
           <label>自定义颜色</label>
           <input type="color" onchange="changeColor(this,'medicine-color')" />
           <div>
-            <textarea id="medicine-color" v-model="medicine_list"></textarea>
+            <textarea id="medicine-color"></textarea>
           </div>
         </div>
         <div class="card">
@@ -237,7 +233,7 @@
           <label>自定义颜色</label>
           <input type="color" onchange="changeColor(this,'tools-color')" />
           <div>
-            <textarea id="tools-color" v-model="tools_list"></textarea>
+            <textarea id="tools-color"></textarea>
           </div>
         </div>
       </div>
@@ -273,20 +269,14 @@ export default {
         user: [
           {
             required: true,
-            message: "Please fill in the user name",
+            message: "请输入用户名",
             trigger: "blur",
           },
         ],
         password: [
           {
             required: true,
-            message: "Please fill in the password.",
-            trigger: "blur",
-          },
-          {
-            type: "string",
-            min: 6,
-            message: "The password length cannot be less than 6 bits",
+            message: "请输入密码",
             trigger: "blur",
           },
         ],
@@ -305,8 +295,6 @@ export default {
     /* ----------------------------------------------------------------------------------------------*/
 
     annotation: function () {
-      console.log("hello");
-
       let pNodes = this.$refs.article.getElementsByTagName("p");
 
       let pTextArr = [];
@@ -362,14 +350,17 @@ export default {
 
     handleSubmit(name) {
       this.$refs[name].validate(() => {
-        if (
-          this.formInline.user === "Syngou" &&
-          this.formInline.password === "hello"
-        ) {
-          this.$Message.success("Success!");
-        } else {
-          this.$Message.error("Fail!");
-        }
+        this.$axios.get("./login.json").then((response) => {
+          let data = response.data;
+          if (
+            this.formInline.user == data[0].user_info[0].user_name &&
+            this.formInline.password == data[0].user_info[1].password
+          ) {
+            this.$Message.success("登录成功");
+          } else {
+            this.$Message.error("账号或密码错误");
+          }
+        });
       });
     },
   },
