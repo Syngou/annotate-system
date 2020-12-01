@@ -11,15 +11,17 @@
       <span>
         <span class="title">Text Annotation System</span>
         <a href="#" @click="introduce_modal = true">功能介绍</a>
-        <a href="https://github.com/Syngou/txtProcess" target="_blank"
+        <a href="#" @click="upload_modal = true">上传文件</a>
+        <a href="https://github.com/Syngou/text-annotation.git" target="_blank"
           >Github</a
         >
+
         <a href="#" style="float: right" @click="login_modal = true">登录</a>
       </span>
       <!-- ------------------------------------------------------------------------------------- -->
       <!--                                     登录模块                                             -->
       <!-- --------------------------------------------------------------------------------------- -->
-      <Modal v-model="login_modal">
+      <Modal v-model="login_modal" width="24">
         <Form ref="formInline" :model="formInline" :rules="ruleInline" block>
           <FormItem prop="user">
             <i-Input
@@ -56,7 +58,25 @@
       <!--                                  功能介绍模块                                             -->
       <!-- --------------------------------------------------------------------------------------- -->
       <Modal v-model="introduce_modal" title="功能介绍">
-        <p>按下鼠标，滑过文本，松开，即可标注文本</p>
+        <p>
+          按下鼠标，滑过文本，松开，即可标注文本,右栏实时显示标注的文本<br />但目前没有实现/(ㄒoㄒ)/~~
+        </p>
+      </Modal>
+      <Modal v-model="upload_modal" title="功能介绍">
+        <Upload
+          multiple
+          type="drag"
+          action="//jsonplaceholder.typicode.com/posts/"
+        >
+          <div style="padding: 20px 0">
+            <Icon
+              type="ios-cloud-upload"
+              size="52"
+              style="color: #3399ff"
+            ></Icon>
+            <p>Click or drag files here to upload</p>
+          </div>
+        </Upload>
       </Modal>
     </div>
 
@@ -67,7 +87,7 @@
     <div class="row">
       <div class="leftColumn">
         <div class="card">
-          <h2 style="margin-top: 20px">输入</h2>
+          <h2 style="margin-top: 20px; text-align: center">文本</h2>
 
           <!-- ----------------------------------------------------------------------- -->
           <!--?                                  下拉菜单                                   -->
@@ -113,14 +133,14 @@
             </DropdownMenu>
           </Dropdown>
           <!-- ---------------------------------------------------------------------------------- -->
-          <!--?                           拾色器 按钮                                                 -->
+          <!--                        拾色器 按钮                                                 -->
           <!-- ---------------------------------------------------------------------------------- -->
 
           <!-- ----------------------------------------------------------------------- -->
           <!--?                                   文本框                                     -->
           <!--                              TODO: 快捷键标注颜色                              -->
           <!-- ----------------------------------------------------------------------- -->
-          <div ref="article" @click="annotation">
+          <div ref="article" @mouseup="annotation">
             <p>
               【摘要】目的通过介绍临床药师参与临床抗感染多学科协作诊疗(MDT)的实例，为临床药师更好地参与临床提供参考。方法选取典型病例，介绍临床药师参与抗感染治疗的方案讨论、制定及调整，并进行分析总结。结果临床药师在抗感染MDT中给予合理建议，患者病情得到有效控制。结论临床药师运用自己的专业知识，为临床医师提供合理化用药建议，提高患者的整体治疗质量。
             </p>
@@ -168,10 +188,10 @@
         <!--!                                  右侧标签                                   -->
         <!-- ----------------------------------------------------------------------- -->
 
-        <button class="float-right1" id="float-right-name">0</button>
-        <button class="float-right2" id="float-right-relations">0</button>
-        <button class="float-right3" id="float-right-medicine">0</button>
-        <button class="float-right4" id="float-right-tools">0</button>
+        <Tag class="float-right1" color="primary">{{ names }}</Tag>
+        <Tag class="float-right2" color="success">{{ medicine }}</Tag>
+        <Tag class="float-right3" color="error">{{ tools }}</Tag>
+        <Tag class="float-right4" color="warning">{{ relations }}</Tag>
 
         <!-- ----------------------------------------------------------------------- -->
         <!--                                   卡片                                    -->
@@ -179,32 +199,46 @@
 
         <div class="card" style="margin-top: 40px">
           <h1>
-            关系 <span id="name" style="color: rgb(255, 117, 24)">0</span>
+            关系
+            <span style="color: rgb(255, 117, 24)">{{ relations }}</span>
           </h1>
           <label>自定义颜色</label>
           <input type="color" onchange="changeColor(this,'relations-color');" />
-          <div><textarea id="relations-color">大小</textarea></div>
+          <div>
+            <textarea id="relations-color" v-model="relations_list"></textarea>
+          </div>
         </div>
         <div class="card">
           <h1>
-            疾病名称 <span id="name" style="color: rgb(255, 117, 24)">0</span>
+            疾病名称
+            <span style="color: rgb(255, 117, 24)">{{ names }}</span>
           </h1>
 
           <label>自定义颜色</label>
           <input type="color" onchange="changeColor(this,'name-color');" />
-          <div><textarea id="name-color">手足口病</textarea></div>
+          <div>
+            <textarea id="name-color" v-model="names_list"></textarea>
+          </div>
         </div>
         <div class="card">
-          <h1>药物 <span id="medicine" style="color: red">0</span></h1>
+          <h1>
+            药物 <span style="color: red">{{ medicine }}</span>
+          </h1>
           <label>自定义颜色</label>
           <input type="color" onchange="changeColor(this,'medicine-color')" />
-          <div><textarea id="medicine-color">板蓝根</textarea></div>
+          <div>
+            <textarea id="medicine-color" v-model="medicine_list"></textarea>
+          </div>
         </div>
         <div class="card">
-          <h1>医疗器械 <span id="tools" style="color: red">0</span></h1>
+          <h1>
+            医疗器械 <span style="color: red">{{ tools }}</span>
+          </h1>
           <label>自定义颜色</label>
           <input type="color" onchange="changeColor(this,'tools-color')" />
-          <div><textarea id="tools-color">担架</textarea></div>
+          <div>
+            <textarea id="tools-color" v-model="tools_list"></textarea>
+          </div>
         </div>
       </div>
     </div>
@@ -224,7 +258,11 @@ export default {
       index: 0, //标注颜色索引，临时变量，只是为了检测标注功能是否有效，后期会删除
       login_modal: false, //登录提示模块
       introduce_modal: false, //介绍提示模块
-
+      names: 0,
+      medicine: 0,
+      tools: 0,
+      relations: 0,
+      upload_modal: false,
       //登录表单内容
       formInline: {
         user: "",
@@ -263,10 +301,12 @@ export default {
       this.$Message.info("Clicked cancel");
     },
     /* ----------------------------------------------------------------------------------------------*/
-    /*                                   标注功能                                                       */
+    //!                                   标注功能                                                       */
     /* ----------------------------------------------------------------------------------------------*/
 
     annotation: function () {
+      console.log("hello");
+
       let pNodes = this.$refs.article.getElementsByTagName("p");
 
       let pTextArr = [];
@@ -291,12 +331,28 @@ export default {
 
           pNode.innerHTML = pNodeText;
         }
+        switch (this.index) {
+          case 0: {
+            this.names += 1;
+            break;
+          }
+          case 1: {
+            this.medicine += 1;
+            break;
+          }
+          case 2: {
+            this.tools += 1;
+            break;
+          }
+          case 3: {
+            this.relations += 1;
+            break;
+          }
+        }
         this.index += 1;
         if (this.index >= 4) {
           this.index = 0;
         }
-
-        console.log("name->", name, "index->", this.index);
       }
     },
 
@@ -305,8 +361,11 @@ export default {
     /* ----------------------------------------------------------------------------------------------*/
 
     handleSubmit(name) {
-      this.$refs[name].validate((valid) => {
-        if (valid) {
+      this.$refs[name].validate(() => {
+        if (
+          this.formInline.user === "Syngou" &&
+          this.formInline.password === "hello"
+        ) {
           this.$Message.success("Success!");
         } else {
           this.$Message.error("Fail!");
