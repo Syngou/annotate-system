@@ -1,0 +1,321 @@
+<template>
+  <!-- ----------------------------------------------------------------------- -->
+  <!--?                                  头部区域                                   -->
+  <!-- ----------------------------------------------------------------------- -->
+
+  <!-- ----------------------------------------------------------------------- -->
+  <!--?                                   导航栏                                   -->
+  <!-- ----------------------------------------------------------------------- -->
+  <div id="app">
+    <div class="topNavigation" style="margin-bottom: 20px">
+      <span>
+        <span class="title">Text Annotation System</span>
+        <a href="#" @click="introduce_modal = true">功能介绍</a>
+        <a href="https://github.com/Syngou/txtProcess" target="_blank"
+          >Github</a
+        >
+        <a href="#" style="float: right" @click="login_modal = true">登录</a>
+      </span>
+      <!-- ------------------------------------------------------------------------------------- -->
+      <!--                                     登录模块                                             -->
+      <!-- --------------------------------------------------------------------------------------- -->
+      <Modal v-model="login_modal">
+        <Form ref="formInline" :model="formInline" :rules="ruleInline" block>
+          <FormItem prop="user">
+            <i-Input
+              type="text"
+              v-model="formInline.user"
+              placeholder="Username"
+            >
+              <Icon type="ios-person-outline" slot="prepend"></Icon>
+            </i-Input>
+          </FormItem>
+          <FormItem prop="password">
+            <i-Input
+              type="password"
+              v-model="formInline.password"
+              placeholder="Password"
+            >
+              <Icon type="ios-lock-outline" slot="prepend"></Icon>
+            </i-Input>
+          </FormItem>
+        </Form>
+        <p slot="header" style="color: #f60; text-align: center">
+          <span>Login</span>
+        </p>
+        <div
+          slot="footer"
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <Button type="primary" @click="handleSubmit('formInline')"
+            >Signin</Button
+          >
+        </div>
+      </Modal>
+      <!-- ------------------------------------------------------------------------------------- -->
+      <!--                                  功能介绍模块                                             -->
+      <!-- --------------------------------------------------------------------------------------- -->
+      <Modal v-model="introduce_modal" title="功能介绍">
+        <p>按下鼠标，滑过文本，松开，即可标注文本</p>
+      </Modal>
+    </div>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--?                                   左栏                                    -->
+    <!-- ----------------------------------------------------------------------- -->
+
+    <div class="row">
+      <div class="leftColumn">
+        <div class="card">
+          <h2 style="margin-top: 20px">输入</h2>
+
+          <!-- ----------------------------------------------------------------------- -->
+          <!--?                                  下拉菜单                                   -->
+          <!--                          TODO:超级拖拽，显示行数,快捷键标记                      -->
+          <!-- ----------------------------------------------------------------------- -->
+          <Dropdown style="margin-left: 20px; margin-top: 20px">
+            <a href="javascript:void(0)">
+              功能
+              <Icon type="ios-arrow-down"></Icon>
+            </a>
+            <DropdownMenu slot="list">
+              <DropdownItem>待开发</DropdownItem>
+              <DropdownItem>待开发</DropdownItem>
+              <DropdownItem disabled>待开发</DropdownItem>
+              <DropdownItem>待开发</DropdownItem>
+              <DropdownItem divided>待开发</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+          <Dropdown style="margin-left: 20px">
+            <a href="javascript:void(0)">
+              翻译
+              <Icon type="ios-arrow-down"></Icon>
+            </a>
+            <DropdownMenu slot="list">
+              <DropdownItem>待开发</DropdownItem>
+              <DropdownItem>待开发</DropdownItem>
+              <DropdownItem disabled>待开发</DropdownItem>
+              <DropdownItem>待开发</DropdownItem>
+              <DropdownItem divided>待开发</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+          <Dropdown style="margin-left: 20px">
+            <a href="javascript:void(0)">
+              工具
+              <Icon type="ios-arrow-down"></Icon>
+            </a>
+            <DropdownMenu slot="list">
+              <DropdownItem>待开发</DropdownItem>
+              <DropdownItem>待开发</DropdownItem>
+              <DropdownItem disabled>待开发</DropdownItem>
+              <DropdownItem>待开发</DropdownItem>
+              <DropdownItem divided>待开发</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+          <!-- ---------------------------------------------------------------------------------- -->
+          <!--?                           拾色器 按钮                                                 -->
+          <!-- ---------------------------------------------------------------------------------- -->
+
+          <!-- ----------------------------------------------------------------------- -->
+          <!--?                                   文本框                                     -->
+          <!--                              TODO: 快捷键标注颜色                              -->
+          <!-- ----------------------------------------------------------------------- -->
+          <div ref="article" @click="annotation">
+            <p>
+              【摘要】目的通过介绍临床药师参与临床抗感染多学科协作诊疗(MDT)的实例，为临床药师更好地参与临床提供参考。方法选取典型病例，介绍临床药师参与抗感染治疗的方案讨论、制定及调整，并进行分析总结。结果临床药师在抗感染MDT中给予合理建议，患者病情得到有效控制。结论临床药师运用自己的专业知识，为临床医师提供合理化用药建议，提高患者的整体治疗质量。
+            </p>
+            <p>【关键词】抗感染;临床药师;多学科协作诊疗</p>
+            <p>
+              多学科协作诊疗(multidisciplinaryteam，MDT)是一种新型的临床治疗模式，是指针对一个临床疾病，通过多学科的讨论，制定最合理的规范化、个体化治疗，从而提高患者的治愈率和生存质量。2018年，原国家卫生计生委在《关于印发进一步改善医疗服务行动计划(2018至2020年)的通知》中要求医疗机构针对肿瘤、多系统多器官疾病、疑难复杂疾病等，建立多学科病例讨论和联合查房相关制度，为住院患者提供多学科诊疗服务［1］。苏州大学附属太仓医院于2017年成立了抗菌药物管理小组，针对感染性疾病建立了MDT团队。本文通过介绍临床药师参与的典型感染性病例讨论，对患者抗感染治疗中抗菌药物使用情况进行回顾性分析，并提出优化后续抗感染治疗方案的建议与分析，以探究临床药师在抗感染MDT团队中的作用。现报道如下。
+            </p>
+            <p>1参与多重耐药菌感染治疗方案的制定</p>
+            <p>1．1病历资料</p>
+            <p>
+              患者，女，58岁，因“发现肝硬化3年余，腹胀10d”于2018年7月30日入院。患者有甲状腺功能减退症、再生障碍性贫血、双下肢丹毒史，有青霉素过敏史。入院查体:T37．2℃，P114次/min，R20次/min，BP114/68mmHg。神志清，颈软，双肺呼吸音粗，未闻及干湿啰音，心律齐，腹软，下腹部膨隆，全腹无压痛及反跳痛，肝脾肋下未及，移动性浊音阳性，双下肢水肿，右脚足背皮肤发红。腹部B超:血吸虫肝病表现，门静脉海绵样变;胆囊结石，胆囊炎;脾肿大;腹腔积液。诊断肝硬化失代偿期、自身免疫性肝炎、甲状腺功能减退症、再生障碍性贫血、丹毒。患者入院当天下午出现高热，T39．8℃，右下肢疼痛不适，血常规示白细胞计数3．8×109/L，中性粒细胞0．88;C反应蛋白84mg/L;降钙素原1．01ng/ml。外科会诊考虑丹毒再发，予以莫西沙星0．4g静脉滴注每天1次。8月3日血培养提示大肠埃希菌(+)，第3、4代头孢菌素类、氟喹诺酮类耐药，换用美罗培南1g静脉滴注，每8小时1次。之后病情无明显好转，为进一步诊治，于2018年8月7日提请全院MDT。
+            </p>
+            <p>1．2临床药师建议</p>
+            <p>
+              患者既往有丹毒病史，此次入院丹毒再发，伴肺部感染，高热，血培养提示大肠埃希菌+，首选碳青霉烯类药物抗感染，但患者已予美罗培南1g静脉滴注每8小时1次治疗4d，体温控制不佳，建议加用氨基糖苷类联合治疗。
+            </p>
+            <p>1．3MDT结果</p>
+            <p>
+              根据多科室意见，患者发热与丹毒、肺部感染相关，起因为患者肝硬化失代偿的基础，但需排除腹腔内感染灶，建议痰培养，同时行下肢病灶局部超声检查了解是否存在脓肿病灶，治疗上在美罗培南基础上加用氨基糖苷类药物。
+              1．4后续跟踪
+            </p>
+            <p>
+              根据MDT结果，加用依替米星0．2g静脉滴注每天1次。3d后回访，患者热峰呈下降趋势。10d后复查血培养阴性，T37．5℃左右，抗菌药物降阶梯为头孢西丁2g静脉滴注每12小时1次，后感染症状逐渐好转。
+              1．5抗感染治疗方案分析
+            </p>
+            <p>
+              肠杆菌科细菌是临床细菌感染性疾病中最重要的致病菌，而超广谱β-内酰胺酶(ESBLs)是肠杆菌科细菌对β-内酰胺类抗菌药物产生耐药的主要机制。ESBLs可水解灭活青霉素类、氧亚氨基头孢菌素(包括第3、4代头孢菌素)及单环酰胺类氨曲南，通常不水解头霉素类和碳青霉烯类，其活性可被β-内酰胺酶抑制剂抑制。针对这类细菌引起的重症感染，专家共识［2］推荐碳青霉烯类是最有效和可靠的抗菌药物。同时提出重症感染、存在合并非发酵菌感染危险因素的患者可联合用药。该患者重症感染，使用美罗培南4d后病情好转不明显，考虑感染不易控制，故联合应用氨基糖苷类抗菌药物。经上述药物治疗后，患者病情明显好转，血培养阴性、临床症状改善后予以头霉素类降阶梯治疗。
+              2规范抗菌药物的使用
+            </p>
+            <p>2．1病历资料</p>
+            <p>
+              患者，男，67岁，因“颈部脓肿切开术后20d”于2019年2月3日入院。患者1月15日入住上海某院诊断颈部脓肿，行颈部脓肿切开引流术，术后抗炎对症治疗，2月3日颈部分泌物培养提示耐甲氧西林金黄色葡萄球菌(MRSA)，患者要求转当地医院继续治疗，上海出院医嘱建议万古霉素+美罗培南抗感染治疗。患者有哮喘病史30余年。入院查体:T36．9℃，P98次/min，R18次/min，BP122/92mmHg，神志清，颈部敷料清洁，颈前套管在位，双肺呼吸音清，未闻及明显干湿啰音。入院后给予万古霉素1g+美罗培南0．5g静脉滴注每天2次。患者2月11日出现夜间端坐呼吸，双肺听诊可及散在湿性啰音，胸部CT:双肺多发模糊影，广泛粟粒结节灶;两侧胸腔积液。血常规:白细胞计数4．6×109/L，中性粒细胞0.67;血浆D-二聚体1730μg/L;血气分析:pH值7．46，PaO290mmHg，PaCO262mmHg，氧饱和度97%;脑钠肽(BNP)1303pg/ml。为进一步诊治，于2019年2月15日提请全院MDT。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ----------------------------------------------------------------------- -->
+      <!--?                                   右栏                                    -->
+      <!--TODO:                             左右栏对齐                                 -->
+      <!-- ----------------------------------------------------------------------- -->
+
+      <div class="rightColumn">
+        <!-- ----------------------------------------------------------------------- -->
+        <!--!                                  右侧标签                                   -->
+        <!-- ----------------------------------------------------------------------- -->
+
+        <button class="float-right1" id="float-right-name">0</button>
+        <button class="float-right2" id="float-right-relations">0</button>
+        <button class="float-right3" id="float-right-medicine">0</button>
+        <button class="float-right4" id="float-right-tools">0</button>
+
+        <!-- ----------------------------------------------------------------------- -->
+        <!--                                   卡片                                    -->
+        <!-- ----------------------------------------------------------------------- -->
+
+        <div class="card" style="margin-top: 40px">
+          <h1>
+            关系 <span id="name" style="color: rgb(255, 117, 24)">0</span>
+          </h1>
+          <label>自定义颜色</label>
+          <input type="color" onchange="changeColor(this,'relations-color');" />
+          <div><textarea id="relations-color">大小</textarea></div>
+        </div>
+        <div class="card">
+          <h1>
+            疾病名称 <span id="name" style="color: rgb(255, 117, 24)">0</span>
+          </h1>
+
+          <label>自定义颜色</label>
+          <input type="color" onchange="changeColor(this,'name-color');" />
+          <div><textarea id="name-color">手足口病</textarea></div>
+        </div>
+        <div class="card">
+          <h1>药物 <span id="medicine" style="color: red">0</span></h1>
+          <label>自定义颜色</label>
+          <input type="color" onchange="changeColor(this,'medicine-color')" />
+          <div><textarea id="medicine-color">板蓝根</textarea></div>
+        </div>
+        <div class="card">
+          <h1>医疗器械 <span id="tools" style="color: red">0</span></h1>
+          <label>自定义颜色</label>
+          <input type="color" onchange="changeColor(this,'tools-color')" />
+          <div><textarea id="tools-color">担架</textarea></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--?                                  底部区域                                   -->
+    <!-- ----------------------------------------------------------------------- -->
+    <div class="footer">
+      <p>copyright © 2020 Syngou</p>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      index: 0, //标注颜色索引，临时变量，只是为了检测标注功能是否有效，后期会删除
+      login_modal: false, //登录提示模块
+      introduce_modal: false, //介绍提示模块
+
+      //登录表单内容
+      formInline: {
+        user: "",
+        password: "",
+      },
+
+      ruleInline: {
+        user: [
+          {
+            required: true,
+            message: "Please fill in the user name",
+            trigger: "blur",
+          },
+        ],
+        password: [
+          {
+            required: true,
+            message: "Please fill in the password.",
+            trigger: "blur",
+          },
+          {
+            type: "string",
+            min: 6,
+            message: "The password length cannot be less than 6 bits",
+            trigger: "blur",
+          },
+        ],
+      },
+    };
+  },
+  methods: {
+    k() {
+      this.$Message.info("Clicked ok");
+    },
+    cancel() {
+      this.$Message.info("Clicked cancel");
+    },
+    /* ----------------------------------------------------------------------------------------------*/
+    /*                                   标注功能                                                       */
+    /* ----------------------------------------------------------------------------------------------*/
+
+    annotation: function () {
+      let pNodes = this.$refs.article.getElementsByTagName("p");
+
+      let pTextArr = [];
+      for (let i = 0; i < pNodes.length; i++) {
+        pTextArr.push(pNodes[i].innerHTML);
+      }
+      let text = window.getSelection().toString();
+      if (text.length > 0) {
+        for (let i = 0; i < pNodes.length; i++) {
+          let pNode = pNodes[i]; //段落节点
+          let pText = pTextArr[i]; //每一段的文字
+          let values = (pText || "").split(text);
+          let colorArray = ["red", "blue", "aqua", "orange"]; //标注颜色
+
+          let pNodeText = values.join(
+            "<span style='color:" +
+              colorArray[this.index] +
+              "'>" +
+              text +
+              "</span>"
+          );
+
+          pNode.innerHTML = pNodeText;
+        }
+        this.index += 1;
+        if (this.index >= 4) {
+          this.index = 0;
+        }
+
+        console.log("name->", name, "index->", this.index);
+      }
+    },
+
+    /* ----------------------------------------------------------------------------------------------*/
+    /*                                   提交登录表单                                                   */
+    /* ----------------------------------------------------------------------------------------------*/
+
+    handleSubmit(name) {
+      this.$refs[name].validate((valid) => {
+        if (valid) {
+          this.$Message.success("Success!");
+        } else {
+          this.$Message.error("Fail!");
+        }
+      });
+    },
+  },
+};
+</script>
+<style scoped>
+  @import "./static/css/App.css";
+</style>
