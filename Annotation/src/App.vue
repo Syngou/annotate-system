@@ -59,9 +59,16 @@
       <!-- --------------------------------------------------------------------------------------- -->
       <Modal v-model="introduce_modal" title="功能介绍">
         <p>
-          按下鼠标，滑过文本，松开，即可标注文本,右栏实时显示标注的文本<br />但目前没有实现/(ㄒoㄒ)/~~
+          按下鼠标，滑过文本，松开，即可标注文本,右栏实时显示标注的文本
+          <br />但目前没有实现/(ㄒoㄒ)/~~ <br />自定义颜色也没有实现
+          <br />当然实现应该也不难，就是懒
         </p>
       </Modal>
+
+      <!-- ------------------------------------------------------------------------------------- -->
+      <!--                                  上传文件                                              -->
+      <!-- --------------------------------------------------------------------------------------- -->
+
       <Modal v-model="upload_modal" title="上传文件">
         <Upload multiple type="drag" action="127.0.0.1">
           <div style="padding: 20px 0">
@@ -70,11 +77,18 @@
               size="52"
               style="color: #3399ff"
             ></Icon>
-            <p>Click or drag files here to upload</p>
+            <p>点击或把文件拖到这里</p>
           </div>
         </Upload>
+
+        <!-- ------------------------------------------------------------------------------------- -->
+        <!--                                  粘贴文本                                              -->
+        <!-- --------------------------------------------------------------------------------------- -->
       </Modal>
-      <Modal v-model="paste_content_model" title="在这里输入或粘贴你的文本">
+      <Modal
+        v-model="paste_content_model"
+        title="在这里输入或粘贴你的文本（若不成功，请刷新网页后重试）"
+      >
         <textarea
           type="text"
           ref="input_content_id"
@@ -143,7 +157,11 @@
           <!--?                                   文本框                                     -->
           <!--                              TODO: 快捷键标注颜色                              -->
           <!-- ----------------------------------------------------------------------- -->
-          <div ref="article" @mouseup="annotation" style="min-height: 1000px">
+          <div
+            ref="article"
+            @mouseup="annotation"
+            style="min-height: 1000px; margin-top: 20px"
+          >
             <p ref="current_content">{{ input_content }}</p>
           </div>
         </div>
@@ -222,6 +240,8 @@
     </div>
   </div>
 </template>
+
+
 <script>
 export default {
   data() {
@@ -339,7 +359,7 @@ export default {
           let data = response.data;
           if (
             this.formInline.user == data[0].user_info[0].user_name &&
-            this.formInline.password == data[0].user_info[1].password
+            this.formInline.password == data[0].user_info[0].password
           ) {
             this.$Message.success("登录成功");
           } else {

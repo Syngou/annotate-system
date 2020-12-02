@@ -1,7 +1,7 @@
 
-<div>
-<img src="./logo.png" alt="图片无法显示" style="margin:20px;width:700px">
-</div>
+
+![图片无法显示](./logo.png)
+
 
 # 医疗文本标注和处理系统
 >   注意:  
@@ -13,17 +13,13 @@
 敬请期待
 ```
 
-## 环境要求:
-<strong>python3.7及以上，django3</strong>
-<br>
-<strong>@vue/cli 4.5.9, npm6.14.8 或 yarn1.22.10</strong> 
+## 开发环境一览:
 
-## 使用方法
-> 1.   下载源码  (点击download zip即可)  
-> 2.   进入到annotation文件夹中，在命令行中输入npm install(或者yarn)
-> 3.   再次输入npm run build(或yarn build)
-> 4.   进入dist/index.html中，在所有 /js 或者 /css 前面加上 static
-> 5.   退出，进入到manage.py所在的文件夹（也就是最外面那个）  
-> 6.   在命令行输入  python manage.py migrate  
-> 7.  在命令行输入 python manage.py runserver  
-> 8.   浏览器地址栏输入127.0.0.1:8000(注意，标点符号一定要是英文标点!)
+| 项目 | 版本号 | 备注|
+| ----| ----| ----|
+|python |3.9|  |
+|django|3.1.3| |
+|@vue/cli| 4.5.9||
+| npm|6.14.8| npm和yarn都可以|
+|yarn|1.22.10| 
+
