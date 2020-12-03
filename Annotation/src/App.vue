@@ -58,11 +58,7 @@
       <!--                                  功能介绍模块                                             -->
       <!-- --------------------------------------------------------------------------------------- -->
       <Modal v-model="introduce_modal" title="功能介绍">
-        <p>
-          按下鼠标，滑过文本，松开，即可标注文本,右栏实时显示标注的文本
-          <br />但目前没有实现/(ㄒoㄒ)/~~ <br />自定义颜色也没有实现
-          <br />当然实现应该也不难，就是懒
-        </p>
+        <p>按下鼠标，滑过文本，松开，即可标注文本,右栏实时显示标注的文本</p>
       </Modal>
 
       <!-- ------------------------------------------------------------------------------------- -->
@@ -157,13 +153,13 @@
           <!--?                                   文本框                                     -->
           <!--                              TODO: 快捷键标注颜色                              -->
           <!-- ----------------------------------------------------------------------- -->
-          <div
+          <pre
             ref="article"
             @mouseup="annotation"
             style="min-height: 1000px; margin-top: 20px"
           >
-            <p ref="current_content">{{ input_content }}</p>
-          </div>
+            <p ref="current_content" style='overflow: auto'>{{ input_content }}</p>
+          </pre>
         </div>
       </div>
 
@@ -192,10 +188,15 @@
             <span style="color: rgb(255, 117, 24)">{{ relations }}</span>
           </h1>
           <label>自定义颜色</label>
-          <input type="color" onchange="changeColor(this,'relations-color');" />
-          <div>
-            <textarea ref="relations-color"></textarea>
-          </div>
+          <input type="color" />
+          <ol class="scroll-box">
+            <li
+              v-for="(relation_item, index) in relations_list"
+              :key="relation_item"
+            >
+              {{ index + 1 }}. {{ relation_item }}
+            </li>
+          </ol>
         </div>
         <div class="card">
           <h1>
@@ -204,30 +205,39 @@
           </h1>
 
           <label>自定义颜色</label>
-          <input type="color" onchange="changeColor(this,'name-color');" />
-          <div>
-            <textarea ref="name-color"></textarea>
-          </div>
+          <input type="color" />
+          <ol class="scroll-box">
+            <li v-for="(name_item, index) in name_list" :key="name_item">
+              {{ index + 1 }}. {{ name_item }}
+            </li>
+          </ol>
         </div>
         <div class="card">
           <h1>
             药物 <span style="color: red">{{ medicine }}</span>
           </h1>
           <label>自定义颜色</label>
-          <input type="color" onchange="changeColor(this,'medicine-color')" />
-          <div>
-            <textarea ref="medicine-color"></textarea>
-          </div>
+          <input type="color" v-model="medicine_color" />
+          <ol class="scroll-box">
+            <li
+              v-for="(medicine_item, index) in medicine_list"
+              :key="medicine_item"
+            >
+              {{ index + 1 }}. {{ medicine_item }}
+            </li>
+          </ol>
         </div>
         <div class="card">
           <h1>
             医疗器械 <span style="color: red">{{ tools }}</span>
           </h1>
           <label>自定义颜色</label>
-          <input type="color" onchange="changeColor(this,'tools-color')" />
-          <div>
-            <textarea ref="tools-color"></textarea>
-          </div>
+          <input type="color" />
+          <ol class="scroll-box">
+            <li v-for="(tool_item, index) in tools_list" :key="tool_item">
+              {{ index + 1 }}. {{ tool_item }}
+            </li>
+          </ol>
         </div>
       </div>
     </div>
@@ -236,7 +246,7 @@
     <!--                                 底部区域                                   -->
     <!-- ----------------------------------------------------------------------- -->
     <div class="footer">
-      <p>copyright © 2020 Syngou</p>
+      <p>Copyright © 2020 Syngou</p>
     </div>
   </div>
 </template>
@@ -246,18 +256,39 @@
 export default {
   data() {
     return {
-      index: 0, //标注颜色索引，临时变量，只是为了检测标注功能是否有效，后期会删除
-      login_modal: false, //登录提示模块
-      introduce_modal: false, //介绍提示模块
-      paste_content_model: false, //粘贴文本
+      index: 0, //?标注颜色索引，临时变量，只是为了检测标注功能是否有效，后期会删除
+      login_modal: false, //?登录提示模块
+      introduce_modal: false, //?介绍提示模块
+      paste_content_model: false, //?粘贴文本
       names: 0,
+      name_list: [],
       medicine: 0,
+      medicine_list: [],
       tools: 0,
+      tools_list: [],
       relations: 0,
+      relations_list: [],
       upload_modal: false,
-      input_content: ` [摘要】目的通过介绍临床药师参与临床抗感染多学科协作诊疗(MDT)的实例，为临床药师更好地参与临床提供参考。方法选取典型病例，介绍临床药师参与抗感染治疗的方案讨论、制定及调整，并进行分析总结。结果临床药师在抗感染MDT中给予合理建议，患者病情得到有效控制。结论临床药师运用自己的专业知识，为临床医师提供合理化用药建议，提高患者的整体治疗质量。[关键词】抗感染;临床药师;多学科协作诊疗 多学科协作诊疗(multidisciplinaryteam，MDT)是一种新型的临床治疗模式，是指针对一个临床疾病，通过多学科的讨论，制定最合理的规范化、个体化治疗，从而提高患者的治愈率和生存质量。2018年，原国家卫生计生委在《关于印发进一步改善医疗服务行动计划(2018至2020年)的通知》中要求医疗机构针对肿瘤、多系统多器官疾病、疑难复杂疾病等，建立多学科病例讨论和联合查房相关制度，为住院患者提供多学科诊疗服务［1］。苏州大学附属太仓医院于2017年成立了抗菌药物管理小组，针对感染性疾病建立了MDT团队。本文通过介绍临床药师参与的典型感染性病例讨论，对患者抗感染治疗中抗菌药物使用情况进行回顾性分析，并提出优化后续抗感染治疗方案的建议与分析，以探究临床药师在抗感染MDT团队中的作用。现报道如下。1参与多重耐药菌感染治疗方案的制定 1．1病历资料患者，女，58岁，因“发现肝硬化3年余，腹胀10d”于2018年7月30日入院。患者有甲状腺功能减退症、再生障碍性贫血、双下肢丹毒史，有青霉素过敏史。入院查体:T37．2℃，P114次/min，R20次/min，BP114/68mmHg。神志清，颈软，双肺呼吸音粗，未闻及干湿啰音，心律齐，腹软，下腹部膨隆，全腹无压痛及反跳痛，肝脾肋下未及，移动性浊音阳性，双下肢水肿，右脚足背皮肤发红。腹部B超:血吸虫肝病表现，门静脉海绵样变;胆囊结石，胆囊炎;脾肿大;腹腔积液。诊断肝硬化失代偿期、自身免疫性肝炎、甲状腺功能减退症、再生障碍性贫血、丹毒。患者入院当天下午出现高热，T39．8℃，右下肢疼痛不适，血常规示白细胞计数3．8×109/L，中性粒细胞0．88;C反应蛋白84mg/L;降钙素原1．01ng/ml。外科会诊考虑丹毒再发，予以莫西沙星0．4g静脉滴注每天1次。8月3日血培养提示大肠埃希菌(+)，第3、4代头孢菌素类、氟喹诺酮类耐药，换用美罗培南1g静脉滴注，每8小时1次。之后病情无明显好转，为进一步诊治，于2018年8月7日提请全院MDT。
+      input_content: ` 
+      [摘要】目的通过介绍临床药师参与临床抗感染多学科协作诊疗(MDT)的实例，为临床药师更好地参与临床提供参考。方法选取典型
+      病例，介绍临床药师参与抗感染治疗的方案讨论、制定及调整，并进行分析总结。结果临床药师在抗感染MDT中给予合理建议，患者病情得到有效控制。结
+      论临床药师运用自己的专业知识，为临床医师提供合理化用药建议，提高患者的整体治疗质量。
+      [关键词】抗感染;临床药师;多学科协作诊疗 
+      多学科协作诊疗(multidisciplinaryteam，MDT)是一种新型的临床治疗模式，是指针对一个临床疾病，通过多学科的讨论，制定最合理的规范化、个
+      体化治疗，从而提高患者的治愈率和生存质量。2018年，原国家卫生计生委在《关于印发进一步改善医疗服务行动计划(2018至2020年)的通知》中要求医
+      疗机构针对肿瘤、多系统多器官疾病、疑难复杂疾病等，建立多学科病例讨论和联合查房相关制度，为住院患者提供多学科诊疗服务［1］。苏州大学附属
+      太仓医院于2017年成立了抗菌药物管理小组，针对感染性疾病建立了MDT团队。本文通过介绍临床药师参与的典型感染性病例讨论，对患者抗感染治疗中抗
+      菌药物使用情况进行回顾性分析，并提出优化后续抗感染治疗方案的建议与分析，以探究临床药师在抗感染MDT团队中的作用。现报道如下。1参与多重耐药
+      菌感染治疗方案的制定 
+      1．1病历资料患者，女，58岁，因“发现肝硬化3年余，腹胀10d”于2018年7月30日入院。患者有甲状腺功能减退症、再生障碍性贫血、双下肢丹毒史，有
+      青霉素过敏史。入院查体:T37．2℃，P114次/min，R20次/min，BP114/68mmHg。神志清，颈软，双肺呼吸音粗，未闻及干湿啰音，心律齐，腹软，下
+      腹部膨隆，全腹无压痛及反跳痛，肝脾肋下未及，移动性浊音阳性，双下肢水肿，右脚足背皮肤发红。腹部B超:血吸虫肝病表现，门静脉海绵样变;胆囊结
+      石，胆囊炎;脾肿大;腹腔积液。诊断肝硬化失代偿期、自身免疫性肝炎、甲状腺功能减退症、再生障碍性贫血、丹毒。患者入院当天下午出现高热，T39．
+      8℃，右下肢疼痛不适，血常规示白细胞计数3．8×109/L，中性粒细胞0．88;C反应蛋白84mg/L;降钙素原1．01ng/ml。外科会诊考虑丹毒再发，予以莫
+      西沙星0．4g静脉滴注每天1次。8月3日血培养提示大肠埃希菌(+)，第3、4代头孢菌素类、氟喹诺酮类耐药，换用美罗培南1g静脉滴注，每8小时1
+      次。之后病情无明显好转，为进一步诊治，于2018年8月7日提请全院MDT。
             `,
-      //登录表单内容
+      //?登录表单内容
       formInline: {
         user: "",
         password: "",
@@ -292,7 +323,7 @@ export default {
     //?                                   标注功能                                                       //
     /* ----------------------------------------------------------------------------------------------*/
 
-    annotation: function () {
+    annotation() {
       let pNodes = this.$refs.article.getElementsByTagName("p");
 
       let pTextArr = [];
@@ -302,10 +333,10 @@ export default {
       let text = window.getSelection().toString();
       if (text.length > 0) {
         for (let i = 0; i < pNodes.length; i++) {
-          let pNode = pNodes[i]; //段落节点
-          let pText = pTextArr[i]; //每一段的文字
+          let pNode = pNodes[i]; //?段落节点
+          let pText = pTextArr[i]; //?每一段的文字
           let values = (pText || "").split(text);
-          let colorArray = ["red", "blue", "aqua", "orange"]; //标注颜色
+          let colorArray = ["red", "blue", "aqua", "orange"]; //?标注颜色
 
           let pNodeText = values.join(
             "<span style='color:" +
@@ -320,18 +351,22 @@ export default {
         switch (this.index) {
           case 0: {
             this.names += 1;
+            this.name_list.push(text);
             break;
           }
           case 1: {
             this.medicine += 1;
+            this.medicine_list.push(text);
             break;
           }
           case 2: {
             this.tools += 1;
+            this.tools_list.push(text);
             break;
           }
           case 3: {
             this.relations += 1;
+            this.relations_list.push(text);
             break;
           }
         }
@@ -342,7 +377,7 @@ export default {
       }
     },
     /* ----------------------------------------------------------------------------------------------*/
-    //!                                 粘贴文本                                                       //
+    //?                                 粘贴文本                                                       //
     /* ----------------------------------------------------------------------------------------------*/
 
     get_content() {
@@ -373,4 +408,12 @@ export default {
 </script>
 <style scoped>
   @import "./static/css/App.css";
+  .scroll-box {
+    flex: auto;
+    max-height: 150px;
+    min-height: 120px;
+    white-space: pre-line;
+    overflow: auto;
+    line-height: 2em;
+  }
 </style>

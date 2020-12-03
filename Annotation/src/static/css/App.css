@@ -82,6 +82,15 @@ body {
 
     right: 1px;
 }
+.scroll-box {
+    flex: auto;
+    max-height: 150px;
+    word-break: break-all;
+    min-height: 120px;
+    white-space: pre-line;
+    overflow: auto;
+    line-height: 2em;
+}
 
 textarea {
     height: 150px;
