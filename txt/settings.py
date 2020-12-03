@@ -53,7 +53,7 @@ ROOT_URLCONF = 'txt.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [r'Annotation\dist'],
+        'DIRS': [r'annotation\dist'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -117,4 +117,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, r'Annotation\dist\static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, r'annotation\dist\static')]
