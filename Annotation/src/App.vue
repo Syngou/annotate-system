@@ -7,8 +7,7 @@
   <!--?                                   导航栏                                   -->
   <!-- ----------------------------------------------------------------------- -->
   <div id="app">
-    <router-view />
-    <div class="topNavigation" style="margin-bottom: 20px">
+    <div class="topNavigation">
       <span class="title">Text Annotation System</span>
       <a href="#" @click="introduce_modal = true">功能介绍</a>
       <a href="#" @click="upload_modal = true">上传文件</a>
@@ -16,7 +15,15 @@
         >Github</a
       >
       <a href="#" @click="paste_content_model = true">输入文本</a>
+
       <a href="#" style="float: right" @click="login_modal = true">登录</a>
+      <span
+        style="float: right; margin-top: 12px; color: #fff"
+        @click="toggledMode"
+      >
+        {{ mode }}
+        <i-switch></i-switch>
+      </span>
       <!-- ------------------------------------------------------------------------------------- -->
       <!--                                     登录模块                                             -->
       <!-- --------------------------------------------------------------------------------------- -->
@@ -24,6 +31,7 @@
         <Form ref="formInline" :model="formInline" :rules="ruleInline" block>
           <span id="login_box">
             <Avatar
+              size="large"
               src="https://visualhunt.com/photos/1/nature-red-sun-rocks.jpg?s=s"
             />
           </span>
@@ -145,6 +153,7 @@
               <DropdownItem divided>待开发</DropdownItem>
             </DropdownMenu>
           </Dropdown>
+
           <!-- ---------------------------------------------------------------------------------- -->
           <!--                        拾色器 按钮                                                 -->
           <!-- ---------------------------------------------------------------------------------- -->
@@ -233,6 +242,13 @@
 
 
 <script>
+import {
+  enable as enableDarkMode,
+  disable as disableDarkMode,
+  auto as followSystemColorScheme,
+  exportGeneratedCSS as collectCSS,
+} from "darkreader";
+
 export default {
   data() {
     return {
@@ -244,6 +260,7 @@ export default {
       name_list: [],
       medicine: 0,
       medicine_list: [],
+      mode: "日间模式",
       tools: 0,
       tools_list: [],
       relations: 0,
@@ -401,6 +418,27 @@ export default {
         }
       }
     },
+
+    toggledMode() {
+      if (this.mode === "日间模式") {
+        enableDarkMode({
+          brightness: 100,
+          contrast: 90,
+          sepia: 0,
+        });
+
+        disableDarkMode();
+
+        followSystemColorScheme();
+
+        const CSS = collectCSS();
+        this.mode = "夜间模式";
+      } else {
+        this.mode = "日间模式";
+        disableDarkMode();
+      }
+    },
+
     /* ----------------------------------------------------------------------------------------------*/
     //?                                 粘贴文本                                                       //
     /* ----------------------------------------------------------------------------------------------*/
@@ -415,17 +453,27 @@ export default {
 
     handleSubmit(name) {
       this.$refs[name].validate(() => {
-        this.$axios.get("./login.json").then((response) => {
-          let data = response.data;
-          if (
-            this.formInline.user == data[0].user_info[0].user_name &&
-            this.formInline.password == data[0].user_info[0].password
-          ) {
-            this.$Message.success("登录成功");
-          } else {
-            this.$Message.error("账号或密码错误");
+        this.$axios.get("./login.json").then(
+          (response) => {
+            let data = response.data;
+
+            if (
+              this.formInline.user == data[0].user_info[0].user_name &&
+              this.formInline.password == data[0].user_info[0].password
+            ) {
+              this.$Message.success("登录成功");
+            } else {
+              this.$Message.error("账号或密码错误");
+            }
+          },
+          (error) => {
+            console.log("false to connect to server");
           }
-        });
+        );
+        console.log(
+          "🚀 ~ file: App.vue ~ line 430 ~ this.$axios.get ~ data",
+          data
+        );
       });
     },
   },

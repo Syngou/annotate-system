@@ -2160,6 +2160,11 @@ d@1, d@^1.0.1:
     es5-ext "^0.10.50"
     type "^1.0.1"
 
+darkreader@^4.9.24:
+  version "4.9.24"
+  resolved "https://registry.npm.taobao.org/darkreader/download/darkreader-4.9.24.tgz#ec8a00faba880c764df44b7c18d5e249e843c485"
+  integrity sha1-7IoA+rqIDHZN9Et8GNXiSehDxIU=
+
 dashdash@^1.12.0:
   version "1.14.1"
   resolved "https://registry.npm.taobao.org/dashdash/download/dashdash-1.14.1.tgz?cache=0&sync_timestamp=1601073454623&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdashdash%2Fdownload%2Fdashdash-1.14.1.tgz#853cfa0f7cbe2fed5de20326b8dd581035f6e2f0"

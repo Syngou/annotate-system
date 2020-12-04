@@ -8,8 +8,6 @@ p {
 }
 
 * {
-    /* background-color: rgb(42, 37, 37); */
-    /* color: white; */
     box-sizing: border-box;
 }
 
@@ -33,7 +31,6 @@ body {
     background-color: #333;
     width: 100%;
     position: fixed;
-    margin-bottom: 50px;
 }
 
 /* 导航条链接 */
@@ -88,8 +85,8 @@ textarea {
 /* Left column */
 .leftColumn {
     float: left;
-    background-color: #333333;
-    color: white;
+    background-color: #fff;
+    /* color: white; */
     width: 75%;
 }
 
@@ -97,8 +94,8 @@ textarea {
 .rightColumn {
     float: left;
     width: 25%;
-    background-color: #333;
-    color: white;
+    background-color: #fff;
+    /* color: white; */
     padding-left: 20px;
 }
 
@@ -111,7 +108,7 @@ textarea {
 
 /* 文章卡片效果 */
 .card {
-    background-color: rgb(42, 37, 37);
+    /* background-color: rgb(42, 37, 37); */
     padding: 20px;
     margin-top: 20px;
 }

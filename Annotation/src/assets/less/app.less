@@ -1,0 +1,87 @@
+@green: #2ecc71;
+@lightgray: lightgray;
+@background: whitesmoke;
+
+.inactiveMixin {
+  content: "";
+  position: absolute;
+  display: block;
+}
+
+.beforeAnimation {
+  -moz-transition: .2s cubic-bezier(.24, 0, .5, 1);
+  -o-transition: .2s cubic-bezier(.24, 0, .5, 1);
+  -webkit-transition: .2s cubic-bezier(.24, 0, .5, 1);
+  transition: .2s cubic-bezier(.24, 0, .5, 1);
+}
+
+.afterAnimation {
+  box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.1), 0 4px 0px 0 hsla(0, 0%, 0%, .04), 0 4px 9px hsla(0, 0%, 0%, .13), 0 3px 3px hsla(0, 0%, 0%, .05);
+  -moz-transition: .35s cubic-bezier(.54, 1.60, .5, 1);
+  -o-transition: .35s cubic-bezier(.54, 1.60, .5, 1);
+  -webkit-transition: .35s cubic-bezier(.54, 1.60, .5, 1);
+  transition: .35s cubic-bezier(.54, 1.60, .5, 1);
+}
+
+// Mobile Toggle Switch
+.toggleWrapper {
+  margin: auto;
+  padding: 20px;
+  width: 55px;
+ top:50px;
+  margin-top: 20px;
+  
+  background: white;
+  input {
+    &.mobileToggle {
+      opacity: 0; // hides checkbox
+      position: absolute;
+      & + label {
+        position: relative;
+        display: inline-block;
+        user-select: none;
+        -moz-transition: .4s ease;
+        -o-transition: .4s ease;
+        -webkit-transition: .4s ease;
+        transition: .4s ease;
+        -webkit-tap-highlight-color: transparent;
+        height: 30px;
+        width: 50px;
+        border: 1px solid #e4e4e4;
+        border-radius: 60px;
+        &:before {
+          .inactiveMixin;
+          .beforeAnimation;
+          height: 30px;
+          width: 51px;
+          top: 0;
+          left: 0;
+          border-radius: 30px;
+        }
+        &:after {
+          .inactiveMixin;
+          .afterAnimation;
+          background: @background;
+          height: 28px;
+          width: 28px;
+          top: 1px;
+          left: 0px;
+          border-radius: 60px;
+        }
+      }
+      // When Active
+      &:checked {
+        & + label:before {
+          background: @green; // Active Color
+          -moz-transition: width .2s cubic-bezier(0, 0, 0, .1);
+          -o-transition: width .2s cubic-bezier(0, 0, 0, .1);
+          -webkit-transition: width .2s cubic-bezier(0, 0, 0, .1);
+          transition: width .2s cubic-bezier(0, 0, 0, .1);
+        }
+        & + label:after {
+          left: 54px - 30px;
+        }
+      }
+    }
+  }
+}
