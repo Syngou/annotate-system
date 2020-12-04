@@ -9,21 +9,24 @@
   <div id="app">
     <router-view />
     <div class="topNavigation" style="margin-bottom: 20px">
-      <span>
-        <span class="title">Text Annotation System</span>
-        <a href="#" @click="introduce_modal = true">功能介绍</a>
-        <a href="#" @click="upload_modal = true">上传文件</a>
-        <a href="https://github.com/Syngou/text-annotation.git" target="_blank"
-          >Github</a
-        >
-        <a href="#" @click="paste_content_model = true">输入文本</a>
-        <a href="#" style="float: right" @click="login_modal = true">登录</a>
-      </span>
+      <span class="title">Text Annotation System</span>
+      <a href="#" @click="introduce_modal = true">功能介绍</a>
+      <a href="#" @click="upload_modal = true">上传文件</a>
+      <a href="https://github.com/Syngou/text-annotation.git" target="_blank"
+        >Github</a
+      >
+      <a href="#" @click="paste_content_model = true">输入文本</a>
+      <a href="#" style="float: right" @click="login_modal = true">登录</a>
       <!-- ------------------------------------------------------------------------------------- -->
       <!--                                     登录模块                                             -->
       <!-- --------------------------------------------------------------------------------------- -->
       <Modal v-model="login_modal" width="24">
         <Form ref="formInline" :model="formInline" :rules="ruleInline" block>
+          <span id="login_box">
+            <Avatar
+              src="https://visualhunt.com/photos/1/nature-red-sun-rocks.jpg?s=s"
+            />
+          </span>
           <FormItem prop="user">
             <i-Input
               type="text"
@@ -43,9 +46,7 @@
             </i-Input>
           </FormItem>
         </Form>
-        <p slot="header" style="color: #f60; text-align: center">
-          <span>登录</span>
-        </p>
+
         <div
           slot="footer"
           style="display: flex; justify-content: center; align-items: center"
@@ -101,8 +102,6 @@
     <div class="row">
       <div class="leftColumn">
         <div class="card">
-          <h2 style="margin-top: 20px; text-align: center">文本</h2>
-
           <!-- ----------------------------------------------------------------------- -->
           <!--?                                  下拉菜单                                   -->
           <!--                          TODO:超级拖拽，显示行数,快捷键标记                      -->
@@ -154,11 +153,7 @@
           <!--?                                   文本框                                     -->
           <!--                              TODO: 快捷键标注颜色                              -->
           <!-- ----------------------------------------------------------------------- -->
-          <pre
-            ref="article"
-            @mouseup="annotation"
-            style="min-height: 1000px; margin-top: 20px"
-          >
+          <pre ref="article" @mouseup="annotation" class="input-content">
             <p ref="current_content" style='overflow: auto'>{{ input_content }}</p>
           </pre>
         </div>
@@ -171,26 +166,16 @@
 
       <div class="rightColumn">
         <!-- ----------------------------------------------------------------------- -->
-        <!--!                                  右侧标签                                   -->
-        <!-- ----------------------------------------------------------------------- -->
-
-        <Tag class="float-right1" color="primary">{{ names }}</Tag>
-        <Tag class="float-right2" color="success">{{ medicine }}</Tag>
-        <Tag class="float-right3" color="error">{{ tools }}</Tag>
-        <Tag class="float-right4" color="warning">{{ relations }}</Tag>
-
-        <!-- ----------------------------------------------------------------------- -->
         <!--                                   卡片                                    -->
         <!-- ----------------------------------------------------------------------- -->
 
-        <div class="card" style="margin-top: 40px">
+        <div class="card" style="margin-top: 25px">
           <h1>
             关系
             <span style="color: rgb(255, 117, 24)">{{ relations }}</span>
           </h1>
-          <label>自定义颜色</label>
-          <input type="color" />
-          <ol class="scroll-box">
+
+          <ol class="scroll-box" style="color: red; margin: 0">
             <li
               v-for="(relation_item, index) in relations_list"
               :key="relation_item"
@@ -205,9 +190,7 @@
             <span style="color: rgb(255, 117, 24)">{{ names }}</span>
           </h1>
 
-          <label>自定义颜色</label>
-          <input type="color" />
-          <ol class="scroll-box">
+          <ol class="scroll-box" style="color: blue">
             <li v-for="(name_item, index) in name_list" :key="name_item">
               {{ index + 1 }}. {{ name_item }}
             </li>
@@ -217,9 +200,8 @@
           <h1>
             药物 <span style="color: red">{{ medicine }}</span>
           </h1>
-          <label>自定义颜色</label>
-          <input type="color" />
-          <ol class="scroll-box">
+
+          <ol class="scroll-box" style="color: aqua">
             <li
               v-for="(medicine_item, index) in medicine_list"
               :key="medicine_item"
@@ -232,9 +214,8 @@
           <h1>
             医疗器械 <span style="color: red">{{ tools }}</span>
           </h1>
-          <label>自定义颜色</label>
-          <input type="color" />
-          <ol class="scroll-box">
+
+          <ol class="scroll-box" style="color: orange">
             <li v-for="(tool_item, index) in tools_list" :key="tool_item">
               {{ index + 1 }}. {{ tool_item }}
             </li>
@@ -246,9 +227,7 @@
     <!-- ----------------------------------------------------------------------- -->
     <!--                                 底部区域                                   -->
     <!-- ----------------------------------------------------------------------- -->
-    <div class="footer">
-      <p>Copyright © 2020 Syngou</p>
-    </div>
+    <div class="footer">Copyright © 2020 Syngou</div>
   </div>
 </template>
 
@@ -271,23 +250,65 @@ export default {
       relations_list: [],
       upload_modal: false,
       input_content: ` 
-      [摘要】目的通过介绍临床药师参与临床抗感染多学科协作诊疗(MDT)的实例，为临床药师更好地参与临床提供参考。方法选取典型
-      病例，介绍临床药师参与抗感染治疗的方案讨论、制定及调整，并进行分析总结。结果临床药师在抗感染MDT中给予合理建议，患者病情得到有效控制。结
-      论临床药师运用自己的专业知识，为临床医师提供合理化用药建议，提高患者的整体治疗质量。
-      [关键词】抗感染;临床药师;多学科协作诊疗 
-      多学科协作诊疗(multidisciplinaryteam，MDT)是一种新型的临床治疗模式，是指针对一个临床疾病，通过多学科的讨论，制定最合理的规范化、个
-      体化治疗，从而提高患者的治愈率和生存质量。2018年，原国家卫生计生委在《关于印发进一步改善医疗服务行动计划(2018至2020年)的通知》中要求医
-      疗机构针对肿瘤、多系统多器官疾病、疑难复杂疾病等，建立多学科病例讨论和联合查房相关制度，为住院患者提供多学科诊疗服务［1］。苏州大学附属
-      太仓医院于2017年成立了抗菌药物管理小组，针对感染性疾病建立了MDT团队。本文通过介绍临床药师参与的典型感染性病例讨论，对患者抗感染治疗中抗
-      菌药物使用情况进行回顾性分析，并提出优化后续抗感染治疗方案的建议与分析，以探究临床药师在抗感染MDT团队中的作用。现报道如下。1参与多重耐药
-      菌感染治疗方案的制定 
-      1．1病历资料患者，女，58岁，因“发现肝硬化3年余，腹胀10d”于2018年7月30日入院。患者有甲状腺功能减退症、再生障碍性贫血、双下肢丹毒史，有
-      青霉素过敏史。入院查体:T37．2℃，P114次/min，R20次/min，BP114/68mmHg。神志清，颈软，双肺呼吸音粗，未闻及干湿啰音，心律齐，腹软，下
-      腹部膨隆，全腹无压痛及反跳痛，肝脾肋下未及，移动性浊音阳性，双下肢水肿，右脚足背皮肤发红。腹部B超:血吸虫肝病表现，门静脉海绵样变;胆囊结
-      石，胆囊炎;脾肿大;腹腔积液。诊断肝硬化失代偿期、自身免疫性肝炎、甲状腺功能减退症、再生障碍性贫血、丹毒。患者入院当天下午出现高热，T39．
-      8℃，右下肢疼痛不适，血常规示白细胞计数3．8×109/L，中性粒细胞0．88;C反应蛋白84mg/L;降钙素原1．01ng/ml。外科会诊考虑丹毒再发，予以莫
-      西沙星0．4g静脉滴注每天1次。8月3日血培养提示大肠埃希菌(+)，第3、4代头孢菌素类、氟喹诺酮类耐药，换用美罗培南1g静脉滴注，每8小时1
-      次。之后病情无明显好转，为进一步诊治，于2018年8月7日提请全院MDT。
+      〔摘要〕伴随着医疗器械新产品、新工艺的发展，压缩气体在医疗器械的生产过程中被广泛使用。在洁净室内的医疗器械使用压缩气体时，应根据其预期用途对控制水平和监测项目做出合理的评定，识别出安全的有关特征，结合受控项目、系统设计和监测工作进行风险分析，以满足《医疗器械生产质量管理规范附录》中对压缩气体提出的要求。
+
+〔关键词〕医疗器械；压缩气体；预期用途；风险分析
+
+压缩气体在医疗器械的生产过程中被广泛使用，主要用途有自动化生产设备的动力用气、清洗工艺中的吹扫用气、保护材料防止氧化的用气等。伴随着医疗器械新产品、新工艺的发展，压缩气体在医疗器械领域的使用已越来越广泛。虽然医疗器械是在洁净的受控环境中生产，但《医疗器械生产质量管理规范附录》中仍对无菌、植入、体外诊断（invitrodiagnostic，IVD）的各类医疗器械使用压缩气体都提出了验证和控制要求，其目的是为保证医疗器械最终在临床使用的安全和有效。GB/T13277.1-2008是目前可检索到的唯一对气体污染物进行等级划分的国家标准，《医用气体工程技术规范》中对部分医用空气的品质要求也是引用了此标准。结合医疗器械行业的受控环境要求，对压缩气体的污染物控制应至少包含固体、液体、气体及微生物。
+
+1固体污染物
+
+固体污染物主要是指压缩气体中含有的尘埃微粒。控制微粒的核心技术是使用气体过滤器。过滤器的有效过滤滤径、有效过滤效率和有效工作流量直接影响到固体污染物的预期控制效果，保证过滤器的各项性能参数均符合使用工况状态是十分必要的。同一气体过滤器在不同流量状态下监测的过滤效果，见表1。
+
+2液体污染物
+
+液体污染物主要是指压缩气体中含有的液态水和油。液态的水和油聚合后会形成乳状物[1]，固体颗粒物会促使水和油的聚集，乳化后的水和油会附着在管道内壁上；管道内壁被附着后，聚合物会随流动的气流被冲脱造成污染，且长期附着会对管壁表面造成局部腐蚀，生成的腐蚀物导致二次污染。在压缩气体管道中过滤后被冲刷出的污物，见图1。
+
+3气体污染物
+
+有效控制气体污染物需配置化学过滤器，通过吸附实现净化。部分医疗器械在材料焊接或内包装时会使用到氮气，实现排除氧气防止材料的氧化反应。在洁净的受控环境中使用任何气体都应满足《医疗器械生产质量管理规范》的附录要求，检测纯氮气依据的执行标准是GB/T8979-2008，报告见图2。
+
+4微生物污染物
+
+微生物污染物是指压缩气体中的活性微粒。GB/T13277.1-2008中未作等级划分，可根据产品风险确定微生物的限度。医疗器械生产过程使用的压缩气体中微生物限度水平的控制应满足《无菌医疗器具生产管理规范》中的要求[2]，见表2。
+
+5风险分析
+
+压缩气体应用于医疗器械的生产过程会直接或间接地影响医疗器械的安全，当气体直接作用于器械表面时，污染物会附着在器械的表面；当气体扩散到受控环境中或接触工装器具时，会间接污染到医疗器械。识别风险是做好风险管理的第一步，根据压缩气体的预期用途，识别出安全的有关特征，在开展风险管理的工作中是至关重要的。
+
+5.1工作流量
+
+固体污染物和微生物控制的核心技术是气体过滤器，表1的数据证明过滤器的性能受流量状态的影响，在选择过滤器前，精准确定安装点的工作流量至关重要，是保证预期过滤性能的关键参数。
+
+5.2含水量
+
+控制压缩气体中水分含量的意义除评价对医疗器械的影响外，还应考虑对系统管道的影响，图1证明高湿度的气体会腐蚀管道，造成二次污染。
+
+5.3含油量
+
+压缩气体中的油含量受两个方面的影响：（1）气体在压缩过程中被机械的污染，应优先选择无油型的机械及配件；（2）气体在压缩前已经含有较高浓度的油分，应意识到对气源的保护和净化。
+
+5.4氮气的使用
+
+在医疗器械的生产过程中，为防止材料与氧气发生氧化反应，普遍使用纯氮气对材料进行保护。对氮气进行风险控制时，仅需参考图2的检测依据，部分应受控的项目并无验证数据支持。
+
+5.5系统设计
+
+当考虑机房周围环境中是否有污染物时，机房的位置应选择在区域的上风向，必要时加装化学过滤器。压缩气体管道应满足净化等级的要求[3]，管道中的管件应选择化学性能稳定、内表面光滑的材料，避免内表面被腐蚀，避免局部的材质缺陷，应关注管件材料的抗污、防腐性能；安装前应做管件的清洁或钝化处理，必要时在净化等级相当的受控环境中完成前处理工作，控制施工过程中对系统的污染；同时，应在用气设备处安装相应精度的过滤器，避免输送过程中管道内污物脱落造成的污染，确保用气安全。
+
+5.6监测
+
+监测技术应科学，尽量采用通用的试验方法，必要时进行相关验证工作，证明试验操作的可重复性或可靠性；另外，应评价监测点的位置选择和监测时系统的必要状态，保证监测数据具有充分的代表性。
+
+［参考文献］
+
+［1］中华人民共和国国家质量监督检验检疫总局，中国国家标准管理委员会.GB/T13277.1-2008压缩空气第1部分：污染物净化等级[S].北京：中国标准出版社，2009.
+
+［2］北京市食品药品监督管理局.医疗器械工艺用气检查要点指南（2017版）[EB/OL].[2017-09-22].
+
+［3］中华人民共和国住房和城乡建设部.GB50029-2014压缩空气站设计规范[S].北京：中国计划出版社，2014
+
+作者：苏建程 李婧 王会如 单位：北京市医疗器械检验所
             `,
       //?登录表单内容
       formInline: {
@@ -351,23 +372,26 @@ export default {
         }
         switch (this.index) {
           case 0: {
-            this.names += 1;
-            this.name_list.push(text);
+            this.relations += 1;
+            this.relations_list.push(text);
+
             break;
           }
           case 1: {
-            this.medicine += 1;
-            this.medicine_list.push(text);
+            this.names += 1;
+            this.name_list.push(text);
+
             break;
           }
           case 2: {
-            this.tools += 1;
-            this.tools_list.push(text);
+            this.medicine += 1;
+            this.medicine_list.push(text);
+
             break;
           }
           case 3: {
-            this.relations += 1;
-            this.relations_list.push(text);
+            this.tools += 1;
+            this.tools_list.push(text);
             break;
           }
         }
@@ -404,191 +428,9 @@ export default {
         });
       });
     },
-    submitForm(formName) {
-      let data = new FormData();
-      data.append("username", this.formInline.user);
-      data.append("password", this.formInline.password);
-      this.$axios
-        .post("/api/register/", data)
-        .then((res) => {
-          console.log("yes");
-        })
-        .catch((res) => {
-          console.log("error submit!!");
-          return false;
-        });
-    },
   },
 };
 </script>
 <style scoped>
-  button {
-    margin: 10px;
-    padding: 5px;
-  }
-  p {
-    word-wrap: break-word;
-    word-break: break-all;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-
-  .title {
-    color: aqua;
-    left: 100px;
-  }
-
-  body {
-    font-family: Arial;
-    padding: 10px;
-    background: #f1f1f1;
-  }
-
-  /* 导航条 */
-  .topNavigation {
-    top: 0;
-    overflow: hidden;
-    padding-right: 20px;
-    background-color: #333;
-    width: 100%;
-    position: fixed;
-    margin-bottom: 50px;
-  }
-
-  /* 导航条链接 */
-  .topNavigation a {
-    display: inline-block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-  .float-right1 {
-    float: right;
-    position: fixed;
-    top: 50%;
-    right: 30px;
-    width: 50px;
-    margin-top: 15px;
-
-    right: 1px;
-  }
-  .float-right2 {
-    float: right;
-    position: fixed;
-    top: 45%;
-    right: 30px;
-    width: 50px;
-    margin-top: 15px;
-
-    right: 1px;
-  }
-  .float-right3 {
-    float: right;
-    position: fixed;
-    top: 55%;
-    width: 50px;
-    right: 30px;
-    margin-top: 15px;
-
-    right: 1px;
-  }
-
-  .float-right4 {
-    float: right;
-    position: fixed;
-    width: 50px;
-    top: 60%;
-    right: 30px;
-    margin-top: 15px;
-
-    right: 1px;
-  }
-  .scroll-box {
-    flex: auto;
-    max-height: 150px;
-    word-break: break-all;
-    min-height: 120px;
-    white-space: pre-line;
-    overflow: auto;
-    line-height: 2em;
-  }
-
-  textarea {
-    height: 150px;
-    width: 100%;
-    font-size: 20px;
-  }
-  /* 链接颜色修改 */
-  .topNavigation a:hover {
-    background-color: #ddd;
-    color: black;
-  }
-
-  /* 创建两列 */
-  /* Left column */
-  .leftColumn {
-    float: left;
-    width: 75%;
-  }
-
-  /* 右侧栏 */
-  .rightColumn {
-    float: left;
-    width: 25%;
-    background-color: #f1f1f1;
-    padding-left: 20px;
-  }
-
-  /* 图像部分 */
-  .outputArea {
-    background-color: #aaa;
-    width: 100%;
-    padding: 20px;
-  }
-
-  /* 文章卡片效果 */
-  .card {
-    background-color: white;
-    padding: 20px;
-    margin-top: 20px;
-  }
-
-  /* 列后面清除浮动 */
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-  input[text] {
-    width: 100%;
-    height: 150px;
-  }
-  /* 底部 */
-  .footer {
-    padding: 20px;
-    text-align: center;
-    background: #333;
-    color: white;
-    margin-top: 20px;
-  }
-
-  /* 响应式布局 - 屏幕尺寸小于 800px 时，两列布局改为上下布局 */
-  @media screen and (max-width: 800px) {
-    .leftColumn,
-    .rightColumn {
-      width: 100%;
-      padding: 0;
-    }
-  }
-
-  /* 响应式布局 -屏幕尺寸小于 400px 时，导航等布局改为上下布局 */
-  @media screen and (max-width: 400px) {
-    .topNavigation a {
-      float: none;
-      width: 100%;
-    }
-  }
+  @import "./assets/css/app";
 </style>
