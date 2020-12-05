@@ -9,14 +9,14 @@
   <div id="app">
     <div class="topNavigation">
       <span class="title">医疗文本标注平台</span>
-      <a href="#" @click="introduce_modal = true">功能介绍</a>
-      <a href="#" @click="upload_modal = true">上传文件</a>
+      <a href="#" @click="introduceModal = true">功能介绍</a>
+      <a href="#" @click="uploadModal = true">上传文件</a>
       <a href="https://github.com/Syngou/text-annotation.git" target="_blank"
         >Github</a
       >
-      <a href="#" @click="paste_content_modal = true">输入文本</a>
+      <a href="#" @click="pasteContentModal = true">输入文本</a>
 
-      <a href="#" style="float: right" @click="login_modal = true">登录</a>
+      <a href="#" style="float: right" @click="loginModal = true">登录</a>
       <span
         style="float: right; margin-top: 12px; color: #fff"
         @click="toggledMode"
@@ -27,9 +27,9 @@
       <!-- ------------------------------------------------------------------------------------- -->
       <!--                                     登录模块                                             -->
       <!-- --------------------------------------------------------------------------------------- -->
-      <Modal v-model="login_modal" width="24" :mask-closable="false">
+      <Modal v-model="loginModal" width="24" :mask-closable="false">
         <Form ref="formInline" :model="formInline" :rules="ruleInline" block>
-          <span id="login_box">
+          <span id="loginBox">
             <Avatar
               size="large"
               src="https://visualhunt.com/photos/1/nature-red-sun-rocks.jpg?s=s"
@@ -67,13 +67,13 @@
       <!-- ------------------------------------------------------------------------------------- -->
       <!--                                  功能介绍模块                                             -->
       <!-- --------------------------------------------------------------------------------------- -->
-      <Modal v-model="introduce_modal" title="功能介绍" :mask-closable="false">
+      <Modal v-model="introduceModal" title="功能介绍" :mask-closable="false">
         <p>按下鼠标，滑过文本，松开，即可标注文本,右栏实时显示标注的文本</p>
         <div
           slot="footer"
           style="display: flex; justify-content: center; align-items: center"
         >
-          <Button type="primary" @click="introduce_modal = false">确定</Button>
+          <Button type="primary" @click="introduceModal = false">确定</Button>
         </div>
       </Modal>
 
@@ -81,7 +81,7 @@
       <!--                                  上传文件                                              -->
       <!-- --------------------------------------------------------------------------------------- -->
 
-      <Modal v-model="upload_modal" title="上传文件" :mask-closable="false">
+      <Modal v-model="uploadModal" title="上传文件" :mask-closable="false">
         <Upload multiple type="drag" action="127.0.0.1">
           <div style="padding: 20px 0">
             <Icon
@@ -98,20 +98,20 @@
         <!-- --------------------------------------------------------------------------------------- -->
       </Modal>
       <Modal
-        v-model="paste_content_modal"
+        v-model="pasteContentModal"
         title="在这里输入或粘贴你的文本（若不成功，请刷新网页后重试）"
         :mask-closable="false"
       >
         <textarea
           type="text"
-          ref="input_content_id"
-          @change="get_content"
+          ref="inputContentId"
+          @change="getContent"
         ></textarea>
         <div
           slot="footer"
           style="display: flex; justify-content: center; align-items: center"
         >
-          <Button type="primary" @click="paste_content_modal = false"
+          <Button type="primary" @click="pasteContentModal = false"
             >确定</Button
           >
         </div>
@@ -178,7 +178,7 @@
           <!--                              TODO: 快捷键标注颜色                              -->
           <!-- ----------------------------------------------------------------------- -->
           <pre ref="article" @mouseup="annotation" class="input-content">
-            <p ref="current_content" style='overflow: auto'>{{ input_content }}</p>
+            <p ref="currentContent" style='overflow: auto'>{{ inputContent }}</p>
           </pre>
         </div>
       </div>
@@ -196,51 +196,53 @@
         <div class="card" style="margin-top: 25px">
           <h1>
             关系
-            <span style="color: red">共 {{ relations }} 个</span>
+            <span style="color: red">共 {{ relationsList.length }} 个</span>
           </h1>
           <ol class="scroll-box" style="color: red; margin: 0">
             <li
-              v-for="(relation_item, index) in relations_list"
-              :key="relation_item"
+              v-for="(relationItem, index) in relationsList"
+              :key="relationItem"
             >
-              {{ index + 1 + "." + relation_item }}
+              {{ index + 1 + "." + relationItem }}
             </li>
           </ol>
         </div>
         <div class="card">
           <h1>
             疾病名称
-            <span style="color: blue">共 {{ names }} 个</span>
+            <span style="color: blue">共 {{ nameList.length }} 个</span>
           </h1>
 
           <ol class="scroll-box" style="color: blue">
-            <li v-for="(name_item, index) in name_list" :key="name_item">
-              {{ index + 1 + "." + name_item }}
+            <li v-for="(nameItem, index) in nameList" :key="nameItem">
+              {{ index + 1 + "." + nameItem }}
             </li>
           </ol>
         </div>
         <div class="card">
           <h1>
-            药物 <span style="color: aqua">共 {{ medicine }} 个</span>
+            药物
+            <span style="color: aqua">共 {{ medicineList.length }} 个</span>
           </h1>
 
           <ol class="scroll-box" style="color: aqua">
             <li
-              v-for="(medicine_item, index) in medicine_list"
-              :key="medicine_item"
+              v-for="(medicineItem, index) in medicineList"
+              :key="medicineItem"
             >
-              {{ index + 1 + "." + medicine_item }}
+              {{ index + 1 + "." + medicineItem }}
             </li>
           </ol>
         </div>
         <div class="card">
           <h1>
-            医疗器械 <span style="color: orange">共 {{ tools }} 个</span>
+            医疗器械
+            <span style="color: orange">共 {{ toolsList.length }} 个</span>
           </h1>
 
           <ol class="scroll-box" style="color: orange">
-            <li v-for="(tool_item, index) in tools_list" :key="tool_item">
-              {{ index + 1 + "." + tool_item }}
+            <li v-for="(toolItem, index) in toolsList" :key="toolItem">
+              {{ index + 1 + "." + toolItem }}
             </li>
           </ol>
         </div>
@@ -276,20 +278,16 @@ export default {
   data() {
     return {
       index: 0, //?标注颜色索引，临时变量，只是为了检测标注功能是否有效，后期会删除
-      login_modal: false, //?登录提示模块
-      introduce_modal: false, //?介绍提示模块
-      paste_content_modal: false, //?粘贴文本
-      names: 0,
-      name_list: [],
-      medicine: 0,
-      medicine_list: [],
+      loginModal: false, //?登录提示模块
+      introduceModal: false, //?介绍提示模块
+      pasteContentModal: false, //?粘贴文本
+      nameList: [],
+      medicineList: [],
       mode: "夜间模式",
-      tools: 0,
-      tools_list: [],
-      relations: 0,
-      relations_list: [],
-      upload_modal: false,
-      input_content: ` 
+      toolsList: [],
+      relationsList: [],
+      uploadModal: false,
+      inputContent: ` 
       〔摘要〕伴随着医疗器械新产品、新工艺的发展，压缩气体在医疗器械的生产过程中被广泛使用。在洁净室内的医疗器械使用压缩气体时，应根据其预期用途对控制水平和监测项目做出合理的评定，识别出安全的有关特征，结合受控项目、系统设计和监测工作进行风险分析，以满足《医疗器械生产质量管理规范附录》中对压缩气体提出的要求。
 
 〔关键词〕医疗器械；压缩气体；预期用途；风险分析
@@ -335,9 +333,7 @@ export default {
     cancel() {
       this.$Message.info("Clicked cancel");
     },
-    /* ----------------------------------------------------------------------------------------------*/
-    //?                                   标注功能                                                       //
-    /* ----------------------------------------------------------------------------------------------*/
+    //?      标注功能
 
     annotation() {
       let pNodes = this.$refs.article.getElementsByTagName("p");
@@ -367,27 +363,22 @@ export default {
         //? 同步文本和数字
         switch (this.index) {
           case 0: {
-            this.relations += 1;
-
-            this.relations_list.push(text);
+            this.relationsList.push(text);
 
             break;
           }
           case 1: {
-            this.names += 1;
-            this.name_list.push(text);
+            this.nameList.push(text);
 
             break;
           }
           case 2: {
-            this.medicine += 1;
-            this.medicine_list.push(text);
+            this.medicineList.push(text);
 
             break;
           }
           case 3: {
-            this.tools += 1;
-            this.tools_list.push(text);
+            this.toolsList.push(text);
             break;
           }
         }
@@ -397,9 +388,7 @@ export default {
         }
       }
     },
-    /* ----------------------------------------------------------------------------------------------*/
-    //?                                   日，夜间模式 切换                                              //
-    /* ----------------------------------------------------------------------------------------------*/
+    //?    日，夜间模式 切换
 
     toggledMode() {
       if (this.mode === "日间模式") {
@@ -416,53 +405,73 @@ export default {
         disableDarkMode();
       }
     },
+    //                BUG:即使用户想放弃修改，文本内容还是会修改,添加本地存储，防止刷新后文本被修改
+    //?            粘贴文本
 
-    /* ----------------------------------------------------------------------------------------------*/
-    //?                                 粘贴文本                                                       //
-    /* ----------------------------------------------------------------------------------------------*/
-
-    get_content() {
-      this.input_content = this.$refs.input_content_id.value;
+    getContent() {
+      this.inputContent = this.$refs.inputContentId.value;
     },
 
-    /* ----------------------------------------------------------------------------------------------*/
-    //?                                   提交登录表单                                                   //
-    /* ----------------------------------------------------------------------------------------------*/
+    //?     提交登录表单,等后台搭好再取消注释
 
+    // handleSubmit(name) {
+    //   this.$refs[name].validate(() => {
+    //     this.$axios.get("./login.json").then(
+    //       (response) => {
+    //         let data = response.data;
+
+    //         if (
+    //           this.formInline.user === data[0].userInfo[0].userName &&
+    //           this.formInline.password === data[0].userInfo[0].password
+    //         ) {
+    //           this.$Message.success("登录成功");
+    //           this.$router.push("/login");
+    //         } else {
+    //           this.$Message.error("账号或密码错误");
+    //         }
+    //       },
+    //       (error) => {
+    //         console.log("false to connect to server");
+    //         this.$Message.error({
+    //           content: "连接服务器失败，请稍后再试。",
+    //           duration: 4,
+    //           closable: true,
+    //         });
+
+    //       }
+    //     );
+    //     console.log(
+    //       "🚀 ~ file: App.vue ~ line 430 ~ this.$axios.get ~ data",
+    //       data
+    //     );
+    //   });
+    // },
     handleSubmit(name) {
-      this.$refs[name].validate(() => {
-        this.$axios.get("./login.json").then(
-          (response) => {
-            let data = response.data;
-
-            if (
-              this.formInline.user === data[0].user_info[0].user_name &&
-              this.formInline.password === data[0].user_info[0].password
-            ) {
-              this.$Message.success("登录成功");
-            } else {
-              this.$Message.error("账号或密码错误");
-            }
-          },
-          (error) => {
-            console.log("false to connect to server");
-            this.$Message.error({
-              content: "连接服务器失败，请稍后再试。",
-              duration: 4,
-              closable: true,
-            });
+      this.$refs[name].validate(
+        () => {
+          if (
+            this.formInline.user === "Syngou" &&
+            this.formInline.password === "hello"
+          ) {
             this.$router.push("/login");
+            this.$Message.success("登录成功");
+          } else {
+            this.$Message.error("账号或密码错误");
           }
-        );
-        console.log(
-          "🚀 ~ file: App.vue ~ line 430 ~ this.$axios.get ~ data",
-          data
-        );
-      });
+        },
+        (error) => {
+          console.log("false to connect to server");
+          this.$Message.error({
+            content: "连接服务器失败，请稍后再试。",
+            duration: 4,
+            closable: true,
+          });
+        }
+      );
     },
   },
 };
 </script>
 <style scoped>
-  @import "../assets/css/app.css";
+  @import "../assets/css/Home.css";
 </style>

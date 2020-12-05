@@ -1,6 +1,8 @@
 <template>
   <div>
     <p>{{ greeting }}</p>
+    <br />
+    <p></p>
   </div>
 </template>
 
@@ -16,15 +18,5 @@ export default {
 </script>
 
 <style scoped>
-  * {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    height: 100vh;
-    align-items: center;
-    color: aqua;
-    line-height: 100vh;
-    font-size: 50px;
-  }
+  @import "../assets/css/Login.css";
 </style>

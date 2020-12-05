@@ -1,0 +1,133 @@
+* {
+    box-sizing: border-box;
+}
+
+p {
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.title {
+    margin-left: 30px;
+    color: red;
+    font-size: 22px;
+}
+
+/* 导航条 */
+.topNavigation {
+    position: fixed;
+    top: 0;
+    overflow: hidden;
+    width: 100%;
+    padding-right: 20px;
+    background-color: #333;
+}
+
+/* 导航条链接 */
+.topNavigation a {
+    display: inline-block;
+    padding: 14px 16px;
+    background-color: #333;
+    color: #f2f2f2;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* 链接颜色修改 */
+.topNavigation a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* 创建两列 */
+
+/* Left column */
+.leftColumn {
+    float: left;
+    width: 75%;
+    background-color: #fff;
+}
+
+/* 右侧栏 */
+.rightColumn {
+    float: left;
+    width: 25%;
+    padding-left: 20px;
+    background-color: #fff;
+}
+
+/* 文章卡片效果 */
+.card {
+    margin-top: 20px;
+    padding: 20px;
+}
+
+#loginBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    background-color: #fff;
+}
+
+.scroll-box {
+    overflow: auto;
+    flex: auto;
+    min-height: 123.5px;
+    max-height: 123.5px;
+    line-height: 13px;
+    white-space: pre-line;
+    word-break: break-all;
+}
+
+.input-content {
+    overflow: auto;
+    flex: auto;
+    min-height: 771px;
+    max-height: 771px;
+    margin-top: 20px;
+    line-height: 2em;
+    white-space: pre-line;
+    word-break: break-all;
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+    font-size: 20px;
+}
+
+/* 列后面清除浮动 */
+.row:after {
+    display: table;
+    content: "";
+    clear: both;
+}
+input[text] {
+    width: 100%;
+    height: 150px;
+}
+/* 底部 */
+.footer {
+    padding: 20px;
+    background: #333;
+    color: white;
+    text-align: center;
+}
+
+/* 响应式布局 - 屏幕尺寸小于 800px 时，两列布局改为上下布局 */
+@media screen and (max-width: 800px) {
+    .leftColumn,
+    .rightColumn {
+        width: 100%;
+        padding: 0;
+    }
+}
+
+/* 响应式布局 -屏幕尺寸小于 400px 时，导航等布局改为上下布局 */
+@media screen and (max-width: 400px) {
+    .topNavigation a {
+        float: none;
+        width: 100%;
+    }
+}
