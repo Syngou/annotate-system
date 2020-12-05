@@ -1,154 +1,133 @@
-button {
-    margin: 10px;
-    padding: 5px;
-}
-p {
-    word-wrap: break-word;
-    word-break: break-all;
+* {
+  box-sizing: border-box;
 }
 
-* {
-    box-sizing: border-box;
+p {
+  word-break: break-all;
+  word-wrap: break-word;
 }
 
 .title {
-    color: aqua;
-    left: 100px;
-    background-color: #333333;
-}
-
-body {
-    font-family: Arial;
-    padding: 10px;
-    background: #f1f1f1;
+  margin-left: 30px;
+  color: red;
+  font-size: 22px;
 }
 
 /* 导航条 */
 .topNavigation {
-    top: 0;
-    overflow: hidden;
-    padding-right: 20px;
-    background-color: #333;
-    width: 100%;
-    position: fixed;
+  position: fixed;
+  top: 0;
+  overflow: hidden;
+  width: 100%;
+  padding-right: 20px;
+  background-color: #333;
 }
 
 /* 导航条链接 */
 .topNavigation a {
-    display: inline-block;
-    color: #f2f2f2;
-    background-color: #333;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
+  display: inline-block;
+  padding: 14px 16px;
+  background-color: #333;
+  color: #f2f2f2;
+  text-align: center;
+  text-decoration: none;
 }
 
-#login_box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
-    background-color: #fff;
-}
-
-.scroll-box {
-    flex: auto;
-    max-height: 123.5px;
-    word-break: break-all;
-    min-height: 123.5px;
-    white-space: pre-line;
-    overflow: auto;
-    line-height: 2em;
-}
-.input-content {
-    flex: auto;
-    max-height: 771px;
-    word-break: break-all;
-    white-space: pre-line;
-    overflow: auto;
-    line-height: 2em;
-    min-height: 771px;
-    margin-top: 20px;
-}
-textarea {
-    height: 150px;
-    width: 100%;
-    font-size: 20px;
-}
 /* 链接颜色修改 */
 .topNavigation a:hover {
-    background-color: #ddd;
-    color: black;
+  background-color: #ddd;
+  color: black;
 }
 
 /* 创建两列 */
+
 /* Left column */
 .leftColumn {
-    float: left;
-    background-color: #fff;
-    /* color: white; */
-    width: 75%;
+  float: left;
+  width: 75%;
+  background-color: #fff;
 }
 
 /* 右侧栏 */
 .rightColumn {
-    float: left;
-    width: 25%;
-    background-color: #fff;
-    /* color: white; */
-    padding-left: 20px;
-}
-
-/* 图像部分 */
-.outputArea {
-    background-color: #aaa;
-    width: 100%;
-    padding: 20px;
+  float: left;
+  width: 25%;
+  padding-left: 20px;
+  background-color: #fff;
 }
 
 /* 文章卡片效果 */
 .card {
-    /* background-color: rgb(42, 37, 37); */
-    padding: 20px;
-    margin-top: 20px;
+  margin-top: 20px;
+  padding: 20px;
+}
+
+#login_box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  background-color: #fff;
+}
+
+.scroll-box {
+  overflow: auto;
+  flex: auto;
+  min-height: 123.5px;
+  max-height: 123.5px;
+  line-height: 13px;
+  white-space: pre-line;
+  word-break: break-all;
+}
+
+.input-content {
+  overflow: auto;
+  flex: auto;
+  min-height: 771px;
+  max-height: 771px;
+  margin-top: 20px;
+  line-height: 2em;
+  white-space: pre-line;
+  word-break: break-all;
+}
+
+textarea {
+  width: 100%;
+  height: 150px;
+  font-size: 20px;
 }
 
 /* 列后面清除浮动 */
 .row:after {
-    content: "";
-    display: table;
-    clear: both;
+  display: table;
+  content: "";
+  clear: both;
 }
 input[text] {
-    width: 100%;
-    height: 150px;
+  width: 100%;
+  height: 150px;
 }
 /* 底部 */
 .footer {
-    padding: 20px;
-    text-align: center;
-    background: #333;
-    color: white;
-    /* margin-top: 20px; */
-}
-
-.modal {
-    background-color: #fff;
+  padding: 20px;
+  background: #333;
+  color: white;
+  text-align: center;
 }
 
 /* 响应式布局 - 屏幕尺寸小于 800px 时，两列布局改为上下布局 */
 @media screen and (max-width: 800px) {
-    .leftColumn,
-    .rightColumn {
-        width: 100%;
-        padding: 0;
-    }
+  .leftColumn,
+  .rightColumn {
+    width: 100%;
+    padding: 0;
+  }
 }
 
 /* 响应式布局 -屏幕尺寸小于 400px 时，导航等布局改为上下布局 */
 @media screen and (max-width: 400px) {
-    .topNavigation a {
-        float: none;
-        width: 100%;
-    }
+  .topNavigation a {
+    float: none;
+    width: 100%;
+  }
 }
