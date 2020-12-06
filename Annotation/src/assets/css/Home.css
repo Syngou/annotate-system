@@ -91,6 +91,11 @@ p {
     word-break: break-all;
 }
 
+.choiceModal {
+    width: 100%;
+    height: 120px;
+    margin-top: 20px;
+}
 textarea {
     width: 100%;
     height: 150px;

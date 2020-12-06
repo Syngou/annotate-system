@@ -116,6 +116,51 @@
           >
         </div>
       </Modal>
+      <Modal v-model="choice" :mask-closable="false" :closable="false">
+        <div class="choiceModal">
+          <Button
+            type="error"
+            long
+            @click="
+              annotation(0);
+              choice = false;
+            "
+            >关系</Button
+          >
+          <Button
+            type="primary"
+            long
+            @click="
+              annotation(1);
+              choice = false;
+            "
+            >名称</Button
+          >
+          <Button
+            type="success"
+            long
+            @click="
+              annotation(2);
+              choice = false;
+            "
+            >药物</Button
+          >
+          <Button
+            type="warning"
+            long
+            @click="
+              annotation(3);
+              choice = false;
+            "
+            >器械</Button
+          >
+        </div>
+        <div slot="footer">
+          <Button type="primary" size="large" @click="choice = false"
+            >取消</Button
+          >
+        </div>
+      </Modal>
     </div>
 
     <!-- ----------------------------------------------------------------------- -->
@@ -177,7 +222,7 @@
           <!--?                                   文本框                                     -->
           <!--                              TODO: 快捷键标注颜色                              -->
           <!-- ----------------------------------------------------------------------- -->
-          <pre ref="article" @mouseup="annotation" class="input-content">
+          <pre ref="article" @mouseup="getSelection()" class="input-content">
             <p ref="currentContent" style='overflow: auto'>{{ inputContent }}</p>
           </pre>
         </div>
@@ -277,13 +322,14 @@ export default {
   name: "Home",
   data() {
     return {
-      index: 0, //?标注颜色索引，临时变量，只是为了检测标注功能是否有效，后期会删除
       loginModal: false, //?登录提示模块
       introduceModal: false, //?介绍提示模块
       pasteContentModal: false, //?粘贴文本
       nameList: [],
       medicineList: [],
       mode: "夜间模式",
+      selectText: "",
+      choice: false,
       toolsList: [],
       relationsList: [],
       uploadModal: false,
@@ -327,22 +373,20 @@ export default {
   },
 
   methods: {
-    ok() {
-      this.$Message.info("Clicked ok");
-    },
-    cancel() {
-      this.$Message.info("Clicked cancel");
+    getSelection() {
+      this.choice = true;
+      this.selectText = window.getSelection().toString();
     },
     //?      标注功能
 
-    annotation() {
+    annotation(index) {
       let pNodes = this.$refs.article.getElementsByTagName("p");
 
       let pTextArr = [];
       for (let i = 0; i < pNodes.length; i++) {
         pTextArr.push(pNodes[i].innerHTML);
       }
-      let text = window.getSelection().toString();
+      let text = this.selectText;
       if (text.length > 0) {
         for (let i = 0; i < pNodes.length; i++) {
           let pNode = pNodes[i]; //?段落节点
@@ -351,17 +395,13 @@ export default {
           let colorArray = ["red", "blue", "aqua", "orange"]; //?标注颜色
 
           let pNodeText = values.join(
-            "<span style='color:" +
-              colorArray[this.index] +
-              "'>" +
-              text +
-              "</span>"
+            "<span style='color:" + colorArray[index] + "'>" + text + "</span>"
           );
 
           pNode.innerHTML = pNodeText;
         }
         //? 同步文本和数字
-        switch (this.index) {
+        switch (index) {
           case 0: {
             this.relationsList.push(text);
 
@@ -381,10 +421,6 @@ export default {
             this.toolsList.push(text);
             break;
           }
-        }
-        this.index += 1;
-        if (this.index >= 4) {
-          this.index = 0;
         }
       }
     },
@@ -460,7 +496,6 @@ export default {
           }
         },
         (error) => {
-          console.log("false to connect to server");
           this.$Message.error({
             content: "连接服务器失败，请稍后再试。",
             duration: 4,
