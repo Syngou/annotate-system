@@ -174,46 +174,47 @@
           <!--?                                  下拉菜单                                   -->
           <!--                          TODO:超级拖拽，显示行数,快捷键标记                      -->
           <!-- ----------------------------------------------------------------------- -->
-          <Dropdown style="margin-left: 20px; margin-top: 20px">
-            <a href="javascript:void(0)">
-              功能
-              <Icon type="ios-arrow-down"></Icon>
-            </a>
-            <DropdownMenu slot="list">
-              <DropdownItem>待开发</DropdownItem>
-              <DropdownItem>待开发</DropdownItem>
-              <DropdownItem disabled>待开发</DropdownItem>
-              <DropdownItem>待开发</DropdownItem>
-              <DropdownItem divided>待开发</DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-          <Dropdown style="margin-left: 20px">
-            <a href="javascript:void(0)">
-              翻译
-              <Icon type="ios-arrow-down"></Icon>
-            </a>
-            <DropdownMenu slot="list">
-              <DropdownItem>待开发</DropdownItem>
-              <DropdownItem>待开发</DropdownItem>
-              <DropdownItem disabled>待开发</DropdownItem>
-              <DropdownItem>待开发</DropdownItem>
-              <DropdownItem divided>待开发</DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-          <Dropdown style="margin-left: 20px">
-            <a href="javascript:void(0)">
-              工具
-              <Icon type="ios-arrow-down"></Icon>
-            </a>
-            <DropdownMenu slot="list">
-              <DropdownItem>待开发</DropdownItem>
-              <DropdownItem>待开发</DropdownItem>
-              <DropdownItem disabled>待开发</DropdownItem>
-              <DropdownItem>待开发</DropdownItem>
-              <DropdownItem divided>待开发</DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-
+          <div style="clear: both">
+            <Dropdown style="margin-left: 20px; margin-top: 20px">
+              <a href="javascript:void(0)">
+                功能
+                <Icon type="ios-arrow-down"></Icon>
+              </a>
+              <DropdownMenu slot="list">
+                <DropdownItem>待开发</DropdownItem>
+                <DropdownItem>待开发</DropdownItem>
+                <DropdownItem disabled>待开发</DropdownItem>
+                <DropdownItem>待开发</DropdownItem>
+                <DropdownItem divided>待开发</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+            <Dropdown style="margin-left: 20px">
+              <a href="javascript:void(0)">
+                翻译
+                <Icon type="ios-arrow-down"></Icon>
+              </a>
+              <DropdownMenu slot="list">
+                <DropdownItem>待开发</DropdownItem>
+                <DropdownItem>待开发</DropdownItem>
+                <DropdownItem disabled>待开发</DropdownItem>
+                <DropdownItem>待开发</DropdownItem>
+                <DropdownItem divided>待开发</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+            <Dropdown style="margin-left: 20px">
+              <a href="javascript:void(0)">
+                工具
+                <Icon type="ios-arrow-down"></Icon>
+              </a>
+              <DropdownMenu slot="list">
+                <DropdownItem>待开发</DropdownItem>
+                <DropdownItem>待开发</DropdownItem>
+                <DropdownItem disabled>待开发</DropdownItem>
+                <DropdownItem>待开发</DropdownItem>
+                <DropdownItem divided>待开发</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
           <!-- ---------------------------------------------------------------------------------- -->
           <!--                        拾色器 按钮                                                 -->
           <!-- ---------------------------------------------------------------------------------- -->
@@ -267,10 +268,10 @@
         <div class="card">
           <h1>
             药物
-            <span style="color: aqua">共 {{ medicineList.length }} 个</span>
+            <span style="color: green">共 {{ medicineList.length }} 个</span>
           </h1>
 
-          <ol class="scroll-box" style="color: aqua">
+          <ol class="scroll-box" style="color: green">
             <li
               v-for="(medicineItem, index) in medicineList"
               :key="medicineItem"
@@ -373,9 +374,13 @@ export default {
   },
 
   methods: {
+    //? 获取选中文本
+
     getSelection() {
-      this.choice = true;
-      this.selectText = window.getSelection().toString();
+      if (window.getSelection().toString() !== "") {
+        this.choice = true;
+        this.selectText = window.getSelection().toString();
+      }
     },
     //?      标注功能
 
@@ -392,10 +397,14 @@ export default {
           let pNode = pNodes[i]; //?段落节点
           let pText = pTextArr[i]; //?每一段的文字
           let values = (pText || "").split(text);
-          let colorArray = ["red", "blue", "aqua", "orange"]; //?标注颜色
+          let colorArray = ["red", "blue", "green", "orange"]; //?标注颜色
 
           let pNodeText = values.join(
-            "<span style='color:" + colorArray[index] + "'>" + text + "</span>"
+            "<span style='background-color:" +
+              colorArray[index] +
+              "'>" +
+              text +
+              "</span>"
           );
 
           pNode.innerHTML = pNodeText;

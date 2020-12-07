@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    color: black;
 }
 
 p {
@@ -45,7 +46,6 @@ p {
 .leftColumn {
     float: left;
     width: 75%;
-    background-color: #fff;
 }
 
 /* 右侧栏 */
@@ -53,7 +53,6 @@ p {
     float: left;
     width: 25%;
     padding-left: 20px;
-    background-color: #fff;
 }
 
 /* 文章卡片效果 */
@@ -67,7 +66,6 @@ p {
     align-items: center;
     justify-content: center;
     margin-bottom: 10px;
-    background-color: #fff;
 }
 
 .scroll-box {
