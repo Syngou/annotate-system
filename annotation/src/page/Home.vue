@@ -1,11 +1,6 @@
 <template>
-  <!-- ----------------------------------------------------------------------- -->
-  <!--?                                  头部区域                                 -->
-  <!-- ----------------------------------------------------------------------- -->
-
-  <!-- ----------------------------------------------------------------------- -->
+ 
   <!--?                                导航栏                                   -->
-  <!-- ----------------------------------------------------------------------- -->
   <div id="app">
     <div class="topNavigation">
       <span class="title">医疗文本标注平台</span>
@@ -134,8 +129,7 @@
               annotation(1);
               choice = false;
             "
-            >名称</Button
-          >
+            >名称</Button>
           <Button
             type="success"
             long
@@ -143,8 +137,7 @@
               annotation(2);
               choice = false;
             "
-            >药物</Button
-          >
+            >药物</Button>
           <Button
             type="warning"
             long
@@ -183,9 +176,7 @@
               <DropdownMenu slot="list">
                 <DropdownItem>待开发</DropdownItem>
                 <DropdownItem>待开发</DropdownItem>
-                <DropdownItem disabled>待开发</DropdownItem>
-                <DropdownItem>待开发</DropdownItem>
-                <DropdownItem divided>待开发</DropdownItem>
+                
               </DropdownMenu>
             </Dropdown>
             <Dropdown style="margin-left: 20px">
@@ -196,9 +187,7 @@
               <DropdownMenu slot="list">
                 <DropdownItem>待开发</DropdownItem>
                 <DropdownItem>待开发</DropdownItem>
-                <DropdownItem disabled>待开发</DropdownItem>
-                <DropdownItem>待开发</DropdownItem>
-                <DropdownItem divided>待开发</DropdownItem>
+               
               </DropdownMenu>
             </Dropdown>
             <Dropdown style="margin-left: 20px">
@@ -209,9 +198,7 @@
               <DropdownMenu slot="list">
                 <DropdownItem>待开发</DropdownItem>
                 <DropdownItem>待开发</DropdownItem>
-                <DropdownItem disabled>待开发</DropdownItem>
-                <DropdownItem>待开发</DropdownItem>
-                <DropdownItem divided>待开发</DropdownItem>
+               
               </DropdownMenu>
             </Dropdown>
           </div>
@@ -244,10 +231,11 @@
             关系
             <span style="color: red">共 {{ relationsList.length }} 个</span>
           </h1>
-          <ol class="scroll-box" style="color: red; margin: 0">
+          <ol class="scroll-box" >
             <li
               v-for="(relationItem, index) in relationsList"
               :key="relationItem"
+              style="color: red;"
             >
               {{ index + 1 + "." + relationItem }}
             </li>
@@ -259,8 +247,8 @@
             <span style="color: blue">共 {{ nameList.length }} 个</span>
           </h1>
 
-          <ol class="scroll-box" style="color: blue">
-            <li v-for="(nameItem, index) in nameList" :key="nameItem">
+          <ol class="scroll-box" >
+            <li v-for="(nameItem, index) in nameList" :key="nameItem" style="color: blue">
               {{ index + 1 + "." + nameItem }}
             </li>
           </ol>
@@ -271,10 +259,11 @@
             <span style="color: green">共 {{ medicineList.length }} 个</span>
           </h1>
 
-          <ol class="scroll-box" style="color: green">
+          <ol class="scroll-box">
             <li
               v-for="(medicineItem, index) in medicineList"
               :key="medicineItem"
+               style="color: green"
             >
               {{ index + 1 + "." + medicineItem }}
             </li>
@@ -286,8 +275,8 @@
             <span style="color: orange">共 {{ toolsList.length }} 个</span>
           </h1>
 
-          <ol class="scroll-box" style="color: orange">
-            <li v-for="(toolItem, index) in toolsList" :key="toolItem">
+          <ol class="scroll-box" >
+            <li v-for="(toolItem, index) in toolsList" :key="toolItem" style="color: orange">
               {{ index + 1 + "." + toolItem }}
             </li>
           </ol>
@@ -334,7 +323,7 @@ export default {
       toolsList: [],
       relationsList: [],
       uploadModal: false,
-      inputContent: ` 
+      inputContent: `
       〔摘要〕伴随着医疗器械新产品、新工艺的发展，压缩气体在医疗器械的生产过程中被广泛使用。在洁净室内的医疗器械使用压缩气体时，应根据其预期用途对控制水平和监测项目做出合理的评定，识别出安全的有关特征，结合受控项目、系统设计和监测工作进行风险分析，以满足《医疗器械生产质量管理规范附录》中对压缩气体提出的要求。
 
 〔关键词〕医疗器械；压缩气体；预期用途；风险分析
