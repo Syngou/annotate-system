@@ -65,9 +65,7 @@ export default {
   },
   methods: {
     pasteContent(input) {
-      console.log("home" + this.inputContent);
       this.inputContent = input;
-      console.log("home" + this.inputContent);
     },
     showAnnotations(index, text) {
       this.$refs.rightCulomn.showAnnotations(index, text);
