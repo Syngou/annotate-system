@@ -1,328 +1,55 @@
 <template>
- 
   <!--?                                导航栏                                   -->
   <div id="app">
-    <div class="topNavigation">
-      <span class="title">医疗文本标注平台</span>
-      <a href="#" @click="introduceModal = true">功能介绍</a>
-      <a href="#" @click="uploadModal = true">上传文件</a>
-      <a href="https://github.com/Syngou/text-annotation.git" target="_blank"
-        >Github</a
-      >
-      <a href="#" @click="pasteContentModal = true">输入文本</a>
-
-      <a href="#" style="float: right" @click="loginModal = true">登录</a>
-      <span
-        style="float: right; margin-top: 12px; color: #fff"
-        @click="toggledMode"
-      >
-        {{ mode }}
-        <i-switch true-color="#13ce66" false-color="blue"></i-switch>
-      </span>
-      <!-- ------------------------------------------------------------------------------------- -->
-      <!--                                     登录模块                                             -->
-      <!-- --------------------------------------------------------------------------------------- -->
-      <Modal v-model="loginModal" width="24" :mask-closable="false">
-        <Form ref="formInline" :model="formInline" :rules="ruleInline" block>
-          <span id="loginBox">
-            <Avatar
-              size="large"
-              src="https://visualhunt.com/photos/1/nature-red-sun-rocks.jpg?s=s"
-            />
-          </span>
-          <FormItem prop="user">
-            <i-Input
-              type="text"
-              v-model="formInline.user"
-              placeholder="输入您的账号"
-            >
-              <Icon type="ios-person-outline" slot="prepend"></Icon>
-            </i-Input>
-          </FormItem>
-          <FormItem prop="password">
-            <i-Input
-              type="password"
-              v-model="formInline.password"
-              placeholder="输入您的密码"
-            >
-              <Icon type="ios-lock-outline" slot="prepend"></Icon>
-            </i-Input>
-          </FormItem>
-        </Form>
-
-        <div
-          slot="footer"
-          style="display: flex; justify-content: center; align-items: center"
-        >
-          <Button type="primary" @click="handleSubmit('formInline')"
-            >登录</Button
-          >
-        </div>
-      </Modal>
-      <!-- ------------------------------------------------------------------------------------- -->
-      <!--                                  功能介绍模块                                             -->
-      <!-- --------------------------------------------------------------------------------------- -->
-      <Modal v-model="introduceModal" title="功能介绍" :mask-closable="false">
-        <p>按下鼠标，滑过文本，松开，即可标注文本,右栏实时显示标注的文本</p>
-        <div
-          slot="footer"
-          style="display: flex; justify-content: center; align-items: center"
-        >
-          <Button type="primary" @click="introduceModal = false">确定</Button>
-        </div>
-      </Modal>
-
-      <!-- ------------------------------------------------------------------------------------- -->
-      <!--                                  上传文件                                              -->
-      <!-- --------------------------------------------------------------------------------------- -->
-
-      <Modal v-model="uploadModal" title="上传文件" :mask-closable="false">
-        <Upload multiple type="drag" action="127.0.0.1">
-          <div style="padding: 20px 0">
-            <Icon
-              type="ios-cloud-upload"
-              size="52"
-              style="color: #3399ff"
-            ></Icon>
-            <p>点击或把文件拖到这里</p>
-          </div>
-        </Upload>
-
-        <!-- ------------------------------------------------------------------------------------- -->
-        <!--                                  粘贴文本                                              -->
-        <!-- --------------------------------------------------------------------------------------- -->
-      </Modal>
-      <Modal
-        v-model="pasteContentModal"
-        title="在这里输入或粘贴你的文本（若不成功，请刷新网页后重试）"
-        :mask-closable="false"
-      >
-        <textarea
-          type="text"
-          ref="inputContentId"
-          @change="getContent"
-        ></textarea>
-        <div
-          slot="footer"
-          style="display: flex; justify-content: center; align-items: center"
-        >
-          <Button type="primary" @click="pasteContentModal = false"
-            >确定</Button
-          >
-        </div>
-      </Modal>
-      <Modal v-model="choice" :mask-closable="false" :closable="false">
-        <div class="choiceModal">
-          <Button
-            type="error"
-            long
-            @click="
-              annotation(0);
-              choice = false;
-            "
-            >关系</Button
-          >
-          <Button
-            type="primary"
-            long
-            @click="
-              annotation(1);
-              choice = false;
-            "
-            >名称</Button>
-          <Button
-            type="success"
-            long
-            @click="
-              annotation(2);
-              choice = false;
-            "
-            >药物</Button>
-          <Button
-            type="warning"
-            long
-            @click="
-              annotation(3);
-              choice = false;
-            "
-            >器械</Button
-          >
-        </div>
-        <div slot="footer">
-          <Button type="primary" size="large" @click="choice = false"
-            >取消</Button
-          >
-        </div>
-      </Modal>
-    </div>
-
-    <!-- ----------------------------------------------------------------------- -->
+    <TopNavigation @pasteContent="pasteContent" />
     <!--?                                   左栏                                    -->
-    <!-- ----------------------------------------------------------------------- -->
-
     <div class="row">
       <div class="leftColumn">
         <div class="card">
-          <!-- ----------------------------------------------------------------------- -->
           <!--?                                  下拉菜单                                   -->
           <!--                          TODO:超级拖拽，显示行数,快捷键标记                      -->
-          <!-- ----------------------------------------------------------------------- -->
-          <div style="clear: both">
-            <Dropdown style="margin-left: 20px; margin-top: 20px">
-              <a href="javascript:void(0)">
-                功能
-                <Icon type="ios-arrow-down"></Icon>
-              </a>
-              <DropdownMenu slot="list">
-                <DropdownItem>待开发</DropdownItem>
-                <DropdownItem>待开发</DropdownItem>
-                
-              </DropdownMenu>
-            </Dropdown>
-            <Dropdown style="margin-left: 20px">
-              <a href="javascript:void(0)">
-                翻译
-                <Icon type="ios-arrow-down"></Icon>
-              </a>
-              <DropdownMenu slot="list">
-                <DropdownItem>待开发</DropdownItem>
-                <DropdownItem>待开发</DropdownItem>
-               
-              </DropdownMenu>
-            </Dropdown>
-            <Dropdown style="margin-left: 20px">
-              <a href="javascript:void(0)">
-                工具
-                <Icon type="ios-arrow-down"></Icon>
-              </a>
-              <DropdownMenu slot="list">
-                <DropdownItem>待开发</DropdownItem>
-                <DropdownItem>待开发</DropdownItem>
-               
-              </DropdownMenu>
-            </Dropdown>
-          </div>
-          <!-- ---------------------------------------------------------------------------------- -->
-          <!--                        拾色器 按钮                                                 -->
-          <!-- ---------------------------------------------------------------------------------- -->
-
-          <!-- ----------------------------------------------------------------------- -->
-          <!--?                                   文本框                                     -->
-          <!--                              TODO: 快捷键标注颜色                              -->
-          <!-- ----------------------------------------------------------------------- -->
-          <pre ref="article" @mouseup="getSelection()" class="input-content">
-            <p ref="currentContent" style='overflow: auto'>{{ inputContent }}</p>
-          </pre>
+          <MyDropDown />
+          <!--                            文本                                        -->
+          <Essays
+            :inputContent="inputContent"
+            @showAnnotations="showAnnotations"
+          />
         </div>
       </div>
-
-      <!-- ----------------------------------------------------------------------- -->
       <!--?                                   右栏                                    -->
-      <!--TODO:                             左右栏对齐                                 -->
-      <!-- ----------------------------------------------------------------------- -->
-
       <div class="rightColumn">
-        <!-- ----------------------------------------------------------------------- -->
-        <!--                                   卡片                                    -->
-        <!-- ----------------------------------------------------------------------- -->
-
-        <div class="card" style="margin-top: 25px">
-          <h1>
-            关系
-            <span style="color: red">共 {{ relationsList.length }} 个</span>
-          </h1>
-          <ol class="scroll-box" >
-            <li
-              v-for="(relationItem, index) in relationsList"
-              :key="relationItem"
-              style="color: red;"
-            >
-              {{ index + 1 + "." + relationItem }}
-            </li>
-          </ol>
-        </div>
-        <div class="card">
-          <h1>
-            疾病名称
-            <span style="color: blue">共 {{ nameList.length }} 个</span>
-          </h1>
-
-          <ol class="scroll-box" >
-            <li v-for="(nameItem, index) in nameList" :key="nameItem" style="color: blue">
-              {{ index + 1 + "." + nameItem }}
-            </li>
-          </ol>
-        </div>
-        <div class="card">
-          <h1>
-            药物
-            <span style="color: green">共 {{ medicineList.length }} 个</span>
-          </h1>
-
-          <ol class="scroll-box">
-            <li
-              v-for="(medicineItem, index) in medicineList"
-              :key="medicineItem"
-               style="color: green"
-            >
-              {{ index + 1 + "." + medicineItem }}
-            </li>
-          </ol>
-        </div>
-        <div class="card">
-          <h1>
-            医疗器械
-            <span style="color: orange">共 {{ toolsList.length }} 个</span>
-          </h1>
-
-          <ol class="scroll-box" >
-            <li v-for="(toolItem, index) in toolsList" :key="toolItem" style="color: orange">
-              {{ index + 1 + "." + toolItem }}
-            </li>
-          </ol>
-        </div>
+        <!--                               右栏卡片                                    -->
+        <RightCulomn ref="rightCulomn" />
       </div>
     </div>
-
-    <!-- ----------------------------------------------------------------------- -->
     <!--                                 底部区域                                   -->
-    <!-- ----------------------------------------------------------------------- -->
     <div class="footer">Copyright © 2020 Syngou</div>
   </div>
 </template>
 
 
 <script>
-import {
-  enable as enableDarkMode,
-  disable as disableDarkMode,
-  auto as followSystemColorScheme,
-  exportGeneratedCSS as collectCSS,
-} from "darkreader";
+import { enable as enableDarkMode } from "darkreader";
+import Essays from "../components/Essays";
+import MyDropDown from "../components/MyDropDown";
+import RightCulomn from "../components/RightCulomn";
+import TopNavigation from "../components/TopNavigation";
 enableDarkMode({
   brightness: 150,
   contrast: 90,
   sepia: 0,
 });
 
-const CSS = collectCSS();
-this.mode = "夜间模式";
-
 export default {
   name: "Home",
+  components: {
+    Essays,
+    MyDropDown,
+    RightCulomn,
+    TopNavigation,
+  },
   data() {
     return {
-      loginModal: false, //?登录提示模块
-      introduceModal: false, //?介绍提示模块
-      pasteContentModal: false, //?粘贴文本
-      nameList: [],
-      medicineList: [],
-      mode: "夜间模式",
-      selectText: "",
-      choice: false,
-      toolsList: [],
-      relationsList: [],
-      uploadModal: false,
       inputContent: `
       〔摘要〕伴随着医疗器械新产品、新工艺的发展，压缩气体在医疗器械的生产过程中被广泛使用。在洁净室内的医疗器械使用压缩气体时，应根据其预期用途对控制水平和监测项目做出合理的评定，识别出安全的有关特征，结合受控项目、系统设计和监测工作进行风险分析，以满足《医疗器械生产质量管理规范附录》中对压缩气体提出的要求。
 
@@ -333,174 +60,15 @@ export default {
 1固体污染物
 
 固体污染物主要是指压缩气体中含有的尘埃微粒。控制微粒的核心技术是使用气体过滤器。过滤器的有效过滤滤径、有效过滤效率和有效工作流量直接影响到固体污染物的预期控制效果，保证过滤器的各项性能参数均符合使用工况状态是十分必要的。同一气体过滤器在不同流量状态下监测的过滤效果，见表1。
-
-
             `,
-
-      //?登录表单内容
-      formInline: {
-        user: "",
-        password: "",
-      },
-
-      ruleInline: {
-        user: [
-          {
-            required: true,
-            message: "请输入用户名",
-            trigger: "blur",
-          },
-        ],
-        password: [
-          {
-            required: true,
-            message: "请输入密码",
-            trigger: "blur",
-          },
-        ],
-      },
     };
   },
-
   methods: {
-    //? 获取选中文本
-
-    getSelection() {
-      if (window.getSelection().toString() !== "") {
-        this.choice = true;
-        this.selectText = window.getSelection().toString();
-      }
+    pasteContent(input) {
+      this.inputContent = input;
     },
-    //?      标注功能
-
-    annotation(index) {
-      let pNodes = this.$refs.article.getElementsByTagName("p");
-
-      let pTextArr = [];
-      for (let i = 0; i < pNodes.length; i++) {
-        pTextArr.push(pNodes[i].innerHTML);
-      }
-      let text = this.selectText;
-      if (text.length > 0) {
-        for (let i = 0; i < pNodes.length; i++) {
-          let pNode = pNodes[i]; //?段落节点
-          let pText = pTextArr[i]; //?每一段的文字
-          let values = (pText || "").split(text);
-          let colorArray = ["red", "blue", "green", "orange"]; //?标注颜色
-
-          let pNodeText = values.join(
-            "<span style='background-color:" +
-              colorArray[index] +
-              "'>" +
-              text +
-              "</span>"
-          );
-
-          pNode.innerHTML = pNodeText;
-        }
-        //? 同步文本和数字
-        switch (index) {
-          case 0: {
-            this.relationsList.push(text);
-
-            break;
-          }
-          case 1: {
-            this.nameList.push(text);
-
-            break;
-          }
-          case 2: {
-            this.medicineList.push(text);
-
-            break;
-          }
-          case 3: {
-            this.toolsList.push(text);
-            break;
-          }
-        }
-      }
-    },
-    //?    日，夜间模式 切换
-
-    toggledMode() {
-      if (this.mode === "日间模式") {
-        enableDarkMode({
-          brightness: 150,
-          contrast: 90,
-          sepia: 0,
-        });
-
-        const CSS = collectCSS();
-        this.mode = "夜间模式";
-      } else {
-        this.mode = "日间模式";
-        disableDarkMode();
-      }
-    },
-    //                BUG:即使用户想放弃修改，文本内容还是会修改,添加本地存储，防止刷新后文本被修改
-    //?            粘贴文本
-
-    getContent() {
-      this.inputContent = this.$refs.inputContentId.value;
-    },
-
-    //?     提交登录表单,等后台搭好再取消注释
-
-    // handleSubmit(name) {
-    //   this.$refs[name].validate(() => {
-    //     this.$axios.get("./login.json").then(
-    //       (response) => {
-    //         let data = response.data;
-
-    //         if (
-    //           this.formInline.user === data[0].userInfo[0].userName &&
-    //           this.formInline.password === data[0].userInfo[0].password
-    //         ) {
-    //           this.$Message.success("登录成功");
-    //           this.$router.push("/login");
-    //         } else {
-    //           this.$Message.error("账号或密码错误");
-    //         }
-    //       },
-    //       (error) => {
-    //         console.log("false to connect to server");
-    //         this.$Message.error({
-    //           content: "连接服务器失败，请稍后再试。",
-    //           duration: 4,
-    //           closable: true,
-    //         });
-
-    //       }
-    //     );
-    //     console.log(
-    //       "🚀 ~ file: App.vue ~ line 430 ~ this.$axios.get ~ data",
-    //       data
-    //     );
-    //   });
-    // },
-    handleSubmit(name) {
-      this.$refs[name].validate(
-        () => {
-          if (
-            this.formInline.user === "Syngou" &&
-            this.formInline.password === "hello"
-          ) {
-            this.$router.push("/login");
-            this.$Message.success("登录成功");
-          } else {
-            this.$Message.error("账号或密码错误");
-          }
-        },
-        (error) => {
-          this.$Message.error({
-            content: "连接服务器失败，请稍后再试。",
-            duration: 4,
-            closable: true,
-          });
-        }
-      );
+    showAnnotations(index, text) {
+      this.$refs.rightCulomn.showAnnotations(index, text);
     },
   },
 };

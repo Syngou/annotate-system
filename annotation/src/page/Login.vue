@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import dropDown from "@/components/dropDown";
+import dropDown from "@/components/MyDropDown";
 export default {
   name: "Login",
   components: {

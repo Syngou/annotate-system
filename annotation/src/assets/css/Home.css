@@ -71,9 +71,8 @@ p {
 .scroll-box {
     overflow: auto;
     flex: auto;
-    min-height: 123.5px;
-    max-height: 123.5px;
-    line-height: 13px;
+    min-height: 124px;
+    max-height: 124px;
     white-space: pre-line;
     word-break: break-all;
 }
