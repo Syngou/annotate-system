@@ -53,8 +53,8 @@
     <!--?                                   文本框                                     -->
     <!--                              TODO: 快捷键标注颜色                              -->
     <!-- ----------------------------------------------------------------------- -->
-    <pre ref="essay" @mouseup="getSelection()" class="input-content">
-            {{ inputContent }}
+             
+    <pre ref="essay" @mouseup="getSelection()" class="input-content" v-html="inputContent">
           </pre
     >
   </div>

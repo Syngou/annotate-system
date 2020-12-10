@@ -11,5 +11,7 @@ export default {};
 </script>
 
 <style scoped>
-  @import "../assets/css/page404.css";
+  * {
+    color: red;
+  }
 </style>

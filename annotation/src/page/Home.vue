@@ -65,7 +65,9 @@ export default {
   },
   methods: {
     pasteContent(input) {
+      console.log("home" + this.inputContent);
       this.inputContent = input;
+      console.log("home" + this.inputContent);
     },
     showAnnotations(index, text) {
       this.$refs.rightCulomn.showAnnotations(index, text);
@@ -74,5 +76,72 @@ export default {
 };
 </script>
 <style scoped>
-  @import "../assets/css/Home.css";
+  * {
+    box-sizing: border-box;
+    color: black;
+  }
+
+  p {
+    word-break: break-all;
+    word-wrap: break-word;
+  }
+
+  .title {
+    margin-left: 30px;
+    color: red;
+    font-size: 22px;
+  }
+
+  /* 创建两列 */
+
+  /* Left column */
+  .leftColumn {
+    float: left;
+    width: 75%;
+  }
+
+  /* 右侧栏 */
+  .rightColumn {
+    float: left;
+    width: 25%;
+    padding-left: 20px;
+  }
+
+  /* 文章卡片效果 */
+  .card {
+    margin-top: 20px;
+    padding: 20px;
+  }
+
+  /* 列后面清除浮动 */
+  .row:after {
+    display: table;
+    content: "";
+    clear: both;
+  }
+
+  /* 底部 */
+  .footer {
+    padding: 20px;
+    background: #333;
+    color: white;
+    text-align: center;
+  }
+
+  /* 响应式布局 - 屏幕尺寸小于 800px 时，两列布局改为上下布局 */
+  @media screen and (max-width: 800px) {
+    .leftColumn,
+    .rightColumn {
+      width: 100%;
+      padding: 0;
+    }
+  }
+
+  /* 响应式布局 -屏幕尺寸小于 400px 时，导航等布局改为上下布局 */
+  @media screen and (max-width: 400px) {
+    .topNavigation a {
+      float: none;
+      width: 100%;
+    }
+  }
 </style>

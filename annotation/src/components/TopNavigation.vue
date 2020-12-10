@@ -11,7 +11,7 @@
       >Github</a
     >
     <a href="#" @click="pasteContentModal = true">输入文本</a>
-
+    <a href="#" @click="outputContent">输出文本</a>
     <a href="#" style="float: right" @click="loginModal = true">登录</a>
     <span
       style="float: right; margin-top: 12px; color: #fff"
@@ -157,6 +157,10 @@ export default {
       this.pasteContentModal = false;
       this.$emit("pasteContent", this.$refs.inputContentId.value);
     },
+
+    outputContent() {
+      this.$Message.info("功能正在开发...");
+    },
     //?    日，夜间模式 切换
 
     toggledMode() {
@@ -179,47 +183,13 @@ export default {
           this.formInline.user === "Syngou" &&
           this.formInline.password === "hello"
         ) {
-          this.$router.push("/login");
+          this.$router.push("/user");
           this.$Message.success("登录成功");
         } else {
           this.$Message.error("账号或密码错误");
         }
       });
     },
-    //?     提交登录表单,等后台搭好再取消注释
-
-    // handleSubmit(name) {
-    //   this.$refs[name].validate(() => {
-    //     this.$axios.get("./login.json").then(
-    //       (response) => {
-    //         let data = response.data;
-
-    //         if (
-    //           this.formInline.user === data[0].userInfo[0].userName &&
-    //           this.formInline.password === data[0].userInfo[0].password
-    //         ) {
-    //           this.$Message.success("登录成功");
-    //           this.$router.push("/login");
-    //         } else {
-    //           this.$Message.error("账号或密码错误");
-    //         }
-    //       },
-    //       (error) => {
-    //         console.log("false to connect to server");
-    //         this.$Message.error({
-    //           content: "连接服务器失败，请稍后再试。",
-    //           duration: 4,
-    //           closable: true,
-    //         });
-
-    //       }
-    //     );
-    //     console.log(
-    //       "🚀 ~ file: App.vue ~ line 430 ~ this.$axios.get ~ data",
-    //       data
-    //     );
-    //   });
-    // },
   },
 };
 </script>
@@ -280,7 +250,7 @@ export default {
   }
   textarea {
     width: 100%;
-    height: 150px;
+    height: 250px;
     font-size: 20px;
   }
 </style>

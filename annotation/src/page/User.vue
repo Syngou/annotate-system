@@ -11,7 +11,7 @@
 <script>
 import dropDown from "@/components/MyDropDown";
 export default {
-  name: "Login",
+  name: "User",
   components: {
     dropDown,
   },
@@ -24,5 +24,9 @@ export default {
 </script>
 
 <style scoped>
-  @import "../assets/css/Login.css";
+  * {
+    margin: 0;
+    padding: 0;
+    color: aqua;
+  }
 </style>

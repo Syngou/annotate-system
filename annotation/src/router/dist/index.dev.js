@@ -1,7 +1,7 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true,
 });
 exports["default"] = void 0;
 
@@ -9,7 +9,7 @@ var _layout = _interopRequireDefault(require("@/layouts/layout"));
 
 var _Home = _interopRequireDefault(require("@/page/Home"));
 
-var _Login = _interopRequireDefault(require("@/page/Login"));
+var _User = _interopRequireDefault(require("@/page/User"));
 
 var _Page = _interopRequireDefault(require("@/page/Page404"));
 
@@ -17,26 +17,34 @@ var _vue = _interopRequireDefault(require("vue"));
 
 var _vueRouter = _interopRequireDefault(require("vue-router"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : { default: obj };
+}
 
 _vue["default"].use(_vueRouter["default"]);
 
 var _default = new _vueRouter["default"]({
-  routes: [{
-    path: "/",
-    component: _layout["default"],
-    children: [{
-      path: "/",
-      component: _Home["default"],
-      exact: true
-    }, {
-      path: "/login",
-      component: _Login["default"]
-    }, {
-      path: "*",
-      component: _Page["default"]
-    }]
-  }]
+    routes: [
+        {
+            path: "/",
+            component: _layout["default"],
+            children: [
+                {
+                    path: "/",
+                    component: _Home["default"],
+                    exact: true,
+                },
+                {
+                    path: "/user",
+                    component: _User["default"],
+                },
+                {
+                    path: "*",
+                    component: _Page["default"],
+                },
+            ],
+        },
+    ],
 });
 
 exports["default"] = _default;
