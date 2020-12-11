@@ -1,9 +1,10 @@
-import Home from "@/page/Home";
-import page404 from "@/page/page404";
-import User from "@/page/User";
 import Vue from "vue";
 import Router from "vue-router";
 Vue.use(Router);
+
+const Home = () => import("@/page/Home");
+const User = () => import("@/page/User");
+const page404 = () => import("@/page/page404");
 
 export default new Router({
     routes: [
