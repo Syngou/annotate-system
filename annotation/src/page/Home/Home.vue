@@ -18,8 +18,8 @@
       </div>
       <!--?                                   右栏                                    -->
       <div class="rightColumn">
-        <!--                               右栏卡片                                    -->
-        <RightCulomn ref="rightCulomn" />
+        <!--            TODO:当文本更改时，将右栏标注文本清空                       -->
+        <RightColumn ref="rightColumn" />
       </div>
     </div>
     <!--                                 底部区域                                   -->
@@ -30,10 +30,10 @@
 
 <script>
 import { enable as enableDarkMode } from "darkreader";
-import Essays from "../components/Essays";
-import MyDropDown from "../components/MyDropDown";
-import RightCulomn from "../components/RightCulomn";
-import TopNavigation from "../components/TopNavigation";
+import Essays from "./components/Essays";
+import MyDropDown from "./components/MyDropDown";
+import RightColumn from "./components/RightColumn";
+import TopNavigation from "./components/TopNavigation";
 enableDarkMode({
   brightness: 150,
   contrast: 90,
@@ -45,7 +45,7 @@ export default {
   components: {
     Essays,
     MyDropDown,
-    RightCulomn,
+    RightColumn,
     TopNavigation,
   },
   data() {
@@ -68,7 +68,7 @@ export default {
       this.inputContent = input;
     },
     showAnnotations(index, text) {
-      this.$refs.rightCulomn.showAnnotations(index, text);
+      this.$refs.rightColumn.showAnnotations(index, text);
     },
   },
 };
@@ -82,12 +82,6 @@ export default {
   p {
     word-break: break-all;
     word-wrap: break-word;
-  }
-
-  .title {
-    margin-left: 30px;
-    color: red;
-    font-size: 22px;
   }
 
   /* 创建两列 */

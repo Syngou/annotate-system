@@ -184,6 +184,7 @@ export default {
           this.formInline.password === "hello"
         ) {
           this.$router.push("/user");
+          this.loginModal = false;
           this.$Message.success("登录成功");
         } else {
           this.$Message.error("账号或密码错误");
@@ -234,20 +235,6 @@ export default {
     margin-bottom: 10px;
   }
 
-  .scroll-box {
-    overflow: auto;
-    flex: auto;
-    min-height: 124px;
-    max-height: 124px;
-    white-space: pre-line;
-    word-break: break-all;
-  }
-
-  .choiceModal {
-    width: 100%;
-    height: 120px;
-    margin-top: 20px;
-  }
   textarea {
     width: 100%;
     height: 250px;

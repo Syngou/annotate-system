@@ -9,9 +9,9 @@ var _layout = _interopRequireDefault(require("@/layouts/layout"));
 
 var _Home = _interopRequireDefault(require("@/page/Home"));
 
-var _User = _interopRequireDefault(require("@/page/User"));
+var _User = _interopRequireDefault(require("@/page/User/User"));
 
-var _Page = _interopRequireDefault(require("@/page/Page404"));
+var _Page = _interopRequireDefault(require("@/page/Page404/Page404"));
 
 var _vue = _interopRequireDefault(require("vue"));
 

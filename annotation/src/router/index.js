@@ -2,9 +2,9 @@ import Vue from "vue";
 import Router from "vue-router";
 Vue.use(Router);
 
-const Home = () => import("@/page/Home");
-const User = () => import("@/page/User");
-const page404 = () => import("@/page/page404");
+const Home = () => import("@/page/Home/Home");
+const User = () => import("@/page/User/User");
+const page404 = () => import("@/page/Page404/Page404");
 
 export default new Router({
     routes: [
