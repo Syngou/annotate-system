@@ -1,8 +1,3 @@
-
-<div align="center">
-<img src="./logo.png">
-</div>
-
 # 医疗文本标注和处理系统
 ## 拟开发的功能
 * 实体标注  
