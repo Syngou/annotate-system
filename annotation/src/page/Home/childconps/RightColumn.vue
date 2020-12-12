@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card" style="margin-top: 25px">
+    <div class="card" style="margin-top: 100px">
       <h1>
         关系
         <span style="color: red">共 {{ relationsList.length }} 个</span>
@@ -68,7 +68,7 @@
 
 <script>
 export default {
-  name: "RightCulomn",
+  name: "RightColumn",
   props: ["index"],
   data() {
     return {
@@ -123,21 +123,4 @@ export default {
     word-break: break-all;
   }
 
-  .input-content {
-    overflow: auto;
-    flex: auto;
-    min-height: 771px;
-    max-height: 771px;
-    margin-top: 20px;
-    line-height: 2em;
-    white-space: pre-line;
-    word-break: break-all;
-  }
-
-  /* 列后面清除浮动 */
-  .row:after {
-    display: table;
-    content: "";
-    clear: both;
-  }
 </style>

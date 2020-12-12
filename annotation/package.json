@@ -13,7 +13,8 @@
         "darkreader": "^4.9.26",
         "view-design": "^4.4.0",
         "vue": "^2.6.11",
-        "vue-router": "^3.4.9"
+        "vue-router": "^3.4.9",
+        "vuex": "^3.6.0"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "~4.5.0",
