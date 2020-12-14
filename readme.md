@@ -43,3 +43,7 @@ cd ..
 python manage.py runserver
 ```
 * 在浏览器地址栏输入127.0.0.1:8000（注意输入的所有标点都必须是英文的！）
+
+
+## License  
+MIT

@@ -31,9 +31,9 @@
       </DropdownMenu>
     </Dropdown>
     <span class="functionButton">
-    <button @click="reduceFontSize">-</button>
-    <span>字体</span>
-    <button @click="addFontSize">+</button>
+      <button @click="reduceFontSize">-</button>
+      <span>字体</span>
+      <button @click="addFontSize">+</button>
     </span>
   </div>
 </template>
@@ -41,37 +41,38 @@
 <script>
 export default {
   name: "myDropDown",
-  methods:{
-    addFontSize(){
+  methods: {
+    addFontSize() {
       this.$store.state.fontSize++;
-      console.log(this.$store.state.fontSize)
+      console.log(this.$store.state.fontSize);
     },
-    reduceFontSize(){
+    reduceFontSize() {
       this.$store.state.fontSize--;
-      console.log(this.$store.state.fontSize)
-    }
-  }
+      console.log(this.$store.state.fontSize);
+    },
+  },
 };
 </script>
 
 <style scoped>
-.dropDownContainer {
-  clear: both;
-  position: fixed;
-  background-color: #333;
-  width: 100%;
-  left: 0
-}
-.functionButton{
-  display: inline;
-  margin-left: 20px;
-}
-.functionButton button{
-  padding:0 10px 0 10px;
-  cursor: pointer;
-}
-.functionButton span{
-  color: white;
-  margin:0 10px 0 10px
-}
+  .dropDownContainer {
+    clear: both;
+    position: fixed;
+    background-color: #333;
+    width: 100%;
+    left: 0;
+  }
+  .functionButton {
+    display: inline;
+    margin-left: 20px;
+  }
+  .functionButton button {
+    padding: 0 10px 0 10px;
+    cursor: pointer;
+    background-color: rgb(14, 253, 22);
+  }
+  .functionButton span {
+    color: white;
+    margin: 0 10px 0 10px;
+  }
 </style>
