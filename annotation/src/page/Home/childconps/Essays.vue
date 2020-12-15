@@ -9,7 +9,7 @@
             annotation(0);
             choice = false;
           "
-        >关系
+          >关系
         </Button>
         <Button
           type="primary"
@@ -18,7 +18,7 @@
             annotation(1);
             choice = false;
           "
-        >名称
+          >名称
         </Button>
         <Button
           type="success"
@@ -27,7 +27,7 @@
             annotation(2);
             choice = false;
           "
-        >药物
+          >药物
         </Button>
         <Button
           type="warning"
@@ -36,12 +36,12 @@
             annotation(3);
             choice = false;
           "
-        >器械
+          >器械
         </Button>
       </div>
       <div slot="footer">
         <Button type="primary" size="large" @click="choice = false"
-        >取消
+          >取消
         </Button>
       </div>
     </Modal>
@@ -59,7 +59,7 @@
       @mouseup="getSelection()"
       class="input-content"
       :style="'font-size:' + $store.state.fontSize + 'px'"
-      v-html="inputContent"
+      v-html="$store.state.inputContent"
     ></pre>
   </div>
 </template>
@@ -69,18 +69,18 @@ export default {
   name: "Essays",
   data() {
     return {
-      selectText: "",
-      choice: false,
+      selectText: "", //?选中文本
+      choice: false, //?对话框的显隐
     };
   },
-  props: ["inputContent", "showDemo"],
+  props: ["showDemo"],
   methods: {
     //? 获取选中文本
     getSelection() {
       if (window.getSelection().toString() !== "") {
         this.choice = true;
         // this.$refs.essay.style.fontSize = '30px'
-        this.selectText = window.getSelection().toString()
+        this.selectText = window.getSelection().toString();
         this.$store.state.selectionText = window.getSelection().toString();
       }
     },
@@ -90,15 +90,17 @@ export default {
       let text = this.selectText;
       if (text.length > 0) {
         let values = (essay || "").innerHTML.split(text);
+
         let colorArray = ["red", "blue", "green", "orange"]; //?标注颜色
 
         essay.innerHTML = values.join(
           "<span style='background-color:" +
-          colorArray[index] +
-          "'>" +
-          text +
-          "</span>"
+            colorArray[index] +
+            "'>" +
+            text +
+            "</span>"
         );
+
         this.$emit("showAnnotations", index, text);
       }
     },
@@ -107,14 +109,14 @@ export default {
 </script>
 
 <style scoped>
-.input-content {
-  overflow: auto;
-  flex: auto;
-  min-height: 1000px;
-  max-height: 1000px;
-  margin-top: 40px;
-  line-height: 2em;
-  white-space: pre-line;
-  word-break: break-all;
-}
+  .input-content {
+    overflow: auto;
+    flex: auto;
+    min-height: 1000px;
+    max-height: 1000px;
+    margin-top: 40px;
+    line-height: 2em;
+    white-space: pre-line;
+    word-break: break-all;
+  }
 </style>

@@ -8,7 +8,7 @@
       href="https://github.com/Syngou/annotation.git"
       target="_blank"
       rel="opener referrer"
-    >Github</a
+      >Github</a
     >
     <a href="#" @click="pasteContentModal = true">输入文本</a>
     <a href="#" @click="outputContent">输出文本</a>
@@ -56,7 +56,7 @@
         style="display: flex; justify-content: center; align-items: center"
       >
         <Button type="primary" @click="handleSubmit('formInline')"
-        >登录
+          >登录
         </Button>
       </div>
     </Modal>
@@ -156,7 +156,7 @@ export default {
 
     pasteContent() {
       this.pasteContentModal = false;
-      this.$emit("pasteContent", this.$refs.inputContentId.value);
+      this.$store.state.inputContent = this.$refs.inputContentId.value;
     },
 
     outputContent() {
@@ -197,48 +197,48 @@ export default {
 </script>
 
 <style scoped>
-.title {
-  margin-left: 30px;
-  color: red;
-  font-size: 22px;
-}
+  .title {
+    margin-left: 30px;
+    color: red;
+    font-size: 22px;
+  }
 
-/* 导航条 */
-.topNavigation {
-  position: fixed;
-  top: 0;
-  overflow: hidden;
-  width: 100%;
-  padding-right: 20px;
-  background-color: #333;
-}
+  /* 导航条 */
+  .topNavigation {
+    position: fixed;
+    top: 0;
+    overflow: hidden;
+    width: 100%;
+    padding-right: 20px;
+    background-color: #333;
+  }
 
-/* 导航条链接 */
-.topNavigation a {
-  display: inline-block;
-  padding: 14px 16px;
-  background-color: #333;
-  color: #f2f2f2;
-  text-align: center;
-  text-decoration: none;
-}
+  /* 导航条链接 */
+  .topNavigation a {
+    display: inline-block;
+    padding: 14px 16px;
+    background-color: #333;
+    color: #f2f2f2;
+    text-align: center;
+    text-decoration: none;
+  }
 
-/* 链接颜色修改 */
-.topNavigation a:hover {
-  background-color: #ddd;
-  color: black;
-}
+  /* 链接颜色修改 */
+  .topNavigation a:hover {
+    background-color: #ddd;
+    color: black;
+  }
 
-#loginBox {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-}
+  #loginBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
 
-textarea {
-  width: 100%;
-  height: 250px;
-  font-size: 20px;
-}
+  textarea {
+    width: 100%;
+    height: 250px;
+    font-size: 20px;
+  }
 </style>

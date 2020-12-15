@@ -42,6 +42,7 @@
 export default {
   name: "myDropDown",
   methods: {
+    //?增减字体大小
     addFontSize() {
       this.$store.state.fontSize++;
       console.log(this.$store.state.fontSize);
