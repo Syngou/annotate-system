@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import dropDown from "@/page/Home/childconps/MyDropDown";
+import dropDown from "@/page/Home/childconps/FunctionBar";
 export default {
   name: "User",
   components: {

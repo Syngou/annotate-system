@@ -4,12 +4,6 @@
     <a href="#" @click="introduceModal = true">功能介绍</a>
     <a href="#" @click="uploadModal = true">上传文件</a>
     <!--  BUG 报错是什么意思？？？ -->
-    <a
-      href="https://github.com/Syngou/annotation.git"
-      target="_blank"
-      rel="opener referrer"
-      >Github</a
-    >
     <a href="#" @click="pasteContentModal = true">输入文本</a>
     <a href="#" @click="outputContent">输出文本</a>
     <a href="#" style="float: right" @click="loginModal = true">登录</a>

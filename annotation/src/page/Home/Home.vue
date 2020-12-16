@@ -8,7 +8,7 @@
         <div class="card">
           <!--?                                  下拉菜单                                   -->
           <!--                          TODO:超级拖拽，显示行数,快捷键标记                      -->
-          <MyDropDown />
+          <FunctionBar />
           <!--                            文本                                        -->
           <div>
             <Essays @showAnnotations="showAnnotations" />
@@ -30,7 +30,7 @@
 <script>
 import { enable as enableDarkMode } from "darkreader";
 import Essays from "./childconps/Essays";
-import MyDropDown from "./childconps/MyDropDown";
+import FunctionBar from "./childconps/FunctionBar";
 import RightColumn from "./childconps/RightColumn";
 import TopNavigation from "./childconps/TopNavigation";
 
@@ -44,7 +44,7 @@ export default {
   name: "Home",
   components: {
     Essays,
-    MyDropDown,
+     FunctionBar,
     RightColumn,
     TopNavigation,
   },
