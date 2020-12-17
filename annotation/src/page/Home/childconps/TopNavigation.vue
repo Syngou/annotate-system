@@ -102,6 +102,8 @@
 </template>
 
 <script>
+import { request } from "../../../network/request";
+
 import {
   disable as disableDarkMode,
   enable as enableDarkMode,
@@ -173,18 +175,25 @@ export default {
       }
     },
     handleSubmit(name) {
-      this.$refs[name].validate(() => {
-        if (
-          this.formInline.user === "Syngou" &&
-          this.formInline.password === "hello"
-        ) {
-          this.$router.push("/user");
-          this.loginModal = false;
-          this.$Message.success("登录成功");
-        } else {
-          this.$Message.error("账号或密码错误");
-        }
-      });
+      request({
+        url: "/Login.json",
+      }).then(
+        (res) => {
+          this.$refs[name].validate(() => {
+            if (
+              this.formInline.user === res.data.data.user &&
+              this.formInline.password === res.data.data.password
+            ) {
+              this.$router.push("/user");
+              this.loginModal = false;
+              this.$Message.success("登录成功");
+            } else {
+              this.$Message.error("账号或密码错误");
+            }
+          });
+        },
+        (err) => console.log(err)
+      );
     },
   },
 };

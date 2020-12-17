@@ -38,6 +38,7 @@
           "
           >器械
         </Button>
+        <Button type="info" long @click="translate">翻译</Button>
       </div>
       <div slot="footer">
         <Button type="primary" size="large" @click="choice = false"
@@ -103,6 +104,10 @@ export default {
 
         this.$emit("showAnnotations", index, text);
       }
+    },
+    translate() {
+      this.choice = false;
+      this.$Message.info("功能正在开发");
     },
   },
 };
