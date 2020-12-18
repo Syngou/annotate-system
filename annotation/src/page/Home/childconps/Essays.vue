@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="position: absolute; width: 100px" v-show="isshow" ref="isshow">
+    <div style="position: absolute; width: 100px" v-show="showDialog" ref="showDialog">
       <Button type="error" @click="annotation(0)">关系 </Button>
       <Button type="primary" @click="annotation(1)">名称 </Button>
       <Button type="success" @click="annotation(2)">药物 </Button>
@@ -31,17 +31,18 @@ export default {
   name: "Essays",
   data() {
     return {
-      isshow: false, //?
+      showDialog: false, //?显示对话框
       selectText: "", //?选中文本
       choice: false, //?对话框的显隐
     };
   },
   methods: {
+    //? 在鼠标位置弹出对话框
     showSelectBox(X, Y) {
       this.$refs.isshow.style.left = X + 10 + "px";
       this.$refs.isshow.style.top = Y + 10 + "px";
       this.$refs.isshow.style.display = "block";
-      this.isshow = true;
+      this.showDialog = true;
     },
 
     //? 获取选中文本
@@ -63,7 +64,7 @@ export default {
         "height:20px;text-align:center;line-height:20px;margin-right:5px;cursor:pointer;background-color:" +
         colorArray[index];
 
-      this.isshow = false;
+      this.showDialog = false;
 
       if (text.length > 0) {
         let values = (essay || "").innerHTML.split(text);
