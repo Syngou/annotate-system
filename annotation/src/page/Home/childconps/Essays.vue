@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div style="position: absolute; width: 100px" v-show="showDialog" ref="showDialog">
+    <div
+      style="position: absolute; width: 100px"
+      v-show="showDialog"
+      ref="showDialog"
+    >
       <Button type="error" @click="annotation(0)">关系 </Button>
       <Button type="primary" @click="annotation(1)">名称 </Button>
       <Button type="success" @click="annotation(2)">药物 </Button>
@@ -39,9 +43,9 @@ export default {
   methods: {
     //? 在鼠标位置弹出对话框
     showSelectBox(X, Y) {
-      this.$refs.isshow.style.left = X + 10 + "px";
-      this.$refs.isshow.style.top = Y + 10 + "px";
-      this.$refs.isshow.style.display = "block";
+      this.$refs.showDialog.style.left = X + 10 + "px";
+      this.$refs.showDialog.style.top = Y + 10 + "px";
+      this.$refs.showDialog.style.display = "block";
       this.showDialog = true;
     },
 
@@ -60,10 +64,21 @@ export default {
       let colorArray = ["red", "blue", "green", "orange"]; //?标注颜色
       let essay = this.$refs.essay;
       let text = this.selectText;
+      //?按钮样式
       let buttonStyle =
-        "height:20px;text-align:center;line-height:20px;margin-right:5px;cursor:pointer;background-color:" +
+        `height:20px;
+        text-align:center;
+        line-height:20px;
+        margin-right:5px;
+        margin-left:5px;
+        cursor:pointer;
+        background-color:` +
         colorArray[index];
-
+      //?标注文本样式
+      let annotatedTestStyle =
+        `;border: 3px solid;
+      border-radius: 10px;
+      padding: 0 5px 0 3px;`
       this.showDialog = false;
 
       if (text.length > 0) {
@@ -71,20 +86,22 @@ export default {
 
         essay.innerHTML = values.join(
           "<span style='background-color:" +
-            colorArray[index] +
+            colorArray[index] + annotatedTestStyle +
             "'>" +
             text +
-            "</span><span><input style=" +
+            "<input style='" +
             buttonStyle +
-            " type='button' value='*'/></span>"
+            "' type='button' value='*' id='test'/></span>"
         );
 
         this.$emit("showAnnotations", index, text);
       }
     },
+    //?翻译
     translate() {
       this.choice = false;
       this.$Message.info("功能正在开发");
+      console.log(document.getElementById('test'));
     },
   },
 };
