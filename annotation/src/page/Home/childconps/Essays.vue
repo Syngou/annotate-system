@@ -1,54 +1,15 @@
 <template>
   <div>
-    <Modal v-model="choice" :mask-closable="false" :closable="false">
-      <div class="choiceModal">
-        <Button
-          type="error"
-          long
-          @click="
-            annotation(0);
-            choice = false;
-          "
-          >关系
-        </Button>
-        <Button
-          type="primary"
-          long
-          @click="
-            annotation(1);
-            choice = false;
-          "
-          >名称
-        </Button>
-        <Button
-          type="success"
-          long
-          @click="
-            annotation(2);
-            choice = false;
-          "
-          >药物
-        </Button>
-        <Button
-          type="warning"
-          long
-          @click="
-            annotation(3);
-            choice = false;
-          "
-          >器械
-        </Button>
-        <Button type="info" long @click="translate">翻译</Button>
-      </div>
-      <div slot="footer">
-        <Button type="primary" size="large" @click="choice = false"
-          >取消
-        </Button>
-      </div>
-    </Modal>
-    <!-- ---------------------------------------------------------------------------------- -->
-    <!--                        拾色器 按钮                                                 -->
-    <!-- ---------------------------------------------------------------------------------- -->
+    <div style="position: absolute; width: 100px" v-show="isshow" ref="isshow">
+      <Button type="error" @click="annotation(0)">关系 </Button>
+      <Button type="primary" @click="annotation(1)">名称 </Button>
+      <Button type="success" @click="annotation(2)">药物 </Button>
+      <Button type="warning" @click="annotation(3)">器械 </Button>
+      <Button type="info" @click="translate">翻译</Button>
+    </div>
+    <div slot="footer">
+      <Button type="primary" size="large" @click="choice = false">取消 </Button>
+    </div>
 
     <!-- ----------------------------------------------------------------------- -->
     <!--?                                   文本框                                     -->
@@ -57,7 +18,7 @@
 
     <pre
       ref="essay"
-      @mouseup="getSelection()"
+      @mouseup="getSelection($event)"
       class="input-content"
       :style="'font-size:' + $store.state.fontSize + 'px'"
       v-html="$store.state.inputContent"
@@ -70,36 +31,51 @@ export default {
   name: "Essays",
   data() {
     return {
+      isshow: false, //?
       selectText: "", //?选中文本
       choice: false, //?对话框的显隐
     };
   },
-  props: ["showDemo"],
   methods: {
+    showSelectBox(X, Y) {
+      this.$refs.isshow.style.left = X + 10 + "px";
+      this.$refs.isshow.style.top = Y + 10 + "px";
+      this.$refs.isshow.style.display = "block";
+      this.isshow = true;
+    },
+
     //? 获取选中文本
-    getSelection() {
+    getSelection(e) {
+      console.log(e.clientX);
+
       if (window.getSelection().toString() !== "") {
-        this.choice = true;
-        // this.$refs.essay.style.fontSize = '30px'
+        this.showSelectBox(e.clientX, e.clientY);
         this.selectText = window.getSelection().toString();
         this.$store.state.selectionText = window.getSelection().toString();
       }
     },
     // ?标注
     annotation(index) {
+      let colorArray = ["red", "blue", "green", "orange"]; //?标注颜色
       let essay = this.$refs.essay;
       let text = this.selectText;
+      let buttonStyle =
+        "height:20px;text-align:center;line-height:20px;margin-right:5px;cursor:pointer;background-color:" +
+        colorArray[index];
+
+      this.isshow = false;
+
       if (text.length > 0) {
         let values = (essay || "").innerHTML.split(text);
-
-        let colorArray = ["red", "blue", "green", "orange"]; //?标注颜色
 
         essay.innerHTML = values.join(
           "<span style='background-color:" +
             colorArray[index] +
             "'>" +
             text +
-            "</span>"
+            "</span><span><input style=" +
+            buttonStyle +
+            " type='button' value='*'/></span>"
         );
 
         this.$emit("showAnnotations", index, text);

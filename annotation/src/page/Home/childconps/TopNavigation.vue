@@ -213,6 +213,7 @@ export default {
     overflow: hidden;
     width: 100%;
     padding-right: 20px;
+    z-index: 50;
     background-color: #333;
   }
 
