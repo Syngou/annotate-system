@@ -9,9 +9,16 @@
     <a href="#" style="float: right" @click="loginModal = true">登录</a>
     <span
       style="float: right; margin-top: 12px; color: #fff"
-      @click="toggledMode"
+      @click="toggleMode"
     >
       {{ mode }}
+      <i-switch true-color="#13ce66" false-color="blue"></i-switch>
+    </span>
+    <span
+      style="float: right; margin-top: 12px; color: #fff"
+      @click="toggleAnnotateMode"
+    >
+      {{ $store.state.annotateMode }}
       <i-switch true-color="#13ce66" false-color="blue"></i-switch>
     </span>
     <!-- ------------------------------------------------------------------------------------- -->
@@ -158,9 +165,18 @@ export default {
     outputContent() {
       this.$Message.info("功能正在开发...");
     },
+
+    // 选择，按键标注切换
+    toggleAnnotateMode() {
+      if (this.$store.state.annotateMode === "选择标注") {
+        this.$store.state.annotateMode = "按键标注";
+      } else {
+        this.$store.state.annotateMode = "选择标注";
+      }
+    },
     //     日，夜间模式 切换
 
-    toggledMode() {
+    toggleMode() {
       if (this.mode === "日间模式") {
         enableDarkMode({
           brightness: 150,

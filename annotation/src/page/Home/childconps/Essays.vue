@@ -43,6 +43,13 @@ export default {
       selectText: "", // 选中文本
     };
   },
+  // 键盘标注，拟开发
+  created() {
+    document.onkeydown = () => {
+      let key = window.event.keyCode;
+      console.log(key);
+    };
+  },
   methods: {
     //  在鼠标位置弹出对话框  TODO：加上滚动距离
     showSelectBox(X, Y) {
@@ -55,7 +62,9 @@ export default {
     //  获取选中文本
     getSelection(e) {
       if (window.getSelection().toString() !== "") {
-        this.showSelectBox(e.clientX, e.clientY);
+        if (this.$store.state.annotateMode === "选择标注") {
+          this.showSelectBox(e.clientX, e.clientY);
+        }
         this.selectText = window.getSelection().toString();
         this.$store.state.selectionText = window.getSelection().toString();
       }
@@ -84,13 +93,13 @@ export default {
         let values = (essay || "").innerHTML.split(text);
         essay.innerHTML = values.join(
           "<span style='background-color:" +
-          colorArray[index] +
-          annotatedTestStyle +
-          "'>" +
-          text +
-          "<input style='" +
-          buttonStyle +
-          "' type='button' value='*' id='test'/></span>"
+            colorArray[index] +
+            annotatedTestStyle +
+            "'>" +
+            text +
+            "<input style='" +
+            buttonStyle +
+            "' type='button' value='*' id='test'/></span>"
         );
 
         this.$emit("showAnnotations", index, text);
@@ -106,14 +115,14 @@ export default {
 </script>
 
 <style scoped>
-.input-content {
-  overflow: auto;
-  flex: auto;
-  min-height: 1000px;
-  max-height: 1000px;
-  margin-top: 40px;
-  line-height: 2em;
-  white-space: pre-line;
-  word-break: break-all;
-}
+  .input-content {
+    overflow: auto;
+    flex: auto;
+    min-height: 1000px;
+    max-height: 1000px;
+    margin-top: 40px;
+    line-height: 2em;
+    white-space: pre-line;
+    word-break: break-all;
+  }
 </style>
