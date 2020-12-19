@@ -79,7 +79,7 @@ export default {
     };
   },
   methods: {
-    //? 同步文本和数字
+    //  同步文本和数字
     showAnnotations(index, text) {
       switch (index) {
         case 0: {
@@ -122,5 +122,4 @@ export default {
     white-space: pre-line;
     word-break: break-all;
   }
-
 </style>

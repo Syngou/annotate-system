@@ -1,22 +1,26 @@
 <template>
   <div>
+    <!-- ------------------------------------------------------------------------------------- -->
+    <!--    TODO: 获取滚轮滚动距离，保证对话框弹出位置准确,但是有两个滚轮，需要考虑用哪个                   -->
+    <!-- --------------------------------------------------------------------------------------- -->
+
     <div
       style="position: absolute; width: 100px"
       v-show="showDialog"
       ref="showDialog"
     >
-      <Button type="error" @click="annotation(0)">关系 </Button>
-      <Button type="primary" @click="annotation(1)">名称 </Button>
-      <Button type="success" @click="annotation(2)">药物 </Button>
-      <Button type="warning" @click="annotation(3)">器械 </Button>
+      <Button type="error" @click="annotation(0)">关系</Button>
+      <Button type="primary" @click="annotation(1)">名称</Button>
+      <Button type="success" @click="annotation(2)">药物</Button>
+      <Button type="warning" @click="annotation(3)">器械</Button>
       <Button type="info" @click="translate">翻译</Button>
     </div>
     <div slot="footer">
-      <Button type="primary" size="large" @click="choice = false">取消 </Button>
+      <Button type="primary" size="large" @click="choice = false">取消</Button>
     </div>
 
     <!-- ----------------------------------------------------------------------- -->
-    <!--?                                   文本框                                     -->
+    <!--                                    文本框                                     -->
     <!--                              TODO: 快捷键标注颜色                              -->
     <!-- ----------------------------------------------------------------------- -->
 
@@ -35,13 +39,12 @@ export default {
   name: "Essays",
   data() {
     return {
-      showDialog: false, //?显示对话框
-      selectText: "", //?选中文本
-      choice: false, //?对话框的显隐
+      showDialog: false, // 显示对话框
+      selectText: "", // 选中文本
     };
   },
   methods: {
-    //? 在鼠标位置弹出对话框
+    //  在鼠标位置弹出对话框  TODO：加上滚动距离
     showSelectBox(X, Y) {
       this.$refs.showDialog.style.left = X + 10 + "px";
       this.$refs.showDialog.style.top = Y + 10 + "px";
@@ -49,22 +52,21 @@ export default {
       this.showDialog = true;
     },
 
-    //? 获取选中文本
+    //  获取选中文本
     getSelection(e) {
-      console.log(e.clientX);
-
       if (window.getSelection().toString() !== "") {
         this.showSelectBox(e.clientX, e.clientY);
         this.selectText = window.getSelection().toString();
         this.$store.state.selectionText = window.getSelection().toString();
       }
     },
-    // ?标注
+    //  标注
     annotation(index) {
-      let colorArray = ["red", "blue", "green", "orange"]; //?标注颜色
+      let colorArray = ["red", "blue", "green", "orange"]; // 标注颜色
       let essay = this.$refs.essay;
       let text = this.selectText;
-      //?按钮样式
+
+      // 按钮样式   TODO：样式美化
       let buttonStyle =
         `height:20px;
         text-align:center;
@@ -72,21 +74,18 @@ export default {
         margin-right:5px;
         margin-left:5px;
         cursor:pointer;
-        background-color:` +
-        colorArray[index];
-      //?标注文本样式
-      let annotatedTestStyle =
-        `;border: 3px solid;
+        background-color:` + colorArray[index];
+      // 标注文本样式
+      let annotatedTestStyle = `;border: 3px solid;
       border-radius: 10px;
-      padding: 0 5px 0 3px;`
+      padding: 0 5px 0 3px;`;
       this.showDialog = false;
-
       if (text.length > 0) {
         let values = (essay || "").innerHTML.split(text);
-
         essay.innerHTML = values.join(
           "<span style='background-color:" +
-            colorArray[index] + annotatedTestStyle +
+            colorArray[index] +
+            annotatedTestStyle +
             "'>" +
             text +
             "<input style='" +
@@ -97,11 +96,11 @@ export default {
         this.$emit("showAnnotations", index, text);
       }
     },
-    //?翻译
+    // 翻译  TODO：等待接口
     translate() {
-      this.choice = false;
+      this.showDialog = false;
       this.$Message.info("功能正在开发");
-      console.log(document.getElementById('test'));
+      console.log(document.getElementById("test"));
     },
   },
 };

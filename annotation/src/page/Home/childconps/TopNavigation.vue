@@ -118,12 +118,12 @@ export default {
   name: "TopNavigation",
   data() {
     return {
-      loginModal: false, //?登录提示模块
-      introduceModal: false, //?介绍提示模块
-      pasteContentModal: false, //?粘贴文本
-      uploadModal: false, //?上传文件
+      loginModal: false, // 登录提示模块
+      introduceModal: false, // 介绍提示模块
+      pasteContentModal: false, // 粘贴文本
+      uploadModal: false, // 上传文件
       mode: "夜间模式",
-      //?登录表单内容
+      // 登录表单内容
       formInline: {
         user: "",
         password: "",
@@ -148,7 +148,7 @@ export default {
     };
   },
   methods: {
-    //?            粘贴文本
+    //             粘贴文本
 
     pasteContent() {
       this.pasteContentModal = false;
@@ -158,7 +158,7 @@ export default {
     outputContent() {
       this.$Message.info("功能正在开发...");
     },
-    //?    日，夜间模式 切换
+    //     日，夜间模式 切换
 
     toggledMode() {
       if (this.mode === "日间模式") {
@@ -174,6 +174,7 @@ export default {
         disableDarkMode();
       }
     },
+    //  登录，请求本地json
     handleSubmit(name) {
       request({
         url: "/Login.json",

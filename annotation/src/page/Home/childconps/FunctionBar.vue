@@ -1,5 +1,7 @@
 <template>
   <div class="dropDownContainer">
+    <!--    TODO : 样式的命名，class类的命名-->
+
     <Dropdown style="margin-left: 20px; margin-top: 20px">
       <a href="javascript:void(0)">
         功能
@@ -42,7 +44,7 @@
 export default {
   name: "myDropDown",
   methods: {
-    //?增减字体大小
+    // 增减字体大小
     addFontSize() {
       this.$store.state.fontSize++;
       console.log(this.$store.state.fontSize);
@@ -62,16 +64,20 @@ export default {
     background-color: #333;
     width: 100%;
     left: 0;
+    z-index: 50;
   }
+
   .functionButton {
     display: inline;
     margin-left: 20px;
   }
+
   .functionButton button {
     padding: 0 10px 0 10px;
     cursor: pointer;
     background-color: rgb(14, 253, 22);
   }
+
   .functionButton span {
     color: white;
     margin: 0 10px 0 10px;

@@ -1,12 +1,12 @@
 <template>
-  <!--?                                导航栏                                   -->
+  <!--                                 导航栏                                   -->
   <div id="app">
     <TopNavigation />
-    <!--?                                   左栏                                    -->
+    <!--                                    左栏                                    -->
     <div class="row">
       <div class="leftColumn">
         <div class="card">
-          <!--?                                  下拉菜单                                   -->
+          <!--                                   下拉菜单                                   -->
           <!--                          TODO:超级拖拽，显示行数,快捷键标记                      -->
           <FunctionBar />
           <!--                            文本                                        -->
@@ -15,7 +15,7 @@
           </div>
         </div>
       </div>
-      <!--?                                   右栏                                    -->
+      <!--                                    右栏                                    -->
       <div class="rightColumn">
         <!--            TODO:当文本更改时，将右栏标注文本清空                       -->
         <RightColumn ref="rightColumn" />
@@ -44,7 +44,7 @@ export default {
   name: "Home",
   components: {
     Essays,
-     FunctionBar,
+    FunctionBar,
     RightColumn,
     TopNavigation,
   },
