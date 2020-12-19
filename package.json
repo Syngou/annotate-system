@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@vue-a11y/dark-mode": "^1.1.1",
-    "axios": "^0.21.0"
-  }
-}
