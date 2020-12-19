@@ -84,13 +84,13 @@ export default {
         let values = (essay || "").innerHTML.split(text);
         essay.innerHTML = values.join(
           "<span style='background-color:" +
-            colorArray[index] +
-            annotatedTestStyle +
-            "'>" +
-            text +
-            "<input style='" +
-            buttonStyle +
-            "' type='button' value='*' id='test'/></span>"
+          colorArray[index] +
+          annotatedTestStyle +
+          "'>" +
+          text +
+          "<input style='" +
+          buttonStyle +
+          "' type='button' value='*' id='test'/></span>"
         );
 
         this.$emit("showAnnotations", index, text);
@@ -100,21 +100,20 @@ export default {
     translate() {
       this.showDialog = false;
       this.$Message.info("功能正在开发");
-      console.log(document.getElementById("test"));
     },
   },
 };
 </script>
 
 <style scoped>
-  .input-content {
-    overflow: auto;
-    flex: auto;
-    min-height: 1000px;
-    max-height: 1000px;
-    margin-top: 40px;
-    line-height: 2em;
-    white-space: pre-line;
-    word-break: break-all;
-  }
+.input-content {
+  overflow: auto;
+  flex: auto;
+  min-height: 1000px;
+  max-height: 1000px;
+  margin-top: 40px;
+  line-height: 2em;
+  white-space: pre-line;
+  word-break: break-all;
+}
 </style>
