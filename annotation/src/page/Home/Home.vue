@@ -27,17 +27,10 @@
 
 
 <script>
-import { enable as enableDarkMode } from "darkreader";
 import Essays from "./childconps/Essays";
 import FunctionBar from "./childconps/FunctionBar";
 import RightColumn from "./childconps/RightColumn";
 import TopNavigation from "./childconps/TopNavigation";
-
-enableDarkMode({
-  brightness: 150,
-  contrast: 90,
-  sepia: 0,
-});
 
 export default {
   name: "Home",

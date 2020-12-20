@@ -2,19 +2,14 @@
   <div>
     <p>{{ greeting }}</p>
     <br />
-    <div style="margin-left: 100px">
-      <dropDown></dropDown>
-    </div>
+    <div style="margin-left: 100px"></div>
   </div>
 </template>
 
 <script>
-import dropDown from "@/page/Home/childconps/FunctionBar";
 export default {
   name: "User",
-  components: {
-    dropDown,
-  },
+
   data() {
     return {
       greeting: "Hello,这里是登录页面",

@@ -14,13 +14,7 @@
       {{ mode }}
       <i-switch true-color="#13ce66" false-color="blue"></i-switch>
     </span>
-    <span
-      style="float: right; margin-top: 12px; color: #fff"
-      @click="toggleAnnotateMode"
-    >
-      {{ $store.state.annotateMode }}
-      <i-switch true-color="#13ce66" false-color="blue"></i-switch>
-    </span>
+
     <!-- ------------------------------------------------------------------------------------- -->
     <!--                                     登录模块                                             -->
     <!-- --------------------------------------------------------------------------------------- -->
@@ -66,6 +60,10 @@
     <!-- --------------------------------------------------------------------------------------- -->
     <Modal v-model="introduceModal" title="功能介绍" :mask-closable="false">
       <p>按下鼠标，滑过文本，松开，即可标注文本,右栏实时显示标注的文本</p>
+      <br />
+      <p>也可以选择使用快捷键标注：对应快捷键：</p>
+      <br />
+      <p>红：r(red);蓝：b(blue);绿：g(green);橙：o(orange)</p>
       <div
         slot="footer"
         style="display: flex; justify-content: center; align-items: center"
@@ -116,11 +114,6 @@ import {
   enable as enableDarkMode,
 } from "darkreader";
 
-enableDarkMode({
-  brightness: 150,
-  contrast: 90,
-  sepia: 0,
-});
 export default {
   name: "TopNavigation",
   data() {
@@ -129,7 +122,7 @@ export default {
       introduceModal: false, // 介绍提示模块
       pasteContentModal: false, // 粘贴文本
       uploadModal: false, // 上传文件
-      mode: "夜间模式",
+      mode: "日间模式",
       // 登录表单内容
       formInline: {
         user: "",
@@ -166,14 +159,6 @@ export default {
       this.$Message.info("功能正在开发...");
     },
 
-    // 选择，按键标注切换
-    toggleAnnotateMode() {
-      if (this.$store.state.annotateMode === "选择标注") {
-        this.$store.state.annotateMode = "按键标注";
-      } else {
-        this.$store.state.annotateMode = "选择标注";
-      }
-    },
     //     日，夜间模式 切换
 
     toggleMode() {

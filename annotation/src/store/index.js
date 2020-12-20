@@ -7,7 +7,6 @@ const store = new Vuex.Store({
     state: {
         selectionText: "", //选中的文本
         fontSize: 16, //初始字体大小
-        annotateMode: "选择标注",
 
         //右栏列表 TODO:右栏数据应该从这里获取，不用经过home了
         relationsList: [],
