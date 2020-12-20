@@ -3,11 +3,13 @@
     <div class="card" style="margin-top: 100px">
       <h1>
         关系
-        <span style="color: red">共 {{ relationsList.length }} 个</span>
+        <span style="color: red"
+        >共 {{ $store.state.relationsList.length }} 个</span
+        >
       </h1>
       <ol class="scroll-box">
         <li
-          v-for="(relationItem, index) in relationsList"
+          v-for="(relationItem, index) in $store.state.relationsList"
           :key="relationItem"
           style="color: red; line-height: normal"
         >
@@ -18,12 +20,14 @@
     <div class="card">
       <h1>
         疾病名称
-        <span style="color: blue">共 {{ nameList.length }} 个</span>
+        <span style="color: blue"
+        >共 {{ $store.state.nameList.length }} 个</span
+        >
       </h1>
 
       <ol class="scroll-box">
         <li
-          v-for="(nameItem, index) in nameList"
+          v-for="(nameItem, index) in $store.state.nameList"
           :key="nameItem"
           style="color: blue"
         >
@@ -34,12 +38,14 @@
     <div class="card">
       <h1>
         药物
-        <span style="color: green">共 {{ medicineList.length }} 个</span>
+        <span style="color: green"
+        >共 {{ $store.state.medicineList.length }} 个</span
+        >
       </h1>
 
       <ol class="scroll-box">
         <li
-          v-for="(medicineItem, index) in medicineList"
+          v-for="(medicineItem, index) in $store.state.medicineList"
           :key="medicineItem"
           style="color: green"
         >
@@ -50,12 +56,14 @@
     <div class="card">
       <h1>
         医疗器械
-        <span style="color: orange">共 {{ toolsList.length }} 个</span>
+        <span style="color: orange"
+        >共 {{ $store.state.toolsList.length }} 个</span
+        >
       </h1>
 
       <ol class="scroll-box">
         <li
-          v-for="(toolItem, index) in toolsList"
+          v-for="(toolItem, index) in $store.state.toolsList"
           :key="toolItem"
           style="color: orange"
         >
@@ -70,56 +78,54 @@
 export default {
   name: "RightColumn",
   props: ["index"],
-  data() {
-    return {
-      relationsList: [],
-      nameList: [],
-      medicineList: [],
-      toolsList: [],
-    };
+  mounted() {
+    //  同步文本和数字
+    this.$bus.$on("showAnnotations", this.showAnnotations)
   },
   methods: {
-    //  同步文本和数字
-    showAnnotations(index, text) {
+    showAnnotations(index) {
+      let text = this.$store.state.selectionText;
       switch (index) {
         case 0: {
-          this.relationsList.push(text);
+          this.$store.state.relationsList.push(text);
 
           break;
         }
         case 1: {
-          this.nameList.push(text);
+          this.$store.state.nameList.push(text);
 
           break;
         }
         case 2: {
-          this.medicineList.push(text);
+          this.$store.state.medicineList.push(text);
 
           break;
         }
         case 3: {
-          this.toolsList.push(text);
+          this.$store.state.toolsList.push(text);
           break;
         }
       }
-    },
-  },
-};
+    }
+  }
+
+}
+
 </script>
 
 <style scoped>
-  /* 文章卡片效果 */
-  .card {
-    margin-top: 20px;
-    padding: 20px;
-  }
+/* 文章卡片效果 */
+.card {
+  margin-top: 20px;
+  padding: 20px;
+}
 
-  .scroll-box {
-    overflow: auto;
-    flex: auto;
-    min-height: 124px;
-    max-height: 124px;
-    white-space: pre-line;
-    word-break: break-all;
-  }
+.scroll-box {
+  overflow: auto;
+  flex: auto;
+  min-height: 124px;
+  max-height: 124px;
+  white-space: pre-line;
+  word-break: break-all;
+}
 </style>

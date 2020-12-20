@@ -153,6 +153,10 @@ export default {
     pasteContent() {
       this.pasteContentModal = false;
       this.$store.state.inputContent = this.$refs.inputContentId.value;
+      this.$store.state.nameList = [];
+      this.$store.state.relationsList = [];
+      this.$store.state.medicineList = [];
+      this.$store.state.toolsList = [];
     },
 
     outputContent() {

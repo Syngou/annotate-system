@@ -8,7 +8,6 @@ const store = new Vuex.Store({
         selectionText: "", //选中的文本
         fontSize: 16, //初始字体大小
 
-        //右栏列表 TODO:右栏数据应该从这里获取，不用经过home了
         relationsList: [],
         nameList: [],
         medicineList: [],

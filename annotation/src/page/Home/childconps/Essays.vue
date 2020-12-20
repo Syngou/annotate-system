@@ -66,9 +66,8 @@ export default {
     },
 
     annotateByKey() {
-      document.onkeydown = () => {
-        let keyCode = window.event.keyCode;
-        console.log(keyCode);
+      document.onkeydown = ($event) => {
+        let keyCode = $event.keyCode;
         switch (keyCode) {
           case 82: {
             this.annotation(0);
@@ -121,16 +120,15 @@ export default {
         let values = (essay || "").innerHTML.split(text);
         essay.innerHTML = values.join(
           "<span style='background-color:" +
-            colorArray[index] +
-            annotatedTestStyle +
-            "'>" +
-            text +
-            "<button style='" +
-            buttonStyle +
-            "'  id='test'/>*</button></span>"
+          colorArray[index] +
+          annotatedTestStyle +
+          "'>" +
+          text +
+          "<button style='" +
+          buttonStyle +
+          "'  id='test'/>*</button></span>"
         );
-
-        this.$emit("showAnnotations", index, text);
+        this.$bus.$emit("showAnnotations", index);
       }
     },
     // 翻译  TODO：等待接口
@@ -143,14 +141,14 @@ export default {
 </script>
 
 <style scoped>
-  .input-content {
-    overflow: auto;
-    flex: auto;
-    min-height: 1000px;
-    max-height: 1000px;
-    margin-top: 40px;
-    line-height: 2em;
-    white-space: pre-line;
-    word-break: break-all;
-  }
+.input-content {
+  overflow: auto;
+  flex: auto;
+  min-height: 1000px;
+  max-height: 1000px;
+  margin-top: 40px;
+  line-height: 2em;
+  white-space: pre-line;
+  word-break: break-all;
+}
 </style>

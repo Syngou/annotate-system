@@ -1,0 +1,54 @@
+* {
+    box-sizing: border-box;
+    color: black;
+}
+
+p {
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+/* 创建两列 */
+
+/* Left column */
+.leftColumn {
+    float: left;
+    width: 75%;
+}
+
+/* 右侧栏 */
+.rightColumn {
+    float: left;
+    width: 25%;
+    padding-left: 20px;
+}
+
+/* 文章卡片效果 */
+.card {
+    margin-top: 20px;
+    padding: 20px;
+}
+
+/* 列后面清除浮动 */
+.row:after {
+    display: table;
+    content: "";
+    clear: both;
+}
+
+/* 响应式布局 - 屏幕尺寸小于 800px 时，两列布局改为上下布局 */
+@media screen and (max-width: 800px) {
+    .leftColumn,
+    .rightColumn {
+        width: 100%;
+        padding: 0;
+    }
+}
+
+/* 响应式布局 -屏幕尺寸小于 400px 时，导航等布局改为上下布局 */
+@media screen and (max-width: 400px) {
+    .topNavigation a {
+        float: none;
+        width: 100%;
+    }
+}
