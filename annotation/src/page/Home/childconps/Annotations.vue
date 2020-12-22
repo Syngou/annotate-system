@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="card" style="margin-top: 100px">
+  <div class="container">
+    <div class="annotation-card">
       <h1>
         关系
         <span style="color: red"
@@ -17,7 +17,7 @@
         </li>
       </ol>
     </div>
-    <div class="card">
+    <div class="annotation-card">
       <h1>
         疾病名称
         <span style="color: blue"
@@ -35,7 +35,7 @@
         </li>
       </ol>
     </div>
-    <div class="card">
+    <div class="annotation-card">
       <h1>
         药物
         <span style="color: green"
@@ -53,7 +53,7 @@
         </li>
       </ol>
     </div>
-    <div class="card">
+    <div class="annotation-card">
       <h1>
         医疗器械
         <span style="color: orange"
@@ -80,7 +80,7 @@ export default {
   props: ["index"],
   mounted() {
     //  同步文本和数字
-    this.$bus.$on("showAnnotations", this.showAnnotations)
+    this.$bus.$on("showAnnotations", this.showAnnotations);
   },
   methods: {
     showAnnotations(index) {
@@ -106,25 +106,26 @@ export default {
           break;
         }
       }
-    }
-  }
-
-}
-
+    },
+  },
+};
 </script>
 
 <style scoped>
-/* 文章卡片效果 */
-.card {
-  margin-top: 20px;
-  padding: 20px;
+.container {
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap
+}
+
+.annotation-card {
+  width: 50%;
 }
 
 .scroll-box {
   overflow: auto;
   flex: auto;
-  min-height: 124px;
-  max-height: 124px;
+  min-width: 45%;
   white-space: pre-line;
   word-break: break-all;
 }

@@ -1,14 +1,13 @@
 <template>
   <div>
     <TopNavigation/>
-    <div class="row">
-      <div class="leftColumn">
-        <div class="card">
-          <FunctionBar/>
-          <Essays/>
-        </div>
+    <ShowAnnotations></ShowAnnotations>
+    <div class="main-content">
+      <div class="card">
+        <FunctionBar/>
+        <Essays/>
+        <BackTop :duration="0" :bottom="70"></BackTop>
       </div>
-      <RightColumn ref="rightColumn" class="rightColumn"/>
     </div>
     <Footer></Footer>
   </div>
@@ -19,7 +18,7 @@
 import TopNavigation from "./childconps/TopNavigation";
 import FunctionBar from "./childconps/FunctionBar";
 import Essays from "./childconps/Essays";
-import RightColumn from "./childconps/RightColumn";
+import ShowAnnotations from "@/page/Home/childconps/ShowAnnotations";
 import Footer from "@/page/Home/childconps/Footer";
 
 export default {
@@ -28,11 +27,9 @@ export default {
     TopNavigation,
     FunctionBar,
     Essays,
-    RightColumn,
+    ShowAnnotations,
     Footer,
   },
-
-
 };
 </script>
 <style scoped>

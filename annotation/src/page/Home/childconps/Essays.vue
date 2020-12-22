@@ -45,7 +45,7 @@ export default {
   },
   // 键盘标注，拟开发
   created() {
-    this.annotateByKey();
+    this.annotateByShortcut();
   },
   methods: {
     //  在鼠标位置弹出对话框  TODO：加上滚动距离
@@ -59,13 +59,24 @@ export default {
     //  获取选中文本
     getSelection(e) {
       if (window.getSelection().toString() !== "") {
+        console.log(
+          window
+            .getSelection()
+            .getRangeAt(0)
+            .cloneRange()
+            .selectNodeContents(this.$el)
+        );
         this.selectText = window.getSelection().toString();
         this.$store.state.selectionText = window.getSelection().toString();
-        this.showSelectBox(e.clientX, e.clientY);
+        // 加上滚轮滚动距离才是y轴长度！！！
+        this.showSelectBox(
+          e.clientX,
+          e.clientY + document.documentElement.scrollTop
+        );
       }
     },
-
-    annotateByKey() {
+    //快捷键标注
+    annotateByShortcut() {
       document.onkeydown = ($event) => {
         let keyCode = $event.keyCode;
         switch (keyCode) {
@@ -99,15 +110,15 @@ export default {
       let text = this.selectText;
 
       // 按钮样式   TODO：样式美化
-      let buttonStyle =
-        `height:20px;
+      let buttonStyle = `height:20px;
+        width:20px;
         text-align:center;
         line-height:20px;
         border-radius:30px;
         margin-right:5px;
         margin-left:5px;
         cursor:pointer;
-        background-color:` + colorArray[index];
+        background-color:width`;
       // 标注文本样式
       let annotatedTestStyle =
         ";border:5px solid " +
@@ -120,13 +131,13 @@ export default {
         let values = (essay || "").innerHTML.split(text);
         essay.innerHTML = values.join(
           "<span style='background-color:" +
-          colorArray[index] +
-          annotatedTestStyle +
-          "'>" +
-          text +
-          "<button style='" +
-          buttonStyle +
-          "'  id='test'/>*</button></span>"
+            colorArray[index] +
+            annotatedTestStyle +
+            "'>" +
+            text +
+            "<button style='" +
+            buttonStyle +
+            "'  id='test'/>X</button></span>"
         );
         this.$bus.$emit("showAnnotations", index);
       }
@@ -141,14 +152,12 @@ export default {
 </script>
 
 <style scoped>
-.input-content {
-  overflow: auto;
-  flex: auto;
-  min-height: 1000px;
-  max-height: 1000px;
-  margin-top: 40px;
-  line-height: 2em;
-  white-space: pre-line;
-  word-break: break-all;
-}
+  .input-content {
+    overflow: auto;
+    flex: auto;
+    min-height: 1000px;
+    padding: 0 5% 0 5%;
+    white-space: pre-line;
+    word-break: break-all;
+  }
 </style>
