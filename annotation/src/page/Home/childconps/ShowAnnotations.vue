@@ -1,6 +1,10 @@
 <template>
   <div>
-    <Modal v-model="this.$store.state.showAnnotations" fullscreen>
+    <Modal
+      v-model="this.$store.state.showAnnotations"
+      fullscreen
+      :closable="false"
+    >
       <div>
         <Annotations></Annotations>
       </div>
@@ -8,9 +12,7 @@
         slot="footer"
         style="display: flex; justify-content: center; align-items: center"
       >
-        <Button type="primary" @click="buttonClick"
-        >确定
-        </Button>
+        <Button type="primary" @click="buttonClick">确定 </Button>
       </div>
     </Modal>
   </div>
@@ -26,12 +28,11 @@ export default {
   },
   methods: {
     buttonClick() {
-      this.$store.state.showAnnotations = false
-    }
-  }
-}
+      this.$store.state.showAnnotations = false;
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

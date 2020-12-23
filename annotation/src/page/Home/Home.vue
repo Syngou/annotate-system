@@ -1,13 +1,11 @@
 <template>
   <div>
-    <TopNavigation/>
+    <TopNavigation />
     <ShowAnnotations></ShowAnnotations>
-    <div class="main-content">
-      <div class="card">
-        <FunctionBar/>
-        <Essays/>
-        <BackTop :duration="0" :bottom="70"></BackTop>
-      </div>
+    <div class="card">
+      <FunctionBar />
+      <Essays />
+      <BackTop :duration="0" :bottom="70"></BackTop>
     </div>
     <Footer></Footer>
   </div>
@@ -33,5 +31,17 @@ export default {
 };
 </script>
 <style scoped>
-@import "../../assets/css/Home.css";
+  * {
+    box-sizing: border-box;
+    color: black;
+  }
+
+  p {
+    word-break: break-all;
+    word-wrap: break-word;
+  }
+  .card {
+    margin-top: 20px;
+    padding: 20px;
+  }
 </style>

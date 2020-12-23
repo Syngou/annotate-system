@@ -56,28 +56,32 @@ export default {
 </script>
 
 <style scoped>
-.dropDownContainer {
-  clear: both;
-  position: fixed;
-  background-color: #333;
-  width: 100%;
-  left: 0;
-  z-index: 50;
-}
+  .dropDownContainer {
+    clear: both;
+    position: fixed;
+    background-color: #333;
+    width: 100%;
+    left: 0;
+    z-index: 50;
+  }
 
-.functionButton {
-  display: inline;
-  margin-left: 20px;
-}
+  .functionButton {
+    display: inline;
+    margin-left: 20px;
+  }
 
-.functionButton button {
-  padding: 0 10px 0 10px;
-  cursor: pointer;
-  background-color: rgb(14, 253, 22);
-}
+  .functionButton button {
+    border: none;
+    text-decoration: none;
+    outline: none;
+    border-radius: 30px;
+    padding: 0 10px 0 10px;
+    cursor: pointer;
+    background-color: rgb(14, 253, 22);
+  }
 
-.functionButton span {
-  color: white;
-  margin: 0 10px 0 10px;
-}
+  .functionButton span {
+    color: white;
+    margin: 0 10px 0 10px;
+  }
 </style>

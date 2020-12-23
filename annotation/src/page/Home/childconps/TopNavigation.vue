@@ -7,14 +7,23 @@
     <a href="#" @click="pasteContentModal = true">输入文本</a>
     <a href="#" @click="outputContent">输出文本</a>
     <a href="#" @click="showAnnotations">显示标注词语</a>
-    <a href="#" style="float: right" @click="loginModal = true">登录</a>
-    <span
-      style="float: right; margin-top: 12px; color: #fff"
+    <a href="#" @click="loginModal = true">登录</a>
+    <Icon
+      type="md-sunny"
+      color="white"
+      size="30"
+      v-show="darkMode"
+      style="cursor: pointer; float: right"
       @click="toggleMode"
-    >
-      {{ mode }}
-      <i-switch true-color="#13ce66" false-color="blue"></i-switch>
-    </span>
+    />
+    <Icon
+      type="ios-moon-outline"
+      color="white"
+      size="30"
+      v-show="!darkMode"
+      style="cursor: pointer; float: right"
+      @click="toggleMode"
+    />
 
     <!-- ------------------------------------------------------------------------------------- -->
     <!--                                     登录模块                                             -->
@@ -52,7 +61,7 @@
         style="display: flex; justify-content: center; align-items: center"
       >
         <Button type="primary" @click="handleSubmit('formInline')"
-        >登录
+          >登录
         </Button>
       </div>
     </Modal>
@@ -61,9 +70,9 @@
     <!-- --------------------------------------------------------------------------------------- -->
     <Modal v-model="introduceModal" title="功能介绍" :mask-closable="false">
       <p>按下鼠标，滑过文本，松开，即可标注文本,右栏实时显示标注的文本</p>
-      <br/>
+      <br />
       <p>也可以选择使用快捷键标注：对应快捷键：</p>
-      <br/>
+      <br />
       <p>红：r(red);蓝：b(blue);绿：g(green);橙：o(orange)</p>
       <div
         slot="footer"
@@ -108,9 +117,12 @@
 </template>
 
 <script>
-import {request} from "@/network/request";
+import { request } from "@/network/request";
 
-import {disable as disableDarkMode, enable as enableDarkMode,} from "darkreader";
+import {
+  disable as disableDarkMode,
+  enable as enableDarkMode,
+} from "darkreader";
 
 export default {
   name: "TopNavigation",
@@ -120,7 +132,7 @@ export default {
       introduceModal: false, // 介绍提示模块
       pasteContentModal: false, // 粘贴文本
       uploadModal: false, // 上传文件
-      mode: "日间模式",
+      darkMode: false, // 夜间模式
       // 登录表单内容
       formInline: {
         user: "",
@@ -164,22 +176,20 @@ export default {
     //     日，夜间模式 切换
 
     toggleMode() {
-      if (this.mode === "日间模式") {
+      if (!this.darkMode) {
+        this.darkMode = !this.darkMode;
         enableDarkMode({
           brightness: 150,
           contrast: 90,
           sepia: 0,
         });
-
-        this.mode = "夜间模式";
       } else {
-        this.mode = "日间模式";
+        this.darkMode = !this.darkMode;
         disableDarkMode();
       }
     },
     showAnnotations() {
       this.$store.state.showAnnotations = !this.$store.state.showAnnotations;
-      console.log(this.$store.state.showAnnotations);
     },
     //  登录，请求本地json
     handleSubmit(name) {
@@ -208,49 +218,49 @@ export default {
 </script>
 
 <style scoped>
-.title {
-  margin-left: 30px;
-  color: red;
-  font-size: 22px;
-}
+  .title {
+    margin-left: 30px;
+    color: red;
+    font-size: 22px;
+  }
 
-/* 导航条 */
-.topNavigation {
-  position: fixed;
-  top: 0;
-  overflow: hidden;
-  width: 100%;
-  padding-right: 20px;
-  z-index: 50;
-  background-color: #333;
-}
+  /* 导航条 */
+  .topNavigation {
+    position: fixed;
+    top: 0;
+    overflow: hidden;
+    width: 100%;
+    padding-right: 20px;
+    z-index: 50;
+    background-color: #333;
+  }
 
-/* 导航条链接 */
-.topNavigation a {
-  display: inline-block;
-  padding: 14px 16px;
-  background-color: #333;
-  color: #f2f2f2;
-  text-align: center;
-  text-decoration: none;
-}
+  /* 导航条链接 */
+  .topNavigation a {
+    display: inline-block;
+    padding: 14px 16px;
+    background-color: #333;
+    color: #f2f2f2;
+    text-align: center;
+    text-decoration: none;
+  }
 
-/* 链接颜色修改 */
-.topNavigation a:hover {
-  background-color: #ddd;
-  color: black;
-}
+  /* 链接颜色修改 */
+  .topNavigation a:hover {
+    background-color: #ddd;
+    color: black;
+  }
 
-#loginBox {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-}
+  #loginBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
 
-textarea {
-  width: 100%;
-  height: 250px;
-  font-size: 20px;
-}
+  textarea {
+    width: 100%;
+    height: 250px;
+    font-size: 20px;
+  }
 </style>

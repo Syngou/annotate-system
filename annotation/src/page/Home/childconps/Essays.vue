@@ -59,13 +59,6 @@ export default {
     //  获取选中文本
     getSelection(e) {
       if (window.getSelection().toString() !== "") {
-        console.log(
-          window
-            .getSelection()
-            .getRangeAt(0)
-            .cloneRange()
-            .selectNodeContents(this.$el)
-        );
         this.selectText = window.getSelection().toString();
         this.$store.state.selectionText = window.getSelection().toString();
         // 加上滚轮滚动距离才是y轴长度！！！
@@ -112,6 +105,7 @@ export default {
       // 按钮样式   TODO：样式美化
       let buttonStyle = `height:20px;
         width:20px;
+        outline: none;
         text-align:center;
         line-height:20px;
         border-radius:30px;
