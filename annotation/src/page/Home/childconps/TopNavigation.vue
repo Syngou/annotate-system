@@ -3,7 +3,6 @@
     <span class="title">医疗文本标注平台</span>
     <a href="#" @click="introduceModal = true">功能介绍</a>
     <a href="#" @click="uploadModal = true">上传文件</a>
-    <!--  BUG 报错是什么意思？？？ -->
     <a href="#" @click="pasteContentModal = true">输入文本</a>
     <a href="#" @click="outputContent">输出文本</a>
     <a href="#" @click="showAnnotations">显示标注词语</a>
@@ -210,7 +209,10 @@ export default {
             }
           });
         },
-        (err) => console.log(err)
+        (err) => {
+          console.log(err);
+          this.$Message.error("啊偶，无法向服务器发送请求...");
+        }
       );
     },
   },

@@ -28,6 +28,25 @@ export default {
     ShowAnnotations,
     Footer,
   },
+  created() {
+    this.isPC();
+  },
+  methods: {
+    isPC() {
+      var userAgentInfo = navigator.userAgent;
+      var Agents = ["Android", "iPhone", "Windows Phone", "iPad", "iPod"];
+      for (var v = 0; v < Agents.length; v++) {
+        if (userAgentInfo.indexOf(Agents[v]) > 0) {
+          this.$Message.info({
+            content: "手机是无法进行标注的哦,请使用电脑浏览器。",
+            duration: 10,
+            closable: true,
+          });
+          break;
+        }
+      }
+    },
+  },
 };
 </script>
 <style scoped>
