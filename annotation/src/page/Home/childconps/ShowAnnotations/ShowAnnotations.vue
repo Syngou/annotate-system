@@ -12,14 +12,14 @@
         slot="footer"
         style="display: flex; justify-content: center; align-items: center"
       >
-        <Button type="primary" @click="buttonClick">确定 </Button>
+        <Button type="primary" @click="buttonClick">确定</Button>
       </div>
     </Modal>
   </div>
 </template>
 
 <script>
-import Annotations from "@/page/Home/childconps/Annotations";
+import Annotations from "@/page/Home/childconps/ShowAnnotations/Annotations";
 
 export default {
   name: "ShowAnnotations",

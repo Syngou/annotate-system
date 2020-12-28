@@ -99,20 +99,17 @@ export default {
     //  标注
     annotation(index) {
       let colorArray = ["red", "blue", "green", "orange"]; // 标注颜色
-      let essay = this.$refs.essay;
       let text = this.selectText;
 
       // 按钮样式   TODO：样式美化
-      let buttonStyle = `height:20px;
-        width:20px;
-        outline: none;
-        text-align:center;
-        line-height:20px;
-        border-radius:30px;
-        margin-right:5px;
-        margin-left:5px;
-        cursor:pointer;
-        background-color:width`;
+      // let buttonStyle =
+      //   `height:20px;
+      //   text-align:center;
+      //   line-height:20px;
+      //   border-radius:30px;
+      //   margin-left:5px;
+      //   cursor:pointer;
+      //   background-color:` + colorArray[index];
       // 标注文本样式
       let annotatedTestStyle =
         ";border:5px solid " +
@@ -122,18 +119,25 @@ export default {
       padding: 0 5px 0 3px;`;
       this.showDialog = false;
       if (text.length > 0) {
-        let values = (essay || "").innerHTML.split(text);
-        essay.innerHTML = values.join(
-          "<span style='background-color:" +
-            colorArray[index] +
-            annotatedTestStyle +
-            "'>" +
-            text +
-            "<button style='" +
-            buttonStyle +
-            "'  id='test'/>X</button></span>"
-        );
         this.$bus.$emit("showAnnotations", index);
+
+        // let button = document.createElement("button");
+        // button.setAttribute("style", buttonStyle);
+        let span = document.createElement("span");
+        span.setAttribute(
+          "style",
+          "background-color:" + colorArray[index] + annotatedTestStyle
+        );
+        // span.appendChild(button);
+        let TextRange = window.getSelection().getRangeAt(0);
+        TextRange.surroundContents(span);
+        const range = window.getSelection().getRangeAt(0);
+        const preSelectionRange = range.cloneRange();
+        preSelectionRange.selectNodeContents(this.$el);
+        preSelectionRange.setEnd(range.startContainer, range.startOffset);
+        let start = [...preSelectionRange.toString()].length;
+        let end = start + [...range.toString()].length;
+        console.log(start, end);
       }
     },
     // 翻译  TODO：等待接口

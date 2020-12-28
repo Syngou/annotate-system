@@ -1,10 +1,10 @@
 <template>
   <div>
-    <TopNavigation />
+    <TopNavigation/>
     <ShowAnnotations></ShowAnnotations>
     <div class="card">
-      <FunctionBar />
-      <Essays />
+      <FunctionBar/>
+      <Paper/>
       <BackTop :duration="0" :bottom="70"></BackTop>
     </div>
     <Footer></Footer>
@@ -15,8 +15,8 @@
 <script>
 import TopNavigation from "./childconps/TopNavigation";
 import FunctionBar from "./childconps/FunctionBar";
-import Essays from "./childconps/Essays";
-import ShowAnnotations from "@/page/Home/childconps/ShowAnnotations";
+import Paper from "./childconps/Paper";
+import ShowAnnotations from "@/page/Home/childconps/ShowAnnotations/ShowAnnotations";
 import Footer from "@/page/Home/childconps/Footer";
 
 export default {
@@ -24,7 +24,7 @@ export default {
   components: {
     TopNavigation,
     FunctionBar,
-    Essays,
+    Paper,
     ShowAnnotations,
     Footer,
   },
@@ -50,17 +50,18 @@ export default {
 };
 </script>
 <style scoped>
-  * {
-    box-sizing: border-box;
-    color: black;
-  }
+* {
+  box-sizing: border-box;
+  color: black;
+}
 
-  p {
-    word-break: break-all;
-    word-wrap: break-word;
-  }
-  .card {
-    margin-top: 20px;
-    padding: 20px;
-  }
+p {
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+.card {
+  margin-top: 20px;
+  padding: 20px;
+}
 </style>
