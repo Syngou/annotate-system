@@ -102,14 +102,15 @@ export default {
       let text = this.selectText;
 
       // 按钮样式   TODO：样式美化
-      // let buttonStyle =
-      //   `height:20px;
-      //   text-align:center;
-      //   line-height:20px;
-      //   border-radius:30px;
-      //   margin-left:5px;
-      //   cursor:pointer;
-      //   background-color:` + colorArray[index];
+      let buttonStyle = `height:20px;
+        width:20px;
+        text-align:center;
+        line-height:20px;
+        border-radius:30px;
+        margin-left:5px;
+        outline: none;
+        cursor:pointer;
+        background-color:white`;
       // 标注文本样式
       let annotatedTestStyle =
         ";border:5px solid " +
@@ -117,20 +118,13 @@ export default {
         `
       ;border-radius: 10px;
       padding: 0 5px 0 3px;`;
+      // 隐藏对话框
       this.showDialog = false;
+      // 选中不为空
       if (text.length > 0) {
+        // 事件总线
         this.$bus.$emit("showAnnotations", index);
-
-        // let button = document.createElement("button");
-        // button.setAttribute("style", buttonStyle);
-        let span = document.createElement("span");
-        span.setAttribute(
-          "style",
-          "background-color:" + colorArray[index] + annotatedTestStyle
-        );
-        // span.appendChild(button);
-        let TextRange = window.getSelection().getRangeAt(0);
-        TextRange.surroundContents(span);
+        // 获取位置
         const range = window.getSelection().getRangeAt(0);
         const preSelectionRange = range.cloneRange();
         preSelectionRange.selectNodeContents(this.$el);
@@ -138,7 +132,29 @@ export default {
         let start = [...preSelectionRange.toString()].length;
         let end = start + [...range.toString()].length;
         console.log(start, end);
+        // 按钮添加事件
+        let button = document.createElement("button");
+        button.addEventListener("click", () => {
+          this.deleteEvent(start, end);
+        });
+        let deleteButton = document.createTextNode("*");
+
+        button.setAttribute("style", buttonStyle);
+        button.appendChild(deleteButton);
+        let span = document.createElement("span");
+        span.setAttribute(
+          "style",
+          "background-color:" + colorArray[index] + annotatedTestStyle
+        );
+
+        let TextRange = window.getSelection().getRangeAt(0);
+        TextRange.surroundContents(span);
+        span.appendChild(button);
       }
+    },
+    // TODO:删除样式，待开发
+    deleteEvent(start, end) {
+      this.$Message.info("start: " + start + " end: " + end);
     },
     // 翻译  TODO：等待接口
     translate() {
