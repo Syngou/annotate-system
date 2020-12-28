@@ -140,8 +140,10 @@ export default {
         let deleteButton = document.createTextNode("*");
 
         button.setAttribute("style", buttonStyle);
+
         button.appendChild(deleteButton);
         let span = document.createElement("span");
+        span.setAttribute("id", "s" + start + "e" + end);
         span.setAttribute(
           "style",
           "background-color:" + colorArray[index] + annotatedTestStyle
@@ -154,7 +156,10 @@ export default {
     },
     // TODO:删除样式，待开发
     deleteEvent(start, end) {
-      this.$Message.info("start: " + start + " end: " + end);
+      let span = document.getElementById("s" + start + "e" + end);
+      let button = span.getElementsByTagName("button");
+      span.removeChild(button[0]);
+      span.removeAttribute("style");
     },
     // 翻译  TODO：等待接口
     translate() {
