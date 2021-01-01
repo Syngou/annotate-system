@@ -6,7 +6,8 @@
     <a href="#" @click="pasteContentModal = true">输入文本</a>
     <a href="#" @click="outputContent">输出文本</a>
     <a href="#" @click="showAnnotations">显示标注词语</a>
-    <a href="#" @click="loginModal = true">登录</a>
+    <a href="#" @click="loginModal = true">登录1</a>
+    <a href="#" @click="loginInNewPage">登录2</a>
     <Icon
       type="md-sunny"
       color="white"
@@ -214,6 +215,11 @@ export default {
           this.$Message.error("啊偶，无法向服务器发送请求...");
         }
       );
+    },
+    loginInNewPage() {
+      this.$router.push("/login").catch((err) => {
+        console.log(err);
+      });
     },
   },
 };

@@ -152,9 +152,11 @@ export default {
         let TextRange = window.getSelection().getRangeAt(0);
         TextRange.surroundContents(span);
         span.appendChild(button);
+        //移除选中状态，否则很难看
+        window.getSelection().removeAllRanges();
       }
     },
-    // TODO:删除样式，待开发
+    // 删除样式
     deleteEvent(start, end) {
       let span = document.getElementById("s" + start + "e" + end);
       let button = span.getElementsByTagName("button");
@@ -171,12 +173,12 @@ export default {
 </script>
 
 <style scoped>
-  .input-content {
-    overflow: auto;
-    flex: auto;
-    min-height: 1000px;
-    padding: 0 5% 0 5%;
-    white-space: pre-line;
-    word-break: break-all;
-  }
+.input-content {
+  overflow: auto;
+  flex: auto;
+  min-height: 1000px;
+  padding: 0 5% 0 5%;
+  white-space: pre-line;
+  word-break: break-all;
+}
 </style>
