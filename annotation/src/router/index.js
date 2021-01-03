@@ -5,7 +5,6 @@ Vue.use(Router);
 const Home = () => import("@/page/Home/Home");
 const User = () => import("@/page/User/User");
 const page404 = () => import("@/page/Page404/Page404");
-const Login = () => import("@/page/Login/Login");
 export default new Router({
     mode: "history",
     routes: [
@@ -17,10 +16,7 @@ export default new Router({
             path: "/user",
             component: User,
         },
-        {
-            path: "/login",
-            component: Login,
-        },
+
         {
             path: "*",
             component: page404,
