@@ -1,14 +1,6 @@
 <template>
   <div>
-    <!-- ------------------------------------------------------------------------------------- -->
-    <!--    TODO: 获取滚轮滚动距离，保证对话框弹出位置准确,但是有两个滚轮，需要考虑用哪个                   -->
-    <!-- --------------------------------------------------------------------------------------- -->
-
-    <div
-      style="position: absolute; width: 100px"
-      v-show="showDialog"
-      ref="showDialog"
-    >
+    <div class="dialog" v-show="showDialog" ref="showDialog">
       <Button type="error" @click="annotation(0)">关系(r)</Button>
       <Button type="primary" @click="annotation(1)">名称(b)</Button>
       <Button type="success" @click="annotation(2)">药物(g)</Button>
@@ -18,12 +10,6 @@
     <div slot="footer">
       <Button type="primary" size="large" @click="choice = false">取消</Button>
     </div>
-
-    <!-- ----------------------------------------------------------------------- -->
-    <!--                                    文本框                                     -->
-    <!--                              TODO: 快捷键标注颜色                              -->
-    <!-- ----------------------------------------------------------------------- -->
-
     <pre
       ref="essay"
       @mouseup="getSelection($event)"
@@ -48,7 +34,7 @@ export default {
     this.annotateByShortcut();
   },
   methods: {
-    //  在鼠标位置弹出对话框  TODO：加上滚动距离
+    //  在鼠标位置弹出对话框
     showSelectBox(X, Y) {
       this.$refs.showDialog.style.left = X + 10 + "px";
       this.$refs.showDialog.style.top = Y + 10 + "px";
@@ -158,10 +144,14 @@ export default {
     },
     // 删除样式
     deleteEvent(start, end) {
+      let essay = this.$refs.essay;
       let span = document.getElementById("s" + start + "e" + end);
+
       let button = span.getElementsByTagName("button");
       span.removeChild(button[0]);
-      span.removeAttribute("style");
+      let text = document.createTextNode(span.innerHTML);
+      essay.insertBefore(text, span);
+      essay.removeChild(span);
     },
     // 翻译  TODO：等待接口
     translate() {
@@ -173,12 +163,21 @@ export default {
 </script>
 
 <style scoped>
-.input-content {
-  overflow: auto;
-  flex: auto;
-  min-height: 1000px;
-  padding: 0 5% 0 5%;
-  white-space: pre-line;
-  word-break: break-all;
-}
+  .dialog {
+    position: absolute;
+    width: 100px;
+    border: 5px solid rgb(248, 220, 6);
+    background-color: rgb(243, 255, 6);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  .input-content {
+    overflow: auto;
+    flex: auto;
+    min-height: 1000px;
+    padding: 0 5% 0 5%;
+    white-space: pre-line;
+    word-break: break-all;
+  }
 </style>

@@ -72,10 +72,12 @@ export default {
 
   .functionButton button {
     border: none;
+    width: 20px;
+    height: 20px;
     text-decoration: none;
+    text-align: center;
     outline: none;
-    border-radius: 30px;
-    padding: 0 10px 0 10px;
+    border-radius: 50%;
     cursor: pointer;
     background-color: rgb(14, 253, 22);
   }
