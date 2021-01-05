@@ -4,16 +4,17 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  state: {
-    selectionText: "", //选中的文本
-    fontSize: 16, //初始字体大小
-    relationsList: [],
-    nameList: [],
-    medicineList: [],
-    toolsList: [],
-    showAnnotations: false,
-    // TODO: 设置缓存存储用户输入
-    inputContent: `
+    state: {
+        selectionText: "", //选中的文本
+        fontSize: 16, //初始字体大小
+        relationsMap: new Map(),
+        nameMap: new Map(),
+        medicineMap: new Map(),
+        toolsMap: new Map(),
+        id: 1,
+        showAnnotations: false,
+        // TODO: 设置缓存存储用户输入
+        inputContent: `
       〔摘要〕伴随着医疗器械新产品、新工艺的发展，压缩气体在医疗器械的生产过程中被广泛使用。在洁净室内的医疗器械使用压缩气体时，应根据其预期用途对控制水平和监测项目做出合理的评定，识别出安全的有关特征，结合受控项目、系统设计和监测工作进行风险分析，以满足《医疗器械生产质量管理规范附录》中对压缩气体提出的要求。
 
 〔关键词〕医疗器械；压缩气体；预期用途；风险分析
@@ -24,6 +25,6 @@ const store = new Vuex.Store({
 
 固体污染物主要是指压缩气体中含有的尘埃微粒。控制微粒的核心技术是使用气体过滤器。过滤器的有效过滤滤径、有效过滤效率和有效工作流量直接影响到固体污染物的预期控制效果，保证过滤器的各项性能参数均符合使用工况状态是十分必要的。同一气体过滤器在不同流量状态下监测的过滤效果，见表1。
             `,
-  },
+    },
 });
 export default store;

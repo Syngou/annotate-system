@@ -1,10 +1,24 @@
 <template>
   <div>
     <div class="dialog" v-show="showDialog" ref="showDialog">
-      <Button type="error" @click="annotation(0)">关系(r)</Button>
-      <Button type="primary" @click="annotation(1)">名称(b)</Button>
-      <Button type="success" @click="annotation(2)">药物(g)</Button>
-      <Button type="warning" @click="annotation(3)">器械(o)</Button>
+      <Button type="error" @click="annotation('relation' + $store.state.id, 0)"
+      >关系(r)
+      </Button
+      >
+      <Button type="primary" @click="annotation('name' + $store.state.id , 1)"
+      >名称(b)
+      </Button
+      >
+      <Button
+        type="success"
+        @click="annotation('medicine'+$store.state.id, 2)"
+      >药物(g)
+      </Button
+      >
+      <Button type="warning" @click="annotation('tool'+$store.state.id, 3)"
+      >器械(o)
+      </Button
+      >
       <Button type="info" @click="translate">翻译(t)</Button>
     </div>
     <div slot="footer">
@@ -58,21 +72,22 @@ export default {
     annotateByShortcut() {
       document.onkeydown = ($event) => {
         let keyCode = $event.keyCode;
+        let id = this.$store.state.id;
         switch (keyCode) {
           case 82: {
-            this.annotation(0);
+            this.annotation("relation" + id, 0);
             break;
           }
           case 66: {
-            this.annotation(1);
+            this.annotation("name" + id, 1);
             break;
           }
           case 71: {
-            this.annotation(2);
+            this.annotation("medicine" + id, 2);
             break;
           }
           case 79: {
-            this.annotation(3);
+            this.annotation("tool" + id, 3);
             break;
           }
           case 84: {
@@ -83,20 +98,12 @@ export default {
       };
     },
     //  标注
-    annotation(index) {
+    annotation(id, index) {
       let colorArray = ["red", "blue", "green", "orange"]; // 标注颜色
       let text = this.selectText;
 
       // 按钮样式   TODO：样式美化
-      let buttonStyle = `height:20px;
-        width:20px;
-        text-align:center;
-        line-height:20px;
-        border-radius:30px;
-        margin-left:5px;
-        outline: none;
-        cursor:pointer;
-        background-color:white`;
+      let buttonStyle = this.buttonStyle();
       // 标注文本样式
       let annotatedTestStyle =
         ";border:5px solid " +
@@ -110,26 +117,18 @@ export default {
       if (text.length > 0) {
         // 事件总线
         this.$bus.$emit("showAnnotations", index);
-        // 获取位置
-        const range = window.getSelection().getRangeAt(0);
-        const preSelectionRange = range.cloneRange();
-        preSelectionRange.selectNodeContents(this.$el);
-        preSelectionRange.setEnd(range.startContainer, range.startOffset);
-        let start = [...preSelectionRange.toString()].length;
-        let end = start + [...range.toString()].length;
-        console.log(start, end);
+
         // 按钮添加事件
         let button = document.createElement("button");
         button.addEventListener("click", () => {
-          this.deleteEvent(start, end);
+          this.deleteById(id);
         });
         let deleteButton = document.createTextNode("*");
 
         button.setAttribute("style", buttonStyle);
-
         button.appendChild(deleteButton);
         let span = document.createElement("span");
-        span.setAttribute("id", "s" + start + "e" + end);
+        span.setAttribute("id", id);
         span.setAttribute(
           "style",
           "background-color:" + colorArray[index] + annotatedTestStyle
@@ -140,18 +139,45 @@ export default {
         span.appendChild(button);
         //移除选中状态，否则很难看
         window.getSelection().removeAllRanges();
+        this.$store.state.id++;
       }
     },
+    // 按钮样式
+    buttonStyle() {
+      return `height:20px;
+        width:20px;
+        text-align:center;
+        line-height:20px;
+        border-radius:30px;
+        margin-left:5px;
+        outline: none;
+        cursor:pointer;
+        background-color:white`;
+    },
     // 删除样式
-    deleteEvent(start, end) {
+    deleteById(id) {
       let essay = this.$refs.essay;
-      let span = document.getElementById("s" + start + "e" + end);
-
+      let span = document.getElementById(id);
       let button = span.getElementsByTagName("button");
       span.removeChild(button[0]);
       let text = document.createTextNode(span.innerHTML);
       essay.insertBefore(text, span);
       essay.removeChild(span);
+      this.deleteAnnotatedText(id);
+      //发射删除事件
+      this.$bus.$emit("delete");
+    },
+    // 删除map中的标注记录
+    deleteAnnotatedText(id) {
+      if (id.indexOf("relation") !== -1) {
+        this.$store.state.relationsMap.delete(id);
+      } else if (id.indexOf("name") !== -1) {
+        this.$store.state.nameMap.delete(id);
+      } else if (id.indexOf("medicine") !== -1) {
+        this.$store.state.medicineMap.delete(id);
+      } else if (id.indexOf("tool") !== -1) {
+        this.$store.state.toolsMap.delete(id);
+      }
     },
     // 翻译  TODO：等待接口
     translate() {
@@ -163,21 +189,22 @@ export default {
 </script>
 
 <style scoped>
-  .dialog {
-    position: absolute;
-    width: 100px;
-    border: 5px solid rgb(248, 220, 6);
-    background-color: rgb(243, 255, 6);
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-  }
-  .input-content {
-    overflow: auto;
-    flex: auto;
-    min-height: 1000px;
-    padding: 0 5% 0 5%;
-    white-space: pre-line;
-    word-break: break-all;
-  }
+.dialog {
+  position: absolute;
+  width: 100px;
+  border: 5px solid rgb(248, 220, 6);
+  background-color: rgb(243, 255, 6);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-content {
+  overflow: auto;
+  flex: auto;
+  min-height: 1000px;
+  padding: 0 5% 0 5%;
+  white-space: pre-line;
+  word-break: break-all;
+}
 </style>
