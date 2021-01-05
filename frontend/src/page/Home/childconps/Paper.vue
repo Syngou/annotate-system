@@ -3,22 +3,18 @@
     <div class="dialog" v-show="showDialog" ref="showDialog">
       <Button type="error" @click="annotation('relation' + $store.state.id, 0)"
       >关系(r)
-      </Button
-      >
-      <Button type="primary" @click="annotation('name' + $store.state.id , 1)"
+      </Button>
+      <Button type="primary" @click="annotation('name' + $store.state.id, 1)"
       >名称(b)
-      </Button
-      >
+      </Button>
       <Button
         type="success"
-        @click="annotation('medicine'+$store.state.id, 2)"
+        @click="annotation('medicine' + $store.state.id, 2)"
       >药物(g)
-      </Button
-      >
-      <Button type="warning" @click="annotation('tool'+$store.state.id, 3)"
+      </Button>
+      <Button type="warning" @click="annotation('tool' + $store.state.id, 3)"
       >器械(o)
-      </Button
-      >
+      </Button>
       <Button type="info" @click="translate">翻译(t)</Button>
     </div>
     <div slot="footer">
@@ -99,9 +95,10 @@ export default {
     },
     //  标注
     annotation(id, index) {
+
       let colorArray = ["red", "blue", "green", "orange"]; // 标注颜色
       let text = this.selectText;
-
+      this.addToMap(id, text);
       // 按钮样式   TODO：样式美化
       let buttonStyle = this.buttonStyle();
       // 标注文本样式
@@ -142,6 +139,18 @@ export default {
         this.$store.state.id++;
       }
     },
+    addToMap(id, text) {
+      if (id.indexOf("relation") !== -1) {
+        console.log(this.$store.state.relationsMap)
+        console.log(this.$store.state.relationsMap.set(id, text));
+      } else if (id.indexOf("name") !== -1) {
+        console.log(this.$store.state.nameMap.set(id, text));
+      } else if (id.indexOf("medicine") !== -1) {
+        console.log(this.$store.state.medicineMap.set(id, text));
+      } else if (id.indexOf("tool") !== -1) {
+        console.log(this.$store.state.toolsMap.set(id, text));
+      }
+    },
     // 按钮样式
     buttonStyle() {
       return `height:20px;
@@ -165,18 +174,18 @@ export default {
       essay.removeChild(span);
       this.deleteAnnotatedText(id);
       //发射删除事件
-      this.$bus.$emit("delete");
     },
     // 删除map中的标注记录
     deleteAnnotatedText(id) {
       if (id.indexOf("relation") !== -1) {
-        this.$store.state.relationsMap.delete(id);
+        console.log(this.$store.state.relationsMap)
+        console.log(this.$store.state.relationsMap.delete(id));
       } else if (id.indexOf("name") !== -1) {
-        this.$store.state.nameMap.delete(id);
+        console.log(this.$store.state.nameMap.delete(id));
       } else if (id.indexOf("medicine") !== -1) {
-        this.$store.state.medicineMap.delete(id);
+        console.log(this.$store.state.medicineMap.delete(id));
       } else if (id.indexOf("tool") !== -1) {
-        this.$store.state.toolsMap.delete(id);
+        console.log(this.$store.state.toolsMap.delete(id));
       }
     },
     // 翻译  TODO：等待接口

@@ -12,7 +12,6 @@ const store = new Vuex.Store({
         medicineMap: new Map(),
         toolsMap: new Map(),
         id: 1,
-        showAnnotations: false,
         // TODO: 设置缓存存储用户输入
         inputContent: `
       〔摘要〕伴随着医疗器械新产品、新工艺的发展，压缩气体在医疗器械的生产过程中被广泛使用。在洁净室内的医疗器械使用压缩气体时，应根据其预期用途对控制水平和监测项目做出合理的评定，识别出安全的有关特征，结合受控项目、系统设计和监测工作进行风险分析，以满足《医疗器械生产质量管理规范附录》中对压缩气体提出的要求。
