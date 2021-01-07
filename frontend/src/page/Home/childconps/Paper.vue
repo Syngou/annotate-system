@@ -2,18 +2,18 @@
   <div>
     <div class="dialog" v-show="showDialog" ref="showDialog">
       <Button type="error" @click="annotation('relation' + $store.state.id, 0)"
-      >关系(r)
+        >关系(r)
       </Button>
       <Button type="primary" @click="annotation('name' + $store.state.id, 1)"
-      >名称(b)
+        >名称(b)
       </Button>
       <Button
         type="success"
         @click="annotation('medicine' + $store.state.id, 2)"
-      >药物(g)
+        >药物(g)
       </Button>
       <Button type="warning" @click="annotation('tool' + $store.state.id, 3)"
-      >器械(o)
+        >器械(o)
       </Button>
       <Button type="info" @click="translate">翻译(t)</Button>
     </div>
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import { addToDatabase, delFromDatabase } from "@/network/request";
+
 export default {
   name: "Essays",
   data() {
@@ -95,7 +97,6 @@ export default {
     },
     //  标注
     annotation(id, index) {
-
       let colorArray = ["red", "blue", "green", "orange"]; // 标注颜色
       let text = this.selectText;
       this.addToMap(id, text);
@@ -141,14 +142,22 @@ export default {
     },
     addToMap(id, text) {
       if (id.indexOf("relation") !== -1) {
-        console.log(this.$store.state.relationsMap)
+        console.log(this.$store.state.relationsMap);
         console.log(this.$store.state.relationsMap.set(id, text));
+
+        addToDatabase("relation", id, text);
       } else if (id.indexOf("name") !== -1) {
         console.log(this.$store.state.nameMap.set(id, text));
+
+        addToDatabase("name", id, text);
       } else if (id.indexOf("medicine") !== -1) {
         console.log(this.$store.state.medicineMap.set(id, text));
+
+        addToDatabase("medicine", id, text);
       } else if (id.indexOf("tool") !== -1) {
         console.log(this.$store.state.toolsMap.set(id, text));
+
+        addToDatabase("tool", id, text);
       }
     },
     // 按钮样式
@@ -178,14 +187,22 @@ export default {
     // 删除map中的标注记录
     deleteAnnotatedText(id) {
       if (id.indexOf("relation") !== -1) {
-        console.log(this.$store.state.relationsMap)
+        console.log(this.$store.state.relationsMap);
         console.log(this.$store.state.relationsMap.delete(id));
+
+        delFromDatabase("relation", id);
       } else if (id.indexOf("name") !== -1) {
         console.log(this.$store.state.nameMap.delete(id));
+
+        delFromDatabase("name", id);
       } else if (id.indexOf("medicine") !== -1) {
         console.log(this.$store.state.medicineMap.delete(id));
+
+        delFromDatabase("medicine", id);
       } else if (id.indexOf("tool") !== -1) {
         console.log(this.$store.state.toolsMap.delete(id));
+
+        delFromDatabase("tool", id);
       }
     },
     // 翻译  TODO：等待接口
@@ -198,22 +215,22 @@ export default {
 </script>
 
 <style scoped>
-.dialog {
-  position: absolute;
-  width: 100px;
-  border: 5px solid rgb(248, 220, 6);
-  background-color: rgb(243, 255, 6);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-}
+  .dialog {
+    position: absolute;
+    width: 100px;
+    border: 5px solid rgb(248, 220, 6);
+    background-color: rgb(243, 255, 6);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+  }
 
-.input-content {
-  overflow: auto;
-  flex: auto;
-  min-height: 1000px;
-  padding: 0 5% 0 5%;
-  white-space: pre-line;
-  word-break: break-all;
-}
+  .input-content {
+    overflow: auto;
+    flex: auto;
+    min-height: 1000px;
+    padding: 0 5% 0 5%;
+    white-space: pre-line;
+    word-break: break-all;
+  }
 </style>
