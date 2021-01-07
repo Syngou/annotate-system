@@ -34,3 +34,19 @@ export function delFromDatabase(key, field) {
     });
     return instance();
 }
+
+export function postToDatabase(params) {
+    const instance = axios.create({
+        baseURL:
+            "http://localhost:8000/sql?relation=" +
+            params[0] +
+            "&name=" +
+            params[1] +
+            "&medicine=" +
+            params[2] +
+            "&tool=" +
+            params[3],
+        timeout: 5000,
+    });
+    return instance(params);
+}

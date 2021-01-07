@@ -31,8 +31,6 @@
 </template>
 
 <script>
-import { addToDatabase, delFromDatabase } from "@/network/request";
-
 export default {
   name: "Essays",
   data() {
@@ -99,7 +97,7 @@ export default {
     annotation(id, index) {
       let colorArray = ["red", "blue", "green", "orange"]; // 标注颜色
       let text = this.selectText;
-      this.addToMap(id, text);
+      this.$store.commit("addToList", { id, text });
       // 按钮样式   TODO：样式美化
       let buttonStyle = this.buttonStyle();
       // 标注文本样式
@@ -113,20 +111,15 @@ export default {
       this.showDialog = false;
       // 选中不为空
       if (text.length > 0) {
-        // 事件总线
-        this.$bus.$emit("showAnnotations", index);
-
         // 按钮添加事件
         let button = document.createElement("button");
+        button.setAttribute("id", id);
         button.addEventListener("click", () => {
           this.deleteById(id);
         });
-        let deleteButton = document.createTextNode("*");
 
         button.setAttribute("style", buttonStyle);
-        button.appendChild(deleteButton);
         let span = document.createElement("span");
-        span.setAttribute("id", id);
         span.setAttribute(
           "style",
           "background-color:" + colorArray[index] + annotatedTestStyle
@@ -140,26 +133,7 @@ export default {
         this.$store.state.id++;
       }
     },
-    addToMap(id, text) {
-      if (id.indexOf("relation") !== -1) {
-        console.log(this.$store.state.relationsMap);
-        console.log(this.$store.state.relationsMap.set(id, text));
 
-        addToDatabase("relation", id, text);
-      } else if (id.indexOf("name") !== -1) {
-        console.log(this.$store.state.nameMap.set(id, text));
-
-        addToDatabase("name", id, text);
-      } else if (id.indexOf("medicine") !== -1) {
-        console.log(this.$store.state.medicineMap.set(id, text));
-
-        addToDatabase("medicine", id, text);
-      } else if (id.indexOf("tool") !== -1) {
-        console.log(this.$store.state.toolsMap.set(id, text));
-
-        addToDatabase("tool", id, text);
-      }
-    },
     // 按钮样式
     buttonStyle() {
       return `height:20px;
@@ -175,36 +149,15 @@ export default {
     // 删除样式
     deleteById(id) {
       let essay = this.$refs.essay;
-      let span = document.getElementById(id);
-      let button = span.getElementsByTagName("button");
-      span.removeChild(button[0]);
-      let text = document.createTextNode(span.innerHTML);
-      essay.insertBefore(text, span);
+      let span = document.getElementById(id).parentNode;
+
+      let textNode = document.createTextNode(span.innerText);
+      let text = span.innerText;
+      essay.insertBefore(textNode, span);
       essay.removeChild(span);
-      this.deleteAnnotatedText(id);
-      //发射删除事件
+      this.$store.commit("deleteAnnotatedText", { type: id, text });
     },
-    // 删除map中的标注记录
-    deleteAnnotatedText(id) {
-      if (id.indexOf("relation") !== -1) {
-        console.log(this.$store.state.relationsMap);
-        console.log(this.$store.state.relationsMap.delete(id));
 
-        delFromDatabase("relation", id);
-      } else if (id.indexOf("name") !== -1) {
-        console.log(this.$store.state.nameMap.delete(id));
-
-        delFromDatabase("name", id);
-      } else if (id.indexOf("medicine") !== -1) {
-        console.log(this.$store.state.medicineMap.delete(id));
-
-        delFromDatabase("medicine", id);
-      } else if (id.indexOf("tool") !== -1) {
-        console.log(this.$store.state.toolsMap.delete(id));
-
-        delFromDatabase("tool", id);
-      }
-    },
     // 翻译  TODO：等待接口
     translate() {
       this.showDialog = false;
