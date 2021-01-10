@@ -44,10 +44,17 @@
 export default {
   name: "myDropDown",
   methods: {
-    // 增减字体大小
+    /**
+     
+     * @description 增大字体
+     */
     addFontSize() {
       this.$store.state.fontSize++;
     },
+    /**
+     
+     * @description  减小字体
+     */
     reduceFontSize() {
       this.$store.state.fontSize--;
     },

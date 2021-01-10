@@ -98,7 +98,7 @@
 </template>
 
 <script>
-import { request } from "@/network/request";
+import { login } from "@/network/request";
 
 export default {
   name: "TopNavigation",
@@ -134,28 +134,37 @@ export default {
     };
   },
   methods: {
-    //             粘贴文本
+    /**
+     
+     * @description 粘贴文本
+     */
 
     pasteContent() {
       this.pasteContentModal = false;
       this.$store.state.inputContent = this.$refs.inputContentId.value;
+      //  粘贴后清空存入的数据
       this.$store.state.nameList = [];
       this.$store.state.relationsList = [];
       this.$store.state.medicineList = [];
       this.$store.state.toolsList = [];
     },
 
+    /**
+     
+     * @description 输出文本，不知道需不需要，目前没有实现
+     */
     outputContent() {
       this.$Message.info("功能正在开发...");
     },
 
-    //  登录，请求本地json
+    /**
+     
+     * @description 登录
+     */
     handleSubmit() {
       let name = this.formInline.user;
       let password = this.formInline.password;
-      request({
-        url: "/loginServlet?name=" + name + "&password=" + password,
-      }).then(
+      login(name, password).then(
         (res) => {
           console.log(res);
         },
@@ -170,6 +179,7 @@ export default {
 </script>
 
 <style scoped>
+  /* 标题样式 */
   .title {
     margin-left: 30px;
     color: red;
@@ -196,20 +206,22 @@ export default {
     text-align: center;
     text-decoration: none;
   }
-
+  .topNavigation a:last-child {
+    float: right;
+  }
   /* 链接颜色修改 */
   .topNavigation a:hover {
     background-color: #ddd;
     color: black;
   }
-
+  /* 登录盒子 */
   #loginBox {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 10px;
   }
-
+  /* 文本输入框 */
   textarea {
     width: 100%;
     height: 250px;

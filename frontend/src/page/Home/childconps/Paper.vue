@@ -39,12 +39,15 @@ export default {
       selectText: "", // 选中文本
     };
   },
-  // 键盘标注，拟开发
+  // 键盘标注，初始化即开始监听
   created() {
     this.annotateByShortcut();
   },
   methods: {
-    //  在鼠标位置弹出对话框
+    /**
+     
+     * @description 在鼠标位置弹出对话框
+     */
     showSelectBox(X, Y) {
       this.$refs.showDialog.style.left = X + 10 + "px";
       this.$refs.showDialog.style.top = Y + 10 + "px";
@@ -52,7 +55,11 @@ export default {
       this.showDialog = true;
     },
 
-    //  获取选中文本
+    /**
+     
+     * @description 获取选中文本，鼠标位置加上滚动距离
+     * @param 窗口事件
+     */
     getSelection(e) {
       if (window.getSelection().toString() !== "") {
         this.selectText = window.getSelection().toString();
@@ -64,7 +71,10 @@ export default {
         );
       }
     },
-    //快捷键标注
+    /**
+     
+     * @description 快捷键标注，全局监听鼠标事件，然后进行标注
+     */
     annotateByShortcut() {
       document.onkeydown = ($event) => {
         let keyCode = $event.keyCode;
@@ -93,7 +103,12 @@ export default {
         }
       };
     },
-    //  标注
+    /**
+     
+     * @description 标注
+     * @param id 给button标签的id，用于删除时查找
+     * @param index 标注颜色索引
+     */
     annotation(id, index) {
       let colorArray = ["red", "blue", "green", "orange"]; // 标注颜色
       let text = this.selectText;
@@ -134,7 +149,10 @@ export default {
       }
     },
 
-    // 按钮样式
+    /**
+     
+     * @description 按钮样式，需要调整可以在这里更改
+     */
     buttonStyle() {
       return `height:20px;
         width:20px;
@@ -146,11 +164,14 @@ export default {
         cursor:pointer;
         background-color:white`;
     },
-    // 删除样式
+    /**
+     
+     * @description 删除样式
+     */
     deleteById(id) {
       let essay = this.$refs.essay;
       let span = document.getElementById(id).parentNode;
-
+      // 获取文本，将其插入当前节点前，再删除节点
       let textNode = document.createTextNode(span.innerText);
       let text = span.innerText;
       essay.insertBefore(textNode, span);
@@ -158,7 +179,10 @@ export default {
       this.$store.commit("deleteAnnotatedText", { type: id, text });
     },
 
-    // 翻译  TODO：等待接口
+    /**
+     
+     * @description 翻译  TODO：等待接口
+     */
     translate() {
       this.showDialog = false;
       this.$Message.info("功能正在开发");
