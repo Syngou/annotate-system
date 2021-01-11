@@ -16,50 +16,16 @@ export function login(name, password) {
     });
     return instance();
 }
-/**
- 
- * @description 添加数据,想使用redis存数据的可以调用
- * @param  key 键
- * @param  field 域
- * @param  value 值
- */
-export function addToRedis(key, field, value) {
-    const instance = axios.create({
-        baseURL: "http://localhost:8000/update",
-        params: { action: "add", key, field, value },
-        timeout: 5000,
-    });
-    return instance();
-}
-/**
- * @description 删除数据,想使用redis存数据的可以调用
- * @param  key 键
- * @param  field 域
- */
-export function deleteFromRedis(key, field) {
-    const instance = axios.create({
-        baseURL: "http://localhost:8000/update",
-        params: { action: "del", key, field },
-        timeout: 5000,
-    });
-    return instance();
-}
+
 /**
  * @description 传数据到后台
- * @param  params 数组，对应四个标注的属性
+ * @param  data 数组，对应四个标注的属性
  */
-export function postToBackend(params) {
+export function postToBackend(data) {
     const instance = axios.create({
-        baseURL:
-            "http://localhost:8000/sql?relation=" +
-            params[0] +
-            "&name=" +
-            params[1] +
-            "&medicine=" +
-            params[2] +
-            "&tool=" +
-            params[3],
+        baseURL: `http://localhost:8000/sql?relation=\
+            ${data[0]}&name=${data[1]}&medicine=${data[2]}&tool=${data[3]}`,
         timeout: 5000,
     });
-    return instance(params);
+    return instance(data);
 }
