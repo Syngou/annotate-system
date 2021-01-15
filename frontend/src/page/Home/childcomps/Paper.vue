@@ -20,6 +20,7 @@
     </div>
     <pre
       ref="essay"
+      id="essay"
       @mouseup="getSelection($event)"
       class="input-content"
       :style="'font-size:' + $store.state.fontSize + 'px'"
@@ -29,6 +30,7 @@
 </template>
 
 <script>
+import { buttonStyle,annotate } from "@/utils/paperUtils";
 export default {
   name: "Essays",
   data() {
@@ -109,60 +111,11 @@ export default {
      * @param index 标注颜色索引
      */
     annotation(id, index) {
-      let colorArray = ["red", "blue", "green", "orange"]; // 标注颜色
-      let text = this.selectText;
-      this.$store.commit("addToList", { id, text });
-      // 按钮样式   TODO：样式美化
-      let buttonStyle = this.buttonStyle();
-      // 标注文本样式
-      let annotatedTestStyle =
-        ";border:5px solid " +
-        colorArray[index] +
-        `
-      ;border-radius: 10px;
-      padding: 0 5px 0 3px;`;
-      // 隐藏对话框
-      this.showDialog = false;
-      // 选中不为空
-      if (text.length > 0) {
-        // 按钮添加事件
-        let button = document.createElement("button");
-        button.setAttribute("id", id);
-        button.addEventListener("click", () => {
-          this.deleteById(id);
-        });
-
-        button.setAttribute("style", buttonStyle);
-        let span = document.createElement("span");
-        span.setAttribute(
-          "style",
-          "background-color:" + colorArray[index] + annotatedTestStyle
-        );
-
-        let TextRange = window.getSelection().getRangeAt(0);
-        TextRange.surroundContents(span);
-        span.appendChild(button);
-        //移除选中状态，否则很难看
-        window.getSelection().removeAllRanges();
-        this.$store.state.id++;
-      }
+       // 隐藏对话框
+    this.showDialog = false;
+     annotate(id,index);
     },
 
-    /**
-
-     * @description 按钮样式，需要调整可以在这里更改
-     */
-    buttonStyle() {
-      return `height:20px;
-        width:20px;
-        text-align:center;
-        line-height:20px;
-        border-radius:30px;
-        margin-left:5px;
-        outline: none;
-        cursor:pointer;
-        background-color:white`;
-    },
     /**
      * @description 自动标注
      */
@@ -170,7 +123,9 @@ export default {
       let essay = this.$refs.essay;
       let text = essay.innerHTML;
       for (let i = 0; i < data.length; i++) {
-        this.$store.state.data[i].push(...data[i].split(" "));
+        if (data[i].length != 0) {
+          this.$store.state.data[i].push(...data[i].split(" "));
+        }
       }
       let array = [];
       let annotatedTestStyle = "";
@@ -192,10 +147,8 @@ export default {
             annotatedTestStyle =
               ";border:5px solid " +
               colorArray[i] +
-              `
-      ;border-radius: 10px;
-      padding: 0 5px 0 3px;`;
-            let buttonStyle = this.buttonStyle();
+              `;border-radius: 10px;padding: 0 5px 0 3px;`;
+
             let button = document.createElement("button");
             let innerText = document.createTextNode(
               essay.childNodes[k].innerText
@@ -204,7 +157,7 @@ export default {
             button.onclick = () => {
               this.deleteById(button.id);
             };
-            button.setAttribute("style", buttonStyle);
+            button.setAttribute("style", buttonStyle());
             let span = document.createElement("span");
             span.appendChild(innerText);
             span.appendChild(button);

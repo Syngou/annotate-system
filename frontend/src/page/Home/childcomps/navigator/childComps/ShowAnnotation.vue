@@ -1,8 +1,8 @@
 <template>
   <div>
     <Drawer :closable="false" width="640" v-model="drawer" class="drawer">
-      <p>relation</p>
-      <hr/>
+      <Button type="primary" long>relation</Button>
+      <hr />
       <div class="">
         <ol>
           <li v-for="(relation, index) in $store.state.data[0]" :key="index">
@@ -10,9 +10,9 @@
           </li>
         </ol>
       </div>
-      <hr/>
-      <p>name</p>
-      <hr/>
+      <hr />
+      <Button type="primary" long>name</Button>
+      <hr />
       <div class="">
         <ol>
           <li v-for="(name, index) in $store.state.data[1]" :key="index">
@@ -20,9 +20,9 @@
           </li>
         </ol>
       </div>
-      <hr/>
-      <p>medicine</p>
-      <hr/>
+      <hr />
+      <Button type="primary" long>medicine</Button>
+      <hr />
       <div class="">
         <ol>
           <li v-for="(medicine, index) in $store.state.data[2]" :key="index">
@@ -30,9 +30,9 @@
           </li>
         </ol>
       </div>
-      <hr/>
-      <p>tool</p>
-      <hr/>
+      <hr />
+      <Button type="primary" long>tool</Button>
+      <hr />
       <div class="">
         <ol>
           <li v-for="(tool, index) in $store.state.data[3]" :key="index">
@@ -40,7 +40,7 @@
           </li>
         </ol>
       </div>
-      <hr/>
+      <hr />
     </Drawer>
   </div>
 </template>
@@ -51,7 +51,7 @@ export default {
   created() {
     this.$bus.$on("showDrawer", () => {
       this.drawer = true;
-    })
+    });
   },
   data() {
     return {
@@ -84,14 +84,14 @@ export default {
 </script>
 
 <style scoped>
-.drawer {
-  margin-top: 10px;
-}
+  .drawer {
+    margin-top: 10px;
+  }
 
-.drawer p {
-  text-align: center;
-  font-size: 20px;
-  color: red;
-  background-color: aqua;
-}
+  .drawer p {
+    text-align: center;
+    font-size: 20px;
+    color: red;
+    background-color: aqua;
+  }
 </style>

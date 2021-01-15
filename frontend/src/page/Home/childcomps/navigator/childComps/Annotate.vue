@@ -2,10 +2,8 @@
   <div>
     <Modal v-model="annotateModal" title="一键标注" :mask-closable="false">
       <div style="text-align: center">
-        <p>一键标注全文，也可以用于机器学习自动标注</p>
-        <p>
-          每一项有多个值时，使用 <span style="color: red">一个</span> 空格隔开
-        </p>
+        <p>一键标注全文，主要用于机器学习自动标注</p>
+        <p>存在未知bug，每次只能输入一个，之后就无效了（无法删除）</p>
       </div>
 
       <i-input v-model="relation">
@@ -36,16 +34,16 @@ export default {
   created() {
     this.$bus.$on("showAnnotate", () => {
       this.annotateModal = true;
-    })
+    });
   },
   data() {
     return {
-      annotateModal: false,//一键标注
-      relation: '',
-      name: '',
-      medicine: '',
-      tool: '',
-    }
+      annotateModal: false, //一键标注
+      relation: "",
+      name: "",
+      medicine: "",
+      tool: "",
+    };
   },
   methods: {
     /**
@@ -64,10 +62,9 @@ export default {
       this.medicine = "";
       this.tool = "";
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

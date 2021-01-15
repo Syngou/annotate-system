@@ -20,10 +20,10 @@
 <script>
 import Introduce from "./childComps/Introduce";
 import Paste from "./childComps/Paste";
-import Annotate from "@/page/Home/childcomps/navigator/childComps/Annotate";
-import ShowAnnotation from "@/page/Home/childcomps/navigator/childComps/ShowAnnotation";
-import Login from "@/page/Home/childcomps/navigator/childComps/Login";
-import UploadFile from "@/page/Home/childcomps/navigator/childComps/UploadFile";
+import Annotate from "./childComps/Annotate";
+import ShowAnnotation from "./childComps/ShowAnnotation";
+import Login from "./childComps/Login";
+import UploadFile from "./childComps/UploadFile";
 
 export default {
   name: "TopNavigation",
@@ -65,41 +65,41 @@ export default {
 </script>
 
 <style scoped>
-/* 标题样式 */
-.title {
-  margin-left: 30px;
-  color: red;
-  font-size: 22px;
-}
+  /* 标题样式 */
+  .title {
+    margin-left: 30px;
+    color: red;
+    font-size: 22px;
+  }
 
-/* 导航条 */
-.topNavigation {
-  position: fixed;
-  top: 0;
-  overflow: hidden;
-  width: 100%;
-  padding-right: 20px;
-  z-index: 50;
-  background-color: #333;
-}
+  /* 导航条 */
+  .topNavigation {
+    position: fixed;
+    top: 0;
+    overflow: hidden;
+    width: 100%;
+    padding-right: 20px;
+    z-index: 50;
+    background-color: #333;
+  }
 
-/* 导航条链接 */
-.topNavigation a {
-  display: inline-block;
-  padding: 14px 16px;
-  background-color: #333;
-  color: #f2f2f2;
-  text-align: center;
-  text-decoration: none;
-}
+  /* 导航条链接 */
+  .topNavigation a {
+    display: inline-block;
+    padding: 14px 16px;
+    background-color: #333;
+    color: #f2f2f2;
+    text-align: center;
+    text-decoration: none;
+  }
 
-.topNavigation a:last-child {
-  float: right;
-}
+  .topNavigation a:last-child {
+    float: right;
+  }
 
-/* 链接颜色修改 */
-.topNavigation a:hover {
-  background-color: #ddd;
-  color: black;
-}
+  /* 链接颜色修改 */
+  .topNavigation a:hover {
+    background-color: #ddd;
+    color: black;
+  }
 </style>

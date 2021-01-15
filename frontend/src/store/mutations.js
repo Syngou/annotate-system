@@ -8,14 +8,14 @@ const mutations = {
      */
     addToList(state, info) {
         let text = info.text;
-        if (info.id.indexOf("relation") !== -1) {
+        if (info.id.charAt(0) === "0") {
             "list ==> " + state.data[0];
             state.data[0].push(text);
-        } else if (info.id.indexOf("name") !== -1) {
+        } else if (info.id.charAt(0) === "1") {
             state.data[1].push(text);
-        } else if (info.id.indexOf("medicine") !== -1) {
+        } else if (info.id.charAt(0) === "2") {
             state.data[2].push(text);
-        } else if (info.id.indexOf("tool") !== -1) {
+        } else if (info.id.charAt(0) === "3") {
             state.data[3].push(text);
         }
 
