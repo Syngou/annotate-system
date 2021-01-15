@@ -9,21 +9,21 @@ const mutations = {
     addToList(state, info) {
         let text = info.text;
         if (info.id.indexOf("relation") !== -1) {
-            "list ==> " + state.relationsList;
-            state.relationsList.push(text);
+            "list ==> " + state.data[0];
+            state.data[0].push(text);
         } else if (info.id.indexOf("name") !== -1) {
-            state.nameList.push(text);
+            state.data[1].push(text);
         } else if (info.id.indexOf("medicine") !== -1) {
-            state.medicineList.push(text);
+            state.data[2].push(text);
         } else if (info.id.indexOf("tool") !== -1) {
-            state.toolsList.push(text);
+            state.data[3].push(text);
         }
 
         postToBackend([
-            state.relationsList,
-            state.nameList,
-            state.medicineList,
-            state.toolsList,
+            state.data[0],
+            state.data[1],
+            state.data[2],
+            state.data[3],
         ]);
     },
     /**
@@ -33,32 +33,31 @@ const mutations = {
      * @param  info 对象，存id，文本
      */
     deleteAnnotatedText(state, info) {
-        if (info.type.indexOf("relation") !== -1) {
-            for (let i = 0; i < state.relationsList.length; i++) {
-                if (state.relationsList[i] == info.text) {
-                    state.relationsList.splice(i, 1);
-                    console.log(true);
+        if (info.type.charAt(0) === "0") {
+            for (let i = 0; i < state.data[0].length; i++) {
+                if (state.data[0][i] == info.text) {
+                    state.data[0].splice(i, 1);
                     break;
                 }
             }
-        } else if (info.type.indexOf("name") !== -1) {
-            for (let i = 0; i < state.nameList.length; i++) {
-                if (state.nameList[i] === info.text + "") {
-                    state.nameList.splice(i, 1);
+        } else if (info.type.charAt(0) === "1") {
+            for (let i = 0; i < state.data[1].length; i++) {
+                if (state.data[1][i] === info.text + "") {
+                    state.data[1].splice(i, 1);
                     break;
                 }
             }
-        } else if (info.type.indexOf("medicine") !== -1) {
-            for (let i = 0; i < state.medicineList.length; i++) {
-                if (state.medicineList[i] === info.text + "") {
-                    state.medicineList.splice(i, 1);
+        } else if (info.type.charAt(0) === "2") {
+            for (let i = 0; i < state.data[2].length; i++) {
+                if (state.data[2][i] === info.text + "") {
+                    state.data[2].splice(i, 1);
                     break;
                 }
             }
-        } else if (info.type.indexOf("tool") !== -1) {
-            for (let i = 0; i < state.toolsList.length; i++) {
-                if (state.toolsList[i] === info.text + "") {
-                    state.toolsList.splice(i, 1);
+        } else if (info.type.charAt(0) === "3") {
+            for (let i = 0; i < state.data[3].length; i++) {
+                if (state.data[3][i] === info.text + "") {
+                    state.data[3].splice(i, 1);
                     break;
                 }
             }

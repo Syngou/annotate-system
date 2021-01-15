@@ -7,10 +7,7 @@ const store = new Vuex.Store({
     state: {
         selectionText: "", //选中的文本
         fontSize: 16, //初始字体大小
-        relationsList: [],
-        nameList: [],
-        medicineList: [],
-        toolsList: [],
+        data: [[], [], [], []],
         id: 1,
         // TODO: 设置缓存存储用户输入
         inputContent: `

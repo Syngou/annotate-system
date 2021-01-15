@@ -1,18 +1,16 @@
 <template>
   <div>
     <div class="dialog" v-show="showDialog" ref="showDialog">
-      <Button type="error" @click="annotation('relation' + $store.state.id, 0)"
+      <Button type="error" @click="annotation('0' + $store.state.id, 0)"
         >关系(r)
       </Button>
-      <Button type="primary" @click="annotation('name' + $store.state.id, 1)"
+      <Button type="primary" @click="annotation('1' + $store.state.id, 1)"
         >名称(b)
       </Button>
-      <Button
-        type="success"
-        @click="annotation('medicine' + $store.state.id, 2)"
+      <Button type="success" @click="annotation('2' + $store.state.id, 2)"
         >药物(g)
       </Button>
-      <Button type="warning" @click="annotation('tool' + $store.state.id, 3)"
+      <Button type="warning" @click="annotation('3' + $store.state.id, 3)"
         >器械(o)
       </Button>
       <Button type="info" @click="translate">翻译(t)</Button>
@@ -42,10 +40,11 @@ export default {
   // 键盘标注，初始化即开始监听
   created() {
     this.annotateByShortcut();
+    this.$bus.$on("autoAnnotate", this.autoAnnotate);
   },
   methods: {
     /**
-     
+
      * @description 在鼠标位置弹出对话框
      */
     showSelectBox(X, Y) {
@@ -56,7 +55,7 @@ export default {
     },
 
     /**
-     
+
      * @description 获取选中文本，鼠标位置加上滚动距离
      * @param 窗口事件
      */
@@ -72,7 +71,7 @@ export default {
       }
     },
     /**
-     
+
      * @description 快捷键标注，全局监听鼠标事件，然后进行标注
      */
     annotateByShortcut() {
@@ -81,19 +80,19 @@ export default {
         let id = this.$store.state.id;
         switch (keyCode) {
           case 82: {
-            this.annotation("relation" + id, 0);
+            this.annotation("0" + id, 0);
             break;
           }
           case 66: {
-            this.annotation("name" + id, 1);
+            this.annotation("1" + id, 1);
             break;
           }
           case 71: {
-            this.annotation("medicine" + id, 2);
+            this.annotation("2" + id, 2);
             break;
           }
           case 79: {
-            this.annotation("tool" + id, 3);
+            this.annotation("3" + id, 3);
             break;
           }
           case 84: {
@@ -104,7 +103,7 @@ export default {
       };
     },
     /**
-     
+
      * @description 标注
      * @param id 给button标签的id，用于删除时查找
      * @param index 标注颜色索引
@@ -150,7 +149,7 @@ export default {
     },
 
     /**
-     
+
      * @description 按钮样式，需要调整可以在这里更改
      */
     buttonStyle() {
@@ -165,7 +164,64 @@ export default {
         background-color:white`;
     },
     /**
-     
+     * @description 自动标注
+     */
+    autoAnnotate(data) {
+      let essay = this.$refs.essay;
+      let text = essay.innerHTML;
+      for (let i = 0; i < data.length; i++) {
+        this.$store.state.data[i].push(...data[i].split(" "));
+      }
+      let array = [];
+      let annotatedTestStyle = "";
+      let colorArray = ["red", "blue", "green", "orange"]; // 标注颜色
+      for (let i = 0; i < this.$store.state.data.length; i++) {
+        for (let j = 0; j < this.$store.state.data[i].length; j++) {
+          if (this.$store.state.data[i][j].length != 0) {
+            array = text.split(this.$store.state.data[i][j]);
+            this.$refs.essay.innerHTML = array.join(
+              "<font style='color:red'>" +
+                this.$store.state.data[i][j] +
+                "</font>"
+            );
+            array = [];
+          }
+        }
+        for (let k = 0; k < essay.childNodes.length; k++) {
+          if (essay.childNodes[k].nodeName === "FONT") {
+            annotatedTestStyle =
+              ";border:5px solid " +
+              colorArray[i] +
+              `
+      ;border-radius: 10px;
+      padding: 0 5px 0 3px;`;
+            let buttonStyle = this.buttonStyle();
+            let button = document.createElement("button");
+            let innerText = document.createTextNode(
+              essay.childNodes[k].innerText
+            );
+            button.id = i + "" + this.$store.state.id++;
+            button.onclick = () => {
+              this.deleteById(button.id);
+            };
+            button.setAttribute("style", buttonStyle);
+            let span = document.createElement("span");
+            span.appendChild(innerText);
+            span.appendChild(button);
+            span.setAttribute(
+              "style",
+              "background-color:" + colorArray[i] + annotatedTestStyle
+            );
+            essay.childNodes[k].parentNode.replaceChild(
+              span,
+              essay.childNodes[k]
+            );
+          }
+        }
+      }
+    },
+
+    /**
      * @description 删除样式
      */
     deleteById(id) {
@@ -180,7 +236,7 @@ export default {
     },
 
     /**
-     
+
      * @description 翻译  TODO：等待接口
      */
     translate() {

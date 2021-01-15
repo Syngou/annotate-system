@@ -12,10 +12,10 @@
 
 
 <script>
-import TopNavigation from "./childconps/TopNavigation";
-import FunctionBar from "./childconps/FunctionBar";
-import Paper from "./childconps/Paper";
-import Footer from "@/page/Home/childconps/Footer";
+import TopNavigation from "./childcomps/navigator/TopNavigation";
+import FunctionBar from "./childcomps/FunctionBar";
+import Paper from "./childcomps/Paper";
+import Footer from "@/page/Home/childcomps/Footer";
 
 export default {
   name: "Home",
