@@ -2,8 +2,16 @@
   <div>
     <Modal v-model="annotateModal" title="一键标注" :mask-closable="false">
       <div style="text-align: center">
-        <p>一键标注全文，主要用于机器学习自动标注</p>
-        <p>存在未知bug，每次只能输入一个，之后就无效了（无法删除）</p>
+        <p></p>
+        <Collapse>
+          <Panel>
+            使用说明
+            <p slot="content">
+              一键标注全文，用于机器学习自动标注
+              <br />存在未知bug，每次只能输入一个，之后就无效了（无法删除）
+            </p>
+          </Panel>
+        </Collapse>
       </div>
 
       <i-input v-model="relation">

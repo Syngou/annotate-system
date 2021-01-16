@@ -1,46 +1,66 @@
 <template>
   <div>
     <Drawer :closable="false" width="640" v-model="drawer" class="drawer">
-      <Button type="primary" long>relation</Button>
-      <hr />
-      <div class="">
-        <ol>
-          <li v-for="(relation, index) in $store.state.data[0]" :key="index">
-            {{ relation }}
-          </li>
-        </ol>
+      <div v-show="$store.state.data[0].length > 0">
+        <Button type="primary" long>relation</Button>
+        <hr />
+        <div class="">
+          <ol>
+            <li v-for="(relation, index) in $store.state.data[0]" :key="index">
+              {{ relation }}
+            </li>
+          </ol>
+        </div>
+        <hr />
       </div>
-      <hr />
-      <Button type="primary" long>name</Button>
-      <hr />
-      <div class="">
-        <ol>
-          <li v-for="(name, index) in $store.state.data[1]" :key="index">
-            {{ name }}
-          </li>
-        </ol>
+
+      <div v-show="$store.state.data[1].length > 0">
+        <Button type="primary" long>name</Button>
+        <hr />
+        <div class="">
+          <ol>
+            <li v-for="(name, index) in $store.state.data[1]" :key="index">
+              {{ name }}
+            </li>
+          </ol>
+        </div>
+        <hr />
       </div>
-      <hr />
-      <Button type="primary" long>medicine</Button>
-      <hr />
-      <div class="">
-        <ol>
-          <li v-for="(medicine, index) in $store.state.data[2]" :key="index">
-            {{ medicine }}
-          </li>
-        </ol>
+      <div v-show="$store.state.data[2].length > 0">
+        <Button type="primary" long>medicine</Button>
+        <hr />
+        <div class="">
+          <ol>
+            <li v-for="(medicine, index) in $store.state.data[2]" :key="index">
+              {{ medicine }}
+            </li>
+          </ol>
+        </div>
+        <hr />
       </div>
-      <hr />
-      <Button type="primary" long>tool</Button>
-      <hr />
-      <div class="">
-        <ol>
-          <li v-for="(tool, index) in $store.state.data[3]" :key="index">
-            {{ tool }}
-          </li>
-        </ol>
+      <div v-show="$store.state.data[3].length > 0">
+        <Button type="primary" long>tool</Button>
+        <hr />
+        <div class="">
+          <ol>
+            <li v-for="(tool, index) in $store.state.data[3]" :key="index">
+              {{ tool }}
+            </li>
+          </ol>
+        </div>
+        <hr />
       </div>
-      <hr />
+      <div
+        style="font-size: 30px"
+        v-show="
+          $store.state.data[0].length == 0 &&
+          $store.state.data[1].length == 0 &&
+          $store.state.data[2].length == 0 &&
+          $store.state.data[3].length == 0
+        "
+      >
+        只有标注了才会在这里显示哦👨🏻‍🔬
+      </div>
     </Drawer>
   </div>
 </template>
@@ -88,10 +108,7 @@ export default {
     margin-top: 10px;
   }
 
-  .drawer p {
-    text-align: center;
-    font-size: 20px;
-    color: red;
-    background-color: aqua;
+  .drawer li {
+    margin-left: 20px;
   }
 </style>

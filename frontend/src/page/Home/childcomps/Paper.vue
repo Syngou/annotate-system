@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { buttonStyle,annotate } from "@/utils/paperUtils";
+import {  annotate,autoAnnotate } from "@/utils/paperUtils";
 export default {
   name: "Essays",
   data() {
@@ -42,7 +42,7 @@ export default {
   // 键盘标注，初始化即开始监听
   created() {
     this.annotateByShortcut();
-    this.$bus.$on("autoAnnotate", this.autoAnnotate);
+    this.$bus.$on("autoAnnotate", this.autoAnnotateByMechine);
   },
   methods: {
     /**
@@ -111,67 +111,16 @@ export default {
      * @param index 标注颜色索引
      */
     annotation(id, index) {
-       // 隐藏对话框
-    this.showDialog = false;
-     annotate(id,index);
+      // 隐藏对话框
+      this.showDialog = false;
+      annotate(id, index);
     },
 
     /**
      * @description 自动标注
      */
-    autoAnnotate(data) {
-      let essay = this.$refs.essay;
-      let text = essay.innerHTML;
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].length != 0) {
-          this.$store.state.data[i].push(...data[i].split(" "));
-        }
-      }
-      let array = [];
-      let annotatedTestStyle = "";
-      let colorArray = ["red", "blue", "green", "orange"]; // 标注颜色
-      for (let i = 0; i < this.$store.state.data.length; i++) {
-        for (let j = 0; j < this.$store.state.data[i].length; j++) {
-          if (this.$store.state.data[i][j].length != 0) {
-            array = text.split(this.$store.state.data[i][j]);
-            this.$refs.essay.innerHTML = array.join(
-              "<font style='color:red'>" +
-                this.$store.state.data[i][j] +
-                "</font>"
-            );
-            array = [];
-          }
-        }
-        for (let k = 0; k < essay.childNodes.length; k++) {
-          if (essay.childNodes[k].nodeName === "FONT") {
-            annotatedTestStyle =
-              ";border:5px solid " +
-              colorArray[i] +
-              `;border-radius: 10px;padding: 0 5px 0 3px;`;
-
-            let button = document.createElement("button");
-            let innerText = document.createTextNode(
-              essay.childNodes[k].innerText
-            );
-            button.id = i + "" + this.$store.state.id++;
-            button.onclick = () => {
-              this.deleteById(button.id);
-            };
-            button.setAttribute("style", buttonStyle());
-            let span = document.createElement("span");
-            span.appendChild(innerText);
-            span.appendChild(button);
-            span.setAttribute(
-              "style",
-              "background-color:" + colorArray[i] + annotatedTestStyle
-            );
-            essay.childNodes[k].parentNode.replaceChild(
-              span,
-              essay.childNodes[k]
-            );
-          }
-        }
-      }
+    autoAnnotateByMechine(data) {
+      autoAnnotate(data);
     },
 
     /**
