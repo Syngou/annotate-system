@@ -7,8 +7,19 @@
           <Panel>
             使用说明
             <p slot="content">
-              一键标注全文，用于机器学习自动标注
-              <br />存在未知bug，每次只能输入一个，之后就无效了（无法删除）
+              一键标注全文，用于机器学习自动标注，后台传来要标注的词，前台进行标注，人工检查是否正确
+
+              <br />
+              如果每种类型有多个值，请用<span
+                style="color: red; font-size: 20px"
+              >
+                一个
+              </span>
+              空格隔开<br />
+              人工标注时不推荐使用<br /><span
+                style="color: red; font-size: 20px"
+                >若要使用，需在最开始时使用（即还未进行标注时），否则会有奇怪的结果</span
+              >
             </p>
           </Panel>
         </Collapse>

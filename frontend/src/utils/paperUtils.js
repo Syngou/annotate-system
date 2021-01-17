@@ -62,8 +62,8 @@ function deleteById(id) {
     let essay = document.getElementById("essay");
     let span = document.getElementById(id).parentNode;
     // 获取文本，将其插入当前节点前，再删除节点
-    let textNode = document.createTextNode(span.innerText);
-    let text = span.innerText;
+    let textNode = document.createTextNode(span.innerText.trim());
+    let text = span.innerText.trim();
     essay.insertBefore(textNode, span);
     essay.removeChild(span);
     store.commit("deleteAnnotatedText", { type: id, text });
@@ -80,46 +80,36 @@ function autoAnnotate(data) {
 
     for (let i = 0; i < data.length; i++) {
         array.push(...data[i].split(" "));
+        annotatedTestStyle =
+            ";border:5px solid " +
+            colorArray[i] +
+            `
+      ;border-radius: 10px;
+      padding: 0 5px 0 3px;`;
         for (let j = 0; j < array.length; j++) {
             if (array[j].length != 0) {
                 store.state.data[i].push(array[j]);
                 essay.innerHTML = essay.innerHTML
                     .split(store.state.data[i][j])
                     .join(
-                        "<font style='color:#ff0000'>" +
-                            store.state.data[i][j] +
-                            "</font>"
-                    );
-                for (let k = 0; k < essay.childNodes.length; k++) {
-                    if (essay.childNodes[k].nodeName === "FONT") {
-                        annotatedTestStyle =
-                            ";border:5px solid " +
+                        "<span style='background-color:" +
                             colorArray[i] +
-                            `;border-radius: 10px;padding: 0 5px 0 3px;`;
-
-                        let button = document.createElement("button");
-                        let innerText = document.createTextNode(
-                            essay.childNodes[k].innerText
-                        );
-                        button.id = i + "" + store.state.id++;
-                        button.onclick = () => {
-                            deleteById(button.id);
-                        };
-                        button.setAttribute("style", buttonStyle());
-                        let span = document.createElement("span");
-                        span.appendChild(innerText);
-                        span.appendChild(button);
-                        span.setAttribute(
-                            "style",
-                            "background-color:" +
-                                colorArray[i] +
-                                annotatedTestStyle
-                        );
-                        essay.childNodes[k].parentNode.replaceChild(
-                            span,
-                            essay.childNodes[k]
-                        );
-                    }
+                            annotatedTestStyle +
+                            "'>" +
+                            store.state.data[i][j].trim() +
+                            "<button class='deleteButton' style='" +
+                            buttonStyle() +
+                            "'></button> </span>"
+                    );
+                let buttons = Array.from(
+                    document.getElementsByClassName("deleteButton")
+                );
+                for (let k = 0; k < buttons.length; k++) {
+                    buttons[k].id = i + "" + store.state.id++;
+                    buttons[k].onclick = () => {
+                        deleteById(buttons[k].id);
+                    };
+                    console.log(buttons[k].id);
                 }
             }
         }
