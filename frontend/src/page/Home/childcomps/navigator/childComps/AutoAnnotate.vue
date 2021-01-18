@@ -49,7 +49,7 @@
 
 <script>
 export default {
-  name: "Annotate",
+  name: "AutoAnnotate",
   created() {
     this.$bus.$on("showAnnotate", () => {
       this.annotateModal = true;

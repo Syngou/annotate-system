@@ -13,7 +13,7 @@
           <Tag color="warning">橙：o(orange)</Tag>
         </ListItem>
         <ListItem
-          >一键标注功能用于机器学习自动化标注，不推荐人工标注时使用</ListItem
+          >一键标注功能用于机器学习自动化标注，人工标注时不推荐使用</ListItem
         >
       </List>
       <div
@@ -41,6 +41,9 @@ export default {
     };
   },
   methods: {
+    /**
+     * @description 设置cookie，用于介绍使用方法，已经读过的就不再显示
+     */
     haveRead() {
       if (document.cookie.indexOf("haveRead") == -1) {
         this.introduceModal = true;

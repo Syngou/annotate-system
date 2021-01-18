@@ -10,7 +10,7 @@
     <a href="#" style="float: right" @click="ShowLogin">登录</a>
     <Introduce></Introduce>
     <Paste></Paste>
-    <Annotate></Annotate>
+    <AutoAnnotate></AutoAnnotate>
     <ShowAnnotation></ShowAnnotation>
     <UploadFile></UploadFile>
     <Login></Login>
@@ -20,7 +20,7 @@
 <script>
 import Introduce from "./childComps/Introduce";
 import Paste from "./childComps/Paste";
-import Annotate from "./childComps/Annotate";
+import AutoAnnotate from "./childComps/AutoAnnotate";
 import ShowAnnotation from "./childComps/ShowAnnotation";
 import Login from "./childComps/Login";
 import UploadFile from "./childComps/UploadFile";
@@ -30,7 +30,7 @@ export default {
   components: {
     Introduce,
     Paste,
-    Annotate,
+    AutoAnnotate,
     ShowAnnotation,
     Login,
     UploadFile,
@@ -42,21 +42,39 @@ export default {
     outputContent() {
       this.$Message.info("功能正在开发...");
     },
+    /**
+     * @description  显示已标注的词语对话框
+     */
     ShowAnnotate() {
       this.$bus.$emit("showAnnotate");
     },
+    /**
+     * @description 显示介绍对话框
+     */
     ShowIntroduce() {
       this.$bus.$emit("showIntroduce");
     },
+    /**
+     * @description 粘贴文本进行标注
+     */
     ShowPaste() {
       this.$bus.$emit("showPaste");
     },
+    /**
+     * @description 一键标注对话框
+     */
     ShowDrawer() {
       this.$bus.$emit("showDrawer");
     },
+    /**
+     * @description 登录对话框
+     */
     ShowLogin() {
       this.$bus.$emit("showLogin");
     },
+    /**
+     * @description 文件上传
+     */
     ShowUpload() {
       this.$bus.$emit("showUpload");
     },

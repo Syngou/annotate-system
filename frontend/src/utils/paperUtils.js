@@ -1,5 +1,7 @@
 import store from "@/store/index";
-
+/**
+ * @description 返回按钮样式
+ */
 function buttonStyle() {
     return `height:20px;
         width:20px;
@@ -57,6 +59,7 @@ function annotate(id, index) {
 
 /**
  * @description 删除样式
+ * @id ==> 按钮的id，用于查找
  */
 function deleteById(id) {
     let essay = document.getElementById("essay");
@@ -70,14 +73,15 @@ function deleteById(id) {
 }
 
 /**
- * @description 自动标注
+ * @description 机器学习自动化标注
+ * @params data ==> 后台传来的数据，一维字符串数组，长度为四，对应四种标注类型
  */
 function autoAnnotate(data) {
     let essay = document.getElementById("essay");
     let array = [];
     let annotatedTestStyle = "";
     let colorArray = ["red", "blue", "green", "orange"]; // 标注颜色
-
+    //把字符串分割
     for (let i = 0; i < data.length; i++) {
         array.push(...data[i].split(" "));
         annotatedTestStyle =
@@ -86,6 +90,7 @@ function autoAnnotate(data) {
             `
       ;border-radius: 10px;
       padding: 0 5px 0 3px;`;
+        //把分割出来的字符串分别标注
         for (let j = 0; j < array.length; j++) {
             if (array[j].length != 0) {
                 store.state.data[i].push(array[j]);
@@ -104,6 +109,8 @@ function autoAnnotate(data) {
                 let buttons = Array.from(
                     document.getElementsByClassName("deleteButton")
                 );
+                //查找按钮并添加删除事件，这种方法很low，欢迎修改
+                //TODO：优化代码
                 for (let k = 0; k < buttons.length; k++) {
                     buttons[k].id = i + "" + store.state.id++;
                     buttons[k].onclick = () => {

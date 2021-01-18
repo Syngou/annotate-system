@@ -36,7 +36,9 @@ export default {
   methods: {
     /**
      * @description 浏览器关闭时提示，待开发
+     *
      */
+    //TODO 开发此功能，不能也不强求
     isUpload() {
       window.onbeforeunload = function () {
         if (!this.$store.state.isUpload) {

@@ -77,6 +77,9 @@
       >
         只有标注了才会在这里显示哦👨🏻‍🔬
       </div>
+      <div class="upload-button">
+        <Button type="primary" @click="uploadData">上传数据</Button>
+      </div>
     </Drawer>
   </div>
 </template>
@@ -91,7 +94,7 @@ export default {
   },
   data() {
     return {
-      drawer: true, //显示标注词语
+      drawer: false, //显示标注词语
       relation: "",
       name: "",
       medicine: "",
@@ -114,6 +117,16 @@ export default {
       this.name = "";
       this.medicine = "";
       this.tool = "";
+    },
+    /**
+     * @description: 标注数据上传后台
+     */
+    uploadData() {
+      this.$Message.error({
+        content: "服务器失踪了，数据不知道往哪里传...",
+        duration: 4,
+        closable: true,
+      });
     },
   },
 };
@@ -138,5 +151,10 @@ export default {
   .list-item:nth-child(even) {
     background-color: #c4d2f3;
     border-radius: 10px;
+  }
+  .upload-button {
+    position: absolute;
+    bottom: 0;
+    left: 40%;
   }
 </style>
