@@ -5,14 +5,16 @@
         <ListItem
           >按下鼠标，滑过文本，松开，即可标注文本,右栏实时显示标注的文本</ListItem
         >
-        <ListItem>也可以选择使用快捷键标注.</ListItem>
-        <ListItem>对应快捷键：</ListItem>
+        <ListItem>也可以选择使用快捷键标注.对应快捷键：</ListItem>
         <ListItem>
-          <Tag color="error">红：r(red); </Tag>
-          <Tag color="primary">蓝：b(blue); </Tag>
-          <Tag color="success">绿：g(green); </Tag>
+          <Tag color="error">红：r(red) </Tag>
+          <Tag color="primary">蓝：b(blue) </Tag>
+          <Tag color="success">绿：g(green) </Tag>
           <Tag color="warning">橙：o(orange)</Tag>
         </ListItem>
+        <ListItem
+          >一键标注功能用于机器学习自动化标注，不推荐人工标注时使用</ListItem
+        >
       </List>
       <div
         slot="footer"

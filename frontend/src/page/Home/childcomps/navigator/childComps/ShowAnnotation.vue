@@ -4,9 +4,13 @@
       <div v-show="$store.state.data[0].length > 0">
         <Button type="primary" long>relation</Button>
         <hr />
-        <div class="">
+        <div>
           <ol>
-            <li v-for="(relation, index) in $store.state.data[0]" :key="index">
+            <li
+              class="list-item"
+              v-for="(relation, index) in $store.state.data[0]"
+              :key="index"
+            >
               {{ relation }}
             </li>
           </ol>
@@ -17,9 +21,13 @@
       <div v-show="$store.state.data[1].length > 0">
         <Button type="primary" long>name</Button>
         <hr />
-        <div class="">
+        <div>
           <ol>
-            <li v-for="(name, index) in $store.state.data[1]" :key="index">
+            <li
+              class="list-item"
+              v-for="(name, index) in $store.state.data[1]"
+              :key="index"
+            >
               {{ name }}
             </li>
           </ol>
@@ -29,9 +37,13 @@
       <div v-show="$store.state.data[2].length > 0">
         <Button type="primary" long>medicine</Button>
         <hr />
-        <div class="">
+        <div>
           <ol>
-            <li v-for="(medicine, index) in $store.state.data[2]" :key="index">
+            <li
+              class="list-item"
+              v-for="(medicine, index) in $store.state.data[2]"
+              :key="index"
+            >
               {{ medicine }}
             </li>
           </ol>
@@ -41,9 +53,13 @@
       <div v-show="$store.state.data[3].length > 0">
         <Button type="primary" long>tool</Button>
         <hr />
-        <div class="">
+        <div>
           <ol>
-            <li v-for="(tool, index) in $store.state.data[3]" :key="index">
+            <li
+              class="list-item"
+              v-for="(tool, index) in $store.state.data[3]"
+              :key="index"
+            >
               {{ tool }}
             </li>
           </ol>
@@ -75,7 +91,7 @@ export default {
   },
   data() {
     return {
-      drawer: false, //显示标注词语
+      drawer: true, //显示标注词语
       relation: "",
       name: "",
       medicine: "",
@@ -110,5 +126,17 @@ export default {
 
   .drawer li {
     margin-left: 20px;
+    list-style-position: inside;
+    padding-left: 10px;
+    margin-left: 0;
+  }
+
+  .list-item:nth-child(odd) {
+    background-color: #c1c8d8;
+    border-radius: 10px;
+  }
+  .list-item:nth-child(even) {
+    background-color: #c4d2f3;
+    border-radius: 10px;
   }
 </style>

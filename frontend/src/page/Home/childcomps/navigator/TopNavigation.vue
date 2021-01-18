@@ -7,7 +7,7 @@
     <a href="#" @click="outputContent">输出文本</a>
     <a href="#" @click="ShowAnnotate">一键标注</a>
     <a href="#" @click="ShowDrawer">已标注</a>
-    <a href="#" @click="ShowLogin">登录</a>
+    <a href="#" style="float: right" @click="ShowLogin">登录</a>
     <Introduce></Introduce>
     <Paste></Paste>
     <Annotate></Annotate>
@@ -91,10 +91,6 @@ export default {
     color: #f2f2f2;
     text-align: center;
     text-decoration: none;
-  }
-
-  .topNavigation a:last-child {
-    float: right;
   }
 
   /* 链接颜色修改 */
