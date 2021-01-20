@@ -30,7 +30,8 @@
 </template>
 
 <script>
-import {  annotate,autoAnnotate } from "@/utils/paperUtils";
+import { annotate, autoAnnotate } from "@/utils/paperUtils";
+import { translate } from "@/network/request";
 export default {
   name: "Essays",
   data() {
@@ -141,9 +142,17 @@ export default {
 
      * @description 翻译  TODO：等待接口
      */
-    translate() {
+    translate(text) {
       this.showDialog = false;
-      this.$Message.info("功能正在开发");
+      translate(text).then(
+        (res) => {
+          console.log(res);
+        },
+        (err) => {
+          this.$Message.info("功能正在开发");
+          console.log(err);
+        }
+      );
     },
   },
 };

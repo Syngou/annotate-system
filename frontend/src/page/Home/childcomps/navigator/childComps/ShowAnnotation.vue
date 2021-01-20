@@ -1,9 +1,9 @@
 <template>
   <div>
     <Drawer :closable="false" width="640" v-model="drawer" class="drawer">
-      <div v-show="$store.state.data[0].length > 0">
-        <Button type="primary" long>relation</Button>
-        <hr />
+      <div class="list" v-show="$store.state.data[0].length > 0">
+        <Button type="primary" long>关系</Button>
+
         <div>
           <ol>
             <li
@@ -15,12 +15,11 @@
             </li>
           </ol>
         </div>
-        <hr />
       </div>
 
-      <div v-show="$store.state.data[1].length > 0">
-        <Button type="primary" long>name</Button>
-        <hr />
+      <div class="list" v-show="$store.state.data[1].length > 0">
+        <Button type="primary" long>名称</Button>
+
         <div>
           <ol>
             <li
@@ -32,11 +31,10 @@
             </li>
           </ol>
         </div>
-        <hr />
       </div>
-      <div v-show="$store.state.data[2].length > 0">
-        <Button type="primary" long>medicine</Button>
-        <hr />
+      <div class="list" v-show="$store.state.data[2].length > 0">
+        <Button type="primary" long>药物</Button>
+
         <div>
           <ol>
             <li
@@ -48,11 +46,10 @@
             </li>
           </ol>
         </div>
-        <hr />
       </div>
-      <div v-show="$store.state.data[3].length > 0">
-        <Button type="primary" long>tool</Button>
-        <hr />
+      <div class="list" v-show="$store.state.data[3].length > 0">
+        <Button type="primary" long>器械</Button>
+
         <div>
           <ol>
             <li
@@ -64,7 +61,6 @@
             </li>
           </ol>
         </div>
-        <hr />
       </div>
       <div
         style="font-size: 30px"
@@ -103,22 +99,6 @@ export default {
   },
   methods: {
     /**
-     * @description 一键标注
-     */
-    autoAnnotate() {
-      this.annotateModal = false;
-      this.$bus.$emit("autoAnnotate", [
-        this.relation,
-        this.name,
-        this.medicine,
-        this.tool,
-      ]);
-      this.relation = "";
-      this.name = "";
-      this.medicine = "";
-      this.tool = "";
-    },
-    /**
      * @description: 标注数据上传后台
      */
     uploadData() {
@@ -143,13 +123,18 @@ export default {
     padding-left: 10px;
     margin-left: 0;
   }
+  .list {
+    margin-bottom: 20px;
+  }
 
   .list-item:nth-child(odd) {
     background-color: #c1c8d8;
+    margin-top: 2px;
     border-radius: 10px;
   }
   .list-item:nth-child(even) {
     background-color: #c4d2f3;
+    margin-top: 2px;
     border-radius: 10px;
   }
   .upload-button {

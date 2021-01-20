@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Modal v-model="annotateModal" title="一键标注" :mask-closable="false">
+    <Modal v-model="annotateModal" title="自动化标注" :mask-closable="false">
       <div style="text-align: center">
         <p></p>
         <Collapse>
@@ -57,7 +57,7 @@ export default {
   },
   data() {
     return {
-      annotateModal: false, //一键标注
+      annotateModal: false, //自动化标注的显示与隐藏
       relation: "",
       name: "",
       medicine: "",
@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     /**
-     * @description 一键标注
+     * @description 自动化标注
      */
     autoAnnotate() {
       this.annotateModal = false;

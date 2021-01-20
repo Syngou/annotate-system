@@ -5,7 +5,7 @@
     <a href="#" @click="ShowUpload">上传文件</a>
     <a href="#" @click="ShowPaste">输入文本</a>
     <a href="#" @click="outputContent">输出文本</a>
-    <a href="#" @click="ShowAnnotate">一键标注</a>
+    <a href="#" @click="ShowAnnotate">自动化标注</a>
     <a href="#" @click="ShowDrawer">已标注</a>
     <a href="#" style="float: right" @click="ShowLogin">登录</a>
     <Introduce></Introduce>
@@ -61,7 +61,7 @@ export default {
       this.$bus.$emit("showPaste");
     },
     /**
-     * @description 一键标注对话框
+     * @description 自动化标注对话框
      */
     ShowDrawer() {
       this.$bus.$emit("showDrawer");

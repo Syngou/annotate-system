@@ -13,7 +13,7 @@
           <Tag color="warning">橙：o(orange)</Tag>
         </ListItem>
         <ListItem
-          >一键标注功能用于机器学习自动化标注，人工标注时不推荐使用</ListItem
+          >自动化标注功能用于机器学习自动化标注，人工标注时不推荐使用</ListItem
         >
       </List>
       <div

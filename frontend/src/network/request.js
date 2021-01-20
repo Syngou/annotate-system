@@ -10,7 +10,7 @@ import axios from "axios";
 export function login(name, password) {
     const instance = axios.create({
         // TODO：等待服务器
-        url: "http://localhost:8000/loginServlet",
+        baseURL: "http://localhost:8000/loginServlet",
         params: { name, password },
         timeout: 5000,
     });
@@ -23,7 +23,7 @@ export function login(name, password) {
  */
 export function postToBackend(data) {
     const instance = axios.create({
-        url: `http://localhost:8000/sql?relation=\
+        baseURL: `http://localhost:8000/sql?relation=\
             ${data[0]}&name=${data[1]}&medicine=${data[2]}&tool=${data[3]}`,
         timeout: 5000,
     });
@@ -36,8 +36,8 @@ export function postToBackend(data) {
  */
 export function translate(text) {
     const instance = axios.create({
-        url: `http://localhost:8000/translate?text=${text}`,
+        baseURL: `http://localhost:8000/translate?text=${text}`,
         timeout: 5000,
     });
-    return instance(text);
+    return instance();
 }
