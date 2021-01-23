@@ -3,6 +3,7 @@
     <Modal v-model="loginModal" width="24" :mask-closable="false">
       <Form ref="formInline" :model="formInline" :rules="ruleInline" block>
         <span id="loginBox">
+          <!-- 用户头像，可以自行修改或者使用数据库动态修改 -->
           <Avatar
             size="large"
             src="https://visualhunt.com/photos/1/nature-red-sun-rocks.jpg?s=s"
@@ -33,7 +34,7 @@
         style="display: flex; justify-content: center; align-items: center"
       >
         <Button type="primary" @click="handleSubmit('formInline')"
-        >登录
+          >登录
         </Button>
       </div>
     </Modal>
@@ -41,14 +42,14 @@
 </template>
 
 <script>
-import {login} from "@/network/request";
+import { login } from "@/network/request";
 
 export default {
   name: "Login",
   created() {
     this.$bus.$on("showLogin", () => {
       this.loginModal = true;
-    })
+    });
   },
   data() {
     return {
@@ -75,11 +76,11 @@ export default {
           },
         ],
       },
-    }
+    };
   },
   methods: {
     /**
-     * @description 登录
+     * @description 登录,将用户名和密码传入即可
      */
     handleSubmit() {
       let name = this.formInline.user;
@@ -94,17 +95,16 @@ export default {
         }
       );
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
-
-/* 登录盒子 */
-#loginBox {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-}
+  /* 登录盒子 */
+  #loginBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
 </style>

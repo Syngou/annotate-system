@@ -21,7 +21,7 @@ function buttonStyle() {
  */
 function annotate(id, index) {
     let colorArray = ["red", "blue", "green", "orange"]; // 标注颜色
-    let text = store.state.selectionText;
+    let text = store.state.selectionText.trim();
     store.commit("addToList", { id, text });
     // 按钮样式   TODO：样式美化
     // 标注文本样式
@@ -116,7 +116,6 @@ function autoAnnotate(data) {
                     buttons[k].onclick = () => {
                         deleteById(buttons[k].id);
                     };
-                    console.log(buttons[k].id);
                 }
             }
         }

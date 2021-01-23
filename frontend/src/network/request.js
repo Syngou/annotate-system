@@ -1,37 +1,33 @@
 import axios from "axios";
 
 /**
- 
- * @description 登录
+ *
  * @param  name ==> 用户名
  * @param  password ==> 密码
- * TODO 这样可能不安全，或许需要改一下
+ * @description 登录，请自行更改请求url
  */
 export function login(name, password) {
-    const instance = axios.create({
+    return axios.post(
         // TODO：等待服务器
-        baseURL: "http://localhost:8000/loginServlet",
-        params: { name, password },
-        timeout: 5000,
-    });
-    return instance();
+        "http://localhost:8080/",
+        { name, password }
+    );
 }
 
 /**
  * @description 传数据到后台
- * @param  data ==> 数组，对应四个标注的属性
+ * @param  data ==> 数组，四个值对应四个标注的属性
  */
 export function postToBackend(data) {
     const instance = axios.create({
-        baseURL: `http://localhost:8000/sql?relation=\
-            ${data[0]}&name=${data[1]}&medicine=${data[2]}&tool=${data[3]}`,
+        baseURL: `http://localhost:8000/sql?relation=${data[0]}&name=${data[1]}&medicine=${data[2]}&tool=${data[3]}`,
         timeout: 5000,
     });
     return instance(data);
 }
 
 /**
- * @description
+ * @description 翻译，待开发
  * @params text ==> 需要标注的文本
  */
 export function translate(text) {

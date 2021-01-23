@@ -25,37 +25,39 @@ const mutations = {
             state.data[2],
             state.data[3],
         ]);
+        console.log("in push");
+        console.log(state.data[0]);
     },
     /**
      
      * @description 删除list中的标注记录
      * @param  state
-     * @param  info 对象，存id，文本
+     * @param  info 对象，存储需要删除已标注文本的id，文本
      */
     deleteAnnotatedText(state, info) {
         if (info.type.charAt(0) === "0") {
-            for (let i = 0; i < state.data[0].length; i++) {
+            for (let i = state.data.length - 1; i >= 0; i--) {
                 if (state.data[0][i] == info.text) {
                     state.data[0].splice(i, 1);
                     break;
                 }
             }
         } else if (info.type.charAt(0) === "1") {
-            for (let i = 0; i < state.data[1].length; i++) {
+            for (let i = state.data.length - 1; i >= 0; i--) {
                 if (state.data[1][i] === info.text + "") {
                     state.data[1].splice(i, 1);
                     break;
                 }
             }
         } else if (info.type.charAt(0) === "2") {
-            for (let i = 0; i < state.data[2].length; i++) {
+            for (let i = state.data.length - 1; i >= 0; i--) {
                 if (state.data[2][i] === info.text + "") {
                     state.data[2].splice(i, 1);
                     break;
                 }
             }
         } else if (info.type.charAt(0) === "3") {
-            for (let i = 0; i < state.data[3].length; i++) {
+            for (let i = state.data.length - 1; i >= 0; i--) {
                 if (state.data[3][i] === info.text + "") {
                     state.data[3].splice(i, 1);
                     break;

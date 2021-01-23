@@ -40,9 +40,9 @@ export default {
      */
     //TODO 开发此功能，不能也不强求
     isUpload() {
-      window.onbeforeunload = function () {
+      window.onbeforeunload = () => {
         if (!this.$store.state.isUpload) {
-          this.remind = true;
+          // this.remind = true;
         }
       };
     },
