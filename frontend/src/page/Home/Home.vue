@@ -1,13 +1,11 @@
 <template>
   <div>
     <TopNavigation />
-    <div class="card">
-      <FunctionBar />
-      <Paper />
-      <Remind />
-      <BackTop :duration="0" :bottom="70"></BackTop>
-    </div>
-    <Footer></Footer>
+    <FunctionBar />
+    <Paper />
+    <Remind />
+    <BackTop :duration="0" :bottom="70"></BackTop>
+    <Footer />
   </div>
 </template>
 
@@ -34,15 +32,5 @@ export default {
   * {
     box-sizing: border-box;
     color: black;
-  }
-
-  p {
-    word-break: break-all;
-    word-wrap: break-word;
-  }
-
-  .card {
-    margin-top: 20px;
-    padding: 20px;
   }
 </style>

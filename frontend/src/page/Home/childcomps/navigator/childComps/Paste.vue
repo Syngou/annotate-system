@@ -13,6 +13,7 @@
         style="display: flex; justify-content: center; align-items: center"
       >
         <Button type="primary" @click="pasteContent">确定</Button>
+        <Button type="primary" @click="pasteContentModal = false">取消</Button>
       </div>
     </Modal>
   </div>
@@ -24,12 +25,12 @@ export default {
   created() {
     this.$bus.$on("showPaste", () => {
       this.pasteContentModal = true;
-    })
+    });
   },
   data() {
     return {
       pasteContentModal: false, // 粘贴文本
-    }
+    };
   },
   methods: {
     /**
@@ -46,16 +47,15 @@ export default {
       this.$store.state.data[2] = [];
       this.$store.state.data[3] = [];
     },
-
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
-/* 文本输入框 */
-textarea {
-  width: 100%;
-  height: 250px;
-  font-size: 20px;
-}
+  /* 文本输入框 */
+  textarea {
+    width: 100%;
+    height: 250px;
+    font-size: 20px;
+  }
 </style>

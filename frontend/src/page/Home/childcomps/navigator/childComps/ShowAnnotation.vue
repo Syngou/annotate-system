@@ -2,7 +2,7 @@
   <div>
     <Drawer :closable="false" width="640" v-model="drawer" class="drawer">
       <div class="list" v-show="$store.state.data[0].length > 0">
-        <Button type="primary" long>关系</Button>
+        <Button type="error" long>关系</Button>
 
         <div>
           <ol>
@@ -33,7 +33,7 @@
         </div>
       </div>
       <div class="list" v-show="$store.state.data[2].length > 0">
-        <Button type="primary" long>药物</Button>
+        <Button type="success" long>药物</Button>
 
         <div>
           <ol>
@@ -48,7 +48,7 @@
         </div>
       </div>
       <div class="list" v-show="$store.state.data[3].length > 0">
-        <Button type="primary" long>器械</Button>
+        <Button type="warning" long>器械</Button>
 
         <div>
           <ol>
@@ -138,8 +138,8 @@ export default {
     border-radius: 10px;
   }
   .upload-button {
-    position: absolute;
+    position: fixed;
     bottom: 0;
-    left: 40%;
+    left: 75%;
   }
 </style>

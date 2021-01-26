@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="paper">
     <div class="dialog" v-show="showDialog" ref="showDialog">
       <Button type="error" @click="annotation('0' + $store.state.id, 0)"
         >关系(r)
@@ -159,6 +159,11 @@ export default {
 </script>
 
 <style scoped>
+  /* 因为是有固定定位，所以要有margin-top */
+  #paper {
+    margin-top: 48.8px;
+  }
+  /* 标注时对话框的样式 */
   .dialog {
     position: absolute;
     width: 100px;
@@ -168,7 +173,7 @@ export default {
     display: flex;
     flex-direction: column;
   }
-
+  /* 文本样式 */
   .input-content {
     overflow: auto;
     flex: auto;
