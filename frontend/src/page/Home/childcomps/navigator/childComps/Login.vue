@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { login } from "@/network/request";
+import request from "@/network/request";
 
 export default {
   name: "Login",
@@ -85,7 +85,7 @@ export default {
     handleSubmit() {
       let name = this.formInline.user;
       let password = this.formInline.password;
-      login(name, password).then(
+      request.login(name, password).then(
         (res) => {
           console.log(res);
         },

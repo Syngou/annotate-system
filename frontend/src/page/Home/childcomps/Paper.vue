@@ -1,19 +1,19 @@
 <template>
   <div id="paper">
     <div class="dialog" v-show="showDialog" ref="showDialog">
-      <Button type="error" @click="annotation('0' + $store.state.id, 0)"
+      <Button type="error" @click="annotateText('0' + $store.state.id, 0)"
         >关系(r)
       </Button>
-      <Button type="primary" @click="annotation('1' + $store.state.id, 1)"
+      <Button type="primary" @click="annotateText('1' + $store.state.id, 1)"
         >名称(b)
       </Button>
-      <Button type="success" @click="annotation('2' + $store.state.id, 2)"
+      <Button type="success" @click="annotateText('2' + $store.state.id, 2)"
         >药物(g)
       </Button>
-      <Button type="warning" @click="annotation('3' + $store.state.id, 3)"
+      <Button type="warning" @click="annotateText('3' + $store.state.id, 3)"
         >器械(o)
       </Button>
-      <Button type="info" @click="translate">翻译(t)</Button>
+      <Button type="info" @click="translateText">翻译(t)</Button>
     </div>
     <div slot="footer">
       <Button type="primary" size="large" @click="choice = false">取消</Button>
@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import { annotate, autoAnnotate } from "@/utils/paperUtils";
-import { translate } from "@/network/request";
+import paperUtils from "@/utils/paperUtils";
+import request from "@/network/request";
 export default {
   name: "Essays",
   data() {
@@ -47,7 +47,6 @@ export default {
   },
   methods: {
     /**
-
      * @description 在鼠标位置弹出对话框
      */
     showSelectBox(X, Y) {
@@ -58,7 +57,6 @@ export default {
     },
 
     /**
-
      * @description 获取选中文本，鼠标位置加上滚动距离
      * @param 窗口事件
      */
@@ -74,77 +72,50 @@ export default {
       }
     },
     /**
-
-     * @description 快捷键标注，全局监听鼠标事件，然后进行标注
+     * @description 快捷键标注，监听全局鼠标事件，然后进行标注
      */
     annotateByShortcut() {
       document.onkeydown = ($event) => {
-        let keyCode = $event.keyCode;
+        let key = $event.key;
         let id = this.$store.state.id;
-        switch (keyCode) {
-          case 82: {
-            this.annotation("0" + id, 0);
-            break;
-          }
-          case 66: {
-            this.annotation("1" + id, 1);
-            break;
-          }
-          case 71: {
-            this.annotation("2" + id, 2);
-            break;
-          }
-          case 79: {
-            this.annotation("3" + id, 3);
-            break;
-          }
-          case 84: {
-            this.translate();
-            break;
-          }
+        this.showDialog = false;
+        if (key === "r") {
+          paperUtils.annotate("0" + id, 0);
+        } else if (key === "b") {
+          paperUtils.annotate("1" + id, 1);
+        } else if (key === "g") {
+          paperUtils.annotate("2" + id, 2);
+        } else if (key === "o") {
+          paperUtils.annotate("3" + id, 3);
         }
       };
     },
     /**
 
-     * @description 标注
+     * @description 标注文本
      * @param id 给button标签的id，用于删除时查找
      * @param index 标注颜色索引
      */
-    annotation(id, index) {
+    annotateText(id, index) {
       // 隐藏对话框
       this.showDialog = false;
-      annotate(id, index);
+      paperUtils.annotate(id, index);
     },
 
     /**
-     * @description 自动标注
+     * @description 机器学习自动化标注
      */
     autoAnnotateByMechine(data) {
-      autoAnnotate(data);
-    },
-
-    /**
-     * @description 删除样式
-     */
-    deleteById(id) {
-      let essay = this.$refs.essay;
-      let span = document.getElementById(id).parentNode;
-      // 获取文本，将其插入当前节点前，再删除节点
-      let textNode = document.createTextNode(span.innerText);
-      let text = span.innerText;
-      essay.insertBefore(textNode, span);
-      essay.removeChild(span);
-      this.$store.commit("deleteAnnotatedText", { type: id, text });
+      paperUtils.autoAnnotate(data);
     },
 
     /**
 
      * @description 翻译  TODO：等待接口
      */
-    translate(text) {
+    translateText(text) {
       this.showDialog = false;
-      translate(text).then(
+      request.translate(text).then(
         (res) => {
           console.log(res);
         },

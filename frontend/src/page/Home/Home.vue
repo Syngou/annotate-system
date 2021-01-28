@@ -4,7 +4,7 @@
     <FunctionBar />
     <Paper />
     <Remind />
-    <BackTop :duration="0" :bottom="70"></BackTop>
+    <BackTop :duration="0" :bottom="70" />
     <Footer />
   </div>
 </template>

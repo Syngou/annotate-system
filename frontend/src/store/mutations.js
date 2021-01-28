@@ -1,4 +1,4 @@
-import { postToBackend } from "@/network/request";
+import request from "@/network/request";
 const mutations = {
     /**
      
@@ -18,15 +18,14 @@ const mutations = {
         } else if (info.id.charAt(0) === "3") {
             state.data[3].push(text);
         }
-
-        postToBackend([
+        //发送到后台，测试
+        //TODO 删掉这里的代码
+        request.postToBackend([
             state.data[0],
             state.data[1],
             state.data[2],
             state.data[3],
         ]);
-        console.log("in push");
-        console.log(state.data[0]);
     },
     /**
      

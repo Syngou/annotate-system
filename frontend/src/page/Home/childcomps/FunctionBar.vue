@@ -1,5 +1,5 @@
 <template>
-  <div class="dropDownContainer">
+  <div class="container">
     <!--    TODO : 样式的命名，class类的命名-->
 
     <Dropdown style="margin-left: 20px; margin-top: 20px">
@@ -63,7 +63,7 @@ export default {
 </script>
 
 <style scoped>
-  .dropDownContainer {
+  .container {
     clear: both;
     position: fixed;
     background-color: #333;

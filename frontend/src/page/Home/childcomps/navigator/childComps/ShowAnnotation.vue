@@ -74,7 +74,17 @@
         只有标注了才会在这里显示哦👨🏻‍🔬
       </div>
       <div class="upload-button">
-        <Button type="primary" @click="uploadData">上传数据</Button>
+        <Button
+          type="primary"
+          @click="uploadData"
+          v-show="
+            $store.state.data[0].length != 0 ||
+            $store.state.data[1].length != 0 ||
+            $store.state.data[2].length != 0 ||
+            $store.state.data[3].length != 0
+          "
+          >上传数据</Button
+        >
       </div>
     </Drawer>
   </div>
