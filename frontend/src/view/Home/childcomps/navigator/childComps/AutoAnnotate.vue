@@ -48,6 +48,8 @@
 </template>
 
 <script>
+import annotateUtils from "@/utils/annotateUtils";
+
 export default {
   name: "AutoAnnotate",
   created() {
@@ -70,12 +72,14 @@ export default {
      */
     autoAnnotate() {
       this.annotateModal = false;
-      this.$bus.$emit("autoAnnotate", [
+      annotateUtils.autoAnnotate([
         this.relation,
         this.name,
         this.medicine,
         this.tool,
       ]);
+
+      //清空数据
       this.relation = "";
       this.name = "";
       this.medicine = "";

@@ -1,11 +1,11 @@
 <template>
   <div>
-    <TopNavigation />
-    <FunctionBar />
-    <Paper />
-    <Remind />
-    <BackTop :duration="0" :bottom="70" />
-    <Footer />
+    <TopNavigation/>
+    <FunctionBar/>
+    <Paper/>
+    <Remind/>
+    <BackTop :duration="0" :bottom="70"/>
+    <Footer/>
   </div>
 </template>
 
@@ -14,7 +14,7 @@
 import TopNavigation from "./childcomps/navigator/TopNavigation";
 import FunctionBar from "./childcomps/FunctionBar";
 import Paper from "./childcomps/Paper";
-import Footer from "@/page/Home/childcomps/Footer";
+import Footer from "@/view/Home/childcomps/Footer";
 import Remind from "./childcomps/Remind";
 
 export default {
@@ -29,8 +29,8 @@ export default {
 };
 </script>
 <style scoped>
-  * {
-    box-sizing: border-box;
-    color: black;
-  }
+* {
+  box-sizing: border-box;
+  color: black;
+}
 </style>

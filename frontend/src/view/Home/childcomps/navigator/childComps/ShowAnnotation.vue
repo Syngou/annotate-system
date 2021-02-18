@@ -91,6 +91,7 @@
 </template>
 
 <script>
+import request from "@/api/request";
 export default {
   name: "ShowAnnotation",
   created() {
@@ -112,11 +113,19 @@ export default {
      * @description: 标注数据上传后台
      */
     uploadData() {
-      this.$Message.error({
-        content: "服务器失踪了，数据不知道往哪里传...",
-        duration: 4,
-        closable: true,
-      });
+      request.test();
+      request.postToBackend(this.$store.state.data).then(
+        () => {
+          this.$Message.info("上传成功");
+        },
+        () => {
+          this.$Message.error({
+            content: "服务器失踪了，数据不知道往哪里传...",
+            duration: 4,
+            closable: true,
+          });
+        }
+      );
     },
   },
 };

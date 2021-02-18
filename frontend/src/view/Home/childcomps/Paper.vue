@@ -30,8 +30,9 @@
 </template>
 
 <script>
-import paperUtils from "@/utils/paperUtils";
-import request from "@/network/request";
+import annotateUtils from "@/utils/annotateUtils";
+import request from "@/api/request";
+
 export default {
   name: "Essays",
   data() {
@@ -43,7 +44,6 @@ export default {
   // 键盘标注，初始化即开始监听
   created() {
     this.annotateByShortcut();
-    this.$bus.$on("autoAnnotate", this.autoAnnotateByMechine);
   },
   methods: {
     /**
@@ -80,13 +80,13 @@ export default {
         let id = this.$store.state.id;
         this.showDialog = false;
         if (key === "r") {
-          paperUtils.annotate("0" + id, 0);
+          annotateUtils.annotate("0" + id, 0);
         } else if (key === "b") {
-          paperUtils.annotate("1" + id, 1);
+          annotateUtils.annotate("1" + id, 1);
         } else if (key === "g") {
-          paperUtils.annotate("2" + id, 2);
+          annotateUtils.annotate("2" + id, 2);
         } else if (key === "o") {
-          paperUtils.annotate("3" + id, 3);
+          annotateUtils.annotate("3" + id, 3);
         }
       };
     },
@@ -99,24 +99,18 @@ export default {
     annotateText(id, index) {
       // 隐藏对话框
       this.showDialog = false;
-      paperUtils.annotate(id, index);
+      annotateUtils.annotate(id, index);
     },
 
     /**
-     * @description 机器学习自动化标注
-     */
-    autoAnnotateByMechine(data) {
-      paperUtils.autoAnnotate(data);
-    },
-
-    /**
-
      * @description 翻译  TODO：等待接口
      */
-    translateText(text) {
+    translateText() {
       this.showDialog = false;
+      let text = window.getSelection().toString();
       request.translate(text).then(
         (res) => {
+          this.$Message.info(res.data);
           console.log(res);
         },
         (err) => {
@@ -134,6 +128,7 @@ export default {
   #paper {
     margin-top: 48.8px;
   }
+
   /* 标注时对话框的样式 */
   .dialog {
     position: absolute;
@@ -144,6 +139,7 @@ export default {
     display: flex;
     flex-direction: column;
   }
+
   /* 文本样式 */
   .input-content {
     overflow: auto;

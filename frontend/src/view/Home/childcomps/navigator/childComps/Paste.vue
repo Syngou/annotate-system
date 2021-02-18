@@ -6,7 +6,7 @@
       :mask-closable="false"
     >
       <label>
-        <textarea type="text" ref="inputContentId"></textarea>
+        <textarea type="text" id="pasteContent"></textarea>
       </label>
       <div
         slot="footer"
@@ -40,7 +40,11 @@ export default {
 
     pasteContent() {
       this.pasteContentModal = false;
-      this.$store.state.inputContent = this.$refs.inputContentId.value;
+      this.$store.state.inputContent = document.getElementById(
+        "pasteContent"
+      ).value;
+      //清空数据
+      document.getElementById("pasteContent").value = "";
       //  粘贴后清空存入的数据
       this.$store.state.data[1] = [];
       this.$store.state.data[0] = [];

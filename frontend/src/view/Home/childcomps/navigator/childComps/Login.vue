@@ -34,7 +34,7 @@
         style="display: flex; justify-content: center; align-items: center"
       >
         <Button type="primary" @click="handleSubmit('formInline')"
-          >登录
+        >登录
         </Button>
       </div>
     </Modal>
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import request from "@/network/request";
+import request from "@/api/request";
 
 export default {
   name: "Login",
@@ -100,11 +100,11 @@ export default {
 </script>
 
 <style scoped>
-  /* 登录盒子 */
-  #loginBox {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 10px;
-  }
+/* 登录盒子 */
+#loginBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
 </style>
