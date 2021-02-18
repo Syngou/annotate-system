@@ -23,7 +23,9 @@ service.interceptors.response.use(
     },
     (error) => {
         Message.error({
-            content: error.message || "Error",
+            content: "网络请求发生错误，请检查您的网络状态或联系管理员",
+            duration: 3,
+            closable: true,
         });
         return Promise.reject(error);
     }
