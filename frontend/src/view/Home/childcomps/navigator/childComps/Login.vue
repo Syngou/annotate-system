@@ -34,7 +34,7 @@
         style="display: flex; justify-content: center; align-items: center"
       >
         <Button type="primary" @click="handleSubmit('formInline')"
-        >登录
+          >登录
         </Button>
       </div>
     </Modal>
@@ -85,26 +85,24 @@ export default {
     handleSubmit() {
       let name = this.formInline.user;
       let password = this.formInline.password;
-      request.login(name, password).then(
-        (res) => {
-          console.log(res);
-        },
-        (err) => {
-          console.log(err);
-          this.$Message.error("啊偶，无法向服务器发送请求...");
+      request.login(name, password).then((res) => {
+        console.log(res);
+        if (res.code === 20000) {
+          this.loginModal = false;
+          this.$router.push("user");
         }
-      );
+      });
     },
   },
 };
 </script>
 
 <style scoped>
-/* 登录盒子 */
-#loginBox {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-}
+  /* 登录盒子 */
+  #loginBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
 </style>

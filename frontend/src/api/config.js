@@ -3,7 +3,7 @@ import { Message } from "view-design";
 
 //配置
 const service = axios.create({
-    baseURL: "http://localhost:8000",
+    baseURL: "http://localhost:8080",
     timeout: 5000,
 });
 

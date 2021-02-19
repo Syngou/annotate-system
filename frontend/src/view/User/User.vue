@@ -22,6 +22,7 @@ export default {
   * {
     margin: 0;
     padding: 0;
-    color: aqua;
+    font-size: 20px;
+    color: red;
   }
 </style>

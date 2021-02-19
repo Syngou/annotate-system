@@ -9,8 +9,8 @@ export default {
      */
     login(name, password) {
         return config({
-            url: "login",
-            method: "POST",
+            url: "/login",
+            method: "post",
             data: { name, password },
         });
     },

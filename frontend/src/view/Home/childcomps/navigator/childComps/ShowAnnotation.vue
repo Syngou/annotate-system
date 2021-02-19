@@ -115,6 +115,7 @@ export default {
     uploadData() {
       request.postToBackend(this.$store.state.data).then(() => {
         this.$Message.info("上传成功");
+        this.drawer = false;
       });
     },
   },

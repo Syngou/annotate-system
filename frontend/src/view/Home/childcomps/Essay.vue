@@ -108,16 +108,9 @@ export default {
     translateText() {
       this.showDialog = false;
       let text = window.getSelection().toString();
-      request.translate(text).then(
-        (res) => {
-          this.$Message.info(res.data);
-          console.log(res);
-        },
-        (err) => {
-          this.$Message.info("功能正在开发");
-          console.log(err);
-        }
-      );
+      request.translate(text).then((res) => {
+        console.log(res);
+      });
     },
   },
 };
@@ -134,7 +127,7 @@ export default {
     position: absolute;
     width: 100px;
     border: 5px solid rgb(248, 220, 6);
-    background-color: rgb(243, 255, 6);
+    background-color: rgb(146, 150, 58);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
