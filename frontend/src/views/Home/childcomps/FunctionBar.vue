@@ -67,11 +67,11 @@ export default {
 
 <style scoped>
   .container {
-    clear: both;
     position: fixed;
     background-color: #333;
     width: 100%;
     left: 0;
+    top: 46px;
     z-index: 1;
   }
 

@@ -6,28 +6,22 @@
       :modal-append-to-body="false"
       width="30%"
     >
-      <div style="text-align: center">
-        <p></p>
-        <el-collapse>
-          <el-collapse-item title="使用说明">
-            <div>
-              一键标注全文，用于机器学习自动标注，后台传来要标注的词，前台进行标注，人工检查是否正确
-            </div>
-            <div>
-              如果每种类型有多个值，请用<span
-                style="color: red; font-size: 20px"
-              >
-                一个
-              </span>
-              空格隔开<br />
-              人工标注时不推荐使用<br /><span
-                style="color: red; font-size: 20px"
-                >若要使用，需在最开始时使用（即还未进行标注时），否则会有奇怪的结果</span
-              >
-            </div>
-          </el-collapse-item>
-        </el-collapse>
-      </div>
+      <el-collapse>
+        <el-collapse-item title="使用说明">
+          <div>
+            一键标注全文，用于机器学习自动标注，后台传来要标注的词，前台进行标注，人工检查是否正确
+          </div>
+          <div>
+            如果每种类型有多个值，请用<span style="color: red; font-size: 20px">
+              一个
+            </span>
+            空格隔开<br />
+            人工标注时不推荐使用<br /><span style="color: red; font-size: 20px"
+              >若要使用，需在最开始时使用（即还未进行标注时），否则会有奇怪的结果</span
+            >
+          </div>
+        </el-collapse-item>
+      </el-collapse>
 
       <el-input v-model="relation">
         <span slot="prepend"><el-button>关系</el-button></span>
