@@ -1,6 +1,11 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import getters from "./getters";
+import app from "./modules/app";
+import settings from "./modules/settings";
+import user from "./modules/user";
 import mutations from "./mutations";
+
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -23,6 +28,13 @@ const store = new Vuex.Store({
 固体污染物主要是指压缩气体中含有的尘埃微粒。控制微粒的核心技术是使用气体过滤器。过滤器的有效过滤滤径、有效过滤效率和有效工作流量直接影响到固体污染物的预期控制效果，保证过滤器的各项性能参数均符合使用工况状态是十分必要的。同一气体过滤器在不同流量状态下监测的过滤效果，见表1。
             `, //文本内容
     },
+    modules: {
+        app,
+        settings,
+        user,
+    },
+    getters,
     mutations,
 });
+
 export default store;

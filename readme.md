@@ -32,7 +32,7 @@
 * 在命令行中输入以下命令，会打开前端页面
 ```
 npm install
-npm run serve
+npm run dev
 ```
 * 如果要搞后端，还要再输入以下命令
 ```

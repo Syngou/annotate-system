@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Message } from "view-design";
+import { Message } from "element-ui";
 
 //配置
 const service = axios.create({
@@ -13,8 +13,9 @@ service.interceptors.response.use(
         let res = response.data;
         //状态码为20000表示成功
         if (res.code !== 20000) {
-            Message.error({
-                content: res.message || "Error",
+            Message({
+                type: "error",
+                message: res.message || "Error",
                 duration: 3 * 1000,
             });
         } else {
@@ -22,10 +23,10 @@ service.interceptors.response.use(
         }
     },
     (error) => {
-        Message.error({
-            content: "网络请求发生错误，请检查您的网络状态或联系管理员",
-            duration: 3,
-            closable: true,
+        Message({
+            message: "网络请求发生错误，请检查您的网络状态或联系管理员",
+            type: "error",
+            duration: 3 * 1000,
         });
         return Promise.reject(error);
     }
