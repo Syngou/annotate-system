@@ -32,8 +32,8 @@ Vue.use(Router);
 export const constantRoutes = [
     {
         path: "/annotate",
-        component: () => import("@/views/Home/Home"),
-        meta:{title:'标注页面',icon:'dashboard'}
+        component: () => import("@/views/annotate/Home"),
+        meta: { title: "标注页面", icon: "edit" },
     },
     {
         path: "/login",
@@ -48,7 +48,7 @@ export const constantRoutes = [
     },
 
     {
-        path: '/',
+        path: "/",
         redirect: "/dashboard",
         component: Layout,
         children: [

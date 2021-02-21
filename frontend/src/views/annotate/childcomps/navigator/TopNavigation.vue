@@ -37,7 +37,11 @@ export default {
      * @description 输出文本，不知道需不需要，目前没有实现
      */
     outputContent() {
-      this.$message.error("功能正在开发...");
+      this.$message.error({
+        message: "功能正在开发...",
+        duration: 2000,
+        showClose: true,
+      });
     },
     /**
      * @description  显示已标注的词语对话框
