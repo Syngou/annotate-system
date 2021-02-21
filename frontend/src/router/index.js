@@ -31,9 +31,9 @@ Vue.use(Router);
  */
 export const constantRoutes = [
     {
-        path: "/",
+        path: "/annotate",
         component: () => import("@/views/Home/Home"),
-        hidden: true,
+        meta:{title:'标注页面',icon:'dashboard'}
     },
     {
         path: "/login",
@@ -48,14 +48,15 @@ export const constantRoutes = [
     },
 
     {
-        path: "/dashboard",
+        path: '/',
+        redirect: "/dashboard",
         component: Layout,
         children: [
             {
                 path: "dashboard",
                 name: "Dashboard",
                 component: () => import("@/views/dashboard/index"),
-                meta: { title: "Dashboard", icon: "dashboard" },
+                meta: { title: "信息面板", icon: "dashboard" },
             },
         ],
     },
@@ -65,19 +66,19 @@ export const constantRoutes = [
         component: Layout,
         redirect: "/example/table",
         name: "Example",
-        meta: { title: "Example", icon: "el-icon-s-help" },
+        meta: { title: "示例", icon: "el-icon-s-help" },
         children: [
             {
                 path: "table",
                 name: "Table",
                 component: () => import("@/views/table/index"),
-                meta: { title: "Table", icon: "table" },
+                meta: { title: "表格", icon: "table" },
             },
             {
                 path: "tree",
                 name: "Tree",
                 component: () => import("@/views/tree/index"),
-                meta: { title: "Tree", icon: "tree" },
+                meta: { title: "树形结构", icon: "tree" },
             },
         ],
     },
@@ -90,7 +91,7 @@ export const constantRoutes = [
                 path: "index",
                 name: "Form",
                 component: () => import("@/views/form/index"),
-                meta: { title: "Form", icon: "form" },
+                meta: { title: "表单", icon: "form" },
             },
         ],
     },
@@ -101,7 +102,7 @@ export const constantRoutes = [
         redirect: "/nested/menu1",
         name: "Nested",
         meta: {
-            title: "Nested",
+            title: "多级菜单",
             icon: "nested",
         },
         children: [
