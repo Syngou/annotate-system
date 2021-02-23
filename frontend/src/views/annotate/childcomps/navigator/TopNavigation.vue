@@ -53,6 +53,12 @@ export default {
   },
   methods: {
     /**
+     * @description 退出登录状态
+     */
+    async logout() {
+      await this.$store.dispatch("user/logout");
+    },
+    /**
      * @description 输出文本，不知道需不需要，目前没有实现
      */
     outputContent() {
