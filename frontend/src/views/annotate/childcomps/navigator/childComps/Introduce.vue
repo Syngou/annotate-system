@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import Cookies from "js-cookie";
 export default {
   name: "Introduce",
   created() {
@@ -52,9 +53,9 @@ export default {
      * @description 设置cookie，用于介绍使用方法，已经读过的就不再显示
      */
     haveRead() {
-      if (document.cookie.indexOf("haveRead") == -1) {
+      if (!Cookies.get("haveRead")) {
         this.introduceModal = true;
-        document.cookie = "haveRead=true;expires=Thu, 18 Dec 2100 12:00:00 GMT";
+        Cookies.set("haveRead", "true", { expires: 365 * 100, path: "" });
       }
     },
   },

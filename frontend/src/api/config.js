@@ -15,6 +15,7 @@ service.interceptors.response.use(
         if (res.code !== 20000) {
             Message({
                 type: "error",
+                showClose: true,
                 message: res.message || "Error",
                 duration: 3 * 1000,
             });
@@ -25,6 +26,7 @@ service.interceptors.response.use(
     (error) => {
         Message({
             message: "网络请求发生错误，请检查您的网络状态或联系管理员",
+            showClose: true,
             type: "error",
             duration: 3 * 1000,
         });

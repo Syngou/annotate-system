@@ -7,7 +7,22 @@
     <a href="#" @click="outputContent">输出文本</a>
     <a href="#" @click="ShowAnnotate">自动化标注</a>
     <a href="#" @click="ShowDrawer">已标注</a>
-    <a href="/login" style="float: right">登录</a>
+    <a v-if="!avatar" href="/login" style="float: right">登录</a>
+    <div class="right-menu">
+      <el-dropdown class="avatar-container" trigger="click">
+        <div class="avatar-wrapper">
+          <img :src="avatar + '?imageView2/1/w/80/h/80'" class="user-avatar" />
+        </div>
+        <el-dropdown-menu slot="dropdown" class="user-dropdown">
+          <router-link to="/">
+            <el-dropdown-item> 信息面板 </el-dropdown-item>
+          </router-link>
+          <el-dropdown-item divided @click.native="logout">
+            <span style="display: block">退出</span>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
     <Introduce></Introduce>
     <Paste></Paste>
     <AutoAnnotate></AutoAnnotate>
@@ -22,6 +37,7 @@ import Paste from "./childComps/Paste";
 import AutoAnnotate from "./childComps/AutoAnnotate";
 import ShowAnnotation from "./childComps/ShowAnnotation";
 import UploadFile from "./childComps/UploadFile";
+import { mapGetters } from "vuex";
 
 export default {
   name: "TopNavigation",
@@ -31,6 +47,9 @@ export default {
     AutoAnnotate,
     ShowAnnotation,
     UploadFile,
+  },
+  computed: {
+    ...mapGetters(["avatar"]),
   },
   methods: {
     /**
@@ -77,8 +96,7 @@ export default {
   },
 };
 </script>
-
-<style scoped>
+<style scoped lang='scss'>
   /* 标题样式 */
   .title {
     margin-left: 30px;
@@ -96,21 +114,72 @@ export default {
     padding-right: 20px;
     z-index: 50;
     background-color: #333;
-  }
 
-  /* 导航条链接 */
-  .topNavigation a {
-    display: inline-block;
-    padding: 14px 16px;
-    background-color: #333;
-    color: #f2f2f2;
-    text-align: center;
-    text-decoration: none;
-  }
+    /* 导航条链接 */
+    a {
+      display: inline-block;
+      padding: 14px 16px;
+      background-color: #333;
+      color: #f2f2f2;
+      text-align: center;
+      text-decoration: none;
+    }
 
-  /* 链接颜色修改 */
-  .topNavigation a:hover {
-    background-color: #ddd;
-    color: black;
+    /* 链接颜色修改 */
+    a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+  }
+  .right-menu {
+    float: right;
+    height: 100%;
+    line-height: 50px;
+
+    &:focus {
+      outline: none;
+    }
+
+    .right-menu-item {
+      display: inline-block;
+      padding: 0 8px;
+      height: 100%;
+      font-size: 18px;
+      color: #5a5e66;
+      vertical-align: text-bottom;
+
+      &.hover-effect {
+        cursor: pointer;
+        transition: background 0.3s;
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.025);
+        }
+      }
+    }
+
+    .avatar-container {
+      margin-right: 30px;
+
+      .avatar-wrapper {
+        margin-top: 5px;
+        position: relative;
+
+        .user-avatar {
+          cursor: pointer;
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
+        }
+
+        .el-icon-caret-bottom {
+          cursor: pointer;
+          position: absolute;
+          right: -20px;
+          top: 25px;
+          font-size: 12px;
+        }
+      }
+    }
   }
 </style>
