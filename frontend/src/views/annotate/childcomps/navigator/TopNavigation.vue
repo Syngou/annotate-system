@@ -8,7 +8,7 @@
     <a href="#" @click="ShowAnnotate">自动化标注</a>
     <a href="#" @click="ShowDrawer">已标注</a>
     <a v-if="!avatar" href="/login" style="float: right">登录</a>
-    <div class="right-menu">
+    <div v-else class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <img :src="avatar + '?imageView2/1/w/80/h/80'" class="user-avatar" />
