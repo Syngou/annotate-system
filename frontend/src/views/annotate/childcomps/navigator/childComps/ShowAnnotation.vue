@@ -5,7 +5,7 @@
       class="drawer"
       :modal-append-to-body="false"
       :show-close="false"
-      size="40%"
+      :size="size"
       title="title"
       :with-header="false"
     >
@@ -138,6 +138,14 @@ export default {
       medicine: "",
       tool: "",
     };
+  },
+  mounted() {
+    let width = window.innerWidth;
+    if (width <= 450) {
+      this.size = "60%";
+    } else {
+      this.siaz = "40%";
+    }
   },
   methods: {
     /**

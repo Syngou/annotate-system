@@ -1,13 +1,13 @@
 <template>
   <div class="topNavigation">
     <span class="title">医疗文本标注平台</span>
-    <a href="#" @click="ShowIntroduce">功能介绍</a>
-    <a href="#" @click="ShowUpload">上传文件</a>
-    <a href="#" @click="ShowPaste">输入文本</a>
-    <a href="#" @click="outputContent">输出文本</a>
-    <a href="#" @click="ShowAnnotate">自动化标注</a>
-    <a href="#" @click="ShowDrawer">已标注</a>
-    <a v-if="!avatar" href="/login" style="float: right">登录</a>
+    <a href="#" @click="$bus.$emit('showIntroduce')">功能介绍</a>
+    <a href="#" @click="$bus.$emit('showPaste')">输入文本</a>
+    <a href="#" @click="$bus.$emit('showAnnotate')">自动化标注</a>
+    <a href="#" @click="$bus.$emit('showDrawer')">已标注</a>
+    <router-link v-if="!avatar" to="/login" style="float: right"
+      >登录</router-link
+    >
     <div v-else class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
@@ -27,7 +27,6 @@
     <Paste></Paste>
     <AutoAnnotate></AutoAnnotate>
     <ShowAnnotation></ShowAnnotation>
-    <UploadFile></UploadFile>
   </div>
 </template>
 
@@ -36,7 +35,6 @@ import Introduce from "./childComps/Introduce";
 import Paste from "./childComps/Paste";
 import AutoAnnotate from "./childComps/AutoAnnotate";
 import ShowAnnotation from "./childComps/ShowAnnotation";
-import UploadFile from "./childComps/UploadFile";
 import { mapGetters } from "vuex";
 
 export default {
@@ -46,7 +44,6 @@ export default {
     Paste,
     AutoAnnotate,
     ShowAnnotation,
-    UploadFile,
   },
   computed: {
     ...mapGetters(["avatar"]),
@@ -57,47 +54,6 @@ export default {
      */
     async logout() {
       await this.$store.dispatch("user/logout");
-    },
-    /**
-     * @description 输出文本，不知道需不需要，目前没有实现
-     */
-    outputContent() {
-      this.$message.error({
-        message: "功能正在开发...",
-        duration: 2000,
-        showClose: true,
-      });
-    },
-    /**
-     * @description  显示已标注的词语对话框
-     */
-    ShowAnnotate() {
-      this.$bus.$emit("showAnnotate");
-    },
-    /**
-     * @description 显示介绍对话框
-     */
-    ShowIntroduce() {
-      this.$bus.$emit("showIntroduce");
-    },
-    /**
-     * @description 粘贴文本进行标注
-     */
-    ShowPaste() {
-      this.$bus.$emit("showPaste");
-    },
-    /**
-     * @description 自动化标注对话框
-     */
-    ShowDrawer() {
-      this.$bus.$emit("showDrawer");
-    },
-
-    /**
-     * @description 文件上传
-     */
-    ShowUpload() {
-      this.$bus.$emit("showUpload");
     },
   },
 };

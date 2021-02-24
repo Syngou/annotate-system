@@ -32,7 +32,7 @@ Vue.use(Router);
 export const constantRoutes = [
     {
         path: "/annotate",
-        component: () => import("@/views/annotate/Home"),
+        component: () => import("@/views/annotate/index"),
         meta: { title: "标注页面", icon: "edit" },
     },
     {

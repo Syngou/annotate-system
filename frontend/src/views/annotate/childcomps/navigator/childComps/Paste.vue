@@ -4,6 +4,7 @@
       :visible.sync="pasteContentModal"
       title="在这里输入或粘贴你的文本（若不成功，请刷新网页后重试）"
       :modal-append-to-body="false"
+      :width="width"
     >
       <label>
         <textarea type="text" id="pasteContent"></textarea>
@@ -32,7 +33,16 @@ export default {
   data() {
     return {
       pasteContentModal: false, // 粘贴文本
+      width: "",
     };
+  },
+  mounted() {
+    let width = window.innerWidth;
+    if (width <= 450) {
+      this.width = "80%";
+    } else {
+      this.width = "30%";
+    }
   },
   methods: {
     /**

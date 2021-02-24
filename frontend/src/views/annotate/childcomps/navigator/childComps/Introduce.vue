@@ -5,7 +5,7 @@
       :visible.sync="introduceModal"
       title="功能介绍"
       :modal-append-to-body="false"
-      width="30%"
+      :width="width"
     >
       <div>
         <div>按下鼠标，滑过文本，松开，即可标注文本</div>
@@ -46,7 +46,16 @@ export default {
   data() {
     return {
       introduceModal: false, //功能介绍
+      width: "", //对话框宽度
     };
+  },
+  mounted() {
+    let width = window.innerWidth;
+    if (width <= 450) {
+      this.width = "80%";
+    } else {
+      this.width = "30%";
+    }
   },
   methods: {
     /**
