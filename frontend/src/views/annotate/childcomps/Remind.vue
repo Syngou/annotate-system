@@ -47,13 +47,14 @@ export default {
      */
     isPC() {
       let userAgentInfo = navigator.userAgent;
+      console.log(userAgentInfo);
       let Agents = ["Android", "iPhone", "Windows Phone", "iPad", "iPod"];
       for (let v = 0; v < Agents.length; v++) {
         if (userAgentInfo.indexOf(Agents[v]) > 0) {
-          this.$message.info({
+          this.$message.warning({
             message: "手机是无法进行标注的哦,请使用电脑浏览器。",
-            duration: 10,
-            closable: true,
+            duration: 5000,
+            showClose: true,
           });
           break;
         }

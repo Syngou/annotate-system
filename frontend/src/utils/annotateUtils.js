@@ -3,7 +3,7 @@ import store from "@/store/index";
 export default {
     /**
      *
-     * @description 返回按钮样式
+     * @description 返回按钮样式，可以考虑hover时才显示
      */
     buttonStyle() {
         return `height:20px;
@@ -16,6 +16,7 @@ export default {
         cursor:pointer;
         background-color:white`;
     },
+
     /**
      *
      * @description 返回标注文本样式
@@ -103,7 +104,8 @@ export default {
                     let buttons = Array.from(
                         document.getElementsByClassName("deleteButton")
                     );
-                    //查找按钮并添加删除事件，这种方法很low，欢迎修改
+                    //查找按钮并添加删除事件，这种方法很low，但是有效
+                    //如果你有更好的想法，欢迎修改
                     //TODO：优化代码
                     for (let k = 0; k < buttons.length; k++) {
                         buttons[k].id = i + "" + store.state.id++;
