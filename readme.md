@@ -28,7 +28,7 @@
 * 在命令行中输入以下命令，会打开前端页面
 ```
 npm install
-npm run dev
+npm run serve
 ```
 
 ## License  

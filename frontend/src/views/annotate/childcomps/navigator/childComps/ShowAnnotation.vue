@@ -5,8 +5,8 @@
       class="drawer"
       :modal-append-to-body="false"
       :show-close="false"
-      :size="size"
       title="title"
+      size="40%"
       :with-header="false"
     >
       <div class="list" v-show="$store.state.data[0].length > 0">
@@ -132,21 +132,14 @@ export default {
   },
   data() {
     return {
-      drawer: false, //显示标注词语
+      drawer: true, //显示标注词语
       relation: "",
       name: "",
       medicine: "",
       tool: "",
     };
   },
-  mounted() {
-    let width = window.innerWidth;
-    if (width <= 450) {
-      this.size = "60%";
-    } else {
-      this.siaz = "40%";
-    }
-  },
+
   methods: {
     /**
      * @description: 标注数据上传后台
@@ -175,6 +168,7 @@ export default {
   .btn {
     width: 100%;
     border-radius: 10px;
+    outline: none;
   }
   .list {
     margin-bottom: 20px;
