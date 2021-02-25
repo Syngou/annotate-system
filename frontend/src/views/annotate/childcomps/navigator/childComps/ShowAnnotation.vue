@@ -132,7 +132,7 @@ export default {
   },
   data() {
     return {
-      drawer: true, //显示标注词语
+      drawer: false, //显示标注词语
       relation: "",
       name: "",
       medicine: "",
