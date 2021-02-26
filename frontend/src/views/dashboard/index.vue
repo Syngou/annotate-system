@@ -18,6 +18,8 @@
             <span>xx医院</span>
           </div>
         </el-card>
+      </el-col>
+      <el-col :xs="24" :sm="12" :lg="6">
         <el-card shadow="hover" style="height: 252px">
           <div slot="header" class="clearfix">
             <span>标注结果</span>
@@ -76,6 +78,10 @@ export default {
         font-size: 30px;
         color: #222;
       }
+    }
+
+    &-name {
+      margin-left: -20px;
     }
 
     &-list {

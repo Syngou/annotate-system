@@ -6,6 +6,9 @@
     <el-form-item label="Email">
       <el-input v-model.trim="user.email" />
     </el-form-item>
+    <el-form-item label="Institution">
+      <el-input v-model.trim="user.institution" />
+    </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="submit">更新</el-button>
     </el-form-item>
@@ -21,6 +24,7 @@ export default {
         return {
           name: "",
           email: "",
+          institution: "",
         };
       },
     },

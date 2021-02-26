@@ -9,18 +9,19 @@ const tokens = {
 
 const users = {
     "admin-token": {
-        roles: ["admin"],
+        roles: ["超级管理员"],
         introduction: "I am a super administrator",
-        avatar:
-            "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
+        avatar: "https://w.wallhaven.cc/full/nr/wallhaven-nrjgy7.jpg",
+        institution: "xx医院",
         name: "Syngou",
     },
     "editor-token": {
-        roles: ["editor"],
+        roles: ["管理员"],
         introduction: "I am an editor",
         avatar:
             "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
-        name: "Normal Editor",
+        institution: "xx医院",
+        name: "Syngou",
     },
 };
 
