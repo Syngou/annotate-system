@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
     <el-row :gutter="20">
-      <el-col :xs="24" :sm="6" :lg="6">
+      <el-col :xs="24" :sm="12" :lg="6">
         <el-card shadow="hover" class="mgb20" style="height: 252px">
           <div class="user-info">
             <img :src="avatar" class="user-avatar" alt />

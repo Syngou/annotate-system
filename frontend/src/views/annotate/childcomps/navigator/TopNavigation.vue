@@ -15,7 +15,10 @@
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
-            <el-dropdown-item> 信息面板 </el-dropdown-item>
+            <el-dropdown-item> 首页 </el-dropdown-item>
+          </router-link>
+          <router-link to="/profile">
+            <el-dropdown-item> 个人中心 </el-dropdown-item>
           </router-link>
           <el-dropdown-item divided @click.native="logout">
             <span style="display: block">退出</span>
