@@ -6,10 +6,10 @@ import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import "normalize.css/normalize.css"; // A modern alternative to CSS resets
 import Vue from "vue";
+import VueParticles from "vue-particles";
 import App from "./App";
 import router from "./router";
 import store from "./store";
-
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -29,6 +29,7 @@ Vue.prototype.$bus = new Vue();
 // Vue.use(ElementUI, { locale });
 // 如果想要中文版 element-ui，按如下方式声明
 Vue.use(ElementUI);
+Vue.use(VueParticles);
 
 Vue.config.productionTip = false;
 
