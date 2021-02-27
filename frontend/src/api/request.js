@@ -3,20 +3,6 @@ import config from "./config";
 export default {
     /**
      *
-     * @param  name ==> 用户名
-     * @param  password ==> 密码
-     * @description 登录，请自行更改请求url
-     */
-    login(name, password) {
-        return config({
-            url: "/login",
-            method: "post",
-            data: { name, password },
-        });
-    },
-
-    /**
-     *
      * @description 传数据到后台
      * @param  data ==> 数组，四个值对应四个标注的属性
      */

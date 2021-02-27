@@ -7,16 +7,8 @@ const mutations = {
    */
     addToList(state, info) {
         let text = info.text;
-        if (info.id.charAt(0) === "0") {
-            "list ==> " + state.data[0];
-            state.data[0].push(text);
-        } else if (info.id.charAt(0) === "1") {
-            state.data[1].push(text);
-        } else if (info.id.charAt(0) === "2") {
-            state.data[2].push(text);
-        } else if (info.id.charAt(0) === "3") {
-            state.data[3].push(text);
-        }
+        let index = parseInt(info.id.charAt(0));
+        state.data[index].push(text);
     },
     /**
 
@@ -25,33 +17,11 @@ const mutations = {
    * @param  info 对象，存储需要删除已标注文本的id，文本
    */
     deleteAnnotatedText(state, info) {
-        if (info.type.charAt(0) === "0") {
-            for (let i = state.data.length - 1; i >= 0; i--) {
-                if (state.data[0][i] == info.text) {
-                    state.data[0].splice(i, 1);
-                    break;
-                }
-            }
-        } else if (info.type.charAt(0) === "1") {
-            for (let i = state.data.length - 1; i >= 0; i--) {
-                if (state.data[1][i] === info.text + "") {
-                    state.data[1].splice(i, 1);
-                    break;
-                }
-            }
-        } else if (info.type.charAt(0) === "2") {
-            for (let i = state.data.length - 1; i >= 0; i--) {
-                if (state.data[2][i] === info.text + "") {
-                    state.data[2].splice(i, 1);
-                    break;
-                }
-            }
-        } else if (info.type.charAt(0) === "3") {
-            for (let i = state.data.length - 1; i >= 0; i--) {
-                if (state.data[3][i] === info.text + "") {
-                    state.data[3].splice(i, 1);
-                    break;
-                }
+        let index = parseInt(info.type.charAt(0));
+        for (let i = state.data.length - 1; i >= 0; i--) {
+            if (state.data[index][i] == info.text) {
+                state.data[index].splice(i, 1);
+                break;
             }
         }
     },

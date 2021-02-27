@@ -11,11 +11,11 @@
 
 
 <script>
-import TopNavigation from "./childcomps/navigator/TopNavigation";
-import FunctionBar from "./childcomps/FunctionBar";
-import Essay from "./childcomps/Essay";
-import Footer from "./childcomps/Footer";
-import Remind from "./childcomps/Remind";
+import TopNavigation from "./components/navigator/TopNavigation";
+import FunctionBar from "./components/FunctionBar";
+import Essay from "./components/Essay";
+import Footer from "./components/Footer";
+import Remind from "./components/Remind";
 
 export default {
   name: "Home",

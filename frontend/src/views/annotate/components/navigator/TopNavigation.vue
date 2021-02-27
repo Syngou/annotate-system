@@ -34,10 +34,10 @@
 </template>
 
 <script>
-import Introduce from "./childComps/Introduce";
-import Paste from "./childComps/Paste";
-import AutoAnnotate from "./childComps/AutoAnnotate";
-import ShowAnnotation from "./childComps/ShowAnnotation";
+import Introduce from "./components/Introduce";
+import Paste from "./components/Paste";
+import AutoAnnotate from "./components/AutoAnnotate";
+import ShowAnnotation from "./components/ShowAnnotation";
 import { mapGetters } from "vuex";
 
 export default {
