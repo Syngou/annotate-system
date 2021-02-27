@@ -42,6 +42,7 @@ const actions = {
                     const { data } = response;
                     commit("SET_TOKEN", data.token);
                     setToken(data.token);
+
                     resolve();
                 })
                 .catch((error) => {
@@ -94,12 +95,13 @@ const actions = {
                 .then(() => {
                     commit("SET_TOKEN", "");
                     commit("SET_ROLES", []);
+                    commit("SET_AVATAR", "");
                     removeToken();
                     resetRouter();
 
                     // reset visited views and cached views
                     // to fixed https://github.com/PanJiaChen/vue-element-admin/issues/2485
-                    dispatch("tagsView/delAllViews", null, { root: true });
+                    // dispatch("tagsView/delAllViews", null, { root: true });
 
                     resolve();
                 })

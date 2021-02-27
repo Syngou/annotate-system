@@ -46,7 +46,6 @@ export default {
   },
   methods: {
     getUser() {
-      console.log(mapGetters(["institution"]));
       this.user = {
         name: this.name,
         role: this.roles.join(" | "),

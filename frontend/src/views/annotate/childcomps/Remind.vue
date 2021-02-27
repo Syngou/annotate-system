@@ -46,9 +46,8 @@ export default {
      * @description 判断是否是电脑
      */
     isPC() {
-      let userAgentInfo = navigator.userAgent;
-      console.log(userAgentInfo);
       let Agents = ["Android", "iPhone", "Windows Phone", "iPad", "iPod"];
+      let userAgentInfo = navigator.userAgent;
       for (let v = 0; v < Agents.length; v++) {
         if (userAgentInfo.indexOf(Agents[v]) > 0) {
           this.$message.warning({
