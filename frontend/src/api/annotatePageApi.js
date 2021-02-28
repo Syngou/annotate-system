@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import config from "@/api/annotatePageConfig";
 
 export default {
     /**
@@ -7,8 +7,8 @@ export default {
      * @param  data ==> 数组，四个值对应四个标注的属性
      */
     postToBackend(data) {
-        return request({
-            url: `upload?relation=${data[0]}&name=${data[1]}&medicine=${data[2]}&tool=${data[3]}`,
+        return config({
+            url: `upload/?relation=${data[0]}&name=${data[1]}&medicine=${data[2]}&tool=${data[3]}`,
             method: "GET",
         });
     },
@@ -19,8 +19,8 @@ export default {
      * @params text ==> 需要标注的文本
      */
     translate(text) {
-        return request({
-            url: `translate/${text}`,
+        return config({
+            url: `translate/?text=${text}`,
             method: "get",
         });
     },
