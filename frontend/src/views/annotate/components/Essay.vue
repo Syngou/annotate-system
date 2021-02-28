@@ -47,7 +47,7 @@
 
 <script>
 import annotateUtils from "@/utils/annotateUtils";
-import request from "@/api/request";
+import request from "@/api/annotatePageApi";
 
 export default {
   name: "Essays",

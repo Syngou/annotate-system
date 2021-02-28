@@ -122,7 +122,7 @@
 </template>
 
 <script>
-import request from "@/api/request";
+import request from "@/api/annotatePageApi";
 export default {
   name: "ShowAnnotation",
   created() {
