@@ -1,39 +1,45 @@
 <template>
   <div id="paper">
+    <!-- 标注选项对话框 -->
     <div class="dialog" v-show="showDialog" ref="showDialog">
       <el-button
         type="danger"
         size="medium"
         @click="annotateText('0' + $store.state.id, 0)"
-        >关系(r)
+      >关系(r)
       </el-button>
       <el-button
         type="primary"
         size="medium"
         @click="annotateText('1' + $store.state.id, 1)"
-        >名称(b)
+      >名称(b)
       </el-button>
       <el-button
         type="success"
         size="medium"
         @click="annotateText('2' + $store.state.id, 2)"
-        >药物(g)
+      >药物(g)
       </el-button>
       <el-button
         type="warning"
         size="medium"
         @click="annotateText('3' + $store.state.id, 3)"
-        >器械(o)
+      >器械(o)
       </el-button>
       <el-button type="info" size="medium" @click="translateText"
-        >翻译(t)</el-button
-      >
+      >翻译(t)
+      </el-button>
     </div>
     <div slot="footer">
       <el-button type="primary" size="medium" @click="choice = false"
-        >取消</el-button
-      >
+      >取消
+      </el-button>
     </div>
+    <!-- 翻译结果显示 -->
+    <div v-show="showTranslateCard" class="translate-card" ref="translateCard">
+      <TranslateCard :result="translateResult"/>
+    </div>
+    <!-- 论文 -->
     <pre
       ref="essay"
       id="essay"
@@ -46,6 +52,8 @@
 </template>
 
 <script>
+import TranslateCard from "./components/TranslateCard";
+
 import annotateUtils from "@/utils/annotateUtils";
 import request from "@/api/annotatePageApi";
 
@@ -55,7 +63,12 @@ export default {
     return {
       showDialog: false, // 显示对话框
       selectText: "", // 选中文本
+      showTranslateCard: false, //显示翻译卡片
+      translateResult: ''
     };
+  },
+  components: {
+    TranslateCard,
   },
   // 键盘标注，初始化即开始监听
   created() {
@@ -68,8 +81,8 @@ export default {
     showSelectBox(X, Y) {
       this.$refs.showDialog.style.left = X + 10 + "px";
       this.$refs.showDialog.style.top = Y + 10 + "px";
-      this.$refs.showDialog.style.display = "block";
-      this.showDialog = true;
+      this.$refs.translateCard.style.left = X + 10 + "px";
+      this.$refs.translateCard.style.top = Y + 10 + "px";
     },
 
     /**
@@ -85,6 +98,8 @@ export default {
           e.clientX,
           e.clientY + document.documentElement.scrollTop
         );
+        this.$refs.showDialog.style.display = "block";
+        this.showDialog = true;
       }
     },
     /**
@@ -121,44 +136,52 @@ export default {
     /**
      * @description 翻译  TODO：等待接口
      */
-    translateText() {
+    translateText(e) {
       this.showDialog = false;
       let text = window.getSelection().toString();
       request.translate(text).then((res) => {
         console.log(res);
+        this.translateResult = res
+        this.showTranslateCard = true;
       });
     },
   },
 };
 </script>
 
-<style scoped>
-  /* 因为是有固定定位，所以要有margin-top */
-  #paper {
-    margin-top: 48.8px;
-  }
+<style scoped lang='scss'>
+/* 因为是有固定定位，所以要有margin-top */
+#paper {
+  margin-top: 48.8px;
+}
 
-  /* 标注时对话框的样式 */
-  .dialog {
-    position: absolute;
-    width: 100px;
-    border: 5px solid rgb(248, 220, 6);
-    background-color: rgb(146, 150, 58);
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-  }
-  .dialog button {
+/* 标注时对话框的样式 */
+.dialog {
+  position: absolute;
+  width: 100px;
+  border: 5px solid rgb(248, 220, 6);
+  background-color: rgb(146, 150, 58);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+
+  button {
     margin: 0;
   }
+}
 
-  /* 文本样式 */
-  .input-content {
-    overflow: auto;
-    flex: auto;
-    min-height: 1000px;
-    padding: 0 5% 0 5%;
-    white-space: pre-line;
-    word-break: break-all;
-  }
+/* 文本样式 */
+.input-content {
+  overflow: auto;
+  flex: auto;
+  min-height: 1000px;
+  padding: 0 5% 0 5%;
+  white-space: pre-line;
+  word-break: break-all;
+}
+
+.translate-card {
+  width: 200px;
+  position: absolute;
+}
 </style>

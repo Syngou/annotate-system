@@ -10,7 +10,7 @@ def r(code, message, data):
 
 def translate_view(request):
     text = request.GET.get('text')
-    return HttpResponse(json.dumps(r(20000, '发送过来的数据为' + text + '翻译结果为...', {})))
+    return HttpResponse(json.dumps(r(20000, '发送过来的数据为  ' + text + '  翻译结果为...', {})))
 
 
 def upload_view(request):

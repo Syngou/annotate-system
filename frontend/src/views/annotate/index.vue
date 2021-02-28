@@ -13,7 +13,7 @@
 <script>
 import TopNavigation from "./components/navigator/TopNavigation";
 import FunctionBar from "./components/FunctionBar";
-import Essay from "./components/Essay";
+import Essay from "./components/ essay/Essay";
 import Footer from "./components/Footer";
 import Remind from "./components/Remind";
 
