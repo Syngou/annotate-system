@@ -1,8 +1,11 @@
 import request from "@/utils/request";
+/**
+ * 使用mockjs模拟接口
+ */
 
 export function login(data) {
     return request({
-        url: "/annotate-system/user/login",
+        url: "/mockjs/user/login",
         method: "post",
         data,
     });
@@ -10,7 +13,7 @@ export function login(data) {
 
 export function getInfo(token) {
     return request({
-        url: "/annotate-system/user/info",
+        url: "/mockjs/user/info",
         method: "get",
         params: { token },
     });
@@ -18,7 +21,7 @@ export function getInfo(token) {
 
 export function logout() {
     return request({
-        url: "/annotate-system/user/logout",
+        url: "/mockjs/user/logout",
         method: "post",
     });
 }

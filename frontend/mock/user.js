@@ -28,7 +28,7 @@ const users = {
 module.exports = [
     // user login
     {
-        url: "/annotate-system/user/login",
+        url: "/mockjs/user/login",
         type: "post",
         response: (config) => {
             const { username } = config.body;
@@ -51,7 +51,7 @@ module.exports = [
 
     // get user info
     {
-        url: "/annotate-system/user/info.*",
+        url: "/mockjs/user/info.*",
         type: "get",
         response: (config) => {
             const { token } = config.query;
@@ -74,7 +74,7 @@ module.exports = [
 
     // user logout
     {
-        url: "/annotate-system/user/logout",
+        url: "/mockjs/user/logout",
         type: "post",
         response: (_) => {
             return {

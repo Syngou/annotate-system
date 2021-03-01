@@ -71,7 +71,7 @@ export default {
     background-color: #333;
     width: 100%;
     left: 0;
-    top: 46px;
+    top: 50px;
     z-index: 1;
   }
 

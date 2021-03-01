@@ -37,6 +37,7 @@
     </div>
     <!-- 翻译结果显示 -->
     <div v-show="showTranslateCard" class="translate-card" ref="translateCard">
+      <span class="delete-button" @click="showTranslateCard = false"></span>
       <TranslateCard :result="translateResult" />
     </div>
     <!-- 论文 -->
@@ -136,14 +137,13 @@ export default {
     /**
      * @description 翻译  TODO：等待接口
      */
-    translateText(e) {
+    translateText() {
       this.showDialog = false;
       let text = window.getSelection().toString();
       request.translate(text).then((res) => {
-        console.log(res);
         this.translateResult = res;
         this.$message.success(res.message);
-        // this.showTranslateCard = true;
+        this.showTranslateCard = true;
       });
     },
   },
@@ -180,9 +180,21 @@ export default {
     white-space: pre-line;
     word-break: break-all;
   }
-
+  // 翻译卡片
   .translate-card {
     width: 200px;
     position: absolute;
+
+    .delete-button {
+      position: relative;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      top: 25px;
+      border-radius: 50%;
+      cursor: pointer;
+      left: 180px;
+      background-color: red;
+    }
   }
 </style>
