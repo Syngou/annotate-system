@@ -2,21 +2,11 @@ import store from "@/store/index";
 
 export default {
     /**
-     *
-     * @description 返回按钮样式，可以考虑hover时才显示
+     *  按钮样式
      */
     buttonStyle() {
-        return `height:20px;
-        width:20px;
-        text-align:center;
-        line-height:20px;
-        border-radius:30px;
-        margin-left:5px;
-        outline: none;
-        cursor:pointer;
-        background-color:white`;
+        return "cursor:pointer;margin-left:5px";
     },
-
     /**
      *
      * @description 返回标注文本样式
@@ -24,7 +14,7 @@ export default {
      */
     textStyle(index) {
         let colorArray = ["red", "blue", "green", "orange"]; // 标注颜色
-        return `border:5px solid ${colorArray[index]};background-color:${colorArray[index]};border-radius: 10px;padding: 0 5px 0 3px;`;
+        return `border:5px solid ${colorArray[index]};background-color:${colorArray[index]};border-radius: 10px;padding: 0 2px 0 2px;`;
     },
     /**
      *
@@ -42,12 +32,13 @@ export default {
         // 选中不为空
         if (text.length > 0) {
             // 按钮添加事件
-            let button = document.createElement("button");
+            let button = document.createElement("i");
             button.setAttribute("id", id);
             button.addEventListener("click", () => {
                 this.deleteById(id);
             });
 
+            button.setAttribute("class", "el-icon-close");
             button.setAttribute("style", this.buttonStyle());
             let span = document.createElement("span");
             span.setAttribute("style", annotatedTestStyle);
@@ -99,10 +90,10 @@ export default {
                                 i
                             )}'>${store.state.data[i][
                                 j
-                            ].trim()}<button class='deleteButton' style='${this.buttonStyle()}'></button> </span>`
+                            ].trim()}<i class='deleteButtonTemp el-icon-close' style='${this.buttonStyle()}'></i> </span>`
                         );
                     let buttons = Array.from(
-                        document.getElementsByClassName("deleteButton")
+                        document.getElementsByClassName("deleteButtonTemp")
                     );
                     //查找按钮并添加删除事件，这种方法很low，但是有效
                     //如果你有更好的想法，欢迎修改

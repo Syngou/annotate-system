@@ -37,7 +37,10 @@
     </div>
     <!-- 翻译结果显示 -->
     <div v-show="showTranslateCard" class="translate-card" ref="translateCard">
-      <span class="delete-button" @click="showTranslateCard = false"></span>
+      <i
+        class="el-message__closeBtn el-icon-close delete-button"
+        @click="showTranslateCard = false"
+      />
       <TranslateCard :result="translateResult" />
     </div>
     <!-- 论文 -->
@@ -142,7 +145,11 @@ export default {
       let text = window.getSelection().toString();
       request.translate(text).then((res) => {
         this.translateResult = res;
-        this.$message.success(res.message);
+        this.$message({
+          type: "success",
+          message: res.message,
+          showClose: true,
+        });
         this.showTranslateCard = true;
       });
     },
@@ -187,14 +194,8 @@ export default {
 
     .delete-button {
       position: relative;
-      display: inline-block;
-      width: 20px;
-      height: 20px;
       top: 25px;
-      border-radius: 50%;
-      cursor: pointer;
-      left: 180px;
-      background-color: red;
+      left: 182px;
     }
   }
 </style>

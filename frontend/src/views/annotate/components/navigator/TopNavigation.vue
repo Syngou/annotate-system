@@ -56,7 +56,6 @@ export default {
   },
   mounted() {
     if (window.innerWidth <= 400) {
-      console.log("yes");
       this.$store.dispatch("app/toggleDevice", "mobile");
     }
   },
