@@ -1,6 +1,6 @@
 <template>
   <div class="topNavigation">
-    <span class="title">医疗文本标注平台</span>
+    <span v-if="device !== 'mobile'" class="title">医疗文本标注平台</span>
     <a href="#" @click="$bus.$emit('showIntroduce')">功能介绍</a>
     <a href="#" @click="$bus.$emit('showPaste')">输入文本</a>
     <a href="#" @click="$bus.$emit('showAnnotate')">自动化标注</a>
@@ -50,6 +50,15 @@ export default {
   },
   computed: {
     ...mapGetters(["avatar"]),
+    device() {
+      return this.$store.state.app.device;
+    },
+  },
+  mounted() {
+    if (window.innerWidth <= 400) {
+      console.log("yes");
+      this.$store.dispatch("app/toggleDevice", "mobile");
+    }
   },
   methods: {
     /**
@@ -64,7 +73,7 @@ export default {
 <style scoped lang='scss'>
   /* 标题样式 */
   .title {
-    margin-left: 30px;
+    margin: 0 30px;
     color: red;
     font-size: 22px;
   }
@@ -83,7 +92,7 @@ export default {
     /* 导航条链接 */
     a {
       display: inline-block;
-      padding: 14px 16px;
+      padding: 14px 5px;
       background-color: #333;
       color: #f2f2f2;
       text-align: center;
@@ -124,7 +133,7 @@ export default {
     }
 
     .avatar-container {
-      margin-right: 10px;
+      margin-right: 5px;
 
       .avatar-wrapper {
         margin-top: 5px;
