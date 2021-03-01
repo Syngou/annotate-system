@@ -2,7 +2,7 @@
   <div>
     <el-dialog
       :visible.sync="pasteContentModal"
-      title="在这里输入或粘贴你的文本（若不成功，请刷新网页后重试）"
+      title="在这里输入或粘贴你的文本"
       :modal-append-to-body="false"
       :width="width"
     >
