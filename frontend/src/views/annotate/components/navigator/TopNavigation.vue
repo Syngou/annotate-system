@@ -85,6 +85,7 @@ export default {
     top: 0;
     overflow: hidden;
     width: 100%;
+    height: 50px;
     padding-right: 20px;
     z-index: 50;
     background-color: #333;
