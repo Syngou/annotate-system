@@ -1,6 +1,11 @@
 import axios from "axios";
 import { Message } from "element-ui";
 
+/**
+ * 这个是标注页面的api配置，没有用后台管理的配置是因为后台管理的接口没有开发
+ * 等开发开发后再合并
+ */
+
 //配置
 const service = axios.create({
     baseURL: "http://localhost:8000",

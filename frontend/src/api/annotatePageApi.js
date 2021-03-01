@@ -1,4 +1,7 @@
-import config from "@/api/annotatePageConfig";
+import config from "@/api/annotateApiConfig";
+/**
+ * 暂时使用这个api配置，等后台管理的api开发完了再使用一样的配置
+ */
 
 export default {
     /**

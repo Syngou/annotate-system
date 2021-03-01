@@ -6,38 +6,38 @@
         type="danger"
         size="medium"
         @click="annotateText('0' + $store.state.id, 0)"
-      >关系(r)
+        >关系(r)
       </el-button>
       <el-button
         type="primary"
         size="medium"
         @click="annotateText('1' + $store.state.id, 1)"
-      >名称(b)
+        >名称(b)
       </el-button>
       <el-button
         type="success"
         size="medium"
         @click="annotateText('2' + $store.state.id, 2)"
-      >药物(g)
+        >药物(g)
       </el-button>
       <el-button
         type="warning"
         size="medium"
         @click="annotateText('3' + $store.state.id, 3)"
-      >器械(o)
+        >器械(o)
       </el-button>
       <el-button type="info" size="medium" @click="translateText"
-      >翻译(t)
+        >翻译(t)
       </el-button>
     </div>
     <div slot="footer">
       <el-button type="primary" size="medium" @click="choice = false"
-      >取消
+        >取消
       </el-button>
     </div>
     <!-- 翻译结果显示 -->
     <div v-show="showTranslateCard" class="translate-card" ref="translateCard">
-      <TranslateCard :result="translateResult"/>
+      <TranslateCard :result="translateResult" />
     </div>
     <!-- 论文 -->
     <pre
@@ -64,7 +64,7 @@ export default {
       showDialog: false, // 显示对话框
       selectText: "", // 选中文本
       showTranslateCard: false, //显示翻译卡片
-      translateResult: ''
+      translateResult: "", //翻译结果
     };
   },
   components: {
@@ -141,8 +141,9 @@ export default {
       let text = window.getSelection().toString();
       request.translate(text).then((res) => {
         console.log(res);
-        this.translateResult = res
-        this.showTranslateCard = true;
+        this.translateResult = res;
+        this.$message.success(res.message);
+        // this.showTranslateCard = true;
       });
     },
   },
@@ -150,38 +151,38 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-/* 因为是有固定定位，所以要有margin-top */
-#paper {
-  margin-top: 48.8px;
-}
-
-/* 标注时对话框的样式 */
-.dialog {
-  position: absolute;
-  width: 100px;
-  border: 5px solid rgb(248, 220, 6);
-  background-color: rgb(146, 150, 58);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-
-  button {
-    margin: 0;
+  /* 因为是有固定定位，所以要有margin-top */
+  #paper {
+    margin-top: 48.8px;
   }
-}
 
-/* 文本样式 */
-.input-content {
-  overflow: auto;
-  flex: auto;
-  min-height: 1000px;
-  padding: 0 5% 0 5%;
-  white-space: pre-line;
-  word-break: break-all;
-}
+  /* 标注时对话框的样式 */
+  .dialog {
+    position: absolute;
+    width: 100px;
+    border: 5px solid rgb(248, 220, 6);
+    background-color: rgb(146, 150, 58);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
 
-.translate-card {
-  width: 200px;
-  position: absolute;
-}
+    button {
+      margin: 0;
+    }
+  }
+
+  /* 文本样式 */
+  .input-content {
+    overflow: auto;
+    flex: auto;
+    min-height: 1000px;
+    padding: 0 5% 0 5%;
+    white-space: pre-line;
+    word-break: break-all;
+  }
+
+  .translate-card {
+    width: 200px;
+    position: absolute;
+  }
 </style>

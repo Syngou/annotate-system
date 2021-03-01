@@ -1,9 +1,9 @@
-import request from '@/utils/request'
+import request from "@/utils/request";
 
 export function getList(params) {
-  return request({
-    url: '/vue-admin-template/table/list',
-    method: 'get',
-    params
-  })
+    return request({
+        url: "/annotate-system/table/list",
+        method: "get",
+        params,
+    });
 }

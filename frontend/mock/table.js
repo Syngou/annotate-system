@@ -15,7 +15,7 @@ const data = Mock.mock({
 
 module.exports = [
     {
-        url: "/vue-admin-template/table/list",
+        url: "/annotate-system/table/list",
         type: "get",
         response: (config) => {
             const items = data.items;
