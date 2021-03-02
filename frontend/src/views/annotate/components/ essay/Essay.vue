@@ -186,6 +186,7 @@ export default {
     padding: 0 5% 0 5%;
     white-space: pre-line;
     word-break: break-all;
+    line-height: 25px;
   }
   // 翻译卡片
   .translate-card {

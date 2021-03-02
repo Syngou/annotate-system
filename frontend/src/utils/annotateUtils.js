@@ -14,7 +14,7 @@ export default {
      */
     textStyle(index) {
         let colorArray = ["red", "blue", "green", "orange"]; // 标注颜色
-        return `border:5px solid ${colorArray[index]};background-color:${colorArray[index]};border-radius: 10px;padding: 0 2px 0 2px;`;
+        return `border:5px solid ${colorArray[index]};background-color:${colorArray[index]};border-radius: 10px;`;
     },
     /**
      *
@@ -77,7 +77,6 @@ export default {
         let array = [];
         //把字符串分割
         for (let i = 0; i < data.length; i++) {
-            console.log(...data[i].split(" "));
             array.push(...data[i].split(" "));
             //把分割出来的字符串分别标注
             for (let j = 0; j < array.length; j++) {
