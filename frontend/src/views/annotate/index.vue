@@ -3,9 +3,8 @@
     <TopNavigation />
     <FunctionBar />
     <Essay />
-    <Remind />
     <el-backtop :duration="0" :bottom="70" />
-    <Footer />
+    <div class="footer">Copyright © 2020 Syngou</div>
   </div>
 </template>
 
@@ -14,8 +13,6 @@
 import TopNavigation from "./components/navigator/TopNavigation";
 import FunctionBar from "./components/FunctionBar";
 import Essay from "./components/ essay/Essay";
-import Footer from "./components/Footer";
-import Remind from "./components/Remind";
 
 export default {
   name: "Home",
@@ -23,8 +20,28 @@ export default {
     TopNavigation,
     FunctionBar,
     Essay,
-    Footer,
-    Remind,
+  },
+  mounted() {
+    this.isPC();
+  },
+  methods: {
+    /**
+     * @description 判断是否是电脑
+     */
+    isPC() {
+      let Agents = ["Android", "iPhone", "Windows Phone", "iPad", "iPod"];
+      let userAgentInfo = navigator.userAgent;
+      for (let v = 0; v < Agents.length; v++) {
+        if (userAgentInfo.indexOf(Agents[v]) > 0) {
+          this.$message.warning({
+            message: "手机是无法进行标注的哦,请使用电脑浏览器。",
+            duration: 5000,
+            showClose: true,
+          });
+          break;
+        }
+      }
+    },
   },
 };
 </script>
@@ -32,5 +49,12 @@ export default {
   * {
     box-sizing: border-box;
     color: black;
+  }
+  /* 底部 */
+  .footer {
+    padding: 20px;
+    background: #333;
+    color: white;
+    text-align: center;
   }
 </style>

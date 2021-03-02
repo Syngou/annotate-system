@@ -4,7 +4,7 @@
     <a href="#" @click="$bus.$emit('showIntroduce')">功能介绍</a>
     <a href="#" @click="$bus.$emit('showPaste')">输入文本</a>
     <a href="#" @click="$bus.$emit('showAnnotate')">自动化标注</a>
-    <a href="#" @click="$bus.$emit('showDrawer')">已标注</a>
+    <a href="#" @click="$bus.$emit('showDrawer')">上传</a>
     <router-link v-if="!avatar" to="/login" style="float: right"
       >登录</router-link
     >
@@ -92,7 +92,7 @@ export default {
     /* 导航条链接 */
     a {
       display: inline-block;
-      padding: 14px 5px;
+      padding: 14px 7px;
       background-color: #333;
       color: #f2f2f2;
       text-align: center;

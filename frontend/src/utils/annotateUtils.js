@@ -77,21 +77,19 @@ export default {
         let array = [];
         //把字符串分割
         for (let i = 0; i < data.length; i++) {
+            console.log(...data[i].split(" "));
             array.push(...data[i].split(" "));
-
             //把分割出来的字符串分别标注
             for (let j = 0; j < array.length; j++) {
                 if (array[j].length !== 0) {
                     store.state.data[i].push(array[j]);
-                    essay.innerHTML = essay.innerHTML
-                        .split(store.state.data[i][j])
-                        .join(
-                            `<span style='${this.textStyle(
-                                i
-                            )}'>${store.state.data[i][
-                                j
-                            ].trim()}<i class='deleteButtonTemp el-icon-close' style='${this.buttonStyle()}'></i> </span>`
-                        );
+                    essay.innerHTML = essay.innerHTML.replaceAll(
+                        array[j],
+                        `<span style='${this.textStyle(i)}'>${
+                            array[j]
+                        }<i class='deleteButtonTemp el-icon-close' style='${this.buttonStyle()}'></i> </span>`
+                    );
+
                     let buttons = Array.from(
                         document.getElementsByClassName("deleteButtonTemp")
                     );
