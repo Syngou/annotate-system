@@ -4,9 +4,9 @@
       v-loading="listLoading"
       :data="list"
       element-loading-text="Loading"
+      :row-class-name="tableRowClassName"
       border
       fit
-      highlight-current-row
     >
       <el-table-column align="center" label="序号" width="50">
         <template slot-scope="scope">
@@ -68,6 +68,7 @@ export default {
       return statusMap[status];
     },
   },
+
   data() {
     return {
       list: null,
@@ -85,6 +86,17 @@ export default {
         this.listLoading = false;
       });
     },
+    tableRowClassName({ row, rowIndex }) {
+      if (rowIndex % 2) {
+        return "success-row";
+      }
+      return "";
+    },
   },
 };
 </script>
+<style>
+  .el-table .success-row {
+    background: #ebf0fa;
+  }
+</style>
