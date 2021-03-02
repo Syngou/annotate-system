@@ -64,13 +64,24 @@ export const constantRoutes = [
     {
         path: "/profile",
         component: Layout,
-        redirect: "/profile/index",
         children: [
             {
                 path: "index",
                 component: () => import("@/views/profile/index"),
                 name: "Profile",
                 meta: { title: "个人中心", icon: "user", noCache: true },
+            },
+        ],
+    },
+    {
+        path: "/table",
+        component: Layout,
+        children: [
+            {
+                path: "index",
+                component: () => import("@/views/table/index"),
+                name: "Table",
+                meta: { title: "标注文本列表", icon: "table" },
             },
         ],
     },
