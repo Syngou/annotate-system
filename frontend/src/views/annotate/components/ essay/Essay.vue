@@ -5,25 +5,25 @@
       <el-button
         type="danger"
         size="medium"
-        @click="annotateText('0' + $store.state.id, 0)"
+        @click="annotateText('0' + $store.state.annotate.id, 0)"
         >关系(r)
       </el-button>
       <el-button
         type="primary"
         size="medium"
-        @click="annotateText('1' + $store.state.id, 1)"
+        @click="annotateText('1' + $store.state.annotate.id, 1)"
         >名称(b)
       </el-button>
       <el-button
         type="success"
         size="medium"
-        @click="annotateText('2' + $store.state.id, 2)"
+        @click="annotateText('2' + $store.state.annotate.id, 2)"
         >药物(g)
       </el-button>
       <el-button
         type="warning"
         size="medium"
-        @click="annotateText('3' + $store.state.id, 3)"
+        @click="annotateText('3' + $store.state.annotate.id, 3)"
         >器械(o)
       </el-button>
       <el-button type="info" size="medium" @click="translateText"
@@ -49,8 +49,8 @@
       id="essay"
       @mouseup="getSelection($event)"
       class="input-content"
-      :style="'font-size:' + $store.state.fontSize + 'px'"
-      v-html="$store.state.inputContent"
+      :style="'font-size:' + $store.state.annotate.fontSize + 'px'"
+      v-html="$store.state.annotate.inputContent"
     ></pre>
   </div>
 </template>
@@ -96,7 +96,9 @@ export default {
     getSelection(e) {
       if (window.getSelection().toString() !== "") {
         this.selectText = window.getSelection().toString();
-        this.$store.state.selectionText = window.getSelection().toString();
+        this.$store.state.annotate.selectionText = window
+          .getSelection()
+          .toString();
         // 加上滚轮滚动距离才是y轴长度！！！
         this.showSelectBox(
           e.clientX,
@@ -112,7 +114,7 @@ export default {
     annotateByShortcut() {
       document.onkeydown = ($event) => {
         let key = $event.key;
-        let id = this.$store.state.id;
+        let id = this.$store.state.annotate.id;
         this.showDialog = false;
         if (key === "r") {
           annotateUtils.annotate("0" + id, 0);

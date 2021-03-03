@@ -7,8 +7,7 @@ const data = Mock.mock({
             title: "@ctitle",
             "status|1": ["已完成", "未完成"],
             author: "@cname",
-            display_time: "@datetime",
-            pageViews: "@integer(300, 5000)",
+            paragraph: "@cparagraph(300)",
         },
     ],
 });

@@ -9,7 +9,7 @@
       size="40%"
       :with-header="false"
     >
-      <div class="list" v-show="$store.state.data[0].length > 0">
+      <div class="list" v-show="$store.state.annotate.data[0].length > 0">
         <button class="btn" style="background-color: red; margin-top: 0">
           关系
         </button>
@@ -18,7 +18,7 @@
           <ol>
             <li
               class="list-item"
-              v-for="(relation, index) in $store.state.data[0]"
+              v-for="(relation, index) in $store.state.annotate.data[0]"
               :key="index"
             >
               {{ relation }}
@@ -27,7 +27,7 @@
         </div>
       </div>
 
-      <div class="list" v-show="$store.state.data[1].length > 0">
+      <div class="list" v-show="$store.state.annotate.data[1].length > 0">
         <button
           class="btn"
           style="background-color: blue"
@@ -41,7 +41,7 @@
           <ol>
             <li
               class="list-item"
-              v-for="(name, index) in $store.state.data[1]"
+              v-for="(name, index) in $store.state.annotate.data[1]"
               :key="index"
             >
               {{ name }}
@@ -49,7 +49,7 @@
           </ol>
         </div>
       </div>
-      <div class="list" v-show="$store.state.data[2].length > 0">
+      <div class="list" v-show="$store.state.annotate.data[2].length > 0">
         <button
           class="btn"
           style="background-color: green"
@@ -63,7 +63,7 @@
           <ol>
             <li
               class="list-item"
-              v-for="(medicine, index) in $store.state.data[2]"
+              v-for="(medicine, index) in $store.state.annotate.data[2]"
               :key="index"
             >
               {{ medicine }}
@@ -71,7 +71,7 @@
           </ol>
         </div>
       </div>
-      <div class="list" v-show="$store.state.data[3].length > 0">
+      <div class="list" v-show="$store.state.annotate.data[3].length > 0">
         <button
           class="btn"
           style="background-color: orange"
@@ -85,7 +85,7 @@
           <ol>
             <li
               class="list-item"
-              v-for="(tool, index) in $store.state.data[3]"
+              v-for="(tool, index) in $store.state.annotate.data[3]"
               :key="index"
             >
               {{ tool }}
@@ -96,10 +96,10 @@
       <div
         style="font-size: 30px"
         v-show="
-          $store.state.data[0].length == 0 &&
-          $store.state.data[1].length == 0 &&
-          $store.state.data[2].length == 0 &&
-          $store.state.data[3].length == 0
+          $store.state.annotate.data[0].length == 0 &&
+          $store.state.annotate.data[1].length == 0 &&
+          $store.state.annotate.data[2].length == 0 &&
+          $store.state.annotate.data[3].length == 0
         "
       >
         只有标注了才会在这里显示哦👨🏻‍🔬
@@ -109,10 +109,10 @@
           type="primary"
           @click="uploadData"
           v-show="
-            $store.state.data[0].length != 0 ||
-            $store.state.data[1].length != 0 ||
-            $store.state.data[2].length != 0 ||
-            $store.state.data[3].length != 0
+            $store.state.annotate.data[0].length != 0 ||
+            $store.state.annotate.data[1].length != 0 ||
+            $store.state.annotate.data[2].length != 0 ||
+            $store.state.annotate.data[3].length != 0
           "
           >上传数据</el-button
         >
@@ -145,7 +145,7 @@ export default {
      * @description: 标注数据上传后台
      */
     uploadData() {
-      request.postToBackend(this.$store.state.data).then(() => {
+      request.postToBackend(this.$store.state.annotate.data).then(() => {
         this.$message.success("上传成功");
         this.drawer = false;
       });

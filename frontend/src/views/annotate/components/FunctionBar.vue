@@ -52,14 +52,14 @@ export default {
      * @description 增大字体
      */
     addFontSize() {
-      this.$store.state.fontSize++;
+      this.$store.state.annotate.fontSize++;
     },
     /**
      
      * @description  减小字体
      */
     reduceFontSize() {
-      this.$store.state.fontSize--;
+      this.$store.state.annotate.fontSize--;
     },
   },
 };

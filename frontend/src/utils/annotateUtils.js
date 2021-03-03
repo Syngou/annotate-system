@@ -23,8 +23,8 @@ export default {
      * @param index 标注颜色索引
      */
     annotate(id, index) {
-        let text = store.state.selectionText.trim();
-        store.commit("addToList", { id, text });
+        let text = store.state.annotate.selectionText.trim();
+        store.dispatch("annotate/addToList", { id, text });
         // 按钮样式   TODO：样式美化
         // 标注文本样式
         let annotatedTestStyle = this.textStyle(index);
@@ -48,7 +48,7 @@ export default {
             span.appendChild(button);
             //移除选中状态，否则很难看
             window.getSelection().removeAllRanges();
-            store.state.id++;
+            store.state.annotate.id++;
         }
     },
 
@@ -65,7 +65,7 @@ export default {
         let text = span.innerText.trim();
         essay.insertBefore(textNode, span);
         essay.removeChild(span);
-        store.commit("deleteAnnotatedText", { type: id, text });
+        store.dispatch("annotate/deleteAnnotatedText", { type: id, text });
     },
     /**
      *
@@ -81,7 +81,7 @@ export default {
             //把分割出来的字符串分别标注
             for (let j = 0; j < array.length; j++) {
                 if (array[j].length !== 0) {
-                    store.state.data[i].push(array[j]);
+                    store.state.annotate.data[i].push(array[j]);
                     essay.innerHTML = essay.innerHTML.replaceAll(
                         array[j],
                         `<span style='${this.textStyle(i)}'>${
@@ -96,7 +96,7 @@ export default {
                     //如果你有更好的想法，欢迎修改
                     //TODO：优化代码
                     for (let k = 0; k < buttons.length; k++) {
-                        buttons[k].id = i + "" + store.state.id++;
+                        buttons[k].id = i + "" + store.state.annotate.id++;
                         buttons[k].onclick = () => {
                             this.deleteById(buttons[k].id);
                         };

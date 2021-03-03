@@ -23,11 +23,7 @@
           <span>{{ scope.row.author }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="字数" width="110" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.pageViews }}
-        </template>
-      </el-table-column>
+
       <el-table-column
         class-name="status-col"
         label="状态"
@@ -40,15 +36,17 @@
           }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column
-        align="center"
-        prop="created_at"
-        label="展示时间"
-        width="200"
-      >
+      <el-table-column label="操作" width="200" align="center">
         <template slot-scope="scope">
-          <i class="el-icon-time" />
-          <span>{{ scope.row.display_time }}</span>
+          <el-button size="mini" @click="handleEdit(scope.$index, list)"
+            >开始标注</el-button
+          >
+          <el-button
+            size="mini"
+            type="danger"
+            @click="handleDelete(scope.$index, list)"
+            >删除</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
@@ -91,6 +89,24 @@ export default {
         return "success-row";
       }
       return "";
+    },
+    handleEdit(index, rows) {
+      console.log(index, rows[index]);
+      this.$store.state.annotate.inputContent = rows[index].paragraph;
+      this.$router.push("/annotate");
+    },
+    handleDelete(index, rows) {
+      this.$confirm("确定要删除吗?", "警告", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(() => {
+        rows.splice(index, 1);
+        this.$message({
+          type: "success",
+          message: "删除成功!",
+        });
+      });
     },
   },
 };

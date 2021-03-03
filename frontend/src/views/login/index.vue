@@ -17,8 +17,7 @@
       hoverMode="grab"
       :clickEffect="true"
       clickMode="push"
-    >
-    </vue-particles>
+    />
     <!-- 登录面板 -->
     <div class="login-box">
       <div class="login-box-title">后台管理系统</div>
@@ -87,6 +86,7 @@ import { validUsername } from "@/utils/validate";
 
 export default {
   name: "Login",
+
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {

@@ -52,16 +52,16 @@ export default {
 
     pasteContent() {
       this.pasteContentModal = false;
-      this.$store.state.inputContent = document.getElementById(
+      this.$store.state.annotate.inputContent = document.getElementById(
         "pasteContent"
       ).value;
       //清空数据
       document.getElementById("pasteContent").value = "";
       //  粘贴后清空存入的数据
-      this.$store.state.data[1] = [];
-      this.$store.state.data[0] = [];
-      this.$store.state.data[2] = [];
-      this.$store.state.data[3] = [];
+      this.$store.state.annotate.data[1] = [];
+      this.$store.state.annotate.data[0] = [];
+      this.$store.state.annotate.data[2] = [];
+      this.$store.state.annotate.data[3] = [];
     },
   },
 };
