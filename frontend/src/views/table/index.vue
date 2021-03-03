@@ -91,7 +91,6 @@ export default {
       return "";
     },
     handleEdit(index, rows) {
-      console.log(index, rows[index]);
       this.$store.state.annotate.inputContent = rows[index].paragraph;
       this.$router.push("/annotate");
     },
