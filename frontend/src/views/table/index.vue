@@ -77,6 +77,9 @@ export default {
     this.fetchData();
   },
   methods: {
+    /**
+     * 获取数据
+     */
     fetchData() {
       this.listLoading = true;
       getList().then((response) => {
@@ -84,16 +87,26 @@ export default {
         this.listLoading = false;
       });
     },
+    /**
+     * 表格样式
+     */
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2) {
         return "success-row";
       }
       return "";
     },
+    /**
+     * 标注文本
+     */
     handleEdit(index, rows) {
+      console.log(index, rows[index]);
       this.$store.state.annotate.inputContent = rows[index].paragraph;
       this.$router.push("/annotate");
     },
+    /**
+     * 删除文本提示
+     */
     handleDelete(index, rows) {
       this.$confirm("确定要删除吗?", "警告", {
         confirmButtonText: "确定",

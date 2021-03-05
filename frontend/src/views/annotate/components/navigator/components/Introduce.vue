@@ -34,7 +34,6 @@
 </template>
 
 <script>
-import Cookies from "js-cookie";
 export default {
   name: "Introduce",
   created() {
@@ -56,17 +55,6 @@ export default {
     } else {
       this.width = "30%";
     }
-  },
-  methods: {
-    /**
-     * @description 设置cookie，用于介绍使用方法，已经读过的就不再显示
-     */
-    haveRead() {
-      if (!Cookies.get("haveRead")) {
-        this.introduceModal = true;
-        Cookies.set("haveRead", "true", { expires: 365 * 100, path: "" });
-      }
-    },
   },
 };
 </script>

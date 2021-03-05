@@ -1,0 +1,85 @@
+<template>
+  <div class="dashboard-editor-container">
+    <el-row style="background: #fff; padding: 16px 16px 0; margin-bottom: 32px">
+      <line-chart :chart-data="lineChartData" />
+    </el-row>
+    <el-row>
+      <el-col>
+        <div class="chart-wrapper">
+          <bar-chart />
+        </div>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col>
+        <div class="chart-wrapper">
+          <detail-card />
+        </div>
+      </el-col>
+    </el-row>
+  </div>
+</template>
+
+<script>
+import LineChart from "./components/LineChart";
+import BarChart from "./components/BarChart";
+import DetailCard from "./components/DetailCard";
+
+const lineChartData = {
+  newVisitis: {
+    expectedData: [100, 120, 161, 134],
+    actualData: [120, 82, 91, 154],
+  },
+  messages: {
+    expectedData: [200, 192, 120, 144],
+    actualData: [180, 160, 151, 106],
+  },
+  purchases: {
+    expectedData: [80, 100, 121, 104],
+    actualData: [120, 90, 100, 138],
+  },
+  shoppings: {
+    expectedData: [130, 140, 141, 142],
+    actualData: [120, 82, 91, 154],
+  },
+};
+
+export default {
+  name: "DashboardAdmin",
+  components: {
+    LineChart,
+    BarChart,
+    DetailCard,
+  },
+  data() {
+    return {
+      lineChartData: lineChartData.newVisitis,
+    };
+  },
+  methods: {
+    handleSetLineChartData(type) {
+      this.lineChartData = lineChartData[type];
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+  .dashboard-editor-container {
+    padding: 32px;
+    background-color: rgb(240, 242, 245);
+    position: relative;
+
+    .chart-wrapper {
+      background: #fff;
+      padding: 16px 16px 0;
+      margin-bottom: 32px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .chart-wrapper {
+      padding: 8px;
+    }
+  }
+</style>

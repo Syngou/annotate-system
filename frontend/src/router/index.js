@@ -74,6 +74,7 @@ export const constantRoutes = [
             },
         ],
     },
+
     {
         path: "/table",
         component: Layout,
@@ -86,7 +87,18 @@ export const constantRoutes = [
             },
         ],
     },
-
+    {
+        path: "/error",
+        component: Layout,
+        children: [
+            {
+                path: "index",
+                component: () => import("@/views/errorAnalysis/index"),
+                name: "ErrorAnalysis",
+                meta: { title: "错误分析可视化", icon: "bug" },
+            },
+        ],
+    },
     // 404 page must be placed at the end !!!
     { path: "*", redirect: "/404", hidden: true },
 ];

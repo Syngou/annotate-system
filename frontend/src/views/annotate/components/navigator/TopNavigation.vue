@@ -1,10 +1,10 @@
 <template>
   <div class="topNavigation">
     <span v-if="device !== 'mobile'" class="title">医疗文本标注平台</span>
-    <a href="#" @click="$bus.$emit('showIntroduce')">功能介绍</a>
-    <a href="#" @click="$bus.$emit('showPaste')">输入文本</a>
-    <a href="#" @click="$bus.$emit('showAnnotate')">自动化标注</a>
-    <a href="#" @click="$bus.$emit('showDrawer')">上传</a>
+    <a @click="$bus.$emit('showIntroduce')">功能介绍</a>
+    <a @click="$bus.$emit('showPaste')">输入文本</a>
+    <a @click="$bus.$emit('showAnnotate')">自动化标注</a>
+    <a @click="$bus.$emit('showDrawer')">上传</a>
     <router-link v-if="!avatar" to="/login" style="float: right"
       >登录</router-link
     >
