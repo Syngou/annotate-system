@@ -63,11 +63,6 @@ export default {
     },
     setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
-        title: {
-          text: "模型标注数量对比图",
-          left: "center",
-          align: "right",
-        },
         xAxis: {
           data: ["关系", "药物", "名称", "器械"],
           boundaryGap: false,
@@ -97,7 +92,6 @@ export default {
         },
         legend: {
           data: ["标准模型", "当前使用模型"],
-          left: 10,
         },
         series: [
           {
