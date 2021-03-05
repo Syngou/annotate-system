@@ -95,7 +95,7 @@ export const constantRoutes = [
                 path: "index",
                 component: () => import("@/views/errorAnalysis/index"),
                 name: "ErrorAnalysis",
-                meta: { title: "错误分析可视化", icon: "bug" },
+                meta: { title: "错误分析", icon: "bug" },
             },
         ],
     },
