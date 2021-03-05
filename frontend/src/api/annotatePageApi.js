@@ -11,7 +11,7 @@ export default {
      */
     postToBackend(data) {
         return config({
-            url: `upload/?relation=${data[0]}&name=${data[1]}&medicine=${data[2]}&tool=${data[3]}`,
+            url: `upload/?relation=${data[0]}&disease=${data[1]}&medicine=${data[2]}&tool=${data[3]}`,
             method: "GET",
         });
     },

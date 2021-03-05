@@ -3,7 +3,7 @@
 </template>
 
 <script>
-var echarts = require("echarts");
+const echarts = require("echarts");
 require("echarts/theme/macarons"); // echarts theme
 import resize from "./mixins/resize";
 
@@ -36,14 +36,6 @@ export default {
       chart: null,
     };
   },
-  watch: {
-    chartData: {
-      deep: true,
-      handler(val) {
-        this.setOptions(val);
-      },
-    },
-  },
   mounted() {
     this.$nextTick(() => {
       this.initChart();
@@ -64,7 +56,7 @@ export default {
     setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
         xAxis: {
-          data: ["关系", "药物", "名称", "器械"],
+          data: ["关系", "药物", "疾病", "器械", "患者"],
           boundaryGap: false,
           axisTick: {
             show: false,

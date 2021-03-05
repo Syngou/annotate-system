@@ -14,7 +14,8 @@ def r(code, message, data):
 # 翻译接口
 def translate_view(request):
     text = request.GET.get('text')
-    return HttpResponse(json.dumps(r(20000, '发送过来的数据为==>  ' + text + '  \n翻译结果为...', {})))
+    return HttpResponse(
+        json.dumps(r(20000, '发送过来的数据为==>  ' + text + '  \n翻译结果为...', {})))
 
 
 # 标注数据上传接口
@@ -23,16 +24,20 @@ def upload_view(request):
 
     relation = request.GET.get('relation')
     medicine = request.GET.get('medicine')
-    name = request.GET.get('name')
+    disease = request.GET.get('disease')
     tool = request.GET.get('tool')
 
-    result = AnnotateResult(relation=relation, name=name, tool=tool, medicine=medicine)
+    result = AnnotateData(relation=relation,
+                          disease=disease,
+                          tool=tool,
+                          medicine=medicine)
     result.save()
     return HttpResponse(
         json.dumps(
-            r(20000, '上传成功',
-              {'relation': relation,
-               'medicine': medicine,
-               'name': name,
-               'tool': tool
-               })))
+            r(
+                20000, '上传成功', {
+                    'relation': relation,
+                    'medicine': medicine,
+                    'disease': disease,
+                    'tool': tool
+                })))

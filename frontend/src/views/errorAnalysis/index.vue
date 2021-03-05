@@ -27,20 +27,8 @@ import DetailCard from "./components/DetailCard";
 
 const lineChartData = {
   newVisitis: {
-    expectedData: [100, 120, 161, 134],
-    actualData: [120, 82, 91, 154],
-  },
-  messages: {
-    expectedData: [200, 192, 120, 144],
-    actualData: [180, 160, 151, 106],
-  },
-  purchases: {
-    expectedData: [80, 100, 121, 104],
-    actualData: [120, 90, 100, 138],
-  },
-  shoppings: {
-    expectedData: [130, 140, 141, 142],
-    actualData: [120, 82, 91, 154],
+    expectedData: [100, 120, 161, 134, 132],
+    actualData: [120, 82, 91, 154, 132],
   },
 };
 

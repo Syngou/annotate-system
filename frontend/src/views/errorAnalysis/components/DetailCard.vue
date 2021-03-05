@@ -50,18 +50,23 @@ export default {
         let word = this.errorData[index].word;
         let sentence = this.errorData[index].sentence;
 
-        return (
-          "所在句子: " +
-          sentence.replace(word, `<span class="highlight">${word}</span>`)
-        );
+        return word != ""
+          ? "所在句子: " +
+              sentence.replace(word, `<span class="highlight">${word}</span>`)
+          : "所在句子: " + sentence;
       };
     },
   },
 };
 </script>
 
-<style >
-  .highlight {
-    background-color: red;
+<style lang="scss" >
+  li {
+    margin: 10px 0;
+    .highlight {
+      background-color: red;
+      border-radius: 5px;
+      padding: 1px 3px;
+    }
   }
 </style>

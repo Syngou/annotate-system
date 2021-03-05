@@ -36,10 +36,19 @@
           }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="200" align="center">
+      <el-table-column label="操作" width="210" align="center">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, list)"
-            >开始标注</el-button
+          <el-button
+            size="mini"
+            type="primary"
+            @click="handleAnnotate(scope.$index, list)"
+            >标注</el-button
+          >
+          <el-button
+            size="mini"
+            type="success"
+            @click="handleEdit(scope.$index, list)"
+            >编辑</el-button
           >
           <el-button
             size="mini"
@@ -50,11 +59,13 @@
         </template>
       </el-table-column>
     </el-table>
+    <edit-form />
   </div>
 </template>
 
 <script>
 import { getList } from "@/api/table";
+import EditForm from "./components/EditForm";
 
 export default {
   filters: {
@@ -70,8 +81,11 @@ export default {
   data() {
     return {
       list: null,
-      listLoading: true,
+      listLoading: true, //加载效果
     };
+  },
+  components: {
+    EditForm,
   },
   created() {
     this.fetchData();
@@ -99,10 +113,16 @@ export default {
     /**
      * 标注文本
      */
-    handleEdit(index, rows) {
+    handleAnnotate(index, rows) {
       console.log(index, rows[index]);
       this.$store.state.annotate.inputContent = rows[index].paragraph;
       this.$router.push("/annotate");
+    },
+    /**
+     * 编辑
+     */
+    handleEdit(index, rows) {
+      this.$bus.$emit("showEditForm");
     },
     /**
      * 删除文本提示

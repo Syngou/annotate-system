@@ -3,7 +3,7 @@
 </template>
 
 <script>
-var echarts = require("echarts");
+const echarts = require("echarts");
 require("echarts/theme/macarons"); // echarts theme
 import resize from "./mixins/resize";
 
@@ -53,32 +53,20 @@ export default {
           },
         },
         title: {
-          text: "模型准确率对比图",
+          text: "模型预测错误个数",
           left: "center",
           align: "right",
         },
         xAxis: {
           type: "category",
-          data: ["标准模型", "模型1", "模型2", "模型3", "模型4", "模型5"],
+          data: ["关系", "疾病", "患者", "药物", "器械"],
         },
         yAxis: {
           type: "value",
         },
         series: [
           {
-            data: [
-              {
-                value: 100,
-                itemStyle: {
-                  color: "#3888fa",
-                },
-              },
-              80,
-              95,
-              83,
-              70,
-              60,
-            ],
+            data: [100, 80, 95, 83, 73],
             type: "bar",
           },
         ],

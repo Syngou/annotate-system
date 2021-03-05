@@ -40,7 +40,6 @@ export default {
     this.$bus.$on("showIntroduce", () => {
       this.introduceModal = true;
     });
-    this.haveRead();
   },
   data() {
     return {

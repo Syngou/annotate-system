@@ -34,17 +34,17 @@
           type="primary"
           size="medium"
         >
-          名称
+          疾病
         </button>
 
         <div>
           <ol>
             <li
               class="list-item"
-              v-for="(name, index) in $store.state.annotate.data[1]"
+              v-for="(disease, index) in $store.state.annotate.data[1]"
               :key="index"
             >
-              {{ name }}
+              {{ disease }}
             </li>
           </ol>
         </div>
@@ -134,7 +134,7 @@ export default {
     return {
       drawer: false, //显示标注词语
       relation: "",
-      name: "",
+      disease: "",
       medicine: "",
       tool: "",
     };
@@ -168,6 +168,7 @@ export default {
   .btn {
     width: 100%;
     border-radius: 10px;
+    border: 1px solid #ccc;
     outline: none;
   }
   .list {

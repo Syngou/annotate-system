@@ -1,11 +1,12 @@
 from django.contrib import admin
-from annotate import models
 
+from annotate import models
 
 # Register your models here.
 
+
 class DataView(admin.ModelAdmin):
-    list_display = ('relation', 'name', 'medicine', 'tool')
+    list_display = ('relation', 'disease', 'medicine', 'tool')
 
 
-admin.site.register(models.AnnotateResult, DataView)
+admin.site.register(models.AnnotateData, DataView)

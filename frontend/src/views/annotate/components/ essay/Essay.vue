@@ -12,7 +12,7 @@
         type="primary"
         size="medium"
         @click="annotateText('1' + $store.state.annotate.id, 1)"
-        >名称(b)
+        >疾病(b)
       </el-button>
       <el-button
         type="success"

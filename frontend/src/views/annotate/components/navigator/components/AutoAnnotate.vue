@@ -30,8 +30,8 @@
       <el-input v-model="relation">
         <span slot="prepend"><el-button>关系</el-button></span>
       </el-input>
-      <el-input v-model="name">
-        <span slot="prepend"><el-button>名称</el-button></span>
+      <el-input v-model="disease">
+        <span slot="prepend"><el-button>疾病</el-button></span>
       </el-input>
       <el-input v-model="medicine">
         <span slot="prepend"><el-button>药物</el-button></span>
@@ -64,13 +64,13 @@ export default {
     return {
       annotateModal: false, //自动化标注的显示与隐藏
       relation: "",
-      name: "",
+      disease: "",
       medicine: "",
       tool: "",
       width: "",
     };
   },
-   mounted() {
+  mounted() {
     let width = window.innerWidth;
     if (width <= 450) {
       this.width = "80%";
@@ -86,14 +86,14 @@ export default {
       this.annotateModal = false;
       annotateUtils.autoAnnotate([
         this.relation,
-        this.name,
+        this.disease,
         this.medicine,
         this.tool,
       ]);
 
       //清空数据
       this.relation = "";
-      this.name = "";
+      this.disease = "";
       this.medicine = "";
       this.tool = "";
     },

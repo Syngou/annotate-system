@@ -1,7 +1,11 @@
 <template>
   <div>
     <el-card shadow="hover">
-      {{result}}
+      <ul>
+        <li>{{ result.code }}</li>
+        <li>{{ result.message }}</li>
+        <li>{{ result.data }}</li>
+      </ul>
     </el-card>
   </div>
 </template>
@@ -9,18 +13,17 @@
 <script>
 export default {
   name: "TranslateCard",
-  props:{
+  props: {
     result: {
       type: String,
-      default(){
+      default() {
         return "translate result";
-      }
-    }
+      },
+    },
   },
-  methods: {}
-}
+  methods: {},
+};
 </script>
 
 <style scoped>
-
 </style>
