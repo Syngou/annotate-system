@@ -84,15 +84,7 @@ export default {
     line-height: 22px;
     display: flex;
   }
-  .highlight .delete {
-    top: -15px;
-    left: -13px;
-    position: absolute;
-    display: none;
-  }
-  .highlight:hover .delete {
-    display: block;
-  }
+
   .highlight__content {
     display: flex;
     flex-wrap: wrap;
@@ -144,8 +136,5 @@ export default {
     font-size: 14px;
     -webkit-font-smoothing: subpixel-antialiased;
     letter-spacing: 0.1em;
-  }
-  .newline {
-    width: 100%;
   }
 </style>

@@ -4,7 +4,6 @@
       v-for="(chunk, i) in chunks"
       :key="i"
       :content="chunk.text"
-      :newline="chunk.newline"
       :standardType="chunk.standardType"
       :predictType="chunk.predictType"
       :standardColor="chunk.standardColor"
@@ -62,7 +61,6 @@ export default {
           text: this.text.slice(entity.start_offset, entity.end_offset),
         });
       }
-
       return chunks;
     },
 

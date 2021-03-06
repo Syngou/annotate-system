@@ -4,7 +4,7 @@
     <FunctionBar />
     <Essay />
     <el-backtop :duration="0" :bottom="70" />
-    <div class="footer">Copyright © 2020 Syngou</div>
+    <div class="footer">Copyright © {{ year }} Syngou</div>
   </div>
 </template>
 
@@ -20,6 +20,11 @@ export default {
     TopNavigation,
     FunctionBar,
     Essay,
+  },
+  data() {
+    return {
+      year: new Date().getFullYear(),
+    };
   },
   mounted() {
     this.isPC();
