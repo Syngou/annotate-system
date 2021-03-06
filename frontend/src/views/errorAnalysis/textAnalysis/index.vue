@@ -1,12 +1,26 @@
 <template>
   <div>
-    <div class="block" v-for="(text, index) in currentDoc.text" :key="index">
+    <div
+      class="entity-item-box"
+      v-for="(text, index) in textArray"
+      :key="index"
+    >
       <entity-item-box
         :labels="items"
         :text="text"
         :entities="annotations(index)"
       />
-      <div style="margin: 200px 0"></div>
+    </div>
+    <div class="page">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page.sync="currentPage"
+        :page-size="1"
+        layout="prev, pager, next, jumper"
+        :total="3"
+      >
+      </el-pagination>
     </div>
   </div>
 </template>
@@ -21,6 +35,7 @@ export default {
   },
   data() {
     return {
+      currentPage: 1,
       items: [
         {
           id: 4, //标签id 用于实体选择标签
@@ -143,10 +158,14 @@ export default {
     };
   },
   computed: {
+    textArray() {
+      let temp = [this.currentDoc.text[this.currentPage - 1]];
+      console.log(temp);
+      return temp;
+    },
     /**
      * 标签信息
-     */
-    annotations() {
+     */ annotations() {
       return (index) => {
         let result = [];
         let annotations = this.currentDoc.annotations[index];
@@ -182,11 +201,24 @@ export default {
       };
     },
   },
+  methods: {
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+    },
+  },
 };
 </script>
 
-<style scoped>
-  .block {
-    margin: 100px 0;
+<style >
+  .entity-item-box {
+    margin-bottom: 100px;
+  }
+  .page {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 100px;
   }
 </style>
