@@ -1,17 +1,8 @@
 <template>
   <div>
-    <el-row v-for="(item, index) in errorData" :key="index">
-      <el-col>
-        <el-card>
-          <ul>
-            <li>标注结果: {{ item.word }}</li>
-            <li v-html="highlightSentence(index)"></li>
-            <li>使用模型: {{ item.moduleName }}</li>
-            <li>错误类型: {{ item.errorType }}</li>
-          </ul>
-        </el-card>
-      </el-col>
-    </el-row>
+    <div v-for="(data, index) in errorData" :key="index" class="error-display">
+      <span v-html="data.sentence"> </span>
+    </div>
   </div>
 </template>
 
@@ -23,50 +14,39 @@ export default {
       default() {
         return [
           {
-            word: "你好",
-            sentence: "你好吗",
+            sentence:
+              "本台记者报道： 某糖尿病患者在一位国际著名医生的帮助下康复,他十分感激这位医生，并向我们推荐了一种药物",
             moduleName: "模型1",
-            errorType: "多标注了",
-          },
-          {
-            word: "",
-            sentence: "大江东去浪淘尽",
-            moduleName: "模型1",
-            errorType: "少标注了",
-          },
-          {
-            word: "不",
-            sentence: "春眠不觉晓",
-            moduleName: "模型1",
-            errorType: "标注类型错误",
+            results: [
+              {
+                startOffset: 3,
+                endOffset: 5,
+                standardResult: "疾病",
+                predictResult: "药物",
+              },
+            ],
           },
         ];
       },
     },
   },
-  computed: {
-    highlightSentence() {
-      return (index) => {
-        let word = this.errorData[index].word;
-        let sentence = this.errorData[index].sentence;
-
-        return word != ""
-          ? "所在句子: " +
-              sentence.replace(word, `<span class="highlight">${word}</span>`)
-          : "所在句子: " + sentence;
-      };
-    },
-  },
+  created() {},
+  methods: {},
 };
 </script>
 
-<style lang="scss" >
-  li {
-    margin: 10px 0;
-    .highlight {
+<style lang="scss">
+  .error-display {
+    height: 200px;
+    line-height: 40px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding: 30px 0;
+    &-highlight {
+      border: 1px solid black;
       background-color: red;
-      border-radius: 5px;
-      padding: 1px 3px;
+      margin: 30px;
     }
   }
 </style>
