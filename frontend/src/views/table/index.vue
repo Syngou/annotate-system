@@ -23,7 +23,6 @@
           <span>{{ scope.row.author }}</span>
         </template>
       </el-table-column>
-
       <el-table-column
         class-name="status-col"
         label="状态"
@@ -115,19 +114,9 @@ export default {
      */
     handleAnnotate(index, rows) {
       console.log(index, rows[index]);
-      this.$confirm(
-        "您在标注页面进行了标注且还未上传，确定要放弃上传吗?",
-        "警告",
-        {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning",
-        }
-      ).then(() => {
-        this.$store.state.annotate.inputContent = rows[index].paragraph;
-        this.$store.dispatch("annotate/resetData");
-        this.$router.push("/annotate");
-      });
+      this.$store.state.annotate.inputContent = rows[index].paragraph;
+      this.$store.dispatch("annotate/resetData");
+      this.$router.push("/annotate");
     },
     /**
      * 编辑

@@ -4,7 +4,7 @@
 
 <script>
 const echarts = require("echarts");
-require("echarts/theme/macarons"); // echarts theme
+// require("echarts/theme/macarons"); // echarts theme
 import resize from "./mixins/resize";
 
 export default {

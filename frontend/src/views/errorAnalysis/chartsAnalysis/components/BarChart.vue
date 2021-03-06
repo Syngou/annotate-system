@@ -57,13 +57,14 @@ export default {
           left: "center",
           align: "right",
         },
+        yAxis: {
+          type: "value",
+        },
         xAxis: {
           type: "category",
           data: ["关系", "疾病", "患者", "药物", "器械"],
         },
-        yAxis: {
-          type: "value",
-        },
+
         series: [
           {
             data: [100, 80, 95, 83, 73],

@@ -8,13 +8,19 @@
         <span class="bottom">
           <span
             :data-label="standardType"
-            :style="{ backgroundColor: standardColor }"
+            :style="{
+              backgroundColor: standardColor,
+              color: standardType == 'O' ? 'black' : 'white',
+            }"
             class="highlight__standard"
           ></span>
           <span class="highlight__content">{{ content }} </span>
           <span
             :data-label="predictType"
-            :style="{ backgroundColor: predictColor }"
+            :style="{
+              backgroundColor: predictColor,
+              color: predictType == 'O' ? 'black' : 'white',
+            }"
             class="highlight__label"
           />
         </span>

@@ -95,6 +95,12 @@ export const constantRoutes = [
         meta: { title: "错误分析", icon: "bug" },
         children: [
             {
+                path: "fileUpload",
+                name: "fileUpload",
+                component: () => import("@/views/errorAnalysis/fileUpload"),
+                meta: { title: "文件上传", icon: "el-icon-upload" },
+            },
+            {
                 path: "text",
                 name: "text",
                 component: () => import("@/views/errorAnalysis/textAnalysis"),
