@@ -1,10 +1,7 @@
 <template>
   <div>
     <template>
-      <span
-        :style="{ borderColor: standardColor }"
-        :class="{ highlight: standardColor }"
-      >
+      <span style="border-color: black" class="highlight">
         <span class="bottom">
           <span
             :data-label="standardType"
