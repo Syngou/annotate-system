@@ -1,17 +1,20 @@
 <template>
   <div>
     <template>
-      <span :style="{ borderColor: color }" :class="{ highlight: label }">
+      <span
+        :style="{ borderColor: standardColor }"
+        :class="{ highlight: standardColor }"
+      >
         <span class="bottom">
           <span
             :data-label="standardType"
-            :style="{ backgroundColor: color, color: textColor }"
+            :style="{ backgroundColor: standardColor }"
             class="highlight__standard"
           ></span>
           <span class="highlight__content">{{ content }} </span>
           <span
-            :data-label="label"
-            :style="{ backgroundColor: color, color: textColor }"
+            :data-label="predictType"
+            :style="{ backgroundColor: predictColor }"
             class="highlight__label"
           />
         </span>
@@ -28,14 +31,7 @@ export default {
       default: "",
       required: true,
     },
-    label: {
-      type: String,
-      default: "",
-    },
-    color: {
-      type: String,
-      default: "#64FFDA",
-    },
+
     labels: {
       type: Array,
       default: () => [],
@@ -44,6 +40,14 @@ export default {
     standardType: {
       type: String,
       default: "",
+    },
+    standardColor: {
+      type: String,
+      default: "64FFDA",
+    },
+    predictColor: {
+      type: String,
+      default: "64FFDA",
     },
     predictType: {
       type: String,
@@ -56,22 +60,22 @@ export default {
     };
   },
   computed: {
-    textColor() {
-      const idealColor = function (hexString) {
-        // W3c offers a formula for calculating ideal color:
-        // https://www.w3.org/TR/AERT/#color-contrast
-        if (hexString != null && hexString != "") {
-          const r = parseInt(hexString.substr(1, 2), 16);
-          const g = parseInt(hexString.substr(3, 2), 16);
-          const b = parseInt(hexString.substr(5, 2), 16);
-          return (r * 299 + g * 587 + b * 114) / 1000 < 128
-            ? "#ffffff"
-            : "#000000";
-        }
-        return "ffffff";
-      };
-      return idealColor(this.color);
-    },
+    // textColor() {
+    //   const idealColor = function (hexString) {
+    //     // W3c offers a formula for calculating ideal color:
+    //     // https://www.w3.org/TR/AERT/#color-contrast
+    //     if (hexString != null && hexString != "") {
+    //       const r = parseInt(hexString.substr(1, 2), 16);
+    //       const g = parseInt(hexString.substr(3, 2), 16);
+    //       const b = parseInt(hexString.substr(5, 2), 16);
+    //       return (r * 299 + g * 587 + b * 114) / 1000 < 128
+    //         ? "#ffffff"
+    //         : "#000000";
+    //     }
+    //     return "ffffff";
+    //   };
+    //   return idealColor(this.standardColor);
+    // },
   },
 };
 </script>

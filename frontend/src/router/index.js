@@ -88,17 +88,27 @@ export const constantRoutes = [
         ],
     },
     {
-        path: "/error",
+        path: "/errorAnalysis",
         component: Layout,
+        redirect: "/errorAnalysis/text",
+        name: "errorAnalysis",
+        meta: { title: "错误分析", icon: "bug" },
         children: [
             {
-                path: "index",
-                component: () => import("@/views/errorAnalysis/index"),
-                name: "ErrorAnalysis",
-                meta: { title: "错误分析", icon: "bug" },
+                path: "text",
+                name: "text",
+                component: () => import("@/views/errorAnalysis/textAnalysis"),
+                meta: { title: "文本分析", icon: "el-icon-notebook-2" },
+            },
+            {
+                path: "charts",
+                name: "charts",
+                component: () => import("@/views/errorAnalysis/chartsAnalysis"),
+                meta: { title: "图表分析", icon: "tree" },
             },
         ],
     },
+
     // 404 page must be placed at the end !!!
     { path: "*", redirect: "/404", hidden: true },
 ];

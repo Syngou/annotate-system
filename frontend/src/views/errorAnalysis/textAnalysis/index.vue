@@ -1,15 +1,5 @@
 <template>
-  <div class="dashboard-editor-container">
-    <el-row style="background: #fff; padding: 16px 16px 0; margin-bottom: 32px">
-      <line-chart :chart-data="lineChartData" />
-    </el-row>
-    <el-row>
-      <el-col>
-        <div class="chart-wrapper">
-          <bar-chart />
-        </div>
-      </el-col>
-    </el-row>
+  <div>
     <el-row>
       <el-col>
         <entity-item-box
@@ -20,34 +10,19 @@
         />
       </el-col>
     </el-row>
-    <!-- {{ annotations }} -->
   </div>
 </template>
 
 <script>
-import LineChart from "./components/LineChart";
-import BarChart from "./components/BarChart";
-import DetailCard from "./components/DetailCard";
-import EntityItemBox from "./components/EntityItemBox";
-
-const lineChartData = {
-  newVisitis: {
-    expectedData: [100, 120, 161, 134, 132],
-    actualData: [120, 82, 91, 154, 132],
-  },
-};
+import EntityItemBox from "../textAnalysis/components/EntityItemBox";
 
 export default {
-  name: "DashboardAdmin",
+  name: "index",
   components: {
-    LineChart,
-    BarChart,
-    DetailCard,
     EntityItemBox,
   },
   data() {
     return {
-      lineChartData: lineChartData.newVisitis,
       items: [
         {
           id: 4,
@@ -165,8 +140,8 @@ export default {
             end_offset: start + 1,
             user: 1,
             document: 8,
-            standardType: 4,
-            predictType: 6,
+            standardType: parseInt(Math.random() * 4 + 4),
+            predictType: parseInt(Math.random() * 4 + 4),
           });
         } else {
           result.push(annotations[index]);
@@ -193,22 +168,5 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-  .dashboard-editor-container {
-    padding: 32px;
-    background-color: rgb(240, 242, 245);
-    position: relative;
-
-    .chart-wrapper {
-      background: #fff;
-      padding: 16px 16px 0;
-      margin-bottom: 32px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    .chart-wrapper {
-      padding: 8px;
-    }
-  }
+<style scoped>
 </style>

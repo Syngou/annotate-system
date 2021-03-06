@@ -5,10 +5,10 @@
       :key="i"
       :content="chunk.text"
       :newline="chunk.newline"
-      :label="chunk.label"
       :standardType="chunk.standardType"
       :predictType="chunk.predictType"
-      :color="chunk.color"
+      :standardColor="chunk.standardColor"
+      :predictColor="chunk.predictColor"
       :labels="labels"
     />
   </div>
@@ -71,14 +71,13 @@ export default {
         startOffset = entity.end_offset;
 
         // add entities to chunks.
-        const label = this.labelObject[entity.label];
         const standardType = this.labelObject[entity.standardType];
         const predictType = this.labelObject[entity.predictType];
         chunks.push({
-          label: label.text,
           standardType: standardType.text,
           predictType: predictType.text,
-          color: label.background_color,
+          standardColor: standardType.background_color,
+          predictColor: predictType.background_color,
           text: this.text.slice(entity.start_offset, entity.end_offset),
         });
       }
@@ -86,7 +85,6 @@ export default {
       chunks = chunks.concat(
         this.makeChunks(this.text.slice(startOffset, this.text.length))
       );
-      console.log(chunks);
       return chunks;
     },
 
@@ -104,21 +102,27 @@ export default {
       const snippets = text.split("\n");
       for (const snippet of snippets.slice(0, -1)) {
         chunks.push({
-          label: null,
-          color: null,
+          standardType: null,
+          predictType: null,
+          standardColor: null,
+          predictColor: null,
           text: snippet + "\n",
           newline: false,
         });
         chunks.push({
-          label: null,
-          color: null,
+          standardType: null,
+          predictType: null,
+          standardColor: null,
+          predictColor: null,
           text: "",
           newline: true,
         });
       }
       chunks.push({
-        label: null,
-        color: null,
+        standardType: null,
+        predictType: null,
+        standardColor: null,
+        predictColor: null,
         text: snippets.slice(-1)[0],
         newline: false,
       });
