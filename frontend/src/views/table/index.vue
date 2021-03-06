@@ -58,13 +58,35 @@
         </template>
       </el-table-column>
     </el-table>
-    <edit-form />
+
+    <!-- 编辑框 -->
+    <el-dialog :visible.sync="showEditForm" :width="width">
+      <el-form label-position="left" label-width="80px" :model="form">
+        <el-form-item label="论文标题">
+          <el-input v-model="form.title"></el-input>
+        </el-form-item>
+        <el-form-item label="作者">
+          <el-input v-model="form.author"></el-input>
+        </el-form-item>
+        <el-form-item label="文本">
+          <el-input
+            type="textarea"
+            :autosize="{ minRows: 3, maxRows: 5 }"
+            placeholder="请输入内容"
+            v-model="form.paragraph"
+          >
+          </el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="update()">更新</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { getList } from "@/api/table";
-import EditForm from "./components/EditForm";
 
 export default {
   filters: {
@@ -79,12 +101,23 @@ export default {
 
   data() {
     return {
-      list: null,
+      list: null, // 数据列表
       listLoading: true, //加载效果
+      showEditForm: false, //编辑框的显隐
+      listEditIndex: 0, // 编辑索引
+      form: {
+        //编辑框数据
+        title: "",
+        author: "",
+        paragraph: "",
+      },
     };
   },
-  components: {
-    EditForm,
+  computed: {
+    // 编辑框宽度
+    width() {
+      return window.innerWidth <= 400 ? "80%" : "30%";
+    },
   },
   created() {
     this.fetchData();
@@ -122,7 +155,20 @@ export default {
      * 编辑
      */
     handleEdit(index, rows) {
-      this.$bus.$emit("showEditForm");
+      this.showEditForm = true;
+      this.listEditIndex = index;
+      this.form.author = rows[index].author;
+      this.form.title = rows[index].title;
+      this.form.paragraph = rows[index].paragraph;
+    },
+    /**
+     * 更新数据
+     */
+    update() {
+      this.list[this.listEditIndex].author = this.form.author;
+      this.list[this.listEditIndex].title = this.form.title;
+      this.list[this.listEditIndex].paragraph = this.form.paragraph;
+      this.showEditForm = false;
     },
     /**
      * 删除文本提示

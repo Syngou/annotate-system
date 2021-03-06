@@ -2,7 +2,7 @@ import request from "@/utils/request";
 
 export function getList(params) {
     return request({
-        url: "/annotate-system/table/list",
+        url: "/mockjs/table/list",
         method: "get",
         params,
     });

@@ -47,7 +47,7 @@ export default {
       this.chart.setOption({
         tooltip: {
           trigger: "axis",
-          backgroundColor: "rgba(255,255,255,0.8)",
+          backgroundColor: "rgb(255,255,255)",
           axisPointer: {
             type: "cross",
           },
@@ -60,6 +60,7 @@ export default {
         yAxis: {
           type: "value",
         },
+
         xAxis: {
           type: "category",
           data: ["关系", "疾病", "患者", "药物", "器械"],

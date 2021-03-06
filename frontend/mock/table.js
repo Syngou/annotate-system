@@ -14,7 +14,7 @@ const data = Mock.mock({
 
 module.exports = [
     {
-        url: "/annotate-system/table/list",
+        url: "/mockjs/table/list",
         type: "get",
         response: (config) => {
             const items = data.items;

@@ -3,8 +3,8 @@
 </template>
 
 <script>
+require("echarts/theme/macarons"); // echarts theme
 const echarts = require("echarts");
-// require("echarts/theme/macarons"); // echarts theme
 import resize from "./mixins/resize";
 
 export default {

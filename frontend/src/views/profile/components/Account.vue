@@ -32,7 +32,7 @@ export default {
   methods: {
     submit() {
       this.$message({
-        message: "User information has been updated successfully",
+        message: "用户信息更新成功",
         type: "success",
         duration: 5 * 1000,
       });
