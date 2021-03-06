@@ -90,7 +90,7 @@ export const constantRoutes = [
     {
         path: "/errorAnalysis",
         component: Layout,
-        redirect: "/errorAnalysis/text",
+        redirect: "/errorAnalysis/fileUpload",
         name: "errorAnalysis",
         meta: { title: "错误分析", icon: "bug" },
         children: [

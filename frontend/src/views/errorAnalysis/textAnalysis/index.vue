@@ -18,7 +18,7 @@
         :current-page.sync="currentPage"
         :page-size="1"
         layout="prev, pager, next, jumper"
-        :total="textArr.length"
+        :total="Math.ceil(textArr.length / 2)"
       >
       </el-pagination>
     </div>
@@ -75,35 +75,44 @@ export default {
   },
   computed: {
     textArray() {
-      return [this.textArr[this.currentPage - 1]];
+      let n = this.currentPage;
+      let result = [];
+      for (let i = 2 * n - 2; i <= 2 * n - 1; i++) {
+        if (this.textArr[i]) {
+          result.push(this.textArr[i]);
+        }
+      }
+      return result;
     },
     /**
      * 标签信息
      */ annotations() {
       return (index) => {
-        let result = [];
-        let annotations = this.annotationArray[index];
-        let entityItemNum = this.annotationArray[index].length;
-        let i = 0;
-        for (let start = 0; start < this.textArray[index].length; start++) {
-          if (
-            start < annotations[i].start_offset ||
-            start > annotations[i].start_offset
-          ) {
-            result.push({
-              start_offset: start,
-              end_offset: start + 1,
-              standardType: 5,
-              predictType: 5,
-            });
-          } else {
-            result.push(annotations[i]);
-            if (i <= entityItemNum - 2) {
-              i++;
+        if (this.annotationArray && this.textArray) {
+          let result = [];
+          let annotations = this.annotationArray[index];
+          let entityItemNum = this.annotationArray[index].length;
+          let i = 0;
+          for (let start = 0; start < this.textArray[index].length; start++) {
+            if (
+              start < annotations[i].start_offset ||
+              start > annotations[i].start_offset
+            ) {
+              result.push({
+                start_offset: start,
+                end_offset: start + 1,
+                standardType: 5,
+                predictType: 5,
+              });
+            } else {
+              result.push(annotations[i]);
+              if (i <= entityItemNum - 2) {
+                i++;
+              }
             }
           }
+          return result;
         }
-        return result;
       };
     },
   },
