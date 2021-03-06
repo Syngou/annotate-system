@@ -58,7 +58,7 @@ export default {
           predictType: predictType.text,
           standardColor: standardType.background_color,
           predictColor: predictType.background_color,
-          text: this.text.slice(entity.start_offset, entity.end_offset),
+          text: this.text.slice(entity.start_offset, entity.start_offset + 1),
         });
       }
       return chunks;

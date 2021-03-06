@@ -82,21 +82,14 @@ export default {
             show: false,
           },
         },
+        color: ["#FF005A", "#3888fa"],
         legend: {
           data: ["标准模型", "当前使用模型"],
         },
         series: [
           {
             name: "标准模型",
-            itemStyle: {
-              normal: {
-                color: "#FF005A",
-                lineStyle: {
-                  color: "#FF005A",
-                  width: 2,
-                },
-              },
-            },
+
             smooth: true,
             type: "line",
             data: expectedData,
@@ -107,18 +100,7 @@ export default {
             name: "当前使用模型",
             smooth: true,
             type: "line",
-            itemStyle: {
-              normal: {
-                color: "#3888fa",
-                lineStyle: {
-                  color: "#3888fa",
-                  width: 2,
-                },
-                areaStyle: {
-                  color: "#f3f8ff",
-                },
-              },
-            },
+
             data: actualData,
             animationDuration: 2800,
             animationEasing: "quadraticOut",
