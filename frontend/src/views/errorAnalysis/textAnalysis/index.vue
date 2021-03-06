@@ -1,15 +1,10 @@
 <template>
   <div>
-    <el-row>
-      <el-col>
-        <entity-item-box
-          :labels="items"
-          :text="currentDoc.text"
-          :entities="annotations"
-          :add-entity="addEntity"
-        />
-      </el-col>
-    </el-row>
+    <entity-item-box
+      :labels="items"
+      :text="currentDoc.text"
+      :entities="annotations"
+    />
   </div>
 </template>
 
@@ -27,32 +22,24 @@ export default {
         {
           id: 4,
           text: "B",
-          prefix_key: null,
-          suffix_key: "l",
           background_color: "#7c20e0",
           text_color: "#ffffff",
         },
         {
           id: 5,
           text: "I",
-          prefix_key: null,
-          suffix_key: "m",
           background_color: "#fbb028",
           text_color: "#000000",
         },
         {
           id: 6,
           text: "R",
-          prefix_key: null,
-          suffix_key: "o",
           background_color: "#e6d176",
           text_color: "#000000",
         },
         {
           id: 7,
           text: "O",
-          prefix_key: null,
-          suffix_key: "p",
           background_color: "#6a74b9",
           text_color: "#ffffff",
         },
@@ -122,6 +109,9 @@ export default {
     };
   },
   computed: {
+    /**
+     * 标签信息
+     */
     annotations() {
       let result = [];
       let annotations = this.currentDoc.annotations;
@@ -151,18 +141,6 @@ export default {
         }
       }
       return result;
-    },
-  },
-  methods: {
-    addEntity(startOffset, endOffset, labelId) {
-      const payload = {
-        id: Math.floor(Math.random() * Math.floor(Number.MAX_SAFE_INTEGER)),
-        start_offset: startOffset,
-        end_offset: endOffset,
-        label: labelId,
-      };
-
-      this.currentDoc.annotations.push(payload);
     },
   },
 };
