@@ -75,7 +75,6 @@ export default {
         const standardType = this.labelObject[entity.standardType];
         const predictType = this.labelObject[entity.predictType];
         chunks.push({
-          id: entity.id,
           label: label.text,
           standardType: standardType.text,
           predictType: predictType.text,

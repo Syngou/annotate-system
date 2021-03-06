@@ -31,11 +31,10 @@ const mutations = {
         state.data[index].push(text);
     },
     /**
-
-   * @description 删除list中的标注记录
-   * @param  state
-   * @param  info 对象，存储需要删除已标注文本的id，文本
-   */
+     * @description 删除list中的标注记录
+     * @param  state
+     * @param  info 对象，存储需要删除已标注文本的id，文本
+     */
     deleteAnnotatedText: (state, info) => {
         let index = parseInt(info.type.charAt(0));
         for (let i = state.data.length - 1; i >= 0; i--) {
@@ -45,6 +44,13 @@ const mutations = {
             }
         }
     },
+    /**
+     * @description 重置已标注数据
+     * @param {*} state
+     */
+    resetData: (state) => {
+        state.data = [[], [], [], []];
+    },
 };
 
 const actions = {
@@ -53,6 +59,9 @@ const actions = {
     },
     deleteAnnotatedText({ commit }, info) {
         commit("deleteAnnotatedText", info);
+    },
+    resetData({ commit }) {
+        commit("resetData");
     },
 };
 
