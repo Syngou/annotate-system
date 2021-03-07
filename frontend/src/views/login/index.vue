@@ -1,23 +1,5 @@
 <template>
   <div class="login">
-    <vue-particles
-      class="login-bg"
-      color="#39AFFD"
-      :particleOpacity="0.7"
-      :particlesNumber="100"
-      shapeType="circle"
-      :particleSize="4"
-      linesColor="#8DD1FE"
-      :linesWidth="1"
-      :lineLinked="true"
-      :lineOpacity="0.4"
-      :linesDistance="150"
-      :moveSpeed="3"
-      :hoverEffect="true"
-      hoverMode="grab"
-      :clickEffect="true"
-      clickMode="push"
-    />
     <!-- 登录面板 -->
     <div class="login-box">
       <div class="login-box-title">后台管理系统</div>
@@ -75,6 +57,24 @@
               >立即登陆</el-button
             >
           </el-form-item>
+          <div class="account-other">
+            <span>其它登录方式</span>
+            <router-link to="/register" class="register">注册账户</router-link>
+            <div>
+              <img
+                src="https://file.iviewui.com/admin-pro-dist/img/icon-social-wechat.c69ec08c.svg"
+                alt="wechat"
+              />
+              <img
+                src="https://file.iviewui.com/admin-pro-dist/img/icon-social-qq.2cf4276d.svg"
+                alt="qq"
+              />
+              <img
+                src="https://file.iviewui.com/admin-pro-dist/img/icon-social-weibo.cbf658a0.svg"
+                alt="weibo"
+              />
+            </div>
+          </div>
         </el-form>
       </div>
     </div>
@@ -109,10 +109,20 @@ export default {
       },
       loginRules: {
         username: [
-          { required: true, trigger: "blur", validator: validateUsername },
+          {
+            required: true,
+            trigger: "blur",
+            validator: validateUsername,
+            message: "请输入正确的昵称",
+          },
         ],
         password: [
-          { required: true, trigger: "blur", validator: validatePassword },
+          {
+            required: true,
+            trigger: "blur",
+            validator: validatePassword,
+            message: "请输入正确的密码",
+          },
         ],
       },
       loading: false,
@@ -165,26 +175,37 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  img {
+    margin: 10px 20px 0 0;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+  }
+  .register {
+    cursor: pointer;
+    float: right;
+  }
   .login {
     width: 100%;
     height: 100%;
     position: relative;
+    background-color: #2d3a4b;
 
     &-bg {
       width: 100%;
       height: 100%;
-      background: #3e3e3e;
+      background: #f1e9e9;
     }
     &-box {
       width: 350px;
       /* height: 287px; */
-      background: hsla(0, 0%, 100%, 0.3);
+      background: rgba(255, 255, 255, 0.3);
       border-radius: 5px;
       box-shadow: 0 0 2px #f7f7f7;
       border: 1px solid #f7f7f7;
       position: absolute;
       left: 50%;
-      top: 50%;
+      top: 40%;
       margin-left: -175px;
       margin-top: -150px;
 
