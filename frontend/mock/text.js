@@ -16,8 +16,7 @@ module.exports = [
             return {
                 code: 20000,
                 data: Mock.mock({
-                    "labels|15-20": result,
-
+                    labels: result,
                     "text|17": ["@cparagraph(10)"],
                     "annotations|17": [
                         [

@@ -87,14 +87,13 @@ export default {
       let index = 0;
       temp.push(...res.data.labels);
       for (let i = 0; i < temp.length; i++) {
-        if (temp.indexOf(temp[i]) == i) {
+        if (temp.indexOf(temp[i]) === i) {
           this.labelArray.push({
             text: temp[i],
             color: this.colorArray[index++],
           });
         }
       }
-      this.labelArray.pop();
       this.textArr = res.data.text;
       this.annotationArray = res.data.annotations;
     });
