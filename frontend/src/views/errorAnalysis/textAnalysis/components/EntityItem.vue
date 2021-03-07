@@ -7,7 +7,7 @@
             :data-label="standardType"
             :style="{
               backgroundColor: standardColor,
-              color: standardType == 'O' ? 'black' : 'white',
+              color: standardColor == '#ffffff' ? 'black' : 'white',
             }"
             class="highlight__standard"
           ></span>
@@ -16,7 +16,7 @@
             :data-label="predictType"
             :style="{
               backgroundColor: predictColor,
-              color: predictType == 'O' ? 'black' : 'white',
+              color: predictColor == '#ffffff' ? 'black' : 'white',
             }"
             class="highlight__label"
           />
@@ -35,11 +35,6 @@ export default {
       required: true,
     },
 
-    labels: {
-      type: Array,
-      default: () => [],
-      required: true,
-    },
     standardType: {
       type: String,
       default: "",

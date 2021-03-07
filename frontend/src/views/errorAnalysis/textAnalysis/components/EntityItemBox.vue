@@ -8,7 +8,6 @@
       :predictType="chunk.predictType"
       :standardColor="chunk.standardColor"
       :predictColor="chunk.predictColor"
-      :labels="labels"
     />
   </div>
 </template>
@@ -51,25 +50,25 @@ export default {
       const entities = this.sortedEntities;
       for (const entity of entities) {
         // add entities to chunks.
-        const standardType = this.labelObject[entity.standardType];
-        const predictType = this.labelObject[entity.predictType];
         chunks.push({
-          standardType: standardType.text,
-          predictType: predictType.text,
-          standardColor: standardType.background_color,
-          predictColor: predictType.background_color,
+          standardType: entity.standard_label,
+          predictType: entity.predict_label,
+          standardColor: this.pickColor(entity.standard_type),
+          predictColor: this.pickColor(entity.predict_type),
           text: this.text.slice(entity.start_offset, entity.start_offset + 1),
         });
       }
       return chunks;
     },
-
-    labelObject() {
-      const obj = {};
+  },
+  methods: {
+    pickColor(type) {
       for (const label of this.labels) {
-        obj[label.id] = label;
+        if (label.text === type) {
+          return label.color;
+        }
       }
-      return obj;
+      return "#ffffff";
     },
   },
 };

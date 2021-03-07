@@ -1,20 +1,37 @@
 <template>
   <div>
+    <div class="tags-container">
+      <span
+        class="text-tag"
+        :style="{ backgroundColor: label.color }"
+        v-for="(label, index) in labelArray"
+        :key="index"
+        >{{ label.text }}</span
+      >
+    </div>
+    <el-collapse accordion>
+      <el-collapse-item>
+        <template slot="title">
+          <div style="width: 100%; text-align: center">使用说明</div>
+        </template>
+        <ul>
+          <li>字上面的标签表示标注型，下方为预测型</li>
+        </ul>
+      </el-collapse-item>
+    </el-collapse>
     <div
       class="entity-item-box"
       v-for="(text, index) in textArray"
       :key="index"
     >
       <entity-item-box
-        :labels="items"
         :text="text"
+        :labels="labelArray"
         :entities="annotations(index)"
       />
     </div>
     <div class="page">
       <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
         :current-page.sync="currentPage"
         :page-size="1"
         layout="prev, pager, next, jumper"
@@ -39,38 +56,47 @@ export default {
       currentPage: 1,
       textArr: [],
       annotationArray: [],
-      items: [
-        {
-          id: 4, //标签id 用于实体选择标签
-          text: "B", // 标签显示的文本
-          background_color: "#00ff00", // 标签的背景颜色
-          text_color: "#ffffff", // 标签的文字颜色
-        },
-        {
-          id: 5,
-          text: "O",
-          background_color: "#ffffff",
-          text_color: "#ffffff",
-        },
-        {
-          id: 6,
-          text: "R",
-          background_color: "#0000ff",
-          text_color: "#000000",
-        },
-        {
-          id: 7,
-          text: "I",
-          background_color: "#ff0000",
-          text_color: "#ffffff",
-        },
+      labelArray: [],
+      colorArray: [
+        "#fa0404",
+        "#ff9b06",
+        "#e3fc07",
+        "#07fa54",
+        "#ee777d",
+        "#fa0ada",
+        "#0af0e1",
+        "#f33e3e",
+        "#c0e97d",
+        "#0eeb8b",
+        "#82fb08",
+        "#0baff5",
+        "#761616",
+        "#ff14b8",
+        "#10f0fc",
+        "#1f74c9",
+        "#605bdf",
+        "#fd0dad",
+        "#2e0bf3",
+        "#e70cf7",
       ],
     };
   },
   created() {
     getText().then((res) => {
-      this.textArr = res.data.items.text;
-      this.annotationArray = res.data.items.annotations;
+      let temp = [];
+      let index = 0;
+      temp.push(...res.data.labels);
+      for (let i = 0; i < temp.length; i++) {
+        if (temp.indexOf(temp[i]) == i) {
+          this.labelArray.push({
+            text: temp[i],
+            color: this.colorArray[index++],
+          });
+        }
+      }
+      this.labelArray.pop();
+      this.textArr = res.data.text;
+      this.annotationArray = res.data.annotations;
     });
   },
   computed: {
@@ -103,6 +129,10 @@ export default {
                 end_offset: start + 1,
                 standardType: 5,
                 predictType: 5,
+                standard_type: "",
+                predict_type: "",
+                standard_label: "O",
+                predict_label: "O",
               });
             } else {
               result.push(annotations[i]);
@@ -116,14 +146,20 @@ export default {
       };
     },
   },
-  methods: {
-    handleSizeChange() {},
-    handleCurrentChange() {},
-  },
 };
 </script>
 
 <style scoped>
+  .tags-container {
+    display: flex;
+    margin-left: 20px;
+  }
+  .text-tag {
+    margin: 20px 10px 20px 0;
+    text-align: center;
+    flex: 1;
+    border-radius: 31px;
+  }
   .entity-item-box {
     margin: 0 0px 100px 30px;
   }
