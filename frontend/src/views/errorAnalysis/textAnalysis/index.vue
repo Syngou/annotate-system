@@ -6,7 +6,7 @@
           <div style="width: 100%; text-align: center">使用说明</div>
         </template>
         <ul>
-          <li>字上面的标签表示标注型，下方为预测型</li>
+          <li>字上面的标签表示标注值，下方为预测值</li>
         </ul>
       </el-collapse-item>
     </el-collapse>
@@ -53,11 +53,12 @@ export default {
   },
   data() {
     return {
-      currentPage: 1,
+      currentPage: 1, //当前页
       textArr: [],
       annotationArray: [],
       labelArray: [],
       colorArray: [
+        //标签颜色
         "#fa0404",
         "#ff9b06",
         "#e3fc07",
@@ -99,6 +100,9 @@ export default {
     });
   },
   computed: {
+    /**
+     * 每页显示的文本
+     */
     textArray() {
       let n = this.currentPage;
       let result = [];
@@ -111,13 +115,18 @@ export default {
     },
     /**
      * 标签信息
-     */ annotations() {
+     *
+     */
+    annotations() {
       return (index) => {
         if (this.annotationArray && this.textArray) {
           let result = [];
           let annotations = this.annotationArray[index];
           let entityItemNum = this.annotationArray[index].length;
           let i = 0;
+
+          //BUG 这里好像有bug
+
           for (let start = 0; start < this.textArray[index].length; start++) {
             if (
               start < annotations[i].start_offset ||
@@ -135,6 +144,7 @@ export default {
               });
             } else {
               result.push(annotations[i]);
+              console.log(annotations[i].start_offset);
               if (i <= entityItemNum - 2) {
                 i++;
               }
@@ -151,13 +161,14 @@ export default {
 <style scoped>
   .tags-container {
     display: flex;
-    margin-left: 20px;
+    margin-left: 5px;
   }
   .text-tag {
     margin: 20px 10px 20px 0;
     text-align: center;
     flex: 1;
-    border-radius: 31px;
+    border-radius: 15px;
+    text-align: center;
   }
   .entity-item-box {
     margin: 0 0px 100px 30px;

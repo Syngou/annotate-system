@@ -1,5 +1,23 @@
 <template>
   <div class="login">
+    <vue-particles
+      class="login-bg"
+      color="#39AFFD"
+      :particleOpacity="0.7"
+      :particlesNumber="100"
+      shapeType="circle"
+      :particleSize="4"
+      linesColor="#8DD1FE"
+      :linesWidth="1"
+      :lineLinked="true"
+      :lineOpacity="0.4"
+      :linesDistance="150"
+      :moveSpeed="3"
+      :hoverEffect="true"
+      hoverMode="grab"
+      :clickEffect="true"
+      clickMode="push"
+    />
     <!-- 登录面板 -->
     <div class="login-box">
       <div class="login-box-title">后台管理系统</div>
@@ -194,7 +212,7 @@ export default {
     &-bg {
       width: 100%;
       height: 100%;
-      background: #f1e9e9;
+      background: #565856;
     }
     &-box {
       width: 350px;
