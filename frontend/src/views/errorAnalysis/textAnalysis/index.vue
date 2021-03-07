@@ -1,14 +1,5 @@
 <template>
   <div>
-    <div class="tags-container">
-      <span
-        class="text-tag"
-        :style="{ backgroundColor: label.color }"
-        v-for="(label, index) in labelArray"
-        :key="index"
-        >{{ label.text }}</span
-      >
-    </div>
     <el-collapse accordion>
       <el-collapse-item>
         <template slot="title">
@@ -24,6 +15,15 @@
       v-for="(text, index) in textArray"
       :key="index"
     >
+      <div class="tags-container">
+        <span
+          class="text-tag"
+          :style="{ backgroundColor: label.color }"
+          v-for="(label, index) in labelArray"
+          :key="index"
+          >{{ label.text }}</span
+        >
+      </div>
       <entity-item-box
         :text="text"
         :labels="labelArray"
