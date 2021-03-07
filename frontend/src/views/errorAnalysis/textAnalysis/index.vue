@@ -123,9 +123,9 @@ export default {
 };
 </script>
 
-<style >
+<style scoped>
   .entity-item-box {
-    margin-bottom: 100px;
+    margin: 0 0px 100px 30px;
   }
   .page {
     display: flex;
