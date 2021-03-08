@@ -24,7 +24,12 @@ module.exports = {
      * In most cases please use '/' !!!
      * Detail: https://cli.vuejs.org/config/#publicpath
      */
-    publicPath: process.env.NODE_ENV !== "production" ? "/" : "/annotate/",
+    // publicPath: process.env.NODE_ENV !== "production" ? "/" : "/annotate/",
+    publicPath:
+        process.env.NODE_ENV !== "production"
+            ? "/"
+            : "/annotate-system/frontend/dist/",
+
     outputDir: "dist",
     assetsDir: "static",
     lintOnSave: process.env.NODE_ENV === "development",
