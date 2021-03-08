@@ -1,7 +1,6 @@
 import json
 
 from django.http import HttpResponse
-from django.shortcuts import render
 
 from .models import *
 
@@ -43,6 +42,7 @@ def upload_view(request):
                 })))
 
 
+# 文本分析文件上传
 def error_analysis_file_upload(request):
     file = request.FILES.get('analysis_file')
     print(file)

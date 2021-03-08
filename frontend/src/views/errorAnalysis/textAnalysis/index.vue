@@ -21,7 +21,7 @@
           :style="{ backgroundColor: label.color }"
           v-for="(label, index) in labelArray"
           :key="index"
-          >{{ label.text }}</span
+        >{{ label.text }}</span
         >
       </div>
       <entity-item-box
@@ -44,7 +44,7 @@
 
 <script>
 import EntityItemBox from "../textAnalysis/components/EntityItemBox";
-import { getText } from "@/api/text";
+import {getText} from "@/api/text";
 
 export default {
   name: "index",
@@ -60,26 +60,26 @@ export default {
       colorArray: [
         //标签颜色
         "#fa0404",
+        "#fd0dad",
+        "#8406f3",
+        "#d462ee",
         "#ff9b06",
         "#e3fc07",
-        "#07fa54",
-        "#ee777d",
-        "#fa0ada",
-        "#0af0e1",
-        "#c0e97d",
-        "#0eeb8b",
-        "#82fb08",
-        "#0baff5",
-        "#761616",
-        "#ff14b8",
+        "#058f32",
         "#10f0fc",
-        "#1f74c9",
-        "#605bdf",
-        "#fd0dad",
+        "#83fa07",
+        "#66ee66",
+        "#c0e97d",
+        "#ee777d",
         "#2e0bf3",
-        "#e70cf7",
-      ],
-    };
+        "#0af0e1",
+        "#0baff5",
+        "#1f74c9",
+        "#8985ec",
+        "#761616",
+
+       ]
+    }
   },
   created() {
     getText().then((res) => {
@@ -158,23 +158,25 @@ export default {
 </script>
 
 <style scoped>
-  .tags-container {
-    margin-left: 5px;
-  }
-  .text-tag {
-    margin: 10px 10px 10px 0;
-    padding: 3px 10px;
-    text-align: center;
-    display: inline-block;
-    border-radius: 15px;
-    text-align: center;
-  }
-  .entity-item-box {
-    margin: 0 0px 100px 30px;
-  }
-  .page {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 100px;
-  }
+.tags-container {
+  margin-left: 5px;
+}
+
+.text-tag {
+  margin: 10px 10px 10px 0;
+  padding: 3px 10px;
+  text-align: center;
+  display: inline-block;
+  border-radius: 15px;
+}
+
+.entity-item-box {
+  margin: 0 0 100px 30px;
+}
+
+.page {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 100px;
+}
 </style>
