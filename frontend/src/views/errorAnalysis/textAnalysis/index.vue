@@ -1,29 +1,27 @@
 <template>
   <div>
-    <el-collapse accordion>
-      <el-collapse-item>
-        <template slot="title">
-          <div style="width: 100%; text-align: center">使用说明</div>
-        </template>
+    <div>
+      <div style="margin: 30px">
         <ul>
           <li>字上面的标签表示标注值，下方为预测值</li>
         </ul>
-      </el-collapse-item>
-    </el-collapse>
+      </div>
+    </div>
+    <div class="tags-container">
+      <span
+        class="text-tag"
+        :style="{ backgroundColor: label.color }"
+        v-for="(label, index) in labelArray"
+        :key="index"
+        >{{ label.text }}</span
+      >
+    </div>
+
     <div
       class="entity-item-box"
       v-for="(text, index) in textArray"
       :key="index"
     >
-      <div class="tags-container">
-        <span
-          class="text-tag"
-          :style="{ backgroundColor: label.color }"
-          v-for="(label, index) in labelArray"
-          :key="index"
-        >{{ label.text }}</span
-        >
-      </div>
       <entity-item-box
         :text="text"
         :labels="labelArray"
@@ -44,7 +42,7 @@
 
 <script>
 import EntityItemBox from "../textAnalysis/components/EntityItemBox";
-import {getText} from "@/api/text";
+import { getText } from "@/api/text";
 
 export default {
   name: "index",
@@ -77,9 +75,8 @@ export default {
         "#1f74c9",
         "#8985ec",
         "#761616",
-
-       ]
-    }
+      ],
+    };
   },
   created() {
     getText().then((res) => {
@@ -158,25 +155,25 @@ export default {
 </script>
 
 <style scoped>
-.tags-container {
-  margin-left: 5px;
-}
+  .tags-container {
+    margin-left: 30px;
+  }
 
-.text-tag {
-  margin: 10px 10px 10px 0;
-  padding: 3px 10px;
-  text-align: center;
-  display: inline-block;
-  border-radius: 15px;
-}
+  .text-tag {
+    margin: 10px 10px 10px 0;
+    padding: 3px 10px;
+    text-align: center;
+    display: inline-block;
+    border-radius: 15px;
+  }
 
-.entity-item-box {
-  margin: 0 0 100px 30px;
-}
+  .entity-item-box {
+    margin: 0 0 100px 30px;
+  }
 
-.page {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 100px;
-}
+  .page {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 100px;
+  }
 </style>
