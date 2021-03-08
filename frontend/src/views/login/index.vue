@@ -178,6 +178,7 @@ export default {
           this.$store
             .dispatch("user/login", this.loginForm)
             .then(() => {
+              this.$message.success("登录成功");
               this.$router.push({
                 path: this.redirect || "/",
               });
@@ -187,7 +188,7 @@ export default {
               this.loading = false;
             });
         } else {
-          console.log("error submit!!");
+          console.log("提交发生错误!!");
           return false;
         }
       });
