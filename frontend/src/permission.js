@@ -8,7 +8,7 @@ import store from "./store";
 
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
-const whiteList = ["/login", "/annotate"]; // no redirect whitelist
+const whiteList = ["/login", "/annotate", "/register"]; // no redirect whitelist
 
 router.beforeEach(async (to, from, next) => {
     // start progress bar

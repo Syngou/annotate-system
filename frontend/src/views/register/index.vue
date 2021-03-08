@@ -72,31 +72,10 @@
               :loading="loading"
               style="width: 100%"
               @click.native.prevent="handleLogin"
-              >立即登陆</el-button
+              >注册</el-button
             >
           </el-form-item>
-          <div class="account-other">
-            <span>其它登录方式</span>
-            <span class="pwd">忘记密码？</span>
-
-            <div>
-              <img
-                src="https://file.iviewui.com/admin-pro-dist/img/icon-social-wechat.c69ec08c.svg"
-                alt="wechat"
-              />
-              <img
-                src="https://file.iviewui.com/admin-pro-dist/img/icon-social-qq.2cf4276d.svg"
-                alt="qq"
-              />
-              <img
-                src="https://file.iviewui.com/admin-pro-dist/img/icon-social-weibo.cbf658a0.svg"
-                alt="weibo"
-              />
-              <router-link to="/register">
-                <span class="register"> 注册 </span>
-              </router-link>
-            </div>
-          </div>
+          <router-link to="/login" class="register">登录</router-link>
         </el-form>
       </div>
     </div>
@@ -107,7 +86,7 @@
 import { validUsername } from "@/utils/validate";
 
 export default {
-  name: "Login",
+  name: "Register",
 
   data() {
     const validateUsername = (rule, value, callback) => {
@@ -197,6 +176,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  img {
+    margin: 10px 20px 0 0;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+  }
+  .register {
+    cursor: pointer;
+    float: right;
+  }
   .login {
     width: 100%;
     height: 100%;
@@ -244,21 +233,5 @@ export default {
       cursor: pointer;
       user-select: none;
     }
-  }
-  img {
-    margin: 10px 20px 0 0;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-  }
-
-  .pwd {
-    cursor: pointer;
-    float: right;
-  }
-  .register {
-    cursor: pointer;
-    float: right;
-    margin-top: 20px;
   }
 </style>
