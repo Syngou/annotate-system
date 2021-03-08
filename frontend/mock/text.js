@@ -36,8 +36,8 @@ module.exports = [
                                             Math.random() * result.length
                                         )
                                     ],
-                                standard_label: "B",
-                                predict_label: "I",
+                                standard_label: '@pick(["B","I","O"])',
+                                predict_label: '@pick(["B","I","O"])',
                             },
                             {
                                 start_offset: 11,
@@ -55,122 +55,8 @@ module.exports = [
                                             Math.random() * result.length
                                         )
                                     ],
-                                standard_label: "B",
-                                predict_label: "I",
-                            },
-                            {
-                                start_offset: 17,
-                                standardType: 6,
-                                predictType: 7,
-                                standard_type:
-                                    result[
-                                        Math.floor(
-                                            Math.random() * result.length
-                                        )
-                                    ],
-                                predict_type:
-                                    result[
-                                        Math.floor(
-                                            Math.random() * result.length
-                                        )
-                                    ],
-                                standard_label: "B",
-                                predict_label: "I",
-                            },
-                            {
-                                start_offset: 18,
-                                standardType: 6,
-                                predictType: 7,
-                                standard_type:
-                                    result[
-                                        Math.floor(
-                                            Math.random() * result.length
-                                        )
-                                    ],
-                                predict_type:
-                                    result[
-                                        Math.floor(
-                                            Math.random() * result.length
-                                        )
-                                    ],
-                                standard_label: "B",
-                                predict_label: "I",
-                            },
-                            {
-                                start_offset: 23,
-                                standardType: 6,
-                                predictType: 7,
-                                standard_type:
-                                    result[
-                                        Math.floor(
-                                            Math.random() * result.length
-                                        )
-                                    ],
-                                predict_type:
-                                    result[
-                                        Math.floor(
-                                            Math.random() * result.length
-                                        )
-                                    ],
-                                standard_label: "B",
-                                predict_label: "I",
-                            },
-                            {
-                                start_offset: 33,
-                                standardType: 6,
-                                predictType: 7,
-                                standard_type:
-                                    result[
-                                        Math.floor(
-                                            Math.random() * result.length
-                                        )
-                                    ],
-                                predict_type:
-                                    result[
-                                        Math.floor(
-                                            Math.random() * result.length
-                                        )
-                                    ],
-                                standard_label: "B",
-                                predict_label: "I",
-                            },
-                            {
-                                start_offset: 45,
-                                standardType: 6,
-                                predictType: 7,
-                                standard_type:
-                                    result[
-                                        Math.floor(
-                                            Math.random() * result.length
-                                        )
-                                    ],
-                                predict_type:
-                                    result[
-                                        Math.floor(
-                                            Math.random() * result.length
-                                        )
-                                    ],
-                                standard_label: "B",
-                                predict_label: "I",
-                            },
-                            {
-                                start_offset: 46,
-                                standardType: 6,
-                                predictType: 7,
-                                standard_type:
-                                    result[
-                                        Math.floor(
-                                            Math.random() * result.length
-                                        )
-                                    ],
-                                predict_type:
-                                    result[
-                                        Math.floor(
-                                            Math.random() * result.length
-                                        )
-                                    ],
-                                standard_label: "B",
-                                predict_label: "I",
+                                standard_label: '@pick(["B","I","O"])',
+                                predict_label: '@pick(["B","I","O"])',
                             },
                             {
                                 start_offset: 14,
@@ -188,8 +74,46 @@ module.exports = [
                                             Math.random() * result.length
                                         )
                                     ],
-                                standard_label: "B",
-                                predict_label: "I",
+                                standard_label: '@pick(["B","I","O"])',
+                                predict_label: '@pick(["B","I","O"])',
+                            },
+                            {
+                                start_offset: 17,
+                                standardType: 6,
+                                predictType: 7,
+                                standard_type:
+                                    result[
+                                        Math.floor(
+                                            Math.random() * result.length
+                                        )
+                                    ],
+                                predict_type:
+                                    result[
+                                        Math.floor(
+                                            Math.random() * result.length
+                                        )
+                                    ],
+                                standard_label: '@pick(["B","I","O"])',
+                                predict_label: '@pick(["B","I","O"])',
+                            },
+                            {
+                                start_offset: 18,
+                                standardType: 6,
+                                predictType: 7,
+                                standard_type:
+                                    result[
+                                        Math.floor(
+                                            Math.random() * result.length
+                                        )
+                                    ],
+                                predict_type:
+                                    result[
+                                        Math.floor(
+                                            Math.random() * result.length
+                                        )
+                                    ],
+                                standard_label: '@pick(["B","I","O"])',
+                                predict_label: '@pick(["B","I","O"])',
                             },
                             {
                                 start_offset: 22,
@@ -207,9 +131,48 @@ module.exports = [
                                             Math.random() * result.length
                                         )
                                     ],
-                                standard_label: "B",
-                                predict_label: "I",
+                                standard_label: '@pick(["B","I","O"])',
+                                predict_label: '@pick(["B","I","O"])',
                             },
+                            {
+                                start_offset: 23,
+                                standardType: 6,
+                                predictType: 7,
+                                standard_type:
+                                    result[
+                                        Math.floor(
+                                            Math.random() * result.length
+                                        )
+                                    ],
+                                predict_type:
+                                    result[
+                                        Math.floor(
+                                            Math.random() * result.length
+                                        )
+                                    ],
+                                standard_label: '@pick(["B","I","O"])',
+                                predict_label: '@pick(["B","I","O"])',
+                            },
+                            {
+                                start_offset: 33,
+                                standardType: 6,
+                                predictType: 7,
+                                standard_type:
+                                    result[
+                                        Math.floor(
+                                            Math.random() * result.length
+                                        )
+                                    ],
+                                predict_type:
+                                    result[
+                                        Math.floor(
+                                            Math.random() * result.length
+                                        )
+                                    ],
+                                standard_label: '@pick(["B","I","O"])',
+                                predict_label: '@pick(["B","I","O"])',
+                            },
+
                             {
                                 start_offset: 36,
                                 standardType: 7,
@@ -226,8 +189,8 @@ module.exports = [
                                             Math.random() * result.length
                                         )
                                     ],
-                                standard_label: "B",
-                                predict_label: "I",
+                                standard_label: '@pick(["B","I","O"])',
+                                predict_label: '@pick(["B","I","O"])',
                             },
                             {
                                 start_offset: 44,
@@ -245,13 +208,13 @@ module.exports = [
                                             Math.random() * result.length
                                         )
                                     ],
-                                standard_label: "B",
-                                predict_label: "I",
+                                standard_label: '@pick(["B","I","O"])',
+                                predict_label: '@pick(["B","I","O"])',
                             },
                             {
-                                start_offset: 61,
-                                standardType: 4,
-                                predictType: 6,
+                                start_offset: 45,
+                                standardType: 6,
+                                predictType: 7,
                                 standard_type:
                                     result[
                                         Math.floor(
@@ -264,9 +227,30 @@ module.exports = [
                                             Math.random() * result.length
                                         )
                                     ],
-                                standard_label: "B",
-                                predict_label: "I",
+                                standard_label: '@pick(["B","I","O"])',
+                                predict_label: '@pick(["B","I","O"])',
                             },
+
+                            {
+                                start_offset: 46,
+                                standardType: 6,
+                                predictType: 7,
+                                standard_type:
+                                    result[
+                                        Math.floor(
+                                            Math.random() * result.length
+                                        )
+                                    ],
+                                predict_type:
+                                    result[
+                                        Math.floor(
+                                            Math.random() * result.length
+                                        )
+                                    ],
+                                standard_label: '@pick(["B","I","O"])',
+                                predict_label: '@pick(["B","I","O"])',
+                            },
+
                             {
                                 start_offset: 48,
                                 standardType: 4,
@@ -283,8 +267,8 @@ module.exports = [
                                             Math.random() * result.length
                                         )
                                     ],
-                                standard_label: "B",
-                                predict_label: "I",
+                                standard_label: '@pick(["B","I","O"])',
+                                predict_label: '@pick(["B","I","O"])',
                             },
                             {
                                 start_offset: 50,
@@ -302,8 +286,27 @@ module.exports = [
                                             Math.random() * result.length
                                         )
                                     ],
-                                standard_label: "B",
-                                predict_label: "I",
+                                standard_label: '@pick(["B","I","O"])',
+                                predict_label: '@pick(["B","I","O"])',
+                            },
+                            {
+                                start_offset: 61,
+                                standardType: 4,
+                                predictType: 6,
+                                standard_type:
+                                    result[
+                                        Math.floor(
+                                            Math.random() * result.length
+                                        )
+                                    ],
+                                predict_type:
+                                    result[
+                                        Math.floor(
+                                            Math.random() * result.length
+                                        )
+                                    ],
+                                standard_label: '@pick(["B","I","O"])',
+                                predict_label: '@pick(["B","I","O"])',
                             },
                         ],
                     ],

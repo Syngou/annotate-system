@@ -122,11 +122,11 @@ export default {
         if (this.annotationArray && this.textArray) {
           let result = [];
           let annotations = this.annotationArray[index];
+
           let entityItemNum = this.annotationArray[index].length;
           let i = 0;
 
           //BUG 这里好像有bug
-
           for (let start = 0; start < this.textArray[index].length; start++) {
             if (
               start < annotations[i].start_offset ||
@@ -144,7 +144,6 @@ export default {
               });
             } else {
               result.push(annotations[i]);
-              console.log(annotations[i].start_offset);
               if (i <= entityItemNum - 2) {
                 i++;
               }
@@ -160,13 +159,13 @@ export default {
 
 <style scoped>
   .tags-container {
-    display: flex;
     margin-left: 5px;
   }
   .text-tag {
-    margin: 20px 10px 20px 0;
+    margin: 10px 10px 10px 0;
+    padding: 3px 10px;
     text-align: center;
-    flex: 1;
+    display: inline-block;
     border-radius: 15px;
     text-align: center;
   }
