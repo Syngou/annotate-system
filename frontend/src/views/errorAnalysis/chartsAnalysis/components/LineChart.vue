@@ -66,7 +66,7 @@ export default {
           left: 10,
           right: 10,
           bottom: 20,
-          top: 30,
+          top: 70,
           containLabel: true,
         },
         tooltip: {
@@ -83,8 +83,14 @@ export default {
           },
         },
         color: ["#FF005A", "#3888fa"],
+        title: {
+          text: "模型预测个数对比",
+          left: "center",
+          align: "right",
+        },
         legend: {
           data: ["标准模型", "当前使用模型"],
+          top: 30,
         },
         series: [
           {
