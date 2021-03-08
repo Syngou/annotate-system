@@ -62,6 +62,11 @@ export default {
     },
   },
   methods: {
+    /**
+     * 获取标签的样式，没有则显示白色
+     * @param type 标签类型
+     * @returns {string|*} 颜色
+     */
     pickColor(type) {
       for (const label of this.labels) {
         if (label.text === type) {

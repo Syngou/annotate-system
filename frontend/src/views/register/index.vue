@@ -105,8 +105,8 @@ export default {
     };
     return {
       loginForm: {
-        username: "admin",
-        password: "111111",
+        username: "",
+        password: "",
       },
       loginRules: {
         username: [
@@ -114,7 +114,7 @@ export default {
             required: true,
             trigger: "blur",
             validator: validateUsername,
-            message: "请输入正确的昵称",
+            message: "请输入您的昵称",
           },
         ],
         password: [
@@ -122,7 +122,7 @@ export default {
             required: true,
             trigger: "blur",
             validator: validatePassword,
-            message: "请输入正确的密码",
+            message: "请输入密码",
           },
         ],
       },

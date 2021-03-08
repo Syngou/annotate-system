@@ -66,7 +66,6 @@ export default {
         "#ee777d",
         "#fa0ada",
         "#0af0e1",
-        "#f33e3e",
         "#c0e97d",
         "#0eeb8b",
         "#82fb08",
@@ -115,18 +114,19 @@ export default {
     },
     /**
      * 标签信息
-     *
      */
     annotations() {
       return (index) => {
         if (this.annotationArray && this.textArray) {
           let result = [];
-          let annotations = this.annotationArray[index];
+          //BUG 这里好像有bug 如果传来的数据开始索引没有按顺序，就会出错
+          let annotations = this.annotationArray[index]
+            .slice()
+            .sort((a, b) => a.start_offset - b.start_offset);
 
           let entityItemNum = this.annotationArray[index].length;
           let i = 0;
 
-          //BUG 这里好像有bug
           for (let start = 0; start < this.textArray[index].length; start++) {
             if (
               start < annotations[i].start_offset ||
