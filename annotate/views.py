@@ -20,26 +20,11 @@ def translate_view(request):
 # 标注数据上传接口
 def upload_view(request):
     # 上传的数据中每种类型可能会有多个词，所以还要进行分词操作，这里就不做了
+    if request.method == 'POST':
+        data = request.body
+        print(data)
 
-    relation = request.GET.get('relation')
-    medicine = request.GET.get('medicine')
-    disease = request.GET.get('disease')
-    tool = request.GET.get('tool')
-
-    result = AnnotateData(relation=relation,
-                          disease=disease,
-                          tool=tool,
-                          medicine=medicine)
-    result.save()
-    return HttpResponse(
-        json.dumps(
-            r(
-                20000, '上传成功', {
-                    'relation': relation,
-                    'medicine': medicine,
-                    'disease': disease,
-                    'tool': tool
-                })))
+    return HttpResponse(json.dumps(r(20000, '上传成功', {})))
 
 
 # 文本分析文件上传

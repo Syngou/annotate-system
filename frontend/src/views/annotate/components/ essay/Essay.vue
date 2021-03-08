@@ -6,28 +6,28 @@
         type="danger"
         size="medium"
         @click="annotateText('0' + $store.state.annotate.id, 0)"
-        >关系(r)
+        >关系
       </el-button>
       <el-button
         type="primary"
         size="medium"
         @click="annotateText('1' + $store.state.annotate.id, 1)"
-        >疾病(b)
+        >疾病
       </el-button>
       <el-button
         type="success"
         size="medium"
         @click="annotateText('2' + $store.state.annotate.id, 2)"
-        >药物(g)
+        >药物
       </el-button>
       <el-button
         type="warning"
         size="medium"
         @click="annotateText('3' + $store.state.annotate.id, 3)"
-        >器械(o)
+        >器械
       </el-button>
       <el-button type="info" size="medium" @click="translateText"
-        >翻译(t)
+        >翻译
       </el-button>
     </div>
     <div slot="footer">
@@ -74,10 +74,6 @@ export default {
   components: {
     TranslateCard,
   },
-  // 键盘标注，初始化即开始监听
-  created() {
-    this.annotateByShortcut();
-  },
   methods: {
     /**
      * @description 在鼠标位置弹出对话框
@@ -108,25 +104,7 @@ export default {
         this.showDialog = true;
       }
     },
-    /**
-     * @description 快捷键标注，监听全局鼠标事件，然后进行标注
-     */
-    annotateByShortcut() {
-      document.onkeydown = ($event) => {
-        let key = $event.key;
-        let id = this.$store.state.annotate.id;
-        this.showDialog = false;
-        if (key === "r") {
-          annotateUtils.annotate("0" + id, 0);
-        } else if (key === "b") {
-          annotateUtils.annotate("1" + id, 1);
-        } else if (key === "g") {
-          annotateUtils.annotate("2" + id, 2);
-        } else if (key === "o") {
-          annotateUtils.annotate("3" + id, 3);
-        }
-      };
-    },
+
     /**
 
      * @description 标注文本

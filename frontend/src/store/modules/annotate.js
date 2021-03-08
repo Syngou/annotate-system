@@ -2,6 +2,8 @@ const state = {
     selectionText: "", //选中的文本
     fontSize: 16, //初始字体大小
     isUpload: false, //是否上传数据，目前还没有用上
+    classification: ["关系", "名称", "药物", "器械"],
+    arr: [[], [], [], []],
     data: [[], [], [], []], //存储四种类型的已标注的词语
     id: 1, //按钮id，用于查找，添加删除事件
     // TODO: 设置缓存存储用户输入
@@ -20,11 +22,10 @@ const state = {
 
 const mutations = {
     /**
-
-   * @description 将标注文本添加列表，并上传至后台，（可以不必每次都提交，不然后台压力太大，这里只是演示）
-   * @param  state
-   * @param  info 对象，存id和文本
-   */
+     * @description 将标注文本添加列表，并上传至后台，（可以不必每次都提交，不然后台压力太大，这里只是演示）
+     * @param  state
+     * @param  info 对象，存id和文本
+     */
     addToList: (state, info) => {
         let text = info.text;
         let index = parseInt(info.id.charAt(0));
