@@ -81,7 +81,7 @@ const mutations = {
      * @param {*} state
      */
     resetData: (state) => {
-        state.data = [[], [], [], []];
+        state.data = [[], [], [], [], [], [], [], [], [], []];
     },
 };
 

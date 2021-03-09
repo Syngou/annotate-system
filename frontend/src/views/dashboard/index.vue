@@ -11,11 +11,11 @@
           </div>
           <div class="user-info-list">
             角色：
-            <span>管理员</span>
+            <span>{{ roles[0] }}</span>
           </div>
           <div class="user-info-list">
             单位：
-            <span>xx医院</span>
+            <span>{{ institution }}</span>
           </div>
         </el-card>
       </el-col>
@@ -41,7 +41,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "Dashboard",
   computed: {
-    ...mapGetters(["name", "avatar"]),
+    ...mapGetters(["name", "avatar", "roles", "institution"]),
   },
 };
 </script>
