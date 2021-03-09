@@ -180,10 +180,6 @@ export default {
         type: "warning",
       }).then(() => {
         rows.splice(index, 1);
-        this.$message({
-          type: "success",
-          message: "删除成功!",
-        });
       });
     },
   },

@@ -4,7 +4,7 @@
       v-show="!isUploaded"
       class="upload-demo"
       drag
-      action="http://localhost:8000/error_analysis/file_upload/"
+      action="http://10.250.127.20:8000/error_analysis/file_upload/"
       name="analysis_file"
       :on-success="handleSuccess"
       :on-error="handleError"
@@ -22,7 +22,6 @@
           >文本分析</el-button
         ></router-link
       >
-
       <router-link to="charts"
         ><el-button type="primary">图表分析</el-button></router-link
       >
