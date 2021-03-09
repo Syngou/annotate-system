@@ -1,7 +1,7 @@
 <template>
   <div id="paper">
     <!-- 标注选项对话框 -->
-    <div class="dialog" ref="showDialog">
+    <div class="dialog" ref="showDialog" v-show="showDialog">
       <button
         v-for="(type, index) in $store.state.annotate.type"
         :style="{ backgroundColor: $store.state.annotate.colorArray[index] }"
@@ -42,6 +42,7 @@ export default {
   name: "Essays",
   data() {
     return {
+      showDialog: false, //显示标注对话框
       selectText: "", // 选中文本
       showTranslateCard: false, //显示翻译卡片
       translateResult: "", //翻译结果
@@ -55,8 +56,8 @@ export default {
      * @description 在鼠标位置弹出对话框
      */
     showSelectBox(X, Y) {
-      // this.$refs.showDialog.style.left = X + 10 + "px";
-      // this.$refs.showDialog.style.top = Y + 10 + "px";
+      this.$refs.showDialog.style.left = X - 150 + "px";
+      this.$refs.showDialog.style.top = Y + 20 + "px";
       this.$refs.translateCard.style.left = X + 10 + "px";
       this.$refs.translateCard.style.top = Y + 10 + "px";
     },
@@ -89,6 +90,7 @@ export default {
      */
     annotateText(id, index) {
       // 隐藏对话框
+      this.showDialog = false;
       annotateUtils.annotate(id, index);
     },
 
@@ -120,12 +122,13 @@ export default {
 
   /* 标注时对话框的样式 */
   .dialog {
-    position: fixed;
-    top: 60px;
-    left: 50px;
+    position: absolute;
+    border-radius: 10px;
+    background-color: rgb(147, 121, 121);
+    padding: 5px;
     button {
       border: 1px solid black;
-      margin-right: 10px;
+      margin-left: 10px;
       border-radius: 10px;
       cursor: pointer;
       outline: none;

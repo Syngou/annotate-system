@@ -9,29 +9,31 @@
       size="40%"
       :with-header="false"
     >
-      <div v-for="(item, index) in type" :key="index">
-        <div class="list" v-show="data[index].length > 0">
-          <button class="btn" :style="{ backgroundColor: colorArray[index] }">
-            {{ item }}
-          </button>
-          <div>
-            <ol>
-              <li
-                class="list-item"
-                v-for="(relation, i) in data[index]"
-                :key="i"
-              >
-                {{ relation }}
-              </li>
-            </ol>
+      <div>
+        <div v-for="(item, index) in type" :key="index">
+          <div class="list" v-show="data[index].length > 0">
+            <button class="btn" :style="{ backgroundColor: colorArray[index] }">
+              {{ item }}
+            </button>
+            <div>
+              <ol>
+                <li
+                  class="list-item"
+                  v-for="(relation, i) in data[index]"
+                  :key="i"
+                >
+                  {{ relation }}
+                </li>
+              </ol>
+            </div>
           </div>
         </div>
-      </div>
-      <div v-show="!isShow" style="font-size: 24px">
-        只有标注了才会在这里显示哦👨🏻‍🔬
-      </div>
-      <div class="upload-button" v-show="isShow">
-        <el-button type="primary" @click="uploadData">上传数据</el-button>
+        <div v-show="!isShow" style="font-size: 24px">
+          只有标注了才会在这里显示哦👨🏻‍🔬
+        </div>
+        <div class="upload-button" v-show="isShow">
+          <el-button type="primary" @click="uploadData">上传数据</el-button>
+        </div>
       </div>
     </el-drawer>
   </div>

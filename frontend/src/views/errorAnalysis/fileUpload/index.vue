@@ -4,7 +4,7 @@
       v-show="!isUploaded"
       class="upload-demo"
       drag
-      action="http://10.250.127.20:8000/error_analysis/file_upload/"
+      action="http://locahost:8000/error_analysis/file_upload/"
       name="analysis_file"
       :on-success="handleSuccess"
       :on-error="handleError"
