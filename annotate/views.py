@@ -1,3 +1,5 @@
+# coding=utf-8
+# coding=gbk
 import json
 
 from django.http import HttpResponse
@@ -31,12 +33,8 @@ def upload_view(request):
 def error_analysis_file_upload(request):
     file = request.FILES.get('analysis_file')
     print(file)
-    return HttpResponse(
-        json.dumps(
-            r(
-                20000, '上传成功', {
-                    'file': 'file'
-                }
-            )
-        )
-    )
+
+    content = file.read()
+    print(content.decode('utf-8'))
+
+    return HttpResponse(json.dumps(r(20000, '上传成功', {'file': 'file'})))

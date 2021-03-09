@@ -9,6 +9,8 @@ const state = {
     introduction: "",
     institution: "",
     roles: [],
+    phone: "",
+    account: "",
 };
 
 const mutations = {
@@ -29,6 +31,12 @@ const mutations = {
     },
     SET_INSTITUTION: (state, institution) => {
         state.institution = institution;
+    },
+    SET_PHONE: (state, phone) => {
+        state.phone = phone;
+    },
+    SET_ACCOUNT: (state, account) => {
+        state.account = account;
     },
 };
 
@@ -68,6 +76,8 @@ const actions = {
                         avatar,
                         introduction,
                         institution,
+                        phone,
+                        account,
                     } = data;
 
                     // roles must be a non-empty array
@@ -80,6 +90,8 @@ const actions = {
                     commit("SET_AVATAR", avatar);
                     commit("SET_INTRODUCTION", introduction);
                     commit("SET_INSTITUTION", institution);
+                    commit("SET_PHONE", phone);
+                    commit("SET_ACCOUNT", account);
                     resolve(data);
                 })
                 .catch((error) => {

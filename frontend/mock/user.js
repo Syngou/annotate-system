@@ -9,10 +9,12 @@ const tokens = {
 
 const users = {
     "admin-token": {
+        account: 182,
         roles: ["管理员"],
         introduction: "I am a super administrator",
         avatar: "https://w.wallhaven.cc/full/nr/wallhaven-nrjgy7.jpg",
-        institution: "xx医院",
+        institution: "xx单位",
+        phone: "18888888888",
         name: "Syngou",
     },
     "editor-token": {

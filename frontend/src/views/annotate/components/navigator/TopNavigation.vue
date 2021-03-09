@@ -1,7 +1,6 @@
 <template>
   <div class="topNavigation">
     <span v-if="device !== 'mobile'" class="title">医疗文本标注平台</span>
-    <a @click="$bus.$emit('showPaste')">输入文本</a>
     <a @click="$bus.$emit('showAnnotate')">自动化标注</a>
     <a @click="$bus.$emit('showDrawer')">上传</a>
     <router-link v-if="!avatar" to="/login" style="float: right"
@@ -25,14 +24,12 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-    <Paste></Paste>
     <AutoAnnotate></AutoAnnotate>
     <ShowAnnotation></ShowAnnotation>
   </div>
 </template>
 
 <script>
-import Paste from "./components/Paste";
 import AutoAnnotate from "./components/AutoAnnotate";
 import ShowAnnotation from "./components/ShowAnnotation";
 import { mapGetters } from "vuex";
@@ -40,7 +37,6 @@ import { mapGetters } from "vuex";
 export default {
   name: "TopNavigation",
   components: {
-    Paste,
     AutoAnnotate,
     ShowAnnotation,
   },

@@ -6,5 +6,7 @@ const getters = {
     name: (state) => state.user.name,
     roles: (state) => state.user.roles,
     institution: (state) => state.user.institution,
+    account: (state) => state.user.account,
+    phone: (state) => state.user.phone,
 };
 export default getters;

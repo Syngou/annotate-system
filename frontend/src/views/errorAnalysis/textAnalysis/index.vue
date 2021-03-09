@@ -55,42 +55,11 @@ export default {
       textArr: [],
       annotationArray: [],
       labelArray: [],
-      colorArray: [
-        //标签颜色
-        "#fa0404",
-        "#fd0dad",
-        "#8406f3",
-        "#d462ee",
-        "#ff9b06",
-        "#e3fc07",
-        "#058f32",
-        "#10f0fc",
-        "#83fa07",
-        "#66ee66",
-        "#c0e97d",
-        "#ee777d",
-        "#2e0bf3",
-        "#0af0e1",
-        "#0baff5",
-        "#1f74c9",
-        "#8985ec",
-        "#761616",
-      ],
     };
   },
   created() {
     getText().then((res) => {
-      let temp = [];
-      let index = 0;
-      temp.push(...res.data.labels);
-      for (let i = 0; i < temp.length; i++) {
-        if (temp.indexOf(temp[i]) === i) {
-          this.labelArray.push({
-            text: temp[i],
-            color: this.colorArray[index++],
-          });
-        }
-      }
+      this.labelArray.push(...res.data.labels);
       this.textArr = res.data.text;
       this.annotationArray = res.data.annotations;
     });
@@ -117,9 +86,7 @@ export default {
         if (this.annotationArray && this.textArray) {
           let result = [];
           //BUG 这里好像有bug 如果传来的数据开始索引没有按顺序，就会出错
-          let annotations = this.annotationArray[index]
-            .slice()
-            .sort((a, b) => a.start_offset - b.start_offset);
+          let annotations = this.annotationArray[index];
 
           let entityItemNum = this.annotationArray[index].length;
           let i = 0;

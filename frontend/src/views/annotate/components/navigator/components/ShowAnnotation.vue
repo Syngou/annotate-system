@@ -9,113 +9,29 @@
       size="40%"
       :with-header="false"
     >
-      <div class="list" v-show="$store.state.annotate.data[0].length > 0">
-        <button class="btn" style="background-color: red; margin-top: 0">
-          关系
-        </button>
-
-        <div>
-          <ol>
-            <li
-              class="list-item"
-              v-for="(relation, index) in $store.state.annotate.data[0]"
-              :key="index"
-            >
-              {{ relation }}
-            </li>
-          </ol>
+      <div v-for="(item, index) in type" :key="index">
+        <div class="list" v-show="data[index].length > 0">
+          <button class="btn" :style="{ backgroundColor: colorArray[index] }">
+            {{ item }}
+          </button>
+          <div>
+            <ol>
+              <li
+                class="list-item"
+                v-for="(relation, i) in data[index]"
+                :key="i"
+              >
+                {{ relation }}
+              </li>
+            </ol>
+          </div>
         </div>
       </div>
-
-      <div class="list" v-show="$store.state.annotate.data[1].length > 0">
-        <button
-          class="btn"
-          style="background-color: blue"
-          type="primary"
-          size="medium"
-        >
-          疾病
-        </button>
-
-        <div>
-          <ol>
-            <li
-              class="list-item"
-              v-for="(disease, index) in $store.state.annotate.data[1]"
-              :key="index"
-            >
-              {{ disease }}
-            </li>
-          </ol>
-        </div>
-      </div>
-      <div class="list" v-show="$store.state.annotate.data[2].length > 0">
-        <button
-          class="btn"
-          style="background-color: green"
-          type="success"
-          size="medium"
-        >
-          药物
-        </button>
-
-        <div>
-          <ol>
-            <li
-              class="list-item"
-              v-for="(medicine, index) in $store.state.annotate.data[2]"
-              :key="index"
-            >
-              {{ medicine }}
-            </li>
-          </ol>
-        </div>
-      </div>
-      <div class="list" v-show="$store.state.annotate.data[3].length > 0">
-        <button
-          class="btn"
-          style="background-color: orange"
-          type="warning"
-          size="medium"
-        >
-          器械
-        </button>
-
-        <div>
-          <ol>
-            <li
-              class="list-item"
-              v-for="(tool, index) in $store.state.annotate.data[3]"
-              :key="index"
-            >
-              {{ tool }}
-            </li>
-          </ol>
-        </div>
-      </div>
-      <div
-        style="font-size: 30px"
-        v-show="
-          $store.state.annotate.data[0].length == 0 &&
-          $store.state.annotate.data[1].length == 0 &&
-          $store.state.annotate.data[2].length == 0 &&
-          $store.state.annotate.data[3].length == 0
-        "
-      >
+      <div v-show="!isShow" style="font-size: 24px">
         只有标注了才会在这里显示哦👨🏻‍🔬
       </div>
-      <div class="upload-button">
-        <el-button
-          type="primary"
-          @click="uploadData"
-          v-show="
-            $store.state.annotate.data[0].length != 0 ||
-            $store.state.annotate.data[1].length != 0 ||
-            $store.state.annotate.data[2].length != 0 ||
-            $store.state.annotate.data[3].length != 0
-          "
-          >上传数据</el-button
-        >
+      <div class="upload-button" v-show="isShow">
+        <el-button type="primary" @click="uploadData">上传数据</el-button>
       </div>
     </el-drawer>
   </div>
@@ -132,12 +48,25 @@ export default {
   },
   data() {
     return {
+      colorArray: this.$store.state.annotate.colorArray,
+      data: this.$store.state.annotate.data,
+      type: this.$store.state.annotate.type,
       drawer: false, //显示标注词语
       relation: "",
       disease: "",
       medicine: "",
       tool: "",
     };
+  },
+  computed: {
+    isShow() {
+      for (let item of this.data) {
+        if (item.length > 0) {
+          return true;
+        }
+      }
+      return false;
+    },
   },
 
   methods: {

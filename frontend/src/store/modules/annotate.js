@@ -2,9 +2,40 @@ const state = {
     selectionText: "", //选中的文本
     fontSize: 16, //初始字体大小
     isUpload: false, //是否上传数据，目前还没有用上
-    classification: ["关系", "名称", "药物", "器械"],
-    arr: [[], [], [], []],
-    data: [[], [], [], []], //存储四种类型的已标注的词语
+    type: [
+        "关系",
+        "名称",
+        "药物",
+        "器械",
+        "医疗",
+        "关系",
+        "名称",
+        "药物",
+        "器械",
+        "医疗",
+    ],
+    data: [[], [], [], [], [], [], [], [], [], []], //存储四种类型的已标注的词语
+    colorArray: [
+        //标签颜色
+        "#fa0404",
+        "#fd0dad",
+        "#8406f3",
+        "#d462ee",
+        "#ff9b06",
+        "#e3fc07",
+        "#058f32",
+        "#10f0fc",
+        "#83fa07",
+        "#e6ee66",
+        "#c0e97d",
+        "#aae77d",
+        "#2e0bf3",
+        "#0af0e1",
+        "#0baff5",
+        "#1f74c9",
+        "#8985ec",
+        "#761616",
+    ],
     id: 1, //按钮id，用于查找，添加删除事件
     // TODO: 设置缓存存储用户输入
     inputContent: `
@@ -37,7 +68,7 @@ const mutations = {
      * @param  info 对象，存储需要删除已标注文本的id，文本
      */
     deleteAnnotatedText: (state, info) => {
-        let index = parseInt(info.type.charAt(0));
+        let index = parseInt(info.type.split("-")[0]);
         for (let i = state.data.length - 1; i >= 0; i--) {
             if (state.data[index][i] == info.text) {
                 state.data[index].splice(i, 1);

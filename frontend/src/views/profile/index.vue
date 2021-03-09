@@ -39,7 +39,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["name", "avatar", "roles", "institution"]),
+    ...mapGetters([
+      "name",
+      "avatar",
+      "roles",
+      "institution",
+      "phone",
+      "account",
+    ]),
   },
   created() {
     this.getUser();
@@ -52,6 +59,8 @@ export default {
         email: "admin@test.com",
         avatar: this.avatar,
         institution: this.institution,
+        account: this.account,
+        phone: this.phone,
       };
     },
   },

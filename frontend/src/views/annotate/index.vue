@@ -1,7 +1,6 @@
 <template>
   <div>
     <TopNavigation />
-    <FunctionBar />
     <Essay />
     <el-backtop :duration="0" :bottom="70" />
     <div class="footer">Copyright © {{ year }} Syngou</div>
@@ -11,14 +10,12 @@
 
 <script>
 import TopNavigation from "./components/navigator/TopNavigation";
-import FunctionBar from "./components/FunctionBar";
 import Essay from "./components/ essay/Essay";
 
 export default {
   name: "Home",
   components: {
     TopNavigation,
-    FunctionBar,
     Essay,
   },
   data() {

@@ -50,7 +50,11 @@ export const constantRoutes = [
         component: () => import("@/views/404"),
         hidden: true,
     },
-
+    {
+        path: "/temp",
+        component: () => import("@/views/temp"),
+        hidden: true,
+    },
     {
         path: "/",
         redirect: "/dashboard",

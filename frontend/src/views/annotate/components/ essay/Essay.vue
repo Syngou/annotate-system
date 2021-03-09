@@ -1,39 +1,16 @@
 <template>
   <div id="paper">
     <!-- 标注选项对话框 -->
-    <div class="dialog" v-show="showDialog" ref="showDialog">
-      <el-button
-        type="danger"
-        size="medium"
-        @click="annotateText('0' + $store.state.annotate.id, 0)"
-        >关系
-      </el-button>
-      <el-button
-        type="primary"
-        size="medium"
-        @click="annotateText('1' + $store.state.annotate.id, 1)"
-        >疾病
-      </el-button>
-      <el-button
-        type="success"
-        size="medium"
-        @click="annotateText('2' + $store.state.annotate.id, 2)"
-        >药物
-      </el-button>
-      <el-button
-        type="warning"
-        size="medium"
-        @click="annotateText('3' + $store.state.annotate.id, 3)"
-        >器械
-      </el-button>
-      <el-button type="info" size="medium" @click="translateText"
-        >翻译
-      </el-button>
-    </div>
-    <div slot="footer">
-      <el-button type="primary" size="medium" @click="choice = false"
-        >取消
-      </el-button>
+    <div class="dialog" ref="showDialog">
+      <button
+        v-for="(type, index) in $store.state.annotate.type"
+        :style="{ backgroundColor: $store.state.annotate.colorArray[index] }"
+        :key="index"
+        @click="annotateText(index + '-' + $store.state.annotate.id, index)"
+      >
+        {{ type }}
+      </button>
+      <button @click="translateText">翻译</button>
     </div>
     <!-- 翻译结果显示 -->
     <div v-show="showTranslateCard" class="translate-card" ref="translateCard">
@@ -65,7 +42,6 @@ export default {
   name: "Essays",
   data() {
     return {
-      showDialog: false, // 显示对话框
       selectText: "", // 选中文本
       showTranslateCard: false, //显示翻译卡片
       translateResult: "", //翻译结果
@@ -79,8 +55,8 @@ export default {
      * @description 在鼠标位置弹出对话框
      */
     showSelectBox(X, Y) {
-      this.$refs.showDialog.style.left = X + 10 + "px";
-      this.$refs.showDialog.style.top = Y + 10 + "px";
+      // this.$refs.showDialog.style.left = X + 10 + "px";
+      // this.$refs.showDialog.style.top = Y + 10 + "px";
       this.$refs.translateCard.style.left = X + 10 + "px";
       this.$refs.translateCard.style.top = Y + 10 + "px";
     },
@@ -113,7 +89,6 @@ export default {
      */
     annotateText(id, index) {
       // 隐藏对话框
-      this.showDialog = false;
       annotateUtils.annotate(id, index);
     },
 
@@ -145,16 +120,15 @@ export default {
 
   /* 标注时对话框的样式 */
   .dialog {
-    position: absolute;
-    width: 100px;
-    border: 5px solid rgb(248, 220, 6);
-    background-color: rgb(146, 150, 58);
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-
+    position: fixed;
+    top: 60px;
+    left: 50px;
     button {
-      margin: 0;
+      border: 1px solid black;
+      margin-right: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      outline: none;
     }
   }
 
@@ -167,6 +141,7 @@ export default {
     white-space: pre-line;
     word-break: break-all;
     line-height: 25px;
+    margin-top: 80px;
   }
   // 翻译卡片
   .translate-card {

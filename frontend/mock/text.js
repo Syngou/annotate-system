@@ -1,17 +1,48 @@
 const Mock = require("mockjs");
 
+let colorArray = [
+    //标签颜色
+    "#fa0404",
+    "#fd0dad",
+    "#8406f3",
+    "#d462ee",
+    "#ff9b06",
+    "#e3fc07",
+    "#058f32",
+    "#10f0fc",
+    "#83fa07",
+    "#e6ee66",
+    "#c0e97d",
+    "#aae77d",
+    "#2e0bf3",
+    "#0af0e1",
+    "#0baff5",
+    "#1f74c9",
+    "#8985ec",
+    "#761616",
+];
 module.exports = [
     {
         url: "/mockjs/error/text",
         type: "get",
         response: () => {
+            let temp = [];
             let result = [];
             for (let i = 0; i < 15; i++) {
-                result.push(
+                temp.push(
                     Mock.mock(
                         "@pick(['药物','医生','器械','地点','关系','疾病','患者','治疗方法','病毒','元素'])"
                     )
                 );
+            }
+            let index = 0;
+            for (let i = 0; i < temp.length; i++) {
+                if (temp.indexOf(temp[i]) === i) {
+                    result.push({
+                        text: temp[i],
+                        color: colorArray[index++],
+                    });
+                }
             }
             return {
                 code: 20000,
@@ -29,13 +60,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -48,13 +79,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -67,13 +98,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -86,13 +117,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -105,13 +136,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -124,13 +155,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -143,13 +174,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -162,13 +193,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -182,13 +213,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -201,13 +232,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -220,13 +251,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -240,13 +271,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -260,13 +291,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -279,13 +310,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -298,13 +329,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -317,13 +348,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -336,13 +367,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -355,13 +386,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -374,13 +405,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -393,13 +424,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -412,13 +443,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -431,13 +462,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -450,13 +481,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -469,13 +500,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -488,13 +519,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -507,13 +538,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -526,13 +557,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -545,13 +576,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -564,13 +595,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -583,13 +614,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -602,13 +633,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },
@@ -621,13 +652,13 @@ module.exports = [
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 predict_type:
                                     result[
                                         Math.floor(
                                             Math.random() * result.length
                                         )
-                                    ],
+                                    ].text,
                                 standard_label: '@pick(["B","I","O"])',
                                 predict_label: '@pick(["B","I","O"])',
                             },

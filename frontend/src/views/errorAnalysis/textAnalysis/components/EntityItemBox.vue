@@ -73,7 +73,6 @@ export default {
           return label.color;
         }
       }
-
       return "#ffffff";
     },
   },

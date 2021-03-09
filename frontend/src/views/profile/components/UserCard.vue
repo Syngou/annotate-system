@@ -1,20 +1,47 @@
 <template>
   <el-row :gutter="20">
     <el-col :xs="24" :sm="24" :lg="24">
-      <el-card shadow="hover" class="mgb20" style="height: 252px">
-        <div class="user-info">
-          <img :src="user.avatar" class="user-avatar" alt />
-          <div class="user-info-cont">
-            <div class="user-info-name">{{ user.name }}</div>
+      <el-card class="box-card">
+        <div slot="header" class="clearfix">
+          <span>个人信息</span>
+        </div>
+        <div>
+          <div style="text-align: center">
+            <div class="el-upload">
+              <img :src="user.avatar" title="点击上传头像" class="avatar" />
+            </div>
           </div>
-        </div>
-        <div class="user-info-list">
-          角色：
-          <span>{{ user.role }}</span>
-        </div>
-        <div class="user-info-list">
-          单位：
-          <span>{{ user.institution }}</span>
+          <ul class="user-info">
+            <li>
+              <div style="height: 100%">
+                <svg-icon icon-class="login" /> 登录账号
+                <div class="user-right">{{ user.account }}</div>
+              </div>
+            </li>
+            <li>
+              <svg-icon icon-class="user" /> 用户昵称
+              <div class="user-right">{{ user.name }}</div>
+            </li>
+            <li>
+              <svg-icon icon-class="dept" /> 所属部门
+              <div class="user-right">{{ user.institution }}</div>
+            </li>
+            <li>
+              <svg-icon icon-class="phone" /> 手机号码
+              <div class="user-right">{{ user.phone }}</div>
+            </li>
+            <li>
+              <svg-icon icon-class="email" /> 用户邮箱
+              <div class="user-right">{{ user.email }}</div>
+            </li>
+            <li>
+              <svg-icon icon-class="anq" /> 安全设置
+              <div class="user-right">
+                <a style="margin-right: 20px">修改密码</a>
+                <a>修改邮箱</a>
+              </div>
+            </li>
+          </ul>
         </div>
       </el-card>
       <el-card shadow="hover" style="height: 252px">
@@ -36,14 +63,6 @@ export default {
   props: {
     user: {
       type: Object,
-      default: () => {
-        return {
-          name: "",
-          email: "",
-          avatar: "",
-          role: "",
-        };
-      },
     },
   },
 };
@@ -59,46 +78,24 @@ export default {
     color: #777;
   }
 
-  .user-avatar {
+  .avatar {
     width: 120px;
     height: 120px;
     border-radius: 50%;
   }
-
   .user-info {
-    display: flex;
-    align-items: center;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #ccc;
-    margin-bottom: 20px;
-
-    &-cont {
-      padding-left: 50px;
-      flex: 1;
-      font-size: 14px;
-      color: #999;
-
-      div:first-child {
-        font-size: 30px;
-        color: #222;
+    padding-left: 0;
+    list-style: none;
+    li {
+      border-bottom: 1px solid #f0f3f4;
+      padding: 11px 0;
+      font-size: 13px;
+    }
+    .user-right {
+      float: right;
+      a {
+        color: #317ef3;
       }
-    }
-    &-name {
-      margin-left: -20px;
-    }
-
-    &-list {
-      font-size: 14px;
-      color: #999;
-      line-height: 25px;
-
-      span {
-        margin-left: 70px;
-      }
-    }
-
-    .mgb20 {
-      margin-bottom: 20px;
     }
   }
 </style>
