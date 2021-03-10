@@ -1,5 +1,16 @@
 <template>
   <div id="paper">
+    <div class="fixed-button">
+      <button
+        v-for="(type, index) in $store.state.annotate.type"
+        :style="{ backgroundColor: $store.state.annotate.colorArray[index] }"
+        :key="index"
+        @click="annotateText(index + '-' + $store.state.annotate.id, index)"
+      >
+        {{ type }}
+      </button>
+    </div>
+
     <!-- 标注选项对话框 -->
     <div class="dialog" ref="showDialog" v-show="showDialog">
       <button
@@ -56,7 +67,7 @@ export default {
      * @description 在鼠标位置弹出对话框
      */
     showSelectBox(X, Y) {
-      this.$refs.showDialog.style.left = X - 150 + "px";
+      this.$refs.showDialog.style.left = X - 100 + "px";
       this.$refs.showDialog.style.top = Y + 20 + "px";
       this.$refs.translateCard.style.left = X + 10 + "px";
       this.$refs.translateCard.style.top = Y + 10 + "px";
@@ -126,6 +137,7 @@ export default {
     border-radius: 10px;
     background-color: rgb(147, 121, 121);
     padding: 5px;
+
     button {
       border: 1px solid black;
       margin-left: 10px;
@@ -134,9 +146,22 @@ export default {
       outline: none;
     }
   }
+  .fixed-button {
+    position: fixed;
+    top: 50px;
+
+    button {
+      margin: 10px 10px 40px 10px;
+      border: 1px solid black;
+      border-radius: 10px;
+      cursor: pointer;
+      outline: none;
+    }
+  }
 
   /* 文本样式 */
   .input-content {
+    margin-top: 100px;
     overflow: auto;
     flex: auto;
     min-height: 1000px;
@@ -144,7 +169,6 @@ export default {
     white-space: pre-line;
     word-break: break-all;
     line-height: 25px;
-    margin-top: 80px;
   }
   // 翻译卡片
   .translate-card {

@@ -1,15 +1,15 @@
 <template>
   <div class="topNavigation">
-    <span v-if="device !== 'mobile'" class="title">医疗文本标注平台</span>
-    <a @click="$bus.$emit('showAnnotate')">自动化标注</a>
-    <a @click="$bus.$emit('showDrawer')">上传</a>
+    <span class="title">医疗文本标注平台</span>
+<!--    <a @click="$bus.$emit('showAnnotate')">自动化标注</a>-->
+    <a @click="uploadData">上传</a>
     <router-link v-if="!avatar" to="/login" style="float: right"
       >登录</router-link
     >
     <div v-else class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="avatar + '?imageView2/1/w/80/h/80'" class="user-avatar" />
+          <img :src="avatar + '?imageView2/1/w/80/h/80'" class="user-avatar"  alt="用户头像"/>
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
@@ -24,39 +24,39 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-    <AutoAnnotate></AutoAnnotate>
-    <ShowAnnotation></ShowAnnotation>
+<!--    <AutoAnnotate></AutoAnnotate>-->
   </div>
 </template>
 
 <script>
-import AutoAnnotate from "./components/AutoAnnotate";
-import ShowAnnotation from "./components/ShowAnnotation";
+// import AutoAnnotate from "./components/AutoAnnotate";
 import { mapGetters } from "vuex";
+import request from "@/api/annotatePageApi";
 
 export default {
   name: "TopNavigation",
-  components: {
-    AutoAnnotate,
-    ShowAnnotation,
-  },
+  // components: {
+  //   AutoAnnotate,
+  // },
   computed: {
     ...mapGetters(["avatar"]),
-    device() {
-      return this.$store.state.app.device;
-    },
   },
-  mounted() {
-    if (window.innerWidth <= 400) {
-      this.$store.dispatch("app/toggleDevice", "mobile");
-    }
-  },
+
   methods: {
     /**
      * @description 退出登录状态
      */
     async logout() {
       await this.$store.dispatch("user/logout");
+    },
+    /**
+     * @description: 标注数据上传后台
+     */
+    uploadData() {
+      request.postToBackend(this.$store.state.annotate.data).then(() => {
+        this.$message.success("上传成功");
+        this.drawer = false;
+      });
     },
   },
 };

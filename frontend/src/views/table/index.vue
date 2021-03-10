@@ -146,7 +146,6 @@ export default {
      * 标注文本
      */
     handleAnnotate(index, rows) {
-      console.log(index, rows[index]);
       this.$store.state.annotate.inputContent = rows[index].paragraph;
       this.$store.dispatch("annotate/resetData");
       this.$router.push("/annotate");

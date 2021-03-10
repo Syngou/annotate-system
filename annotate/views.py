@@ -1,10 +1,7 @@
-# coding=utf-8
-# coding=gbk
+# -*- coding: utf-8 -*-
 import json
 
 from django.http import HttpResponse
-
-from .models import *
 
 
 # 统一的返回结果，按实际情况修改
@@ -24,7 +21,7 @@ def upload_view(request):
     # 上传的数据中每种类型可能会有多个词，所以还要进行分词操作，这里就不做了
     if request.method == 'POST':
         data = request.body
-        print(data)
+        print(data.decode('utf-8'))
 
     return HttpResponse(json.dumps(r(20000, '上传成功', {})))
 
