@@ -148,10 +148,10 @@ export default {
   }
   .fixed-button {
     position: fixed;
-    top: 50px;
+    top:50px;
 
     button {
-      margin: 10px 10px 40px 10px;
+      margin: 10px;
       border: 1px solid black;
       border-radius: 10px;
       cursor: pointer;

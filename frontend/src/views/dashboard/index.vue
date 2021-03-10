@@ -31,15 +31,28 @@
           <el-progress :percentage="5.9" color="#f56c6c"></el-progress>
         </el-card>
       </el-col>
+      <el-col
+        :xs="{ span: 24 }"
+        :sm="{ span: 12 }"
+        :md="{ span: 12 }"
+        :lg="{ span: 6 }"
+        :xl="{ span: 6 }"
+        style="margin-bottom: 30px"
+      >
+        <todo-list />
+      </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-
+import TodoList from "./TodoList/index";
 export default {
   name: "Dashboard",
+  components: {
+    TodoList,
+  },
   computed: {
     ...mapGetters(["name", "avatar", "roles", "institution"]),
   },

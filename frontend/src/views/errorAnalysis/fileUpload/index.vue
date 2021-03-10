@@ -17,6 +17,10 @@
       </div>
     </el-upload>
     <div v-show="isUploaded">
+      <div style="font-size: 100px; margin-left: 50px">
+        <svg-icon icon-class="success" />
+      </div>
+      <div>文件上传成功了，现在您可以选择</div>
       <router-link to="text">
         <el-button type="primary" style="margin-right: 20px"
           >文本分析</el-button
