@@ -24,7 +24,7 @@
     >
       <entity-item-box
         :labels="labelArray"
-        :entities="annotationArray[currentPage * 2 + index]"
+        :entities="annotationArray[currentPage * 2 + index - 2]"
       />
     </div>
     <div class="page">
