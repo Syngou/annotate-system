@@ -15,7 +15,7 @@ export default {
   name: "TranslateCard",
   props: {
     result: {
-      type: String,
+      type: Object,
       default() {
         return "translate result";
       },

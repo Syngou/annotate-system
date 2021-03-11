@@ -23,9 +23,8 @@
       :key="index"
     >
       <entity-item-box
-        :text="text"
         :labels="labelArray"
-        :entities="annotations(index)"
+        :entities="annotationArray[currentPage * 2 + index]"
       />
     </div>
     <div class="page">
@@ -33,7 +32,7 @@
         :current-page.sync="currentPage"
         :page-size="1"
         layout="prev, pager, next, jumper"
-        :total="Math.ceil(textArr.length / 2)"
+        :total="Math.ceil(annotationArray.length / 2)"
       >
       </el-pagination>
     </div>
@@ -52,7 +51,6 @@ export default {
   data() {
     return {
       currentPage: 1, //当前页
-      textArr: [],
       annotationArray: [],
       labelArray: [],
     };
@@ -60,7 +58,9 @@ export default {
   created() {
     getText().then((res) => {
       this.labelArray.push(...res.data.labels);
-      this.textArr = res.data.text;
+      for (let i = 0; i < this.labelArray.length; i++) {
+        this.labelArray[i]["color"] = this.$store.state.annotate.colorArray[i];
+      }
       this.annotationArray = res.data.annotations;
     });
   },
@@ -72,50 +72,11 @@ export default {
       let n = this.currentPage;
       let result = [];
       for (let i = 2 * n - 2; i <= 2 * n - 1; i++) {
-        if (this.textArr[i]) {
-          result.push(this.textArr[i]);
+        if (this.annotationArray[i]) {
+          result.push([]);
         }
       }
       return result;
-    },
-    /**
-     * 标签信息
-     */
-    annotations() {
-      return (index) => {
-        if (this.annotationArray && this.textArray) {
-          let result = [];
-          //BUG 这里好像有bug 如果传来的数据开始索引没有按顺序，就会出错
-          let annotations = this.annotationArray[index];
-
-          let entityItemNum = this.annotationArray[index].length;
-          let i = 0;
-
-          for (let start = 0; start < this.textArray[index].length; start++) {
-            if (
-              start < annotations[i].start_offset ||
-              start > annotations[i].start_offset
-            ) {
-              result.push({
-                start_offset: start,
-                end_offset: start + 1,
-                standardType: 5,
-                predictType: 5,
-                standard_type: "",
-                predict_type: "",
-                standard_label: "O",
-                predict_label: "O",
-              });
-            } else {
-              result.push(annotations[i]);
-              if (i <= entityItemNum - 2) {
-                i++;
-              }
-            }
-          }
-          return result;
-        }
-      };
     },
   },
 };

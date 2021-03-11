@@ -56,7 +56,7 @@ export default {
       showDialog: false, //显示标注对话框
       selectText: "", // 选中文本
       showTranslateCard: false, //显示翻译卡片
-      translateResult: "", //翻译结果
+      translateResult: {}, //翻译结果
     };
   },
   components: {
@@ -148,7 +148,7 @@ export default {
   }
   .fixed-button {
     position: fixed;
-    top:50px;
+    top: 50px;
 
     button {
       margin: 10px;

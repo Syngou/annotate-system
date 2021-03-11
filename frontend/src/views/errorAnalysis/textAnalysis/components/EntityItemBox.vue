@@ -19,12 +19,6 @@ export default {
     EntityItem,
   },
   props: {
-    // 文本
-    text: {
-      type: String,
-      default: "",
-      required: true,
-    },
     // 所有的标签
     labels: {
       type: Array,
@@ -39,23 +33,16 @@ export default {
     },
   },
   computed: {
-    sortedEntities() {
-      return this.entities
-        .slice()
-        .sort((a, b) => a.start_offset - b.start_offset);
-    },
-
     chunks() {
       let chunks = [];
-      const entities = this.sortedEntities;
+      const entities = this.entities;
       for (const entity of entities) {
-        // add entities to chunks.
         chunks.push({
           standardType: entity.standard_label,
           predictType: entity.predict_label,
           standardColor: this.pickColor(entity.standard_type),
           predictColor: this.pickColor(entity.predict_type),
-          text: this.text.slice(entity.start_offset, entity.start_offset + 1),
+          text: entity.value,
         });
       }
       return chunks;

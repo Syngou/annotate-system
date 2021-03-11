@@ -28,8 +28,7 @@ def upload_view(request):
 
 # 文本分析文件上传
 def error_analysis_file_upload(request):
-    file = request.FILES.get('file')
+    file = request.FILES.get('analysis_file')
     print(file)
-    string = file.read().decode('utf-8')
 
-    return HttpResponse(json.dumps(r(20000, '上传成功', {'file': string})))
+    return HttpResponse(json.dumps(r(20000, '上传成功', {'file': 'django'})))
