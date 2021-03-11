@@ -82,23 +82,6 @@
         <el-button type="primary" @click="update()">更新</el-button>
       </div>
     </el-dialog>
-    <el-dialog title="提示" :visible.sync="choiceDialog" :width="width" center>
-      <div>
-        <span>标签</span>
-      </div>
-      <div>
-        <span>颜色</span>
-        <el-color-picker
-          v-model="color"
-          show-alpha
-          :predefine="$store.state.annotate.colorArray"
-        />
-      </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="centerDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="goToAnnotate">确 定</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
@@ -122,8 +105,6 @@ export default {
       listLoading: true, //加载效果
       showEditForm: false, //编辑框的显隐
       listEditIndex: 0, // 编辑索引
-      choiceDialog: false, //标注选项对话框
-      color: "rgba(255, 69, 0)", //颜色选择器默认样颜色
 
       form: {
         //编辑框数据
@@ -163,11 +144,12 @@ export default {
       return "";
     },
     /**
-     * 自定义标签和颜色
+     * 自定义设置
      */
-    customChoice(index, rows) {
-      this.$store.state.annotate.inputContent = rows[index].paragraph;
-      this.choiceDialog = true;
+    customChoice(index, list) {
+      this.$store.dispatch("annotate/setTextTitle", list[index].title);
+      this.$store.dispatch("annotate/setAnnotateText", list[index].paragraph);
+      this.$router.push("setting");
     },
     /**
      * 前往标注页面

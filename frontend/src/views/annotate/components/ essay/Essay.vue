@@ -2,24 +2,24 @@
   <div id="paper">
     <div class="fixed-button">
       <button
-        v-for="(type, index) in $store.state.annotate.type"
-        :style="{ backgroundColor: $store.state.annotate.colorArray[index] }"
+        v-for="(info, index) in $store.state.annotate.labelsInfo"
+        :style="{ backgroundColor: info.color }"
         :key="index"
         @click="annotateText(index + '-' + $store.state.annotate.id, index)"
       >
-        {{ type }}
+        {{ info.value }}
       </button>
     </div>
 
     <!-- 标注选项对话框 -->
     <div class="dialog" ref="showDialog" v-show="showDialog">
       <button
-        v-for="(type, index) in $store.state.annotate.type"
-        :style="{ backgroundColor: $store.state.annotate.colorArray[index] }"
+        v-for="(info, index) in $store.state.annotate.labelsInfo"
+        :style="{ backgroundColor: info.color }"
         :key="index"
         @click="annotateText(index + '-' + $store.state.annotate.id, index)"
       >
-        {{ type }}
+        {{ info.value }}
       </button>
       <button @click="translateText">翻译</button>
     </div>
@@ -38,7 +38,7 @@
       @mouseup="getSelection($event)"
       class="input-content"
       :style="'font-size:' + $store.state.annotate.fontSize + 'px'"
-      v-html="$store.state.annotate.inputContent"
+      v-html="$store.state.annotate.annotateText"
     ></pre>
   </div>
 </template>

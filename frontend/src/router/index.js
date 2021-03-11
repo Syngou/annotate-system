@@ -82,16 +82,24 @@ export const constantRoutes = [
             },
         ],
     },
-
     {
-        path: "/table",
+        path: "/text",
         component: Layout,
+        redirect: "/text/list",
+        name: "text",
+        meta: { title: "标注文本", icon: "documentation" },
         children: [
             {
-                path: "index",
-                component: () => import("@/views/table/index"),
-                name: "Table",
-                meta: { title: "文本列表", icon: "table" },
+                path: "list",
+                name: "list",
+                component: () => import("@/views/table/list"),
+                meta: { title: "文本列表", icon: "el-icon-notebook-2" },
+            },
+            {
+                path: "setting",
+                name: "setting",
+                component: () => import("@/views/table/setting"),
+                meta: { title: "标注设置", icon: "el-icon-setting" },
             },
         ],
     },
@@ -110,13 +118,13 @@ export const constantRoutes = [
             },
             {
                 path: "text",
-                name: "text",
+                name: "text-analysis",
                 component: () => import("@/views/errorAnalysis/textAnalysis"),
                 meta: { title: "文本分析", icon: "el-icon-notebook-2" },
             },
             {
                 path: "charts",
-                name: "charts",
+                name: "charts-analysis",
                 component: () => import("@/views/errorAnalysis/chartsAnalysis"),
                 meta: { title: "图表分析", icon: "tree" },
             },
