@@ -1,10 +1,17 @@
 <template>
-  <div>
-    <el-form label-position="right" label-width="80px" :model="settingForm">
+  <div class="app-container">
+    <el-form label-position="top" label-width="80px" :model="settingForm">
       <el-form-item label="文本标题">
         <span>{{ settingForm.textTitle }}</span>
       </el-form-item>
-      <el-form-item label="标签">
+      <el-form-item>
+        <div>
+          <router-link to="/annotate">
+            <el-button type="primary"> 开始标注</el-button></router-link
+          >
+        </div>
+      </el-form-item>
+      <el-form-item label="标注分类">
         <el-table
           ref="singleTable"
           :data="$store.state.annotate.labelsInfo"
@@ -13,11 +20,11 @@
           style="width: 100%"
         >
           <el-table-column type="index" width="50"> </el-table-column>
-          <el-table-column label="标签文字">
+          <el-table-column label="分类文字">
             <span slot-scope="scope"> {{ scope.row.value }}</span>
           </el-table-column>
 
-          <el-table-column label="标签颜色" width="120">
+          <el-table-column label="分类颜色" width="120">
             <span slot-scope="scope">
               <el-color-picker
                 v-model="scope.row.color"
@@ -53,14 +60,7 @@
             class="button-new-tag"
             size="small"
             @click="showInput"
-            >添加新标签（按回车键添加）</el-button
-          >
-        </div>
-      </el-form-item>
-      <el-form-item>
-        <div>
-          <router-link to="/annotate">
-            <el-button type="primary"> 开始标注</el-button></router-link
+            >添加新分类（按回车键添加）</el-button
           >
         </div>
       </el-form-item>
@@ -93,7 +93,7 @@ export default {
       return "";
     },
     /**
-     * 删除标签
+     * 删除分类
      */
     handleDelete(index) {
       this.$store.state.annotate.labelsInfo.splice(index, 1);
@@ -108,7 +108,7 @@ export default {
       });
     },
     /**
-     * 添加标签
+     * 添加分类
      */
     handleInputConfirm() {
       let inputValue = this.inputValue;
