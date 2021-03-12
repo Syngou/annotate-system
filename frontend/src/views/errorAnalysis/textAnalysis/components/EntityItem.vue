@@ -7,7 +7,7 @@
             :data-label="standardType"
             :style="{
               backgroundColor: standardColor,
-              color: standardColor == '#ffffff' ? 'black' : 'white',
+              color: 'black',
             }"
             class="highlight__standard"
           ></span>
@@ -16,7 +16,7 @@
             :data-label="predictType"
             :style="{
               backgroundColor: predictColor,
-              color: predictColor == '#ffffff' ? 'black' : 'white',
+              color: 'black',
             }"
             class="highlight__label"
           />

@@ -56,7 +56,7 @@ export default {
      */
     pickColor(type) {
       for (const label of this.labels) {
-        if (label.text === type) {
+        if (label.text && label.text == type) {
           return label.color;
         }
       }

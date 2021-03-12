@@ -1,7 +1,7 @@
 <template>
   <div class="topNavigation">
     <span class="title">医疗文本标注平台</span>
-<!--    <a @click="$bus.$emit('showAnnotate')">自动化标注</a>-->
+    <!--    <a @click="$bus.$emit('showAnnotate')">自动化标注</a>-->
     <a @click="uploadData">上传</a>
     <router-link v-if="!avatar" to="/login" style="float: right"
       >登录</router-link
@@ -9,7 +9,11 @@
     <div v-else class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="avatar + '?imageView2/1/w/80/h/80'" class="user-avatar"  alt="用户头像"/>
+          <img
+            :src="avatar + '?imageView2/1/w/80/h/80'"
+            class="user-avatar"
+            alt="用户头像"
+          />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
@@ -18,13 +22,16 @@
           <router-link to="/profile">
             <el-dropdown-item> 个人中心 </el-dropdown-item>
           </router-link>
+          <router-link to="/text/setting">
+            <el-dropdown-item> 标注设置 </el-dropdown-item>
+          </router-link>
           <el-dropdown-item divided @click.native="logout">
             <span style="display: block">退出</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-<!--    <AutoAnnotate></AutoAnnotate>-->
+    <!--    <AutoAnnotate></AutoAnnotate>-->
   </div>
 </template>
 

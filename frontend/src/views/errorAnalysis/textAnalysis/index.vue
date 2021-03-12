@@ -59,8 +59,13 @@ export default {
     getText().then((res) => {
       this.labelArray.push(...res.data.labels);
       for (let i = 0; i < this.labelArray.length; i++) {
-        this.labelArray[i]["color"] = this.$store.state.annotate.colorArray[i];
+        if (this.labelArray[i]["text"]) {
+          this.labelArray[i]["color"] = this.$store.state.annotate.colorArray[
+            i
+          ];
+        }
       }
+
       this.annotationArray = res.data.annotations;
     });
   },

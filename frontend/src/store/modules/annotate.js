@@ -1,18 +1,23 @@
+import Cookies from "js-cookie";
+//用户标注设置
+let userAnnotateSetting = Cookies.getJSON("annotate-custom-setting");
 const state = {
     selectionText: "", //选中的文本
     fontSize: 16, //初始字体大小
     isUpload: false, //是否上传数据，目前还没有用上
     textTitle: "",
-    labelsInfo: [
-        { value: "药物", color: "#fa0404" },
-        { value: "医生", color: "#fd0dad" },
-        { value: "器械", color: "#8406f3" },
-        { value: "地点", color: "#d462ee" },
-        { value: "关系", color: "#ff9b06" },
-        { value: "疾病", color: "#e3fc07" },
-        { value: "患者", color: "#058f32" },
-        { value: "病毒", color: "#1f74c9" },
-    ],
+    labelsInfo: userAnnotateSetting
+        ? userAnnotateSetting
+        : [
+              { value: "药物", color: "#fa0404" },
+              { value: "医生", color: "#fd0dad" },
+              { value: "器械", color: "#8406f3" },
+              { value: "地点", color: "#d462ee" },
+              { value: "关系", color: "#ff9b06" },
+              { value: "疾病", color: "#e3fc07" },
+              { value: "患者", color: "#058f32" },
+              { value: "病毒", color: "#1f74c9" },
+          ],
     data: [[], [], [], [], [], [], [], [], [], []], //存储四种类型的已标注的词语
     colorArray: [
         //标签颜色

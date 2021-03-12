@@ -21,16 +21,18 @@ module.exports = [
             }
             temp = [];
             let annotations = [];
+            let types = result;
+            types.push({});
             for (let i = 0; i < 5; i++) {
                 let text = Mock.mock("@cparagraph(10)");
                 for (let j = 0; j < text.length; j++) {
                     temp.push({
                         value: text[j],
                         standard_type:
-                            result[Math.floor(Math.random() * result.length)]
+                            types[Math.floor(Math.random() * types.length)]
                                 .text,
                         predict_type:
-                            result[Math.floor(Math.random() * result.length)]
+                            types[Math.floor(Math.random() * types.length)]
                                 .text,
                         standard_label: ["B", "I", "O"][
                             Math.floor(Math.random() * 3)

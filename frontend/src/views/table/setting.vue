@@ -2,13 +2,11 @@
   <div class="app-container">
     <el-form label-position="top" label-width="80px" :model="settingForm">
       <el-form-item label="文本标题">
-        <span>{{ settingForm.textTitle }}</span>
+        <span style="color: red">{{ settingForm.textTitle }}</span>
       </el-form-item>
       <el-form-item>
         <div>
-          <router-link to="/annotate">
-            <el-button type="primary"> 开始标注</el-button></router-link
-          >
+          <el-button type="primary" @click="goToAnnotate"> 开始标注</el-button>
         </div>
       </el-form-item>
       <el-form-item label="标注分类">
@@ -18,20 +16,11 @@
           :row-class-name="tableRowClassName"
           style="width: 100%"
         >
-          <el-table-column type="index" width="50"> </el-table-column>
-          <el-table-column label="分类文字">
+          <el-table-column type="index" width="50" label="序号" />
+          <el-table-column label="分类文字" width="200">
             <template slot-scope="scope">
               <template v-if="scope.$index == editCurrent">
-                <el-input v-model="editValue" class="edit-input" size="small" />
-                <el-button
-                  class="cancel-btn"
-                  size="small"
-                  icon="el-icon-refresh"
-                  type="warning"
-                  @click="cancelEdit(scope.row)"
-                >
-                  取消
-                </el-button>
+                <el-input v-model="editValue" size="small" />
               </template>
               <span v-else> {{ scope.row.value }}</span>
             </template>
@@ -46,7 +35,7 @@
               />
             </span>
           </el-table-column>
-          <el-table-column align="center" label="操作">
+          <el-table-column align="center" width="350" label="操作">
             <span slot-scope="scope">
               <el-button
                 size="mini"
@@ -54,15 +43,26 @@
                 @click="handleDelete(scope.$index)"
                 >删除</el-button
               >
-              <el-button
-                v-if="scope.$index == editCurrent"
-                type="success"
-                size="small"
-                icon="el-icon-circle-check-outline"
-                @click="confirmEdit(scope.row)"
-              >
-                确定
-              </el-button>
+
+              <span v-if="scope.$index == editCurrent">
+                <el-button
+                  style="margin-left: 10px"
+                  type="success"
+                  size="mini"
+                  icon="el-icon-circle-check-outline"
+                  @click="confirmEdit(scope.row)"
+                >
+                  确定
+                </el-button>
+                <el-button
+                  size="mini"
+                  icon="el-icon-refresh"
+                  type="warning"
+                  @click="cancelEdit(scope.row)"
+                >
+                  取消
+                </el-button>
+              </span>
               <el-button
                 v-else
                 type="primary"
@@ -100,6 +100,7 @@
 </template>
 
 <script>
+import Cookies from "js-cookie";
 export default {
   data() {
     return {
@@ -107,7 +108,7 @@ export default {
       settingForm: {
         textTitle: this.$store.state.annotate.textTitle
           ? this.$store.state.annotate.textTitle
-          : "尚未选择标注文本",
+          : "您尚未选择标注文本",
       },
       inputVisible: false, //输入框的显隐
       inputValue: "", //输入框的值
@@ -175,6 +176,18 @@ export default {
       this.editValue = "";
       this.editCurrent = -1;
     },
+    /**
+     * 前往标注页面
+     */
+    goToAnnotate() {
+      //存储用户设置
+      Cookies.set(
+        "annotate-custom-setting",
+        this.$store.state.annotate.labelsInfo,
+        { expires: 365 * 20 }
+      );
+      this.$router.push("/annotate");
+    },
   },
 };
 </script>
@@ -182,13 +195,5 @@ export default {
 <style>
   .el-table .success-row {
     background: #ebf0fa;
-  }
-  .edit-input {
-    padding-right: 100px;
-  }
-  .cancel-btn {
-    position: absolute;
-    right: 15px;
-    top: 20px;
   }
 </style>
