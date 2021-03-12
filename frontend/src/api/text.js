@@ -1,9 +1,12 @@
 import request from "@/utils/request";
 
-export function getText(params) {
+/**
+ * 获取文本分析数据
+ * @returns 文本分析数据
+ */
+export function getText() {
     return request({
         url: "/mockjs/error/text",
         method: "get",
-        params,
     });
 }

@@ -75,7 +75,7 @@ export default {
 
     /**
      * @description 获取选中文本，鼠标位置加上滚动距离
-     * @param 窗口事件
+     * @param e 事件
      */
     getSelection(e) {
       if (window.getSelection().toString() !== "") {

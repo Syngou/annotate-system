@@ -30,6 +30,9 @@ export default {
     },
   },
   methods: {
+    /**
+     * 更新用户信息
+     */
     submit() {
       this.$message({
         message: "用户信息更新成功",

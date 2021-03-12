@@ -79,7 +79,7 @@ export default {
             //把分割出来的字符串分别标注
             for (let j = 0; j < array.length; j++) {
                 if (array[j].length !== 0) {
-                    store.state.annotate.data[i].push(array[j]);
+                    store.state.annotate.annotateData[i].push(array[j]);
                     essay.innerHTML = essay.innerHTML.replaceAll(
                         array[j],
                         `<span style='${this.textStyle(i)}'>${

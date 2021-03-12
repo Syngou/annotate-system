@@ -4,7 +4,8 @@
       v-show="!isUploaded"
       class="upload-demo"
       drag
-      action="http://10.61.144.165:8000/error_analysis/file_upload/"
+      accept="text/plain"
+      action="http://localhost:8000/error_analysis/file_upload/"
       name="analysis_file"
       :on-success="handleSuccess"
       :on-error="handleError"
@@ -13,7 +14,7 @@
       <i class="el-icon-upload"></i>
       <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
       <div class="el-upload__tip" slot="tip">
-        只能上传word/txt文件，且不超过500kb
+        只能上传txt文件，且不超过500kb
       </div>
     </el-upload>
     <div v-show="isUploaded">
@@ -40,7 +41,8 @@ export default {
     };
   },
   methods: {
-    handleSuccess() {
+    handleSuccess(response) {
+      console.log(response);
       this.$message.success("上传成功");
       this.isUploaded = true;
     },

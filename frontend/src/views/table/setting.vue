@@ -10,14 +10,16 @@
         </div>
       </el-form-item>
       <el-form-item label="标注分类">
+        <!-- 表格 -->
         <el-table
           ref="singleTable"
           :data="$store.state.annotate.labelsInfo"
           :row-class-name="tableRowClassName"
           style="width: 100%"
         >
+          <!-- 分类文字 -->
           <el-table-column type="index" width="50" label="序号" />
-          <el-table-column label="分类文字" width="200">
+          <el-table-column label="分类文字" min-width="200">
             <template slot-scope="scope">
               <template v-if="scope.$index == editCurrent">
                 <el-input v-model="editValue" size="small" />
@@ -25,7 +27,7 @@
               <span v-else> {{ scope.row.value }}</span>
             </template>
           </el-table-column>
-
+          <!-- 分类颜色 -->
           <el-table-column label="分类颜色" width="120">
             <span slot-scope="scope">
               <el-color-picker
@@ -35,6 +37,7 @@
               />
             </span>
           </el-table-column>
+          <!-- 操作 -->
           <el-table-column align="center" width="350" label="操作">
             <span slot-scope="scope">
               <el-button
@@ -75,6 +78,7 @@
             </span>
           </el-table-column>
         </el-table>
+        <!-- 添加分类 -->
         <div style="margin-top: 20px">
           <el-input
             class="input-new-tag"
@@ -186,6 +190,7 @@ export default {
         this.$store.state.annotate.labelsInfo,
         { expires: 365 * 20 }
       );
+      this.$store.dispatch("annotate/resetAnnotateData");
       this.$router.push("/annotate");
     },
   },

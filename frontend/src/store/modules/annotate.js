@@ -5,20 +5,18 @@ const state = {
     selectionText: "", //选中的文本
     fontSize: 16, //初始字体大小
     isUpload: false, //是否上传数据，目前还没有用上
-    textTitle: "",
-    labelsInfo: userAnnotateSetting
+    textTitle: "", //标注文本标题
+    labelsInfo: userAnnotateSetting //分类信息
         ? userAnnotateSetting
         : [
               { value: "药物", color: "#fa0404" },
               { value: "医生", color: "#fd0dad" },
               { value: "器械", color: "#8406f3" },
-              { value: "地点", color: "#d462ee" },
-              { value: "关系", color: "#ff9b06" },
               { value: "疾病", color: "#e3fc07" },
               { value: "患者", color: "#058f32" },
               { value: "病毒", color: "#1f74c9" },
           ],
-    data: [[], [], [], [], [], [], [], [], [], []], //存储四种类型的已标注的词语
+    annotateData: [[], [], [], [], [], []], //存储四种类型的已标注的词语
     colorArray: [
         //标签颜色
         "#fa0404",
@@ -55,6 +53,16 @@ const state = {
             `, //文本内容
 };
 
+/**
+ * 因为用户可能已经自定义了标注分类，所以要判断一下
+ */
+if (userAnnotateSetting) {
+    state.annotateData = [];
+    for (let i = 0; i < userAnnotateSetting.length; i++) {
+        state.annotateData.push([]);
+    }
+}
+
 const mutations = {
     /**
      * @description 将标注文本添加列表，并上传至后台，（可以不必每次都提交，不然后台压力太大，这里只是演示）
@@ -64,7 +72,7 @@ const mutations = {
     addToList: (state, info) => {
         let text = info.text;
         let index = parseInt(info.id.charAt(0));
-        state.data[index].push(text);
+        state.annotateData[index].push(text);
     },
     /**
      * @description 删除list中的标注记录
@@ -73,9 +81,9 @@ const mutations = {
      */
     deleteAnnotatedText: (state, info) => {
         let index = parseInt(info.type.split("-")[0]);
-        for (let i = state.data.length - 1; i >= 0; i--) {
-            if (state.data[index][i] == info.text) {
-                state.data[index].splice(i, 1);
+        for (let i = state.annotateData.length - 1; i >= 0; i--) {
+            if (state.annotateData[index][i] === info.text) {
+                state.annotateData[index].splice(i, 1);
                 break;
             }
         }
@@ -90,8 +98,13 @@ const mutations = {
      * @description 重置已标注数据
      * @param {*} state
      */
-    resetData: (state) => {
-        state.data = [[], [], [], [], [], [], [], [], [], []];
+    resetAnnotateData: (state) => {
+        // TODO 有没有更好的办法重置呢
+        state.annotateData = [];
+        let length = state.labelsInfo.length;
+        for (let i = 0; i < length; i++) {
+            state.annotateData.push([]);
+        }
     },
     /**
      * 设置标注文本
@@ -108,8 +121,8 @@ const actions = {
     deleteAnnotatedText({ commit }, info) {
         commit("deleteAnnotatedText", info);
     },
-    resetData({ commit }) {
-        commit("resetData");
+    resetAnnotateData({ commit }) {
+        commit("resetAnnotateData");
     },
     setTextTitle({ commit }, title) {
         commit("setTextTitle", title);

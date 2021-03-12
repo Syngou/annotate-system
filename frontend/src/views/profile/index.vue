@@ -52,6 +52,9 @@ export default {
     this.getUser();
   },
   methods: {
+    /**
+     * 获取用户信息
+     */
     getUser() {
       this.user = {
         name: this.name,

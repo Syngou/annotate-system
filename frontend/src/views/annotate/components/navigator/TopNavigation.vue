@@ -46,7 +46,7 @@ export default {
   //   AutoAnnotate,
   // },
   computed: {
-    ...mapGetters(["avatar"]),
+    ...mapGetters(["avatar", "annotateData", "labelsInfo"]),
   },
 
   methods: {
@@ -60,7 +60,11 @@ export default {
      * @description: 标注数据上传后台
      */
     uploadData() {
-      request.postToBackend(this.$store.state.annotate.data).then(() => {
+      let data = {};
+      for (let i = 0; i < this.annotateData.length; i++) {
+        data[this.labelsInfo[i].value] = this.annotateData[i];
+      }
+      request.postToBackend(data).then(() => {
         this.$message.success("上传成功");
         this.drawer = false;
       });

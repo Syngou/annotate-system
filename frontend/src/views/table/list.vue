@@ -152,13 +152,6 @@ export default {
       this.$router.push("setting");
     },
     /**
-     * 前往标注页面
-     */
-    goToAnnotate() {
-      this.$store.dispatch("annotate/resetData");
-      this.$router.push("/annotate");
-    },
-    /**
      * 编辑
      */
     handleEdit(index, rows) {
