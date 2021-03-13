@@ -80,6 +80,7 @@ export default {
     autoAnnotate() {
       this.annotateModal = false;
       annotateUtils.autoAnnotate(this.inputValues);
+      this.inputValues = [];
       //清空数据
     },
   },

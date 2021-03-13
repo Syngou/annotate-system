@@ -76,7 +76,9 @@ export default {
         console.log(data);
         //把字符串分割
         for (let i = 0; i < data.length; i++) {
-            array.push(...data[i].split(" "));
+            if (data[i]) {
+                array.push(...data[i].split(" "));
+            }
             //把分割出来的字符串分别标注
             for (let j = 0; j < array.length; j++) {
                 if (array[j].length !== 0) {
