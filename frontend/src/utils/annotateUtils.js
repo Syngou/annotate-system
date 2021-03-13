@@ -13,7 +13,7 @@ export default {
      * @param index 标注颜色索引
      */
     textStyle(index) {
-        return `border:5px solid ${annotate.state.labelsInfo[index].color};background-color:${annotate.state.labelsInfo[index].color};border-radius: 10px;`;
+        return `border:5px solid ${annotate.state.typesInfo[index].color};background-color:${annotate.state.typesInfo[index].color};border-radius: 10px;`;
     },
     /**
      *
@@ -22,7 +22,7 @@ export default {
      * @param index 标注颜色索引
      */
     annotate(id, index) {
-        let text = store.state.annotate.selectionText.trim();
+        let text = window.getSelection().toString();
         store.dispatch("annotate/addToList", { id, text });
         // 按钮样式   TODO：样式美化
         // 标注文本样式
@@ -73,13 +73,14 @@ export default {
     autoAnnotate(data) {
         let essay = document.getElementById("essay");
         let array = [];
+        console.log(data);
         //把字符串分割
         for (let i = 0; i < data.length; i++) {
             array.push(...data[i].split(" "));
             //把分割出来的字符串分别标注
             for (let j = 0; j < array.length; j++) {
                 if (array[j].length !== 0) {
-                    store.state.annotate.annotateData[i].push(array[j]);
+                    annotate.state.annotateData[i].push(array[j]);
                     essay.innerHTML = essay.innerHTML.replaceAll(
                         array[j],
                         `<span style='${this.textStyle(i)}'>${

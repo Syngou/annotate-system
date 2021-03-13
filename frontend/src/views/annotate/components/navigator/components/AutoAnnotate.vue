@@ -7,7 +7,7 @@
       :width="width"
     >
       <el-collapse>
-        <el-collapse-item title="使用说明">
+        <el-collapse-item title="说明">
           <div>
             一键标注全文，用于机器学习自动标注，后台传来要标注的词，前台进行标注，人工检查是否正确
           </div>
@@ -18,28 +18,22 @@
             </span>
             空格隔开<br />
             <hr />
-            人工标注时不推荐使用<br />
-            <hr />
             <span style="color: red; font-size: 20px"
-              >若要使用，需在最开始时使用（即还未进行标注时），否则会有奇怪的结果</span
+              >需在最开始时使用（即还未进行标注时），否则会有奇怪的结果</span
             >
+            <hr />
+            <span>因为只用于自动化标注，所以部署时此选项不可见</span>
           </div>
         </el-collapse-item>
       </el-collapse>
 
-      <el-input v-model="relation">
-        <span slot="prepend"><el-button>关系</el-button></span>
-      </el-input>
-      <el-input v-model="disease">
-        <span slot="prepend"><el-button>疾病</el-button></span>
-      </el-input>
-      <el-input v-model="medicine">
-        <span slot="prepend"><el-button>药物</el-button></span>
-      </el-input>
-      <el-input v-model="tool">
-        <span slot="prepend"><el-button>器械</el-button></span>
-      </el-input>
-
+      <div v-for="(type, index) in typesInfo" :key="index">
+        <el-input v-model="inputValues[index]">
+          <span slot="prepend"
+            ><el-button>{{ type.value }}</el-button></span
+          >
+        </el-input>
+      </div>
       <span
         slot="footer"
         style="display: flex; justify-content: center; align-items: center"
@@ -52,21 +46,22 @@
 
 <script>
 import annotateUtils from "@/utils/annotateUtils";
+import { mapGetters } from "vuex";
 
 export default {
   name: "AutoAnnotate",
   created() {
-    this.$bus.$on("showAnnotate", () => {
+    this.$bus.$on("autoAnnotate", () => {
       this.annotateModal = true;
     });
+  },
+  computed: {
+    ...mapGetters(["typesInfo"]),
   },
   data() {
     return {
       annotateModal: false, //自动化标注的显示与隐藏
-      relation: "",
-      disease: "",
-      medicine: "",
-      tool: "",
+      inputValues: [], //输入的值
       width: "",
     };
   },
@@ -84,18 +79,8 @@ export default {
      */
     autoAnnotate() {
       this.annotateModal = false;
-      annotateUtils.autoAnnotate([
-        this.relation,
-        this.disease,
-        this.medicine,
-        this.tool,
-      ]);
-
+      annotateUtils.autoAnnotate(this.inputValues);
       //清空数据
-      this.relation = "";
-      this.disease = "";
-      this.medicine = "";
-      this.tool = "";
     },
   },
 };

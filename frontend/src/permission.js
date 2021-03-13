@@ -1,14 +1,14 @@
 import { getToken } from "@/utils/auth"; // get token from cookie
 import getPageTitle from "@/utils/get-page-title";
 import { Message } from "element-ui";
-import NProgress from "nprogress"; // progress bar
-import "nprogress/nprogress.css"; // progress bar style
+import NProgress from "nprogress"; // 进度条
+import "nprogress/nprogress.css"; // 进度栏样式
 import router from "./router";
 import store from "./store";
 
-NProgress.configure({ showSpinner: false }); // NProgress Configuration
+NProgress.configure({ showSpinner: false }); // NProgress配置
 
-const whiteList = ["/login", "/annotate", "/register", "/temp"]; // no redirect whitelist
+const whiteList = ["/login", "/annotate", "/register", "/temp"]; // 没有重定向白名单
 
 router.beforeEach(async (to, from, next) => {
     // start progress bar

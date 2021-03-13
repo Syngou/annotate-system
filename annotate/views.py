@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import json
 
 from django.http import HttpResponse
@@ -13,7 +12,7 @@ def r(code, message, data):
 def translate_view(request):
     text = request.GET.get('text')
     return HttpResponse(
-        json.dumps(r(20000, '发送过来的数据为==>  ' + text + '  \n翻译结果为...', {})))
+        json.dumps(r(20000, '发送过来的数据为 ==>  ' + text + '  \n翻译结果为...', {})))
 
 
 # 标注数据上传接口
@@ -30,5 +29,4 @@ def upload_view(request):
 def error_analysis_file_upload(request):
     file = request.FILES.get('analysis_file')
     print(file)
-
     return HttpResponse(json.dumps(r(20000, '上传成功', {'file': 'django'})))

@@ -1,7 +1,7 @@
 <template>
   <div class="topNavigation">
     <span class="title">医疗文本标注平台</span>
-    <!--    <a @click="$bus.$emit('showAnnotate')">自动化标注</a>-->
+    <a @click="$bus.$emit('autoAnnotate')">自动化标注</a>
     <a @click="uploadData">上传</a>
     <router-link v-if="!avatar" to="/login" style="float: right"
       >登录</router-link
@@ -31,22 +31,22 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-    <!--    <AutoAnnotate></AutoAnnotate>-->
+    <AutoAnnotate></AutoAnnotate>
   </div>
 </template>
 
 <script>
-// import AutoAnnotate from "./components/AutoAnnotate";
+import AutoAnnotate from "./components/AutoAnnotate";
 import { mapGetters } from "vuex";
 import request from "@/api/annotatePageApi";
 
 export default {
   name: "TopNavigation",
-  // components: {
-  //   AutoAnnotate,
-  // },
+  components: {
+    AutoAnnotate,
+  },
   computed: {
-    ...mapGetters(["avatar", "annotateData", "labelsInfo"]),
+    ...mapGetters(["avatar", "annotateData", "typesInfo"]),
   },
 
   methods: {
@@ -62,7 +62,7 @@ export default {
     uploadData() {
       let data = {};
       for (let i = 0; i < this.annotateData.length; i++) {
-        data[this.labelsInfo[i].value] = this.annotateData[i];
+        data[this.typesInfo[i].value] = this.annotateData[i];
       }
       request.postToBackend(data).then(() => {
         this.$message.success("上传成功");
@@ -127,7 +127,6 @@ export default {
 
       &.hover-effect {
         cursor: pointer;
-        transition: background 0.3s;
 
         &:hover {
           background: rgba(0, 0, 0, 0.025);

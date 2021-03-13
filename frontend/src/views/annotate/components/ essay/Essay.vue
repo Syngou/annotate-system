@@ -2,7 +2,7 @@
   <div id="paper">
     <div class="fixed-button">
       <button
-        v-for="(info, index) in $store.state.annotate.labelsInfo"
+        v-for="(info, index) in $store.state.annotate.typesInfo"
         :style="{ backgroundColor: info.color }"
         :key="index"
         @click="annotateText(index + '-' + $store.state.annotate.id, index)"
@@ -14,7 +14,7 @@
     <!-- 标注选项对话框 -->
     <div class="dialog" ref="showDialog" v-show="showDialog">
       <button
-        v-for="(info, index) in $store.state.annotate.labelsInfo"
+        v-for="(info, index) in $store.state.annotate.typesInfo"
         :style="{ backgroundColor: info.color }"
         :key="index"
         @click="annotateText(index + '-' + $store.state.annotate.id, index)"
@@ -36,7 +36,7 @@
       ref="essay"
       id="essay"
       @mouseup="getSelection($event)"
-      class="input-content"
+      class="essay-content"
       :style="'font-size:' + $store.state.annotate.fontSize + 'px'"
       v-html="$store.state.annotate.annotateText"
     ></pre>
@@ -66,7 +66,7 @@ export default {
     /**
      * @description 在鼠标位置弹出对话框
      */
-    showSelectBox(X, Y) {
+    setBoxPosition(X, Y) {
       this.$refs.showDialog.style.left = X - 100 + "px";
       this.$refs.showDialog.style.top = Y + 20 + "px";
       this.$refs.translateCard.style.left = X + 10 + "px";
@@ -80,11 +80,8 @@ export default {
     getSelection(e) {
       if (window.getSelection().toString() !== "") {
         this.selectText = window.getSelection().toString();
-        this.$store.state.annotate.selectionText = window
-          .getSelection()
-          .toString();
         // 加上滚轮滚动距离才是y轴长度！！！
-        this.showSelectBox(
+        this.setBoxPosition(
           e.clientX,
           e.clientY + document.documentElement.scrollTop
         );
@@ -106,7 +103,8 @@ export default {
     },
 
     /**
-     * @description 翻译  TODO：等待接口
+     * TODO 等待接口
+     * @description 翻译
      */
     translateText() {
       this.showDialog = false;
@@ -146,6 +144,7 @@ export default {
       outline: none;
     }
   }
+  /* 固定按钮 */
   .fixed-button {
     position: fixed;
     top: 50px;
@@ -160,7 +159,7 @@ export default {
   }
 
   /* 文本样式 */
-  .input-content {
+  .essay-content {
     margin-top: 100px;
     overflow: auto;
     flex: auto;

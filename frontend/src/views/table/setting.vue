@@ -13,7 +13,7 @@
         <!-- 表格 -->
         <el-table
           ref="singleTable"
-          :data="$store.state.annotate.labelsInfo"
+          :data="$store.state.annotate.typesInfo"
           :row-class-name="tableRowClassName"
           style="width: 100%"
         >
@@ -134,7 +134,7 @@ export default {
      * 删除分类
      */
     handleDelete(index) {
-      this.$store.state.annotate.labelsInfo.splice(index, 1);
+      this.$store.state.annotate.typesInfo.splice(index, 1);
     },
     /**
      * 显示输入框
@@ -151,7 +151,7 @@ export default {
     handleInputConfirm() {
       let inputValue = this.inputValue;
       if (inputValue) {
-        this.$store.state.annotate.labelsInfo.push({
+        this.$store.state.annotate.typesInfo.push({
           value: inputValue,
           color: "red",
         });
@@ -187,7 +187,7 @@ export default {
       //存储用户设置
       Cookies.set(
         "annotate-custom-setting",
-        this.$store.state.annotate.labelsInfo,
+        this.$store.state.annotate.typesInfo,
         { expires: 365 * 20 }
       );
       this.$store.dispatch("annotate/resetAnnotateData");

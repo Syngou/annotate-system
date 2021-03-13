@@ -166,7 +166,7 @@ export default {
               this.loading = false;
             });
         } else {
-          console.log("error submit!!");
+          console.log("提交错误!!");
           return false;
         }
       });

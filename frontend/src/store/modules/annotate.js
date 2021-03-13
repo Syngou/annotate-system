@@ -2,11 +2,10 @@ import Cookies from "js-cookie";
 //用户标注设置
 let userAnnotateSetting = Cookies.getJSON("annotate-custom-setting");
 const state = {
-    selectionText: "", //选中的文本
     fontSize: 16, //初始字体大小
     isUpload: false, //是否上传数据，目前还没有用上
     textTitle: "", //标注文本标题
-    labelsInfo: userAnnotateSetting //分类信息
+    typesInfo: userAnnotateSetting //分类信息
         ? userAnnotateSetting
         : [
               { value: "药物", color: "#fa0404" },
@@ -65,7 +64,7 @@ if (userAnnotateSetting) {
 
 const mutations = {
     /**
-     * @description 将标注文本添加列表，并上传至后台，（可以不必每次都提交，不然后台压力太大，这里只是演示）
+     * @description 将标注文本添加列表，并上传至后台
      * @param  state
      * @param  info 对象，存id和文本
      */
@@ -101,7 +100,7 @@ const mutations = {
     resetAnnotateData: (state) => {
         // TODO 有没有更好的办法重置呢
         state.annotateData = [];
-        let length = state.labelsInfo.length;
+        let length = state.typesInfo.length;
         for (let i = 0; i < length; i++) {
             state.annotateData.push([]);
         }
