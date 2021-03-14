@@ -3,7 +3,6 @@
     <el-card shadow="hover">
       <ul>
         <li>{{ result.code }}</li>
-        <li>{{ result.message }}</li>
         <li>{{ result.data }}</li>
       </ul>
     </el-card>

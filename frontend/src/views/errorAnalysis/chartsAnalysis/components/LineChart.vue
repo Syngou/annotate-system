@@ -56,7 +56,7 @@ export default {
     setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
         xAxis: {
-          data: ["关系", "药物", "疾病", "器械", "患者"],
+          data: ["关系", "药物", "疾病", "器械", "患者", "医生", "病毒"],
           boundaryGap: false,
           axisTick: {
             show: false,

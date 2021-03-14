@@ -18,8 +18,8 @@ import LineChart from "./components/LineChart";
 import BarChart from "./components/BarChart";
 
 const lineChartData = {
-  expectedData: [100, 120, 161, 134, 132],
-  actualData: [120, 82, 91, 154, 132],
+  expectedData: [100, 120, 161, 134, 124, 113, 132],
+  actualData: [120, 82, 91, 154, 178, 153, 132],
 };
 
 export default {

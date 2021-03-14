@@ -52,6 +52,13 @@ export default {
             type: "cross",
           },
         },
+        grid: {
+          left: 10,
+          right: 10,
+          bottom: 20,
+          top: 70,
+          containLabel: true,
+        },
         title: {
           text: "模型预测错误个数",
           left: "center",
@@ -63,12 +70,12 @@ export default {
 
         xAxis: {
           type: "category",
-          data: ["关系", "疾病", "患者", "药物", "器械"],
+          data: ["关系", "疾病", "患者", "药物", "器械", "医生", "病毒"],
         },
 
         series: [
           {
-            data: [100, 80, 95, 83, 73],
+            data: [100, 80, 95, 83, 73, 61, 88],
             type: "bar",
           },
         ],
