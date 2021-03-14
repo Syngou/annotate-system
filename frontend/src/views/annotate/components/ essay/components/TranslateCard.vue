@@ -14,12 +14,7 @@
 export default {
   name: "TranslateCard",
   props: {
-    result: {
-      type: Object,
-      default() {
-        return "translate result";
-      },
-    },
+    result: Object,
   },
   methods: {},
 };
