@@ -77,6 +77,7 @@ export default {
      * @description 获取选中文本，鼠标位置加上滚动距离
      * @param e 事件
      */
+    // TODO 添加一个点击空白处取消标注的功能
     getSelection(e) {
       if (window.getSelection().toString() !== "") {
         this.selectText = window.getSelection().toString();

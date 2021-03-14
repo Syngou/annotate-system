@@ -24,7 +24,8 @@ export default {
     annotate(id, index) {
         let text = window.getSelection().toString();
         store.dispatch("annotate/addToList", { id, text });
-        // 按钮样式   TODO：样式美化
+        // 按钮样式
+        // TODO：样式美化
         // 标注文本样式
         let annotatedTestStyle = this.textStyle(index);
         // 选中不为空
@@ -68,7 +69,7 @@ export default {
     /**
      *
      * @description 机器学习自动化标注
-     * @params data ==> 后台传来的数据，一维字符串数组，长度为四，对应四种标注类型
+     * @params data ==> 后台传来的数据，一维字符串数组
      */
     autoAnnotate(data) {
         let essay = document.getElementById("essay");
