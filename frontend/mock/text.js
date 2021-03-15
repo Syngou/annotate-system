@@ -22,7 +22,7 @@ module.exports = [
             temp = [];
             let annotations = [];
             let types = result;
-            types.push({});
+            types.push({}, {}, {}, {}, {}, {});
             for (let i = 0; i < 5; i++) {
                 let text = Mock.mock("@cparagraph(10)");
                 for (let j = 0; j < text.length; j++) {

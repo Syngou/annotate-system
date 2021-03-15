@@ -11,8 +11,8 @@ import router from "./router";
 import store from "./store";
 
 if (process.env.NODE_ENV === "production") {
-    const { mockXHR } = require("../mock");
-    mockXHR();
+  const { mockXHR } = require("../mock");
+  mockXHR();
 }
 
 Vue.prototype.$bus = new Vue();
@@ -22,8 +22,8 @@ Vue.use(VueParticles);
 Vue.config.productionTip = false;
 
 new Vue({
-    el: "#app",
-    router,
-    store,
-    render: (h) => h(App),
+  el: "#app",
+  router,
+  store,
+  render: (h) => h(App),
 });

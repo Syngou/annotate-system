@@ -15,7 +15,7 @@ def error(message):
 
 
 # 翻译接口
-def translate_view(request):
+def translate(request):
     text = request.GET.get('text')
     print(text)
     # 这里演示了ok() 和 error() 的使用方法
@@ -26,7 +26,7 @@ def translate_view(request):
 
 
 # 标注数据上传接口
-def upload_view(request):
+def annotate_data_upload(request):
     # 上传的数据中每种类型可能会有多个词，所以还要进行分词操作，这里就不做了
     if request.method == 'POST':
         data = request.body
