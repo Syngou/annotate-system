@@ -112,12 +112,8 @@ export default {
       let text = window.getSelection().toString();
       request.translate(text).then((res) => {
         this.translateResult = res;
-        this.$message({
-          type: "success",
-          message: res.message,
-          showClose: true,
-        });
         this.showTranslateCard = true;
+        console.log(res);
       });
     },
   },

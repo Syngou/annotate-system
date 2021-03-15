@@ -38,7 +38,7 @@ export default {
         },
         {
           timestamp: "2019/4/23",
-          title: "退出登录",
+          title: "注销登录状态",
           content: "Syngou committed 2019/4/23 20:46",
         },
       ],

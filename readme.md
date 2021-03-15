@@ -29,9 +29,8 @@
 npm install
 npm run serve
 ```
-* 执行以下命令运行后端服务器
+* 新建终端，进入到 manage.py 文件所在目录，执行以下命令运行后端服务器
 ```
-cd ..
 python manage.py runserver
 ```
 * 接着用前端页面试着标注几个词，然后发送给后台看看效果(看终端的输出）

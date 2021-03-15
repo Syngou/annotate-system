@@ -3,13 +3,13 @@ module.exports = {
 
     /**
      * @type {boolean} true | false
-     * @description Whether fix the header
+     * @description 是否修复标题
      */
     fixedHeader: false,
 
     /**
      * @type {boolean} true | false
-     * @description Whether show the logo in sidebar
+     * @description 是否在边栏中显示徽标
      */
     sidebarLogo: false,
 };

@@ -24,11 +24,10 @@ service.interceptors.response.use(
                 message: res.message || "Error",
                 duration: 3 * 1000,
             });
+            return Promise.reject(new Error(res.message || "请求发生错误"));
         } else {
             return res;
         }
-        // console.log(response);
-        // return response;
     },
     (error) => {
         Message({

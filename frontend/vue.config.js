@@ -6,24 +6,11 @@ function resolve(dir) {
     return path.join(__dirname, dir);
 }
 
-const name = defaultSettings.title || "医疗文本标注系统"; // page title
+const name = defaultSettings.title || "医疗文本标注系统";
 
-// If your port is set to 80,
-// use administrator privileges to execute the command line.
-// For example, Mac: sudo npm run
-// You can change the port by the following methods:
-// port = 9528 npm run dev OR npm run dev --port = 9528
-const port = process.env.port || process.env.npm_config_port || 9528; // dev port
+const port = process.env.port || process.env.npm_config_port || 9528;
 
-// All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
-    /**
-     * You will need to set publicPath if you plan to deploy your site under a sub path,
-     * for example GitHub Pages. If you plan to deploy your site to https://foo.github.io/bar/,
-     * then publicPath should be set to "/bar/".
-     * In most cases please use '/' !!!
-     * Detail: https://cli.vuejs.org/config/#publicpath
-     */
     publicPath: process.env.NODE_ENV !== "production" ? "/" : "/annotate/",
     // publicPath:
     //     process.env.NODE_ENV !== "production"
@@ -44,8 +31,6 @@ module.exports = {
         before: require("./mock/mock-server.js"),
     },
     configureWebpack: {
-        // provide the app's title in webpack's name field, so that
-        // it can be accessed in index.html to inject the correct title.
         name: name,
         resolve: {
             alias: {
@@ -54,12 +39,10 @@ module.exports = {
         },
     },
     chainWebpack(config) {
-        // it can improve the speed of the first screen, it is recommended to turn on preload
+        // 它可以提高第一个屏幕的速度，建议打开预加载
         config.plugin("preload").tap(() => [
             {
                 rel: "preload",
-                // to ignore runtime.js
-                // https://github.com/vuejs/vue-cli/blob/dev/packages/@vue/cli-service/lib/config/app.js#L171
                 fileBlacklist: [
                     /\.map$/,
                     /hot-update\.js$/,
@@ -69,10 +52,10 @@ module.exports = {
             },
         ]);
 
-        // when there are many pages, it will cause too many meaningless requests
+        //当页面很多时，将导致太多毫无意义的请求
         config.plugins.delete("prefetch");
 
-        // set svg-sprite-loader
+        // 设置svg-sprite-loader
         config.module.rule("svg").exclude.add(resolve("src/icons")).end();
         config.module
             .rule("icons")
@@ -92,7 +75,7 @@ module.exports = {
                 .after("html")
                 .use("script-ext-html-webpack-plugin", [
                     {
-                        // `runtime` must same as runtimeChunk name. default is `runtime`
+                        // `runtime`必须与runtimeChunk名称相同。默认是“运行时”
                         inline: /runtime\..*\.js$/,
                     },
                 ])
@@ -104,23 +87,22 @@ module.exports = {
                         name: "chunk-libs",
                         test: /[\\/]node_modules[\\/]/,
                         priority: 10,
-                        chunks: "initial", // only package third parties that are initially dependent
+                        chunks: "initial", // 仅打包最初依赖的第三方
                     },
                     elementUI: {
-                        name: "chunk-elementUI", // split elementUI into a single package
-                        priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
-                        test: /[\\/]node_modules[\\/]_?element-ui(.*)/, // in order to adapt to cnpm
+                        name: "chunk-elementUI", // 将elementUI拆分为一个包
+                        priority: 20, // 重量需要大于libs和app，否则将被打包到libs or app
+                        test: /[\\/]node_modules[\\/]_?element-ui(.*)/, // 为了适应cnpm
                     },
                     commons: {
                         name: "chunk-commons",
-                        test: resolve("src/components"), // can customize your rules
-                        minChunks: 3, //  minimum common number
+                        test: resolve("src/components"), // 可以自定义您的规则
+                        minChunks: 3, //  最小共同数
                         priority: 5,
                         reuseExistingChunk: true,
                     },
                 },
             });
-            // https:// webpack.js.org/configuration/optimization/#optimizationruntimechunk
             config.optimization.runtimeChunk("single");
         });
     },

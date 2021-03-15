@@ -26,7 +26,7 @@
             <el-dropdown-item> 标注设置 </el-dropdown-item>
           </router-link>
           <el-dropdown-item divided @click.native="logout">
-            <span style="display: block">退出</span>
+            <span style="display: block">注销</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -51,7 +51,7 @@ export default {
 
   methods: {
     /**
-     * @description 退出登录状态
+     * @description 注销登录状态
      */
     async logout() {
       await this.$store.dispatch("user/logout");
