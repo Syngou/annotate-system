@@ -2,9 +2,9 @@
   <div id="paper">
     <div class="fixed-button">
       <button
-        v-for="(info, index) in $store.state.annotate.typesInfo"
-        :style="{ backgroundColor: info.color }"
+        v-for="(info, index) in typesInfo"
         :key="index"
+        :style="{ backgroundColor: info.color }"
         @click="annotateText(index + '-' + $store.state.annotate.id, index)"
       >
         {{ info.value }}
@@ -12,19 +12,21 @@
     </div>
 
     <!-- 标注选项对话框 -->
-    <div class="dialog" ref="showDialog" v-show="showDialog">
+    <div v-show="showDialog" ref="showDialog" class="dialog">
       <button
-        v-for="(info, index) in $store.state.annotate.typesInfo"
-        :style="{ backgroundColor: info.color }"
+        v-for="(info, index) in typesInfo"
         :key="index"
+        :style="{ backgroundColor: info.color }"
         @click="annotateText(index + '-' + $store.state.annotate.id, index)"
       >
         {{ info.value }}
       </button>
-      <button @click="translateText">翻译</button>
+      <button @click="translateText">
+        翻译
+      </button>
     </div>
     <!-- 翻译结果显示 -->
-    <div v-show="showTranslateCard" class="translate-card" ref="translateCard">
+    <div v-show="showTranslateCard" ref="translateCard" class="translate-card">
       <i
         class="el-message__closeBtn el-icon-close delete-button"
         @click="showTranslateCard = false"
@@ -33,13 +35,12 @@
     </div>
     <!-- 论文 -->
     <pre
-      ref="essay"
       id="essay"
-      @mouseup="getSelection($event)"
       class="essay-content"
       :style="'font-size:' + $store.state.annotate.fontSize + 'px'"
+      @mouseup="getSelection($event)"
       v-html="$store.state.annotate.annotateText"
-    ></pre>
+    />
   </div>
 </template>
 
@@ -49,8 +50,13 @@ import TranslateCard from "./components/TranslateCard";
 import annotateUtils from "@/utils/annotateUtils";
 import request from "@/api/annotatePageApi";
 
+import { mapGetters } from "vuex";
+
 export default {
   name: "Essays",
+  components: {
+    TranslateCard,
+  },
   data() {
     return {
       showDialog: false, //显示标注对话框
@@ -59,8 +65,8 @@ export default {
       translateResult: {}, //翻译结果
     };
   },
-  components: {
-    TranslateCard,
+  computed: {
+    ...mapGetters(["typesInfo"]),
   },
   methods: {
     /**
@@ -104,9 +110,9 @@ export default {
     },
 
     /**
-     * TODO 等待接口
      * @description 翻译
      */
+    // TODO 等待接口
     translateText() {
       this.showDialog = false;
       let text = window.getSelection().toString();
@@ -120,61 +126,61 @@ export default {
 };
 </script>
 
-<style scoped lang='scss'>
-  /* 因为是有固定定位，所以要有margin-top */
-  #paper {
-    margin-top: 48.8px;
-  }
+<style scoped lang="scss">
+/* 因为是有固定定位，所以要有margin-top */
+#paper {
+  margin-top: 48.8px;
+}
 
-  /* 标注时对话框的样式 */
-  .dialog {
-    position: absolute;
+/* 标注时对话框的样式 */
+.dialog {
+  position: absolute;
+  border-radius: 10px;
+  background-color: rgb(147, 121, 121);
+  padding: 5px;
+
+  button {
+    border: 1px solid black;
+    margin-left: 10px;
     border-radius: 10px;
-    background-color: rgb(147, 121, 121);
-    padding: 5px;
-
-    button {
-      border: 1px solid black;
-      margin-left: 10px;
-      border-radius: 10px;
-      cursor: pointer;
-      outline: none;
-    }
+    cursor: pointer;
+    outline: none;
   }
-  /* 固定按钮 */
-  .fixed-button {
-    position: fixed;
-    top: 50px;
+}
+/* 固定按钮 */
+.fixed-button {
+  position: fixed;
+  top: 50px;
 
-    button {
-      margin: 10px;
-      border: 1px solid black;
-      border-radius: 10px;
-      cursor: pointer;
-      outline: none;
-    }
+  button {
+    margin: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+    outline: none;
   }
+}
 
-  /* 文本样式 */
-  .essay-content {
-    margin-top: 100px;
-    overflow: auto;
-    flex: auto;
-    min-height: 1000px;
-    padding: 0 5% 0 5%;
-    white-space: pre-line;
-    word-break: break-all;
-    line-height: 25px;
-  }
-  // 翻译卡片
-  .translate-card {
-    width: 200px;
-    position: absolute;
+/* 文本样式 */
+.essay-content {
+  margin-top: 100px;
+  overflow: auto;
+  flex: auto;
+  min-height: 1000px;
+  padding: 0 5% 0 5%;
+  white-space: pre-line;
+  word-break: break-all;
+  line-height: 25px;
+}
+// 翻译卡片
+.translate-card {
+  width: 200px;
+  position: absolute;
 
-    .delete-button {
-      position: relative;
-      top: 25px;
-      left: 182px;
-    }
+  .delete-button {
+    position: relative;
+    top: 25px;
+    left: 182px;
   }
+}
 </style>

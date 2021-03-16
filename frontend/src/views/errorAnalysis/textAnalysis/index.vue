@@ -10,31 +10,36 @@
     <div class="tags-container">
       <span
         class="text-tag"
-        :style="{ backgroundColor: label.color }"
-        v-for="(label, index) in labelArray"
+        v-for="(type, index) in types"
+        :style="{ backgroundColor: type.color }"
         :key="index"
-        >{{ label.text }}</span
+        >{{ type.text }}</span
       >
     </div>
-
     <div
       class="entity-item-box"
       v-for="(text, index) in textArray"
       :key="index"
     >
       <entity-item-box
-        :labels="labelArray"
-        :entities="annotationArray[currentPage * 2 + index - 2]"
+        :labels="types"
+        :entities="
+          annotationArray[currentPage * sentenceCount + index - sentenceCount]
+        "
       />
     </div>
     <div class="page">
-      <el-pagination
-        :current-page.sync="currentPage"
-        :page-size="1"
-        layout="prev, pager, next, jumper"
-        :total="Math.ceil(annotationArray.length / 2)"
-      >
-      </el-pagination>
+      <div class="block">
+        <el-pagination
+          @size-change="handleSizeChange"
+          :current-page.sync="currentPage"
+          :page-sizes="[2, 3, 4, 5]"
+          :page-size="2"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="annotationArray.length"
+        >
+        </el-pagination>
+      </div>
     </div>
   </div>
 </template>
@@ -51,23 +56,13 @@ export default {
   data() {
     return {
       currentPage: 1, //当前页
-      annotationArray: [],
-      labelArray: [],
+      annotationArray: [], //每个字的信息
+      types: [], //分类
+      sentenceCount: 2, //每页显示句子数
     };
   },
   created() {
-    getText().then((res) => {
-      this.labelArray.push(...res.data.labels);
-      for (let i = 0; i < this.labelArray.length; i++) {
-        if (this.labelArray[i]["text"]) {
-          this.labelArray[i]["color"] = this.$store.state.annotate.colorArray[
-            i
-          ];
-        }
-      }
-
-      this.annotationArray = res.data.annotations;
-    });
+    this.fetchData();
   },
   computed: {
     /**
@@ -76,12 +71,38 @@ export default {
     textArray() {
       let n = this.currentPage;
       let result = [];
-      for (let i = 2 * n - 2; i <= 2 * n - 1; i++) {
+      for (
+        let i = this.sentenceCount * n - this.sentenceCount;
+        i <= this.sentenceCount * n - 1;
+        i++
+      ) {
         if (this.annotationArray[i]) {
           result.push([]);
         }
       }
       return result;
+    },
+  },
+  methods: {
+    /**
+     * 处理每页显示的句子数
+     */
+    handleSizeChange(val) {
+      this.sentenceCount = val;
+    },
+    /**
+     * 获取数据
+     */
+    fetchData() {
+      getText().then((res) => {
+        this.types.push(...res.data.labels);
+        for (let i = 0; i < this.types.length; i++) {
+          if (this.types[i]["text"]) {
+            this.types[i]["color"] = this.$store.state.annotate.colorArray[i];
+          }
+        }
+        this.annotationArray = res.data.annotations;
+      });
     },
   },
 };

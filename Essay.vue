@@ -157,9 +157,9 @@ export default {
     },
 
     /**
-     * TODO 等待接口
      * @description 翻译
      */
+    // TODO 等待接口
     translateText() {
       this.showDialog = false;
       let text = window.getSelection().toString();

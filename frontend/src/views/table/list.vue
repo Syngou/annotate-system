@@ -87,6 +87,7 @@
 
 <script>
 import { getList } from "@/api/table";
+import Cookies from "js-cookie";
 
 export default {
   filters: {
@@ -147,9 +148,13 @@ export default {
      * 自定义设置
      */
     customChoice(index, list) {
-      this.$store.dispatch("annotate/setTextTitle", list[index].title);
       this.$store.dispatch("annotate/setAnnotateText", list[index].paragraph);
-      this.$router.push("setting");
+      if (Cookies.get("annotate-custom-setting")) {
+        this.$router.push("/annotate");
+      } else {
+        this.$store.dispatch("annotate/setTextTitle", list[index].title);
+        this.$router.push("setting");
+      }
     },
     /**
      * 编辑

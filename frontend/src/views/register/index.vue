@@ -3,37 +3,37 @@
     <vue-particles
       class="login-bg"
       color="#39AFFD"
-      :particleOpacity="0.7"
-      :particlesNumber="100"
-      shapeType="circle"
-      :particleSize="4"
-      linesColor="#8DD1FE"
-      :linesWidth="1"
-      :lineLinked="true"
-      :lineOpacity="0.4"
-      :linesDistance="150"
-      :moveSpeed="3"
-      :hoverEffect="true"
-      hoverMode="grab"
-      :clickEffect="true"
-      clickMode="push"
+      :particle-opacity="0.7"
+      :particles-number="100"
+      shape-type="circle"
+      :particle-size="4"
+      lines-color="#8DD1FE"
+      :lines-width="1"
+      :line-linked="true"
+      :line-opacity="0.4"
+      :lines-distance="150"
+      :move-speed="3"
+      :hover-effect="true"
+      hover-mode="grab"
+      :click-effect="true"
+      click-mode="push"
     />
     <!-- 登录面板 -->
     <div class="login-box">
       <div class="login-box-title">后台管理系统</div>
       <div class="login-box-from">
         <el-form
+          ref="loginForm"
           :model="loginForm"
           :rules="loginRules"
-          ref="loginForm"
           class="demo-ruleForm"
           auto-complete="on"
           label-position="left"
         >
           <el-form-item prop="username">
             <el-input
-              v-model="loginForm.username"
               ref="username"
+              v-model="loginForm.username"
               placeholder="请输入用户名"
               size="medium"
               name="username"
@@ -41,7 +41,7 @@
               tabindex="1"
               auto-complete="on"
             >
-              <el-button slot="prepend" icon="el-icon-user"></el-button>
+              <el-button slot="prepend" icon="el-icon-user" />
             </el-input>
           </el-form-item>
           <el-form-item prop="password">
@@ -57,7 +57,7 @@
               auto-complete="on"
               @keyup.enter.native="handleLogin"
             >
-              <el-button slot="prepend" icon="el-icon-key"></el-button>
+              <el-button slot="prepend" icon="el-icon-key" />
             </el-input>
             <span class="show-pwd" @click="showPwd">
               <svg-icon
@@ -70,10 +70,11 @@
               type="primary"
               size="medium"
               :loading="loading"
-              style="width: 100%"
+              style="width: 100%;"
               @click.native.prevent="handleLogin"
-              >注册</el-button
             >
+              注册
+            </el-button>
           </el-form-item>
           <router-link to="/login" class="register">登录</router-link>
         </el-form>
@@ -90,6 +91,7 @@ export default {
 
   data() {
     const validateUsername = (rule, value, callback) => {
+      rule;
       if (!validUsername(value)) {
         callback(new Error("Please enter the correct user name"));
       } else {
@@ -97,6 +99,7 @@ export default {
       }
     };
     const validatePassword = (rule, value, callback) => {
+      rule;
       if (value.length < 6) {
         callback(new Error("The password can not be less than 6 digits"));
       } else {
@@ -176,62 +179,62 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  img {
-    margin: 10px 20px 0 0;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-  }
-  .register {
-    cursor: pointer;
-    float: right;
-  }
-  .login {
+img {
+  margin: 10px 20px 0 0;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+.register {
+  cursor: pointer;
+  float: right;
+}
+.login {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: #2d3a4b;
+
+  &-bg {
     width: 100%;
     height: 100%;
-    position: relative;
-    background-color: #2d3a4b;
+    background: #565856;
+  }
+  &-box {
+    width: 350px;
+    /* height: 287px; */
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    box-shadow: 0 0 2px #f7f7f7;
+    border: 1px solid #f7f7f7;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    margin-left: -175px;
+    margin-top: -150px;
 
-    &-bg {
+    &-title {
+      line-height: 50px;
+      font-size: 20px;
+      color: #ffffff;
+      text-align: center;
+      border-bottom: 1px solid #ffffff;
+    }
+    &-from {
       width: 100%;
-      height: 100%;
-      background: #565856;
-    }
-    &-box {
-      width: 350px;
-      /* height: 287px; */
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 5px;
-      box-shadow: 0 0 2px #f7f7f7;
-      border: 1px solid #f7f7f7;
-      position: absolute;
-      left: 50%;
-      top: 40%;
-      margin-left: -175px;
-      margin-top: -150px;
-
-      &-title {
-        line-height: 50px;
-        font-size: 20px;
-        color: #ffffff;
-        text-align: center;
-        border-bottom: 1px solid #ffffff;
-      }
-      &-from {
-        width: 100%;
-        height: auto;
-        padding: 30px;
-        box-sizing: border-box;
-      }
-    }
-    .show-pwd {
-      position: absolute;
-      right: 10px;
-      top: 0;
-      font-size: 16px;
-      color: #889aa4;
-      cursor: pointer;
-      user-select: none;
+      height: auto;
+      padding: 30px;
+      box-sizing: border-box;
     }
   }
+  .show-pwd {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    font-size: 16px;
+    color: #889aa4;
+    cursor: pointer;
+    user-select: none;
+  }
+}
 </style>

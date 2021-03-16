@@ -8,7 +8,7 @@
         <div>
           <div style="text-align: center">
             <div class="el-upload">
-              <img :src="user.avatar" title="点击上传头像" class="avatar"  alt=""/>
+              <img :src="user.avatar" class="avatar" alt="" />
             </div>
           </div>
           <ul class="user-info">

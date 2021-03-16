@@ -1,29 +1,29 @@
-import "@/icons";
-import "@/permission";
-import "@/styles/index.scss";
-import ElementUI from "element-ui";
-import "element-ui/lib/theme-chalk/index.css";
-import "normalize.css/normalize.css";
-import Vue from "vue";
-import VueParticles from "vue-particles";
-import App from "./App";
-import router from "./router";
-import store from "./store";
+import '@/icons'
+import '@/permission'
+import '@/styles/index.scss'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+import 'normalize.css/normalize.css'
+import Vue from 'vue'
+import VueParticles from 'vue-particles'
+import App from './App'
+import router from './router'
+import store from './store'
 
-if (process.env.NODE_ENV === "production") {
-  const { mockXHR } = require("../mock");
-  mockXHR();
+if (process.env.NODE_ENV === 'production') {
+  const { mockXHR } = require('../mock')
+  mockXHR()
 }
 
-Vue.prototype.$bus = new Vue();
+Vue.prototype.$bus = new Vue()
 
-Vue.use(ElementUI);
-Vue.use(VueParticles);
-Vue.config.productionTip = false;
+Vue.use(ElementUI)
+Vue.use(VueParticles)
+Vue.config.productionTip = false
 
 new Vue({
-  el: "#app",
+  el: '#app',
   router,
   store,
-  render: (h) => h(App),
-});
+  render: (h) => h(App)
+})

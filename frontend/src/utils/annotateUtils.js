@@ -64,7 +64,7 @@ export default {
     let text = span.innerText.trim();
     essay.insertBefore(textNode, span);
     essay.removeChild(span);
-    store.dispatch("annotate/deleteAnnotatedText", { type: id, text });
+    store.dispatch("annotate/deleteDataFromList", { type: id, text });
   },
   /**
    *

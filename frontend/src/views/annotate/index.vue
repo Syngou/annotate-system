@@ -7,7 +7,6 @@
   </div>
 </template>
 
-
 <script>
 import TopNavigation from "./components/navigator/TopNavigation";
 import Essay from "./components/ essay/Essay";
@@ -48,15 +47,15 @@ export default {
 };
 </script>
 <style scoped>
-  * {
-    box-sizing: border-box;
-    color: black;
-  }
-  /* 底部 */
-  .footer {
-    padding: 20px;
-    background: #333;
-    color: white;
-    text-align: center;
-  }
+* {
+  box-sizing: border-box;
+  color: black;
+}
+/* 底部 */
+.footer {
+  padding: 20px;
+  background: #333;
+  color: white;
+  text-align: center;
+}
 </style>
