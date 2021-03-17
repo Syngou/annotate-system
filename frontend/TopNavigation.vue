@@ -3,9 +3,9 @@
     <span class="title">医疗文本标注平台</span>
     <a @click="$bus.$emit('autoAnnotate')">自动化标注</a>
     <a @click="uploadData">上传</a>
-    <router-link v-if="!avatar" to="/login" style="float: right;">
-      登录
-    </router-link>
+    <router-link v-if="!avatar" to="/login" style="float: right"
+      >登录</router-link
+    >
     <div v-else class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
@@ -26,12 +26,12 @@
             <el-dropdown-item> 标注设置 </el-dropdown-item>
           </router-link>
           <el-dropdown-item divided @click.native="logout">
-            <span style="display: block;">退出</span>
+            <span style="display: block">退出</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-    <AutoAnnotate />
+    <AutoAnnotate></AutoAnnotate>
   </div>
 </template>
 
@@ -72,90 +72,90 @@ export default {
   },
 };
 </script>
-<style scoped lang="scss">
-/* 标题样式 */
-.title {
-  margin: 0 30px;
-  color: white;
-  font-size: 22px;
-}
-
-/* 导航条 */
-.topNavigation {
-  position: fixed;
-  left: 0;
-  top: 0;
-  overflow: hidden;
-  width: 100%;
-  height: 50px;
-  padding-right: 20px;
-  z-index: 50;
-  background-color: #68768a;
-
-  /* 导航条链接 */
-  a {
-    display: inline-block;
-    padding: 14px 7px;
-    background-color: #606d80;
-    color: #f2f2f2;
-    text-align: center;
-    text-decoration: none;
+<style scoped lang='scss'>
+  /* 标题样式 */
+  .title {
+    margin: 0 30px;
+    color: white;
+    font-size: 22px;
   }
 
-  /* 链接颜色修改 */
-  a:hover {
-    background-color: #ddd;
-    color: black;
-  }
-}
-.right-menu {
-  float: right;
-  height: 100%;
-  line-height: 50px;
+  /* 导航条 */
+  .topNavigation {
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 50px;
+    padding-right: 20px;
+    z-index: 50;
+    background-color: #68768A;
 
-  &:focus {
-    outline: none;
-  }
+    /* 导航条链接 */
+    a {
+      display: inline-block;
+      padding: 14px 7px;
+       background-color: #606D80;
+      color: #f2f2f2;
+      text-align: center;
+      text-decoration: none;
+    }
 
-  .right-menu-item {
-    display: inline-block;
-    padding: 0 8px;
+    /* 链接颜色修改 */
+    a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+  }
+  .right-menu {
+    float: right;
     height: 100%;
-    font-size: 18px;
-    color: #5a5e66;
-    vertical-align: text-bottom;
+    line-height: 50px;
 
-    &.hover-effect {
-      cursor: pointer;
+    &:focus {
+      outline: none;
+    }
 
-      &:hover {
-        background: rgba(0, 0, 0, 0.025);
+    .right-menu-item {
+      display: inline-block;
+      padding: 0 8px;
+      height: 100%;
+      font-size: 18px;
+      color: #5a5e66;
+      vertical-align: text-bottom;
+
+      &.hover-effect {
+        cursor: pointer;
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.025);
+        }
+      }
+    }
+
+    .avatar-container {
+      margin-right: 5px;
+
+      .avatar-wrapper {
+        margin-top: 5px;
+        position: relative;
+
+        .user-avatar {
+          cursor: pointer;
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
+        }
+
+        .el-icon-caret-bottom {
+          cursor: pointer;
+          position: absolute;
+          right: -20px;
+          top: 25px;
+          font-size: 12px;
+        }
       }
     }
   }
-
-  .avatar-container {
-    margin-right: 5px;
-
-    .avatar-wrapper {
-      margin-top: 5px;
-      position: relative;
-
-      .user-avatar {
-        cursor: pointer;
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
-      }
-
-      .el-icon-caret-bottom {
-        cursor: pointer;
-        position: absolute;
-        right: -20px;
-        top: 25px;
-        font-size: 12px;
-      }
-    }
-  }
-}
 </style>

@@ -1,5 +1,12 @@
 <template>
   <div id="paper">
+  <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+      crossorigin="anonymous"
+    />
+
     <div class="fixed-button">
       <button
         v-for="(info, index) in typesInfo"
@@ -33,14 +40,33 @@
       />
       <TranslateCard :result="translateResult" />
     </div>
-    <!-- 论文 -->
-    <pre
-      id="essay"
-      class="essay-content"
-      :style="'font-size:' + $store.state.annotate.fontSize + 'px'"
-      @mouseup="getSelection($event)"
-      v-html="$store.state.annotate.annotateText"
-    />
+
+                <!-- 论文排版 -->
+            <!-- 定义一个容器 -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading" style="float: right">文章如下</div>
+            <div class="panel-body">
+              <pre
+                ref="essay"
+                id="essay"
+                @mouseup="getSelection($event)"
+                class="essay-content"
+                :style="'font-size:' + $store.state.annotate.fontSize + 'px'"
+                v-html="$store.state.annotate.annotateText"
+              ></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
   </div>
 </template>
 
@@ -138,6 +164,7 @@ export default {
   border-radius: 10px;
   background-color: rgb(147, 121, 121);
   padding: 5px;
+  z-index: 10;   /* 设置堆叠次序，防止被覆盖 */
 
   button {
     border: 1px solid black;
@@ -151,6 +178,7 @@ export default {
 .fixed-button {
   position: fixed;
   top: 50px;
+  z-index: 10;
 
   button {
     margin: 10px;

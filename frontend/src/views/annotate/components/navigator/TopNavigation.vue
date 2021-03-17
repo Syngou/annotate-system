@@ -76,7 +76,7 @@ export default {
   /* 标题样式 */
   .title {
     margin: 0 30px;
-    color: red;
+    color: white;
     font-size: 22px;
   }
 
@@ -90,13 +90,13 @@ export default {
     height: 50px;
     padding-right: 20px;
     z-index: 50;
-    background-color: #333;
+    background-color: #68768A;
 
     /* 导航条链接 */
     a {
       display: inline-block;
       padding: 14px 7px;
-      background-color: #333;
+      background-color: #606D80;
       color: #f2f2f2;
       text-align: center;
       text-decoration: none;
