@@ -72,8 +72,9 @@
               :loading="loading"
               style="width: 100%;"
               @click.native.prevent="handleLogin"
-              >立即登陆</el-button
             >
+              立即登陆
+            </el-button>
           </el-form-item>
           <div class="account-other">
             <span>其它登录方式</span>
@@ -126,8 +127,8 @@ export default {
     };
     return {
       loginForm: {
-        username: "admin",
-        password: "111111",
+        username: "",
+        password: "",
       },
       loginRules: {
         username: [
