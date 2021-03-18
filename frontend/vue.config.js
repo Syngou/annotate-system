@@ -11,7 +11,8 @@ const name = defaultSettings.title || "医疗文本标注系统";
 const port = process.env.port || process.env.npm_config_port || 9528;
 
 module.exports = {
-    publicPath: process.env.NODE_ENV !== "production" ? "/" : "/annotate/",
+    publicPath: "./",
+    //publicPath: process.env.NODE_ENV !== "production" ? "./" : "./annotate/",
     // publicPath:
     //     process.env.NODE_ENV !== "production"
     //         ? "/"
