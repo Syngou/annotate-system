@@ -107,22 +107,22 @@
 </template>
 
 <script>
-import { validUsername } from "@/utils/validate";
-
 export default {
   name: "Login",
 
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
+      rule;
+      if (value !== "admin" && value !== "editor") {
         callback(new Error("请输入正确的用户名"));
       } else {
         callback();
       }
     };
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error("输入的密码不能少于6位数"));
+      rule;
+      if (value === "") {
+        callback(new Error("请输入密码"));
       } else {
         callback();
       }
@@ -138,7 +138,7 @@ export default {
             required: true,
             trigger: "blur",
             validator: validateUsername,
-            message: "请输入正确的昵称",
+            message: "请输入正确的用户名",
           },
         ],
         password: [
@@ -146,7 +146,7 @@ export default {
             required: true,
             trigger: "blur",
             validator: validatePassword,
-            message: "请输入正确的密码",
+            message: "请输入密码",
           },
         ],
       },
