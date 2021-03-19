@@ -79,11 +79,6 @@ export default {
   color: white;
   font-size: 22px;
 }
-@media screen and (max-width: 400px) {
-  .title {
-    display: none;
-  }
-}
 
 /* 导航条 */
 .topNavigation {
