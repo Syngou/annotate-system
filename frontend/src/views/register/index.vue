@@ -18,7 +18,7 @@
       :click-effect="true"
       click-mode="push"
     />
-    <!-- 登录面板 -->
+    <!-- 注册面板 -->
     <div class="login-box">
       <div class="login-box-title">
         后台管理系统
@@ -57,7 +57,7 @@
               name="password"
               tabindex="2"
               auto-complete="on"
-              @keyup.enter.native="handleLogin"
+              @keyup.enter.native="handleRegister"
             >
               <el-button slot="prepend" icon="el-icon-key" />
             </el-input>
@@ -73,7 +73,7 @@
               size="medium"
               :loading="loading"
               style="width: 100%;"
-              @click.native.prevent="handleLogin"
+              @click.native.prevent="handleRegister"
             >
               注册
             </el-button>
@@ -88,16 +88,14 @@
 </template>
 
 <script>
-import { validUsername } from "@/utils/validate";
-
 export default {
   name: "Register",
 
   data() {
     const validateUsername = (rule, value, callback) => {
       rule;
-      if (!validUsername(value)) {
-        callback(new Error("Please enter the correct user name"));
+      if (value === "") {
+        callback(new Error("请输入用户名"));
       } else {
         callback();
       }
@@ -105,16 +103,18 @@ export default {
     const validatePassword = (rule, value, callback) => {
       rule;
       if (value.length < 6) {
-        callback(new Error("The password can not be less than 6 digits"));
+        callback(new Error("密码不能小于6位数"));
       } else {
         callback();
       }
     };
     return {
+      //表单数据
       loginForm: {
         username: "",
         password: "",
       },
+      //表单验证
       loginRules: {
         username: [
           {
@@ -129,7 +129,7 @@ export default {
             required: true,
             trigger: "blur",
             validator: validatePassword,
-            message: "请输入密码",
+            message: "密码不能小于6位数",
           },
         ],
       },
@@ -147,6 +147,9 @@ export default {
     },
   },
   methods: {
+    /**
+     * 显示密码
+     */
     showPwd() {
       if (this.passwordType === "password") {
         this.passwordType = "";
@@ -157,7 +160,10 @@ export default {
         this.$refs.password.focus();
       });
     },
-    handleLogin() {
+    /**
+     * 注册
+     */
+    handleRegister() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
           this.loading = true;
