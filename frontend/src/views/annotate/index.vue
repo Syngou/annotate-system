@@ -2,6 +2,7 @@
   <div>
     <TopNavigation />
     <Essay />
+    <div class="footer">Copyright &copy;Syngou</div>
   </div>
 </template>
 
@@ -47,7 +48,7 @@ export default {
 /* 底部 */
 .footer {
   padding: 20px;
-  background: #333;
+  background: #68768a;
   color: white;
   text-align: center;
 }

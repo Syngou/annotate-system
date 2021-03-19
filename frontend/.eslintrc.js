@@ -22,5 +22,6 @@ module.exports = {
     "vue/multiline-html-element-content-newline": "off",
     "vue/no-mutating-props": "off",
     "vue/html-self-closing": "off",
+    "vue/no-v-html": "off"
   }
 };

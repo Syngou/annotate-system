@@ -22,13 +22,15 @@
       />
       <TranslateCard :result="translateResult" />
     </div>
-    <div class="essay-container">
-      <pre
-        id="essay"
-        class="essay-content"
-        @mouseup="getSelection($event)"
-        v-html="$store.state.annotate.annotateText"
-      />
+    <div class="essay-box">
+      <div class="essay-container">
+        <pre
+          id="essay"
+          class="essay-content"
+          @mouseup="getSelection($event)"
+          v-text="$store.state.annotate.annotateText"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -132,23 +134,26 @@ export default {
     outline: none;
   }
 }
-.essay-container {
-  margin: 0 15%;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-  min-height: 1000px;
-  /* 文本样式 */
-  .essay-content {
-    margin: 100px 15px 0 15px;
-    overflow: auto;
-    border: 1px solid black;
-    background-color: #f5f5f5;
-    min-height: calc(1000px - 30px);
-    flex: auto;
-    padding: 0 5% 0 5%;
-    white-space: pre-line;
-    word-break: break-all;
-    line-height: 25px;
+.essay-box {
+  .essay-container {
+    margin: 10px 15%;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    padding-top: 10px;
+    min-height: 1000px;
+    /* 文本样式 */
+    .essay-content {
+      margin: 100px 15px 10px 15px;
+      border: 1px solid black;
+      background-color: #f5f5f5;
+      min-height: calc(1000px - 30px);
+      flex: auto;
+      padding: 0 5% 0 5%;
+      white-space: pre-line;
+      word-break: break-all;
+      line-height: 25px;
+    }
   }
 }
 @media screen and (max-width: 400px) {
