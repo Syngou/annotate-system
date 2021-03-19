@@ -30,9 +30,9 @@
         align="center"
       >
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{
-            scope.row.status
-          }}</el-tag>
+          <el-tag :type="scope.row.status | statusFilter">
+            {{ scope.row.status }}
+          </el-tag>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="210" align="center">
@@ -82,7 +82,9 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="update()">更新</el-button>
+        <el-button type="primary" @click="update()">
+          更新
+        </el-button>
       </div>
     </el-dialog>
   </div>

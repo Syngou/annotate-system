@@ -2,7 +2,9 @@
   <div>
     <TopNavigation />
     <Essay />
-    <div class="footer">Copyright &copy;Syngou</div>
+    <div class="footer">
+      Copyright &copy; Syngou
+    </div>
   </div>
 </template>
 

@@ -15,24 +15,34 @@
             <li>
               <div style="height: 100%;">
                 <SvgIcon icon-class="login" /> 登录账号
-                <div class="user-right">{{ user.account }}</div>
+                <div class="user-right">
+                  {{ user.account }}
+                </div>
               </div>
             </li>
             <li>
               <SvgIcon icon-class="user" /> 用户昵称
-              <div class="user-right">{{ user.name }}</div>
+              <div class="user-right">
+                {{ user.name }}
+              </div>
             </li>
             <li>
               <SvgIcon icon-class="dept" /> 所属部门
-              <div class="user-right">{{ user.institution }}</div>
+              <div class="user-right">
+                {{ user.institution }}
+              </div>
             </li>
             <li>
               <SvgIcon icon-class="phone" /> 手机号码
-              <div class="user-right">{{ user.phone }}</div>
+              <div class="user-right">
+                {{ user.phone }}
+              </div>
             </li>
             <li>
               <SvgIcon icon-class="email" /> 用户邮箱
-              <div class="user-right">{{ user.email }}</div>
+              <div class="user-right">
+                {{ user.email }}
+              </div>
             </li>
             <li>
               <SvgIcon icon-class="anq" /> 安全设置

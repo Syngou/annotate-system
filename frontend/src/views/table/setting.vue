@@ -84,7 +84,9 @@
       </el-button>
     </div>
     <div class="start-annotate-button">
-      <el-button type="primary" @click="goToAnnotate"> 开始标注</el-button>
+      <el-button type="primary" @click="goToAnnotate">
+        开始标注
+      </el-button>
     </div>
   </div>
 </template>

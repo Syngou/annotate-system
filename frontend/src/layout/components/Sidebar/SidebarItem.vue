@@ -1,12 +1,6 @@
 <template>
   <div v-if="!item.hidden">
-    <template
-      v-if="
-        hasOneShowingChild(item.children, item) &&
-        (!onlyOneChild.children || onlyOneChild.noShowingChildren) &&
-        !item.alwaysShow
-      "
-    >
+    <template v-if="hasOneShowing">
       <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
         <el-menu-item
           :index="resolvePath(onlyOneChild.path)"
@@ -74,6 +68,15 @@ export default {
   data() {
     this.onlyOneChild = null;
     return {};
+  },
+  computed: {
+    hasOneShowing() {
+      return (
+        this.hasOneShowingChild(this.item.children, this.item) &&
+        (!this.onlyOneChild.children || this.onlyOneChild.noShowingChildren) &&
+        !this.item.alwaysShow
+      );
+    },
   },
   methods: {
     hasOneShowingChild(children = [], parent) {

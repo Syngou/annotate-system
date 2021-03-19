@@ -20,7 +20,9 @@
     />
     <!-- 登录面板 -->
     <div class="login-box">
-      <div class="login-box-title">后台管理系统</div>
+      <div class="login-box-title">
+        后台管理系统
+      </div>
       <div class="login-box-from">
         <el-form
           ref="loginForm"
@@ -76,7 +78,9 @@
               注册
             </el-button>
           </el-form-item>
-          <router-link to="/login" class="register">登录</router-link>
+          <router-link to="/login" class="register">
+            登录
+          </router-link>
         </el-form>
       </div>
     </div>
