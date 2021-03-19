@@ -13,14 +13,16 @@
           </div>
           <hr />
           <div>
-            如果每种类型有多个值，请用<span style="color: red; font-size: 20px">
+            如果每种类型有多个值，请用<span
+              style="color: red; font-size: 20px;"
+            >
               一个
             </span>
             空格隔开<br />
             <hr />
-            <span style="color: red; font-size: 20px"
-              >需在最开始时使用（即还未进行标注时），否则会有奇怪的结果</span
-            >
+            <span style="color: red; font-size: 20px;">
+              需在最开始时使用（即还未进行标注时），否则会有奇怪的结果
+            </span>
             <hr />
             <span>因为只用于自动化标注，所以部署时此选项不可见</span>
           </div>
@@ -29,14 +31,16 @@
 
       <div v-for="(type, index) in typesInfo" :key="index">
         <el-input v-model="inputValues[index]">
-          <span slot="prepend"
-            ><el-button>{{ type.value }}</el-button></span
-          >
+          <span slot="prepend">
+            <el-button>
+              {{ type.value }}
+            </el-button>
+          </span>
         </el-input>
       </div>
       <span
         slot="footer"
-        style="display: flex; justify-content: center; align-items: center"
+        style="display: flex; justify-content: center; align-items: center;"
       >
         <el-button type="primary" @click="autoAnnotate">确定</el-button>
       </span>
@@ -50,14 +54,6 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "AutoAnnotate",
-  created() {
-    this.$bus.$on("autoAnnotate", () => {
-      this.annotateModal = true;
-    });
-  },
-  computed: {
-    ...mapGetters(["typesInfo"]),
-  },
   data() {
     return {
       annotateModal: false, //自动化标注的显示与隐藏
@@ -65,6 +61,15 @@ export default {
       width: "",
     };
   },
+  computed: {
+    ...mapGetters(["typesInfo"]),
+  },
+  created() {
+    this.$bus.$on("autoAnnotate", () => {
+      this.annotateModal = true;
+    });
+  },
+
   mounted() {
     let width = window.innerWidth;
     if (width <= 450) {
@@ -87,5 +92,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

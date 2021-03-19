@@ -60,7 +60,7 @@
               <el-button slot="prepend" icon="el-icon-key" />
             </el-input>
             <span class="show-pwd" @click="showPwd">
-              <svg-icon
+              <SvgIcon
                 :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
               />
             </span>
@@ -72,8 +72,9 @@
               :loading="loading"
               style="width: 100%;"
               @click.native.prevent="handleLogin"
-              >立即登陆</el-button
             >
+              立即登陆
+            </el-button>
           </el-form-item>
           <div class="account-other">
             <span>其它登录方式</span>

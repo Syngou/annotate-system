@@ -60,7 +60,7 @@
               <el-button slot="prepend" icon="el-icon-key" />
             </el-input>
             <span class="show-pwd" @click="showPwd">
-              <svg-icon
+              <SvgIcon
                 :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
               />
             </span>

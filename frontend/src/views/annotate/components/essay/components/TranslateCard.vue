@@ -13,11 +13,15 @@
 export default {
   name: "TranslateCard",
   props: {
-    result: Object,
+    result: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
   },
   methods: {},
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

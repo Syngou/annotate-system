@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <div style="margin: 30px">
+      <div style="margin: 30px;">
         <ul>
           <li>字上面的标签表示标注值，下方为预测值</li>
         </ul>
@@ -9,17 +9,18 @@
     </div>
     <div class="tags-container">
       <span
-        class="text-tag"
         v-for="(type, index) in types"
-        :style="{ backgroundColor: type.color }"
         :key="index"
-        >{{ type.text }}</span
+        class="text-tag"
+        :style="{ backgroundColor: type.color }"
       >
+        {{ type.text }}
+      </span>
     </div>
     <div
-      class="entity-item-box"
       v-for="(text, index) in textArray"
       :key="index"
+      class="entity-item-box"
     >
       <entity-item-box
         :labels="types"
@@ -31,12 +32,12 @@
     <div class="page">
       <div class="block">
         <el-pagination
-          @size-change="handleSizeChange"
           :current-page.sync="currentPage"
           :page-sizes="[2, 3, 4, 5]"
           :page-size="2"
           layout="total, sizes, prev, pager, next, jumper"
           :total="annotationArray.length"
+          @size-change="handleSizeChange"
         >
         </el-pagination>
       </div>
@@ -49,7 +50,7 @@ import EntityItemBox from "../textAnalysis/components/EntityItemBox";
 import { getText } from "@/api/text";
 
 export default {
-  name: "index",
+  name: "Index",
   components: {
     EntityItemBox,
   },
@@ -60,9 +61,6 @@ export default {
       types: [], //分类
       sentenceCount: 2, //每页显示句子数
     };
-  },
-  created() {
-    this.fetchData();
   },
   computed: {
     /**
@@ -82,6 +80,9 @@ export default {
       }
       return result;
     },
+  },
+  created() {
+    this.fetchData();
   },
   methods: {
     /**
@@ -109,25 +110,25 @@ export default {
 </script>
 
 <style scoped>
-  .tags-container {
-    margin-left: 30px;
-  }
+.tags-container {
+  margin-left: 30px;
+}
 
-  .text-tag {
-    margin: 10px 10px 10px 0;
-    padding: 3px 10px;
-    text-align: center;
-    display: inline-block;
-    border-radius: 15px;
-  }
+.text-tag {
+  margin: 10px 10px 10px 0;
+  padding: 3px 10px;
+  text-align: center;
+  display: inline-block;
+  border-radius: 15px;
+}
 
-  .entity-item-box {
-    margin: 0 0 100px 30px;
-  }
+.entity-item-box {
+  margin: 0 0 100px 30px;
+}
 
-  .page {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 100px;
-  }
+.page {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 100px;
+}
 </style>

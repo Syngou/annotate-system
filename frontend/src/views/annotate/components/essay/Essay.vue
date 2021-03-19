@@ -1,23 +1,5 @@
 <template>
   <div id="paper">
-  <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
-      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
-      crossorigin="anonymous"
-    />
-
-    <div class="fixed-button">
-      <button
-        v-for="(info, index) in typesInfo"
-        :key="index"
-        :style="{ backgroundColor: info.color }"
-        @click="annotateText(index + '-' + $store.state.annotate.id, index)"
-      >
-        {{ info.value }}
-      </button>
-    </div>
-
     <!-- 标注选项对话框 -->
     <div v-show="showDialog" ref="showDialog" class="dialog">
       <button
@@ -40,33 +22,14 @@
       />
       <TranslateCard :result="translateResult" />
     </div>
-
-                <!-- 论文排版 -->
-            <!-- 定义一个容器 -->
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="panel panel-default">
-            <div class="panel-heading" style="float: right">文章如下</div>
-            <div class="panel-body">
-              <pre
-                ref="essay"
-                id="essay"
-                @mouseup="getSelection($event)"
-                class="essay-content"
-                :style="'font-size:' + $store.state.annotate.fontSize + 'px'"
-                v-html="$store.state.annotate.annotateText"
-              ></pre>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="essay-container">
+      <pre
+        id="essay"
+        class="essay-content"
+        @mouseup="getSelection($event)"
+        v-html="$store.state.annotate.annotateText"
+      />
     </div>
-
-
-
-
-
   </div>
 </template>
 
@@ -106,7 +69,7 @@ export default {
     },
 
     /**
-     * @description 获取选中文本，鼠标位置加上滚动距离
+     * @description 获取选中文本，在鼠标位置显示弹框
      * @param e 事件
      */
     // TODO 添加一个点击空白处取消标注的功能
@@ -153,18 +116,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
-/* 因为是有固定定位，所以要有margin-top */
-#paper {
-  margin-top: 48.8px;
-}
-
 /* 标注时对话框的样式 */
 .dialog {
   position: absolute;
   border-radius: 10px;
   background-color: rgb(147, 121, 121);
   padding: 5px;
-  z-index: 10;   /* 设置堆叠次序，防止被覆盖 */
+  z-index: 10; /* 设置堆叠次序，防止被覆盖 */
 
   button {
     border: 1px solid black;
@@ -174,31 +132,29 @@ export default {
     outline: none;
   }
 }
-/* 固定按钮 */
-.fixed-button {
-  position: fixed;
-  top: 50px;
-  z-index: 10;
-
-  button {
-    margin: 10px;
+.essay-container {
+  margin: 0 15%;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  min-height: 1000px;
+  /* 文本样式 */
+  .essay-content {
+    margin: 100px 15px 0 15px;
+    overflow: auto;
     border: 1px solid black;
-    border-radius: 10px;
-    cursor: pointer;
-    outline: none;
+    background-color: #f5f5f5;
+    min-height: calc(1000px - 30px);
+    flex: auto;
+    padding: 0 5% 0 5%;
+    white-space: pre-line;
+    word-break: break-all;
+    line-height: 25px;
   }
 }
-
-/* 文本样式 */
-.essay-content {
-  margin-top: 100px;
-  overflow: auto;
-  flex: auto;
-  min-height: 1000px;
-  padding: 0 5% 0 5%;
-  white-space: pre-line;
-  word-break: break-all;
-  line-height: 25px;
+@media screen and (max-width: 400px) {
+  .essay-container {
+    margin: 0 5%;
+  }
 }
 // 翻译卡片
 .translate-card {

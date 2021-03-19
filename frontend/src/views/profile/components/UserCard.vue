@@ -6,45 +6,45 @@
           <span>个人信息</span>
         </div>
         <div>
-          <div style="text-align: center">
+          <div style="text-align: center;">
             <div class="el-upload">
               <img :src="user.avatar" class="avatar" alt="" />
             </div>
           </div>
           <ul class="user-info">
             <li>
-              <div style="height: 100%">
-                <svg-icon icon-class="login" /> 登录账号
+              <div style="height: 100%;">
+                <SvgIcon icon-class="login" /> 登录账号
                 <div class="user-right">{{ user.account }}</div>
               </div>
             </li>
             <li>
-              <svg-icon icon-class="user" /> 用户昵称
+              <SvgIcon icon-class="user" /> 用户昵称
               <div class="user-right">{{ user.name }}</div>
             </li>
             <li>
-              <svg-icon icon-class="dept" /> 所属部门
+              <SvgIcon icon-class="dept" /> 所属部门
               <div class="user-right">{{ user.institution }}</div>
             </li>
             <li>
-              <svg-icon icon-class="phone" /> 手机号码
+              <SvgIcon icon-class="phone" /> 手机号码
               <div class="user-right">{{ user.phone }}</div>
             </li>
             <li>
-              <svg-icon icon-class="email" /> 用户邮箱
+              <SvgIcon icon-class="email" /> 用户邮箱
               <div class="user-right">{{ user.email }}</div>
             </li>
             <li>
-              <svg-icon icon-class="anq" /> 安全设置
+              <SvgIcon icon-class="anq" /> 安全设置
               <div class="user-right">
-                <a style="margin-right: 20px">修改密码</a>
+                <a style="margin-right: 20px;">修改密码</a>
                 <a>修改邮箱</a>
               </div>
             </li>
           </ul>
         </div>
       </el-card>
-      <el-card shadow="hover" style="height: 252px">
+      <el-card shadow="hover" style="height: 252px;">
         <div slot="header" class="clearfix">
           <span>标注结果</span>
         </div>
@@ -63,39 +63,42 @@ export default {
   props: {
     user: {
       type: Object,
+      default() {
+        return {};
+      },
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-  .box-center {
-    margin: 0 auto;
-    display: table;
-  }
+.box-center {
+  margin: 0 auto;
+  display: table;
+}
 
-  .text-muted {
-    color: #777;
-  }
+.text-muted {
+  color: #777;
+}
 
-  .avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+.user-info {
+  padding-left: 0;
+  list-style: none;
+  li {
+    border-bottom: 1px solid #f0f3f4;
+    padding: 11px 0;
+    font-size: 13px;
   }
-  .user-info {
-    padding-left: 0;
-    list-style: none;
-    li {
-      border-bottom: 1px solid #f0f3f4;
-      padding: 11px 0;
-      font-size: 13px;
-    }
-    .user-right {
-      float: right;
-      a {
-        color: #317ef3;
-      }
+  .user-right {
+    float: right;
+    a {
+      color: #317ef3;
     }
   }
+}
 </style>

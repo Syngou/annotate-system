@@ -41,20 +41,23 @@
             size="mini"
             type="primary"
             @click="customChoice(scope.$index, list)"
-            >标注</el-button
           >
+            标注
+          </el-button>
           <el-button
             size="mini"
             type="success"
             @click="handleEdit(scope.$index, list)"
-            >编辑</el-button
           >
+            编辑
+          </el-button>
           <el-button
             size="mini"
             type="danger"
             @click="handleDelete(scope.$index, list)"
-            >删除</el-button
           >
+            删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -70,10 +73,10 @@
         </el-form-item>
         <el-form-item label="文本">
           <el-input
+            v-model="form.paragraph"
             type="textarea"
             :autosize="{ minRows: 3, maxRows: 5 }"
             placeholder="请输入内容"
-            v-model="form.paragraph"
           >
           </el-input>
         </el-form-item>
@@ -139,6 +142,7 @@ export default {
      * 表格样式
      */
     tableRowClassName({ row, rowIndex }) {
+      row;
       if (rowIndex % 2) {
         return "success-row";
       }
@@ -191,7 +195,7 @@ export default {
 };
 </script>
 <style>
-  .el-table .success-row {
-    background: #ebf0fa;
-  }
+.el-table .success-row {
+  background: #ebf0fa;
+}
 </style>

@@ -4,10 +4,10 @@
       v-for="(chunk, i) in chunks"
       :key="i"
       :content="chunk.text"
-      :standardType="chunk.standardType"
-      :predictType="chunk.predictType"
-      :standardColor="chunk.standardColor"
-      :predictColor="chunk.predictColor"
+      :standard-type="chunk.standardType"
+      :predict-type="chunk.predictType"
+      :standard-color="chunk.standardColor"
+      :predict-color="chunk.predictColor"
     />
   </div>
 </template>
@@ -67,17 +67,17 @@ export default {
 </script>
 
 <style scoped>
-  .highlight-container.highlight-container--bottom-labels {
-    align-items: flex-start;
-  }
-  .highlight-container {
-    line-height: 42px !important;
-    display: flex;
-    flex-wrap: wrap;
-    white-space: pre-wrap;
-    cursor: default;
-  }
-  .highlight-container.highlight-container--bottom-labels {
-    margin-top: 6px;
-  }
+.highlight-container.highlight-container--bottom-labels {
+  align-items: flex-start;
+}
+.highlight-container {
+  line-height: 42px !important;
+  display: flex;
+  flex-wrap: wrap;
+  white-space: pre-wrap;
+  cursor: default;
+}
+.highlight-container.highlight-container--bottom-labels {
+  margin-top: 6px;
+}
 </style>

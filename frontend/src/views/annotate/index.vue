@@ -2,25 +2,18 @@
   <div>
     <TopNavigation />
     <Essay />
-    <el-backtop :duration="0" :bottom="70" />
-    <div class="footer">Copyright © {{ year }} Syngou</div>
   </div>
 </template>
 
 <script>
 import TopNavigation from "./components/navigator/TopNavigation";
-import Essay from "./components/ essay/Essay";
+import Essay from "./components/essay/Essay";
 
 export default {
   name: "Home",
   components: {
     TopNavigation,
     Essay,
-  },
-  data() {
-    return {
-      year: new Date().getFullYear(),
-    };
   },
   mounted() {
     this.isPC();
