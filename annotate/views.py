@@ -7,7 +7,6 @@ from .response import error, ok
 def translate(request):
     text = request.GET.get('text')
     print(text)
-    # 这里演示了ok() 和 error() 的使用方法
     if len(text) > 4:
         return JsonResponse(ok({'result': text}))
     else:

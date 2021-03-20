@@ -3,6 +3,8 @@
     <span class="title">医疗文本标注平台</span>
     <a @click="$bus.$emit('autoAnnotate')">自动化标注</a>
     <a @click="uploadData">上传</a>
+    <!-- TODO 等待数据库，待开发功能-->
+    <a>暂存数据</a>
     <router-link v-if="!avatar" to="/login" style="float: right;">
       登录
     </router-link>
