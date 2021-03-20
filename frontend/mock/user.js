@@ -28,7 +28,7 @@ const users = {
 };
 
 module.exports = [
-    // user login
+    // 用户登录
     {
         url: "/mockjs/user/login",
         type: "post",
@@ -40,7 +40,7 @@ module.exports = [
             if (!token) {
                 return {
                     code: 60204,
-                    message: "Account and password are incorrect.",
+                    message: "帐户和密码不正确。",
                 };
             }
 
@@ -51,7 +51,7 @@ module.exports = [
         },
     },
 
-    // get user info
+    // 获取用户信息
     {
         url: "/mockjs/user/info.*",
         type: "get",
@@ -63,7 +63,7 @@ module.exports = [
             if (!info) {
                 return {
                     code: 50008,
-                    message: "Login failed, unable to get user details.",
+                    message: "登录失败，无法获取用户详细信息。",
                 };
             }
 
@@ -74,11 +74,11 @@ module.exports = [
         },
     },
 
-    // user logout
+    //用户注销
     {
         url: "/mockjs/user/logout",
         type: "post",
-        response: (_) => {
+        response: () => {
             return {
                 code: 20000,
                 data: "success",

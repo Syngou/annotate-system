@@ -1,7 +1,7 @@
 <template>
-  <div class="login">
+  <div class="register">
     <vue-particles
-      class="login-bg"
+      class="register-bg"
       color="#39AFFD"
       :particle-opacity="0.7"
       :particles-number="100"
@@ -19,15 +19,15 @@
       click-mode="push"
     />
     <!-- 注册面板 -->
-    <div class="login-box">
-      <div class="login-box-title">
+    <div class="register-box">
+      <div class="register-box-title">
         后台管理系统
       </div>
-      <div class="login-box-from">
+      <div class="register-box-from">
         <el-form
-          ref="loginForm"
-          :model="loginForm"
-          :rules="loginRules"
+          ref="registerForm"
+          :model="registerForm"
+          :rules="registerRules"
           class="demo-ruleForm"
           auto-complete="on"
           label-position="left"
@@ -35,7 +35,7 @@
           <el-form-item prop="username">
             <el-input
               ref="username"
-              v-model="loginForm.username"
+              v-model="registerForm.username"
               placeholder="请输入用户名"
               size="medium"
               name="username"
@@ -50,7 +50,7 @@
             <el-input
               :key="passwordType"
               ref="password"
-              v-model="loginForm.password"
+              v-model="registerForm.password"
               :type="passwordType"
               placeholder="请输入密码"
               size="medium"
@@ -78,7 +78,7 @@
               注册
             </el-button>
           </el-form-item>
-          <router-link to="/login" class="register">
+          <router-link to="/login" class="login-text">
             登录
           </router-link>
         </el-form>
@@ -110,12 +110,12 @@ export default {
     };
     return {
       //表单数据
-      loginForm: {
+      registerForm: {
         username: "",
         password: "",
       },
       //表单验证
-      loginRules: {
+      registerRules: {
         username: [
           {
             required: true,
@@ -164,11 +164,11 @@ export default {
      * 注册
      */
     handleRegister() {
-      this.$refs.loginForm.validate((valid) => {
+      this.$refs.registerForm.validate((valid) => {
         if (valid) {
           this.loading = true;
           this.$store
-            .dispatch("user/login", this.loginForm)
+            .dispatch("user/login", this.registerForm)
             .then(() => {
               this.$router.push({
                 path: this.redirect || "/",
@@ -195,15 +195,12 @@ img {
   height: 40px;
   cursor: pointer;
 }
+
 .register {
-  cursor: pointer;
-  float: right;
-}
-.login {
   width: 100%;
   height: 100%;
   position: relative;
-  background-color: #2d3a4b;
+  background-image: url("../../assets/user/login.png");
 
   &-bg {
     width: 100%;
@@ -213,7 +210,7 @@ img {
   &-box {
     width: 350px;
     /* height: 287px; */
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 5px;
     box-shadow: 0 0 2px #f7f7f7;
     border: 1px solid #f7f7f7;
@@ -226,15 +223,20 @@ img {
     &-title {
       line-height: 50px;
       font-size: 20px;
-      color: #ffffff;
+      color: #000;
       text-align: center;
-      border-bottom: 1px solid #ffffff;
+      border-bottom: 1px solid #312a2a;
     }
     &-from {
       width: 100%;
       height: auto;
       padding: 30px;
       box-sizing: border-box;
+
+      .login-text {
+        cursor: pointer;
+        float: right;
+      }
     }
   }
   .show-pwd {
