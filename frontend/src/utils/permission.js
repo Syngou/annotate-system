@@ -3,8 +3,8 @@ import getPageTitle from "@/utils/get-page-title";
 import { Message } from "element-ui";
 import NProgress from "nprogress"; // 进度条
 import "nprogress/nprogress.css"; // 进度栏样式
-import router from "./router";
-import store from "./store";
+import router from "../router";
+import store from "../store";
 
 NProgress.configure({ showSpinner: false }); // NProgress配置
 

@@ -19,9 +19,6 @@
           <router-link to="/">
             <el-dropdown-item> 主控台 </el-dropdown-item>
           </router-link>
-          <router-link to="/profile">
-            <el-dropdown-item> 个人中心 </el-dropdown-item>
-          </router-link>
           <router-link to="/text/setting">
             <el-dropdown-item> 标注设置 </el-dropdown-item>
           </router-link>

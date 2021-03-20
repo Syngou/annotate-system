@@ -19,6 +19,7 @@ module.exports = {
       }
     }],
     "vue/no-mutating-props": "off",
-    "vue/html-self-closing": "off"
+    "vue/html-self-closing": "off",
+    "no-prototype-builtins": "off",
   }
 };

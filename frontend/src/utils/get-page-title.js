@@ -1,4 +1,4 @@
-import defaultSettings from "@/settings";
+import defaultSettings from "@/utils/settings";
 
 const title = defaultSettings.title || "医疗文本标注系统";
 

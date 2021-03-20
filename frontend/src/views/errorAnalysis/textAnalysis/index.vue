@@ -99,7 +99,9 @@ export default {
         this.types.push(...res.data.labels);
         for (let i = 0; i < this.types.length; i++) {
           if (this.types[i]["text"]) {
-            this.types[i]["color"] = this.$store.state.annotate.colorArray[i];
+            this.types[i]["color"] = this.$store.state.errorAnalysis.colorArray[
+              i
+            ];
           }
         }
         this.annotationArray = res.data.annotations;

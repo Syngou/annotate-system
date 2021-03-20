@@ -74,7 +74,6 @@ export default {
   autoAnnotate(data) {
     let essay = document.getElementById("essay");
     let array = [];
-    console.log(data);
     //把字符串分割
     for (let i = 0; i < data.length; i++) {
       if (data[i]) {

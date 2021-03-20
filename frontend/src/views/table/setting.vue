@@ -23,7 +23,7 @@
           <el-color-picker
             v-model="scope.row.color"
             show-alpha
-            :predefine="$store.state.annotate.colorArray"
+            :predefine="$store.state.errorAnalysis.colorArray"
           />
         </span>
       </el-table-column>
@@ -97,10 +97,6 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      // 表单数据
-      settingForm: {
-        textTitle: this.$store.state.annotate.textTitle ?? "您尚未选择标注文本",
-      },
       inputVisible: false, // 输入框的显隐
       inputValue: "", // 输入框的值
       editCurrent: -1,

@@ -2,9 +2,6 @@ import Cookies from 'js-cookie'
 // 用户标注设置
 const userAnnotateSetting = Cookies.getJSON('annotate-custom-setting')
 const state = {
-  fontSize: 16, // 初始字体大小
-  isUpload: false, // 是否上传数据，目前还没有用上
-  textTitle: '', // 标注文本标题
   typesInfo: userAnnotateSetting ?? [
     // 分类信息
     { value: '药物', color: '#fa0404' },
@@ -14,29 +11,7 @@ const state = {
     { value: '患者', color: '#058f32' },
     { value: '病毒', color: '#1f74c9' }
   ],
-  annotateData: [[], [], [], [], [], []], // 存储四种类型的已标注的词语
-  // TODO 是不是也可以自定义颜色
-  colorArray: [
-    // 错误分析分类颜色
-    '#fa0404',
-    '#fd0dad',
-    '#8406f3',
-    '#d462ee',
-    '#ff9b06',
-    '#e3fc07',
-    '#058f32',
-    '#10f0fc',
-    '#83fa07',
-    '#e6ee66',
-    '#c0e97d',
-    '#aae77d',
-    '#2e0bf3',
-    '#0af0e1',
-    '#0baff5',
-    '#1f74c9',
-    '#8985ec',
-    '#761616'
-  ],
+  annotateData: [[], [], [], [], [], []], // 存储已标注的词语
   id: 1, // 按钮id，用于查找，添加删除事件
   annotateText: `
       〔摘要〕伴随着医疗器械新产品、新工艺的发展，压缩气体在医疗器械的生产过程中被广泛使用。在洁净室内的医疗器械使用压缩气体时，应根据其预期用途对控制水平和监测项目做出合理的评定，识别出安全的有关特征，结合受控项目、系统设计和监测工作进行风险分析，以满足《医疗器械生产质量管理规范附录》中对压缩气体提出的要求。

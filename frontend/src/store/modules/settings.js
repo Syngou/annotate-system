@@ -1,4 +1,4 @@
-import defaultSettings from "@/settings";
+import defaultSettings from "@/utils/settings";
 
 const { showSettings, fixedHeader, sidebarLogo } = defaultSettings;
 
