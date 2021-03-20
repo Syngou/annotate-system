@@ -175,11 +175,5 @@ export default {
 .translate-card {
   width: 200px;
   position: absolute;
-
-  .delete-button {
-    position: relative;
-    top: 25px;
-    left: 182px;
-  }
 }
 </style>
