@@ -21,6 +21,10 @@ const state = {
         '#8985ec',
         '#761616'
     ],
+    entity_type: [],
+    line_graph: [],
+    chart_graph: {},
+    sentences: {}
 };
 
 const mutations = {};

@@ -20,10 +20,3 @@ def annotate_data_upload(request):
         data = request.body
         print(data.decode('utf-8'))
     return JsonResponse(ok({}))
-
-
-# 文本分析文件上传
-def error_analysis_file_upload(request):
-    file = request.FILES.get('analysis_file')
-    print(file)
-    return JsonResponse(ok({'file': 'django'}))

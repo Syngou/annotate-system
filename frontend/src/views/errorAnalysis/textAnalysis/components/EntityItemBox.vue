@@ -42,7 +42,7 @@ export default {
           predictType: entity.predict_label,
           standardColor: this.pickColor(entity.standard_type),
           predictColor: this.pickColor(entity.predict_type),
-          text: entity.value,
+          text: entity.text,
         });
       }
       return chunks;

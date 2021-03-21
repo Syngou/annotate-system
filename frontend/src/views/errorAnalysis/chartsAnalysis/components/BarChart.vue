@@ -22,6 +22,14 @@ export default {
       type: String,
       default: "300px",
     },
+    barX: {
+      type: Array,
+      required: true,
+    },
+    barData: {
+      type: Array,
+      required: true,
+    },
   },
   data() {
     return {
@@ -70,12 +78,12 @@ export default {
 
         xAxis: {
           type: "category",
-          data: ["关系", "疾病", "患者", "药物", "器械", "医生", "病毒"],
+          data: this.barX,
         },
 
         series: [
           {
-            data: [100, 80, 95, 83, 73, 61, 88],
+            data: this.barData,
             type: "bar",
           },
         ],

@@ -47,7 +47,6 @@
 
 <script>
 import EntityItemBox from "../textAnalysis/components/EntityItemBox";
-import { getText } from "@/api/text";
 
 export default {
   name: "Index",
@@ -95,17 +94,14 @@ export default {
      * 获取数据
      */
     fetchData() {
-      getText().then((res) => {
-        this.types.push(...res.data.labels);
-        for (let i = 0; i < this.types.length; i++) {
-          if (this.types[i]["text"]) {
-            this.types[i]["color"] = this.$store.state.errorAnalysis.colorArray[
-              i
-            ];
-          }
-        }
-        this.annotationArray = res.data.annotations;
-      });
+      let temp = this.$store.state.errorAnalysis.entity_type;
+      for (let i = 0; i < temp.length; i++) {
+        this.types.push({
+          text: temp[i],
+          color: this.$store.state.errorAnalysis.colorArray[i],
+        });
+      }
+      this.annotationArray = this.$store.state.errorAnalysis.sentences;
     },
   },
 };

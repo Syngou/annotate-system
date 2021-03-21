@@ -8,7 +8,7 @@
     />
 
     <!-- 标注选项对话框 -->
-    <div v-show="showDialog" ref="showDialog" class="dialog">
+    <div v-show="showDialog" ref="showDialog" class="optionDialog">
       <button
         v-for="(info, index) in typesInfo"
         :key="index"
@@ -30,40 +30,49 @@
       <TranslateCard :result="translateResult" />
     </div>
 
-
     <!-- 定义一个容器 -->
     <div class="container">
       <div class="row">
-
         <!-- 侧边栏 -->
         <div class="col-md-2">
           <div class="panel panel-default">
-            <div class="panel-heading" >
-              <div class="head">现有标签</div><hr><div class="tip">(选中文本后单击任一标签即可标注)</div>
+            <div class="panel-heading">
+              <div class="head">
+                现有标签
+              </div>
+              <hr />
+              <div class="tip">
+                (选中文本后单击任一标签即可标注)
+              </div>
             </div>
             <div class="panel-body">
-            <div class="side">
-              <button
-                v-for="(info, index) in typesInfo"
-                :key="index"
-                :style="{ backgroundColor: info.color }"
-                @click="annotateText(index + '-' + $store.state.annotate.id, index)"
-              >
-                {{ info.value }}
-              </button>
-              <br><br>
-              <router-link to="/text/setting">添加新分类</router-link>
-            </div>
+              <div class="side">
+                <button
+                  v-for="(info, index) in typesInfo"
+                  :key="index"
+                  :style="{ backgroundColor: info.color }"
+                  @click="
+                    annotateText(index + '-' + $store.state.annotate.id, index)
+                  "
+                >
+                  {{ info.value }}
+                </button>
+                <br /><br />
+                <router-link to="/text/setting">
+                  添加新分类
+                </router-link>
+              </div>
             </div>
           </div>
         </div>
 
-
-         <!-- 论文排版 --> 
+        <!-- 论文排版 -->
         <div class="col-md-10">
           <div class="panel panel-default">
-            <div class="panel-heading" >
-              <div class="head">文章如下</div>
+            <div class="panel-heading">
+              <div class="head">
+                文章如下
+              </div>
             </div>
             <div class="panel-body">
               <pre
@@ -133,7 +142,7 @@ export default {
         this.showDialog = true;
       }
       //点击空白处取消标注
-      else{
+      else {
         this.showDialog = false;
       }
     },
@@ -160,7 +169,6 @@ export default {
       request.translate(text).then((res) => {
         this.translateResult = res;
         this.showTranslateCard = true;
-        console.log(res);
       });
     },
   },
@@ -174,7 +182,7 @@ export default {
 }
 
 /* 标注时对话框的样式 */
-.dialog {
+.optionDialog {
   position: absolute;
   border-radius: 10px;
   background-color: rgb(147, 121, 121);
@@ -187,9 +195,9 @@ export default {
     border-radius: 10px;
     cursor: pointer;
     outline: none;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+      0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
-
 }
 
 .head {
@@ -204,25 +212,25 @@ export default {
 
 /* 面板框样式 */
 .panel > .panel-heading {
-    background-image: none;
-    background-color: #7B8CA3;
-    color: white;
-    font-weight:400;
+  background-image: none;
+  background-color: #7b8ca3;
+  color: white;
+  font-weight: 400;
 }
 
 /* 侧边栏样式 */
 .side {
   button {
-      border: 1px solid black;
+    border: 1px solid black;
     margin-top: 10px;
     margin-left: 10px;
     border-radius: 10px;
     cursor: pointer;
     outline: none;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+      0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
 }
-
 
 /* 文本样式 */
 .essay-content {

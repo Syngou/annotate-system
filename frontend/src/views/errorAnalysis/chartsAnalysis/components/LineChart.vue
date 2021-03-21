@@ -30,6 +30,10 @@ export default {
       type: Object,
       required: true,
     },
+    x: {
+      type: Array,
+      required: true,
+    },
   },
   data() {
     return {
@@ -56,7 +60,7 @@ export default {
     setOptions({ expectedData, actualData } = {}) {
       this.chart.setOption({
         xAxis: {
-          data: ["关系", "药物", "疾病", "器械", "患者", "医生", "病毒"],
+          data: this.x,
           boundaryGap: false,
           axisTick: {
             show: false,
