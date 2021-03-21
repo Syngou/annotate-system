@@ -30,14 +30,40 @@
       <TranslateCard :result="translateResult" />
     </div>
 
-    <!-- 论文排版 -->
+
     <!-- 定义一个容器 -->
     <div class="container">
       <div class="row">
-        <div class="col-md-12">
+
+        <!-- 侧边栏 -->
+        <div class="col-md-2">
           <div class="panel panel-default">
             <div class="panel-heading" >
-              文章如下
+              <div class="head">现有标签</div><hr><div class="tip">(选中文本后单击任一标签即可标注)</div>
+            </div>
+            <div class="panel-body">
+            <div class="side">
+              <button
+                v-for="(info, index) in typesInfo"
+                :key="index"
+                :style="{ backgroundColor: info.color }"
+                @click="annotateText(index + '-' + $store.state.annotate.id, index)"
+              >
+                {{ info.value }}
+              </button>
+              <br><br>
+              <router-link to="/text/setting">添加新分类</router-link>
+            </div>
+            </div>
+          </div>
+        </div>
+
+
+         <!-- 论文排版 --> 
+        <div class="col-md-10">
+          <div class="panel panel-default">
+            <div class="panel-heading" >
+              <div class="head">文章如下</div>
             </div>
             <div class="panel-body">
               <pre
@@ -94,7 +120,7 @@ export default {
      * @description 获取选中文本，鼠标位置加上滚动距离
      * @param e 事件
      */
-    // TODO 添加一个点击空白处取消标注的功能
+
     getSelection(e) {
       if (window.getSelection().toString() !== "") {
         this.selectText = window.getSelection().toString();
@@ -105,6 +131,10 @@ export default {
         );
         this.$refs.showDialog.style.display = "block";
         this.showDialog = true;
+      }
+      //点击空白处取消标注
+      else{
+        this.showDialog = false;
       }
     },
 
@@ -157,12 +187,46 @@ export default {
     border-radius: 10px;
     cursor: pointer;
     outline: none;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  }
+
+}
+
+.head {
+  font-size: 15px;
+  color: white;
+}
+
+.tip {
+  font-size: 10px;
+  color: white;
+}
+
+/* 面板框样式 */
+.panel > .panel-heading {
+    background-image: none;
+    background-color: #7B8CA3;
+    color: white;
+    font-weight:400;
+}
+
+/* 侧边栏样式 */
+.side {
+  button {
+      border: 1px solid black;
+    margin-top: 10px;
+    margin-left: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
   }
 }
 
+
 /* 文本样式 */
 .essay-content {
-  margin-top: 100px;
+  margin-top: 50px;
   overflow: auto;
   flex: auto;
   min-height: 1000px;
@@ -170,6 +234,7 @@ export default {
   white-space: pre-line;
   word-break: break-all;
   line-height: 25px;
+  font-family: Microsoft Yahei;
 }
 // 翻译卡片
 .translate-card {
