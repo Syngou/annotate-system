@@ -111,8 +111,8 @@ export default {
     };
     return {
       loginForm: {
-        username: "",
-        password: "",
+        username: "admin",
+        password: "111111",
       },
       loginRules: {
         username: [
@@ -193,6 +193,7 @@ export default {
   height: 100%;
   position: relative;
   background-image: url("../../assets/user/login.png");
+  background-size: cover;
 
   &-bg {
     width: 100%;
