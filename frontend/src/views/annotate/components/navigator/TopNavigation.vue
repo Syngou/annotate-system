@@ -4,7 +4,7 @@
     <a @click="$bus.$emit('autoAnnotate')">自动化标注</a>
     <a @click="uploadData">上传</a>
     <!-- TODO 等待数据库，待开发功能-->
-    <a>暂存数据</a>
+    <a @click="saveTamporaryData">暂存数据</a>
     <router-link v-if="!avatar" to="/login" style="float: right;">
       登录
     </router-link>
@@ -68,6 +68,10 @@ export default {
         this.drawer = false;
       });
     },
+    /**
+     * 暂存标注数据
+     */
+    saveTamporaryData() {},
   },
 };
 </script>
@@ -77,6 +81,11 @@ export default {
   margin: 0 30px;
   color: white;
   font-size: 22px;
+}
+@media screen and (max-width: 400px) {
+  .title {
+    display: none;
+  }
 }
 
 /* 导航条 */

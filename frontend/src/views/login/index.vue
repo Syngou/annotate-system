@@ -57,7 +57,7 @@
               style="width: 100%;"
               @click.native.prevent="handleLogin"
             >
-              立即登陆
+              立即登录
             </el-button>
           </el-form-item>
           <div class="account-other">
