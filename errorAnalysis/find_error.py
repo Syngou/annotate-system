@@ -3,9 +3,6 @@ A tool of errors analysis for NER tasks
 @author: xiongying
 @date:2021-03-14
 '''
-import json
-import os
-import sys
 
 
 # 按行返回文件内容
@@ -193,14 +190,14 @@ def error_class(data):
                     gold_tag[i] = 1
                     pre_tag[j] = 1
                 elif gold_tag[i] == 0 and pre_tag[j] == 0 and (
-                    (p_st >= g_st and p_ed < g_ed) or
-                    (p_st > g_st and p_ed <= g_ed)):  # 少预测
+                        (p_st >= g_st and p_ed < g_ed) or
+                        (p_st > g_st and p_ed <= g_ed)):  # 少预测
                     less_pred.append([g_e, p_e])
                     gold_tag[i] = 1
                     pre_tag[j] = 1
                 elif gold_tag[i] == 0 and pre_tag[j] == 0 and (
-                    (p_st <= g_st and p_ed > g_ed) or
-                    (p_st < g_st and p_ed >= g_ed)):  # 多预测
+                        (p_st <= g_st and p_ed > g_ed) or
+                        (p_st < g_st and p_ed >= g_ed)):  # 多预测
                     more_pred.append([g_e, p_e])
                     gold_tag[i] = 1
                     pre_tag[j] = 1
@@ -211,8 +208,8 @@ def error_class(data):
                     gold_tag[i] = 1
                     pre_tag[j] = 1
                 elif gold_tag[i] == 0 and pre_tag[j] == 0 and (
-                    (p_st < g_st and p_ed > g_st and p_ed < g_ed) or
-                    (p_st > g_st and p_st < g_ed and p_ed < g_ed)):  # 预测交叉
+                        (p_st < g_st and p_ed > g_st and p_ed < g_ed) or
+                        (p_st > g_st and p_st < g_ed and p_ed < g_ed)):  # 预测交叉
                     mix_error.append([g_e, p_e])
                     gold_tag[i] = 1
                     pre_tag[j] = 1
@@ -256,7 +253,6 @@ def error_statis(data):
     trans_co = 0
     leaf_co = 0
     aband_co = 0
-    print(len(leaf_errors))
     for i in range(len(sens)):
         if len(more_preds[i]) > 0:
             more_co += 1
@@ -272,22 +268,6 @@ def error_statis(data):
             leaf_co += 1
         if len(aband_errors[i]) > 0:
             aband_co += 1
-    #     print(str(i) + ' ' + ' '.join(sens[i]))
-    #     print('more_preds: ', more_preds[i])
-    #     print('less_predict: ', less_predict[i])
-    #     print('type_errors: ', type_errors[i])
-    #     print('mix_errors: ', mix_errors[i])
-    #     print('trans_errors: ', trans_errors[i])
-    #     print('leaf_errors: ', leaf_errors[i])
-    #     print('aband_errors: ', aband_errors[i])
-
-    # print('more_co:', more_co)
-    # print('less_co:', less_co)
-    # print('type_co:', type_co)
-    # print('mix_co:', mix_co)
-    # print('trans_co:', trans_co)
-    # print('leaf_co:', leaf_co)
-    # print('aband_co:', aband_co)
     error_type = [
         'more_preds', 'less_predict', 'type_errors', 'mix_errors',
         'trans_errors', 'leaf_errors', 'aband_errors'
@@ -327,32 +307,3 @@ def correct_statis(data):
             else:
                 pre_correct_dis[ty] += 1
     return gold_dis, pre_correct_dis
-
-
-# python2json = {}
-# filename = 'revised_jnlpba_raw.txt'
-# data = Data(filename)
-
-# # 得到所有句子每个词信息
-# sen_info = data.get_word_info()
-# python2json['sentences'] = sen_info
-
-# # 实体类型
-# entity_type = data.get_entity_type()
-# print(entity_type)
-# python2json['entity_type'] = entity_type
-
-# # 不同地错误类型及原始句子返回
-# sens, more_preds, less_predict, type_errors, mix_errors, trans_errors, leaf_errors, aband_errors, corrects = error_class(
-#     data)
-
-# # 标准实体个数分布以及预测正确实体分布
-# gold, correct = correct_statis(data)
-# python2json['line_graph'] = [gold, correct]
-
-# # 错误类型个数统计
-# errortype = error_statis(data)
-# python2json['chart_graph'] = errortype
-
-# json_str = json.dumps(python2json, ensure_ascii=False)
-# print(json_str)

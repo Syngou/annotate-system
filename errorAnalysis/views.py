@@ -25,7 +25,6 @@ def error_analysis_file_upload(request):
 
         # 实体类型
         entity_type = data.get_entity_type()
-        print(entity_type)
         python2json['entity_type'] = entity_type
 
         # 标准实体个数分布以及预测正确实体分布
@@ -37,6 +36,5 @@ def error_analysis_file_upload(request):
         python2json['chart_graph'] = error_type
 
         json_str = json.dumps(python2json, ensure_ascii=False)
-        print(json_str)
 
         return JsonResponse(ok({'data': json_str}))
