@@ -1,23 +1,5 @@
 <template>
   <div class="register">
-    <vue-particles
-      class="register-bg"
-      color="#39AFFD"
-      :particle-opacity="0.7"
-      :particles-number="100"
-      shape-type="circle"
-      :particle-size="4"
-      lines-color="#8DD1FE"
-      :lines-width="1"
-      :line-linked="true"
-      :line-opacity="0.4"
-      :lines-distance="150"
-      :move-speed="3"
-      :hover-effect="true"
-      hover-mode="grab"
-      :click-effect="true"
-      click-mode="push"
-    />
     <!-- 注册面板 -->
     <div class="register-box">
       <div class="register-box-title">
@@ -88,26 +70,15 @@
 </template>
 
 <script>
+import {
+  validateRegisterUsername,
+  validateRegisterPassword,
+} from "@/utils/validate.js";
+
 export default {
   name: "Register",
 
   data() {
-    const validateUsername = (rule, value, callback) => {
-      rule;
-      if (value === "") {
-        callback(new Error("请输入用户名"));
-      } else {
-        callback();
-      }
-    };
-    const validatePassword = (rule, value, callback) => {
-      rule;
-      if (value.length < 6) {
-        callback(new Error("密码不能小于6位数"));
-      } else {
-        callback();
-      }
-    };
     return {
       //表单数据
       registerForm: {
@@ -120,7 +91,7 @@ export default {
           {
             required: true,
             trigger: "blur",
-            validator: validateUsername,
+            validator: validateRegisterUsername,
             message: "请输入您的昵称",
           },
         ],
@@ -128,7 +99,7 @@ export default {
           {
             required: true,
             trigger: "blur",
-            validator: validatePassword,
+            validator: validateRegisterPassword,
             message: "密码不能小于6位数",
           },
         ],
@@ -202,11 +173,6 @@ img {
   position: relative;
   background-image: url("../../assets/user/login.png");
 
-  &-bg {
-    width: 100%;
-    height: 100%;
-    background: #565856;
-  }
   &-box {
     width: 350px;
     /* height: 287px; */
@@ -237,16 +203,16 @@ img {
         cursor: pointer;
         float: right;
       }
+      .show-pwd {
+        position: absolute;
+        right: 10px;
+        top: 0;
+        font-size: 16px;
+        color: #889aa4;
+        cursor: pointer;
+        user-select: none;
+      }
     }
-  }
-  .show-pwd {
-    position: absolute;
-    right: 10px;
-    top: 0;
-    font-size: 16px;
-    color: #889aa4;
-    cursor: pointer;
-    user-select: none;
   }
 }
 </style>

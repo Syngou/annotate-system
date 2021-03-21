@@ -57,7 +57,7 @@
               style="width: 100%;"
               @click.native.prevent="handleLogin"
             >
-              立即登录
+              登录
             </el-button>
           </el-form-item>
           <div class="account-other">
@@ -89,26 +89,14 @@
 </template>
 
 <script>
+import {
+  validateLoginUsername,
+  validateLoginPassword,
+} from "@/utils/validate.js";
 export default {
   name: "Login",
 
   data() {
-    const validateUsername = (rule, value, callback) => {
-      rule;
-      if (value !== "admin" && value !== "editor") {
-        callback(new Error("请输入正确的用户名"));
-      } else {
-        callback();
-      }
-    };
-    const validatePassword = (rule, value, callback) => {
-      rule;
-      if (value === "") {
-        callback(new Error("请输入密码"));
-      } else {
-        callback();
-      }
-    };
     return {
       loginForm: {
         username: "admin",
@@ -119,7 +107,7 @@ export default {
           {
             required: true,
             trigger: "blur",
-            validator: validateUsername,
+            validator: validateLoginUsername,
             message: "请输入正确的用户名",
           },
         ],
@@ -127,7 +115,7 @@ export default {
           {
             required: true,
             trigger: "blur",
-            validator: validatePassword,
+            validator: validateLoginPassword,
             message: "请输入密码",
           },
         ],
@@ -194,15 +182,9 @@ export default {
   position: relative;
   background-image: url("../../assets/user/login.png");
   background-size: cover;
-
-  &-bg {
-    width: 100%;
-    height: 100%;
-    background: #565856;
-  }
+  // 登录框
   &-box {
     width: 350px;
-    /* height: 287px; */
     background: rgba(255, 255, 255, 0.9);
     border-radius: 5px;
     box-shadow: 0 0 2px #f7f7f7;
@@ -226,31 +208,32 @@ export default {
       padding: 30px;
       box-sizing: border-box;
     }
-  }
-  .show-pwd {
-    position: absolute;
-    right: 10px;
-    top: 0;
-    font-size: 16px;
-    color: #889aa4;
-    cursor: pointer;
-    user-select: none;
-  }
-}
-img {
-  margin: 10px 20px 0 0;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-}
+    // 显示密码
+    .show-pwd {
+      position: absolute;
+      right: 10px;
+      top: 0;
+      font-size: 16px;
+      color: #889aa4;
+      cursor: pointer;
+      user-select: none;
+    }
+    img {
+      margin: 10px 20px 0 0;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+    }
 
-.pwd {
-  cursor: pointer;
-  float: right;
-}
-.register {
-  cursor: pointer;
-  float: right;
-  margin-top: 20px;
+    .pwd {
+      cursor: pointer;
+      float: right;
+    }
+    .register {
+      cursor: pointer;
+      float: right;
+      margin-top: 20px;
+    }
+  }
 }
 </style>
