@@ -57,7 +57,7 @@
               style="width: 100%;"
               @click.native.prevent="handleLogin"
             >
-              立即登陆
+              立即登录
             </el-button>
           </el-form-item>
           <div class="account-other">
@@ -118,7 +118,7 @@ export default {
         username: [
           {
             required: true,
-            trigger: "blur",
+            trigger: "blur", 
             validator: validateUsername,
             message: "请输入正确的用户名",
           },

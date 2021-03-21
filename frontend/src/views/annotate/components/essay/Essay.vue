@@ -36,7 +36,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="panel panel-default">
-            <div class="panel-heading" style="float: right;">
+            <div class="panel-heading" >
               文章如下
             </div>
             <div class="panel-body">
