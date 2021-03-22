@@ -3,7 +3,7 @@ import json
 from django.http import JsonResponse
 
 from .find_error import Data, correct_statis, error_statis
-from .response import error, ok
+from .response import ok
 
 
 # Create your views here.

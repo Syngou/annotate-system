@@ -3,7 +3,7 @@
 </template>
 
 <script>
-require("echarts/theme/macarons"); // echarts theme
+require("echarts/theme/macarons");
 const echarts = require("echarts");
 import resize from "./mixins/resize";
 
@@ -26,11 +26,13 @@ export default {
       type: Boolean,
       default: true,
     },
-    chartData: {
-      type: Object,
+    // 数据
+    lineXData: {
+      type: Array,
       required: true,
     },
-    x: {
+    // x轴
+    lineXAxis: {
       type: Array,
       required: true,
     },
@@ -55,12 +57,12 @@ export default {
   methods: {
     initChart() {
       this.chart = echarts.init(this.$el, "macarons");
-      this.setOptions(this.chartData);
+      this.setOptions(this.lineXData);
     },
-    setOptions({ expectedData, actualData } = {}) {
+    setOptions([expectedData, actualData] = []) {
       this.chart.setOption({
         xAxis: {
-          data: this.x,
+          data: this.lineXAxis,
           boundaryGap: false,
           axisTick: {
             show: false,

@@ -48,10 +48,7 @@ export default {
   methods: {
     handleSuccess(response) {
       let data = JSON.parse(response.data.data);
-      this.$store.state.errorAnalysis.entity_type = data.entity_type;
-      this.$store.state.errorAnalysis.chart_graph = data.chart_graph;
-      this.$store.state.errorAnalysis.line_graph = data.line_graph;
-      this.$store.state.errorAnalysis.sentences = data.sentences;
+      this.$store.dispatch("errorAnalysis/setData", data);
       this.$message.success("上传成功");
       this.isUploaded = true;
     },

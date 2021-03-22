@@ -1,15 +1,15 @@
 <template>
   <div>
-    <div v-if="x.length" class="dashboard-editor-container">
+    <div v-if="lineXAxis.length" class="dashboard-editor-container">
       <el-row
         style="background: #fff; padding: 16px 16px 0; margin-bottom: 32px;"
       >
-        <line-chart :chart-data="data" :x="x" />
+        <line-chart :line-x-data="lineXData" :line-x-axis="lineXAxis" />
       </el-row>
       <el-row>
         <el-col>
           <div class="chart-wrapper">
-            <bar-chart :bar-x="barX" :bar-data="barData" />
+            <bar-chart :bar-x-axis="barXAxis" :bar-x-data="barXData" />
           </div>
         </el-col>
       </el-row>
@@ -30,42 +30,31 @@ export default {
     BarChart,
     Empty,
   },
-  computed: {
-    x() {
-      let arr = [];
-      let data = this.$store.state.errorAnalysis.line_graph[0];
-      for (let key in data) {
-        arr.push(key);
+  data() {
+    return {
+      lineXAxis: [], // 折线图x轴
+      lineXData: [[], []], //折线图数据
+      barXAxis: [], //柱形图x轴
+      barXData: [], //柱形图数据
+    };
+  },
+  created() {
+    this.init();
+  },
+  methods: {
+    init() {
+      const expectedData = this.$store.state.errorAnalysis.line_graph[0];
+      const actualData = this.$store.state.errorAnalysis.line_graph[1];
+      const barData = this.$store.state.errorAnalysis.chart_graph;
+      for (let key in expectedData) {
+        this.lineXAxis.push(key);
+        this.lineXData[0].push(expectedData[key]);
+        this.lineXData[1].push(actualData[key]);
       }
-      return arr;
-    },
-    data() {
-      let temp0 = this.$store.state.errorAnalysis.line_graph[0];
-      let temp1 = this.$store.state.errorAnalysis.line_graph[1];
-      let expectedData = [];
-      let actualData = [];
-      for (let key1 in temp0) {
-        expectedData.push(temp0[key1]);
+      for (let key in barData) {
+        this.barXAxis.push(key);
+        this.barXData.push(barData[key]);
       }
-      for (let key2 in temp1) {
-        actualData.push(temp1[key2]);
-      }
-      return { expectedData, actualData };
-    },
-    barX() {
-      let temp = [];
-      for (let key in this.$store.state.errorAnalysis.chart_graph) {
-        temp.push(key);
-      }
-      return temp;
-    },
-    barData() {
-      let temp = [];
-      let data = this.$store.state.errorAnalysis.chart_graph;
-      for (let key in data) {
-        temp.push(data[key]);
-      }
-      return temp;
     },
   },
 };

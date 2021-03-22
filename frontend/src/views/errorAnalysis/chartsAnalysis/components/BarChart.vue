@@ -4,7 +4,7 @@
 
 <script>
 const echarts = require("echarts");
-require("echarts/theme/macarons"); // echarts theme
+require("echarts/theme/macarons");
 import resize from "./mixins/resize";
 
 export default {
@@ -22,11 +22,13 @@ export default {
       type: String,
       default: "300px",
     },
-    barX: {
+    // x轴
+    barXAxis: {
       type: Array,
       required: true,
     },
-    barData: {
+    // 数据
+    barXData: {
       type: Array,
       required: true,
     },
@@ -78,12 +80,12 @@ export default {
 
         xAxis: {
           type: "category",
-          data: this.barX,
+          data: this.barXAxis,
         },
 
         series: [
           {
-            data: this.barData,
+            data: this.barXData,
             type: "bar",
           },
         ],

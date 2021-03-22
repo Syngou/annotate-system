@@ -29,7 +29,6 @@ export default {
     this.$_destroySidebarResizeEvent();
   },
   methods: {
-    // https://vuejs.org/v2/style-guide/index.html#Private-property-names-essential
     $_initResizeEvent() {
       window.addEventListener("resize", this.$_resizeHandler);
     },

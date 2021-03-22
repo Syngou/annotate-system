@@ -1,5 +1,6 @@
 /* Layout */
 import Layout from "@/layout";
+import Login from "@/views/login";
 import Vue from "vue";
 import Router from "vue-router";
 
@@ -13,7 +14,7 @@ export const constantRoutes = [
   },
   {
     path: "/login",
-    component: () => import("@/views/login/index"),
+    component: Login,
     hidden: true,
   },
   {
