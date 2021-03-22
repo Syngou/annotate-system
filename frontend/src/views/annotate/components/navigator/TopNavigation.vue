@@ -1,6 +1,6 @@
 <template>
   <div class="topNavigation">
-    <span class="title">医疗文本标注平台</span>
+    <span class="title">医疗文本标注和处理系统</span>
     <a @click="$bus.$emit('autoAnnotate')">自动化标注</a>
     <a @click="uploadData">上传</a>
     <!-- TODO 等待数据库，待开发功能-->
@@ -71,6 +71,7 @@ export default {
     /**
      * 暂存标注数据
      */
+    // TODO 待开发
     saveTamporaryData() {},
   },
 };
@@ -146,7 +147,6 @@ export default {
     margin-right: 5px;
 
     .avatar-wrapper {
-      margin-top: 5px;
       position: relative;
 
       .user-avatar {

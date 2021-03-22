@@ -3,13 +3,18 @@
     开发时使用的临时页面，用于测试
     <div>
       <p>测试</p>
+
+      <div>
+        <ul id="list"></ul>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {},
+};
 </script>
 
-<style>
-</style>
+<style></style>

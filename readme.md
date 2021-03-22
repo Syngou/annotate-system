@@ -29,10 +29,14 @@
 npm install
 npm run serve
 ```
-* 新建终端，进入到 manage.py 文件所在目录，执行以下命令运行后端服务器
+* 新建终端，进入到 manage.py 文件所在目录
+* 先安装一下这个包
+```
+pip install django-cors-headers
+```
+* 然后执行以下命令运行后端服务器
 ```
 python manage.py runserver
 ```
-* 接着用前端页面试着标注几个词，然后发送给后台看看效果(看终端的输出）
 ## License  
 MIT

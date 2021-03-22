@@ -34,7 +34,7 @@
         <div class="block">
           <el-pagination
             :current-page.sync="currentPage"
-            :page-sizes="[2, 3, 4, 5]"
+            :page-sizes="[1, 2, 3, 4]"
             :page-size="2"
             layout="total, sizes, prev, pager, next, jumper"
             :total="annotationArray.length"
