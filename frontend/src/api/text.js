@@ -5,8 +5,8 @@ import request from "@/utils/request";
  * @returns 文本分析数据
  */
 export function getText() {
-    return request({
-        url: "/mockjs/error/text",
-        method: "get",
-    });
+  return request({
+    url: "/mockjs/error/text",
+    method: "get",
+  });
 }

@@ -21,5 +21,8 @@ module.exports = {
     "vue/no-mutating-props": "off",
     "vue/html-self-closing": "off",
     "no-prototype-builtins": "off",
+    'indent': [2, 2, {
+      'SwitchCase': 1
+    }],
   }
 };

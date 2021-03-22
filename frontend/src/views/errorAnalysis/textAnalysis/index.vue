@@ -1,57 +1,62 @@
 <template>
   <div>
-    <div>
-      <div style="margin: 30px;">
-        <ul>
-          <li>字上面的标签表示标注值，下方为预测值</li>
-        </ul>
+    <div v-if="textArray.length">
+      <div>
+        <div style="margin: 30px;">
+          <ul>
+            <li>字上面的标签表示标注值，下方为预测值</li>
+          </ul>
+        </div>
       </div>
-    </div>
-    <div class="tags-container">
-      <span
-        v-for="(type, index) in types"
-        :key="index"
-        class="text-tag"
-        :style="{ backgroundColor: type.color }"
-      >
-        {{ type.text }}
-      </span>
-    </div>
-    <div
-      v-for="(text, index) in textArray"
-      :key="index"
-      class="entity-item-box"
-    >
-      <entity-item-box
-        :labels="types"
-        :entities="
-          annotationArray[currentPage * sentenceCount + index - sentenceCount]
-        "
-      />
-    </div>
-    <div class="page">
-      <div class="block">
-        <el-pagination
-          :current-page.sync="currentPage"
-          :page-sizes="[2, 3, 4, 5]"
-          :page-size="2"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="annotationArray.length"
-          @size-change="handleSizeChange"
+      <div class="tags-container">
+        <span
+          v-for="(type, index) in types"
+          :key="index"
+          class="text-tag"
+          :style="{ backgroundColor: type.color }"
         >
-        </el-pagination>
+          {{ type.text }}
+        </span>
+      </div>
+      <div
+        v-for="(text, index) in textArray"
+        :key="index"
+        class="entity-item-box"
+      >
+        <entity-item-box
+          :labels="types"
+          :entities="
+            annotationArray[currentPage * sentenceCount + index - sentenceCount]
+          "
+        />
+      </div>
+      <div class="page">
+        <div class="block">
+          <el-pagination
+            :current-page.sync="currentPage"
+            :page-sizes="[2, 3, 4, 5]"
+            :page-size="2"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="annotationArray.length"
+            @size-change="handleSizeChange"
+          >
+          </el-pagination>
+        </div>
       </div>
     </div>
+    <Empty v-else />
   </div>
 </template>
 
 <script>
 import EntityItemBox from "../textAnalysis/components/EntityItemBox";
+import Empty from "../empty/Empty";
 
 export default {
   name: "Index",
   components: {
     EntityItemBox,
+    Empty,
   },
   data() {
     return {

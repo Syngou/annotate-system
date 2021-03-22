@@ -1,29 +1,34 @@
 <template>
-  <div class="dashboard-editor-container">
-    <el-row
-      style="background: #fff; padding: 16px 16px 0; margin-bottom: 32px;"
-    >
-      <line-chart :chart-data="data" :x="x" />
-    </el-row>
-    <el-row>
-      <el-col>
-        <div class="chart-wrapper">
-          <bar-chart :bar-x="barX" :bar-data="barData" />
-        </div>
-      </el-col>
-    </el-row>
+  <div>
+    <div v-if="x.length" class="dashboard-editor-container">
+      <el-row
+        style="background: #fff; padding: 16px 16px 0; margin-bottom: 32px;"
+      >
+        <line-chart :chart-data="data" :x="x" />
+      </el-row>
+      <el-row>
+        <el-col>
+          <div class="chart-wrapper">
+            <bar-chart :bar-x="barX" :bar-data="barData" />
+          </div>
+        </el-col>
+      </el-row>
+    </div>
+    <Empty v-else />
   </div>
 </template>
 
 <script>
 import LineChart from "./components/LineChart";
 import BarChart from "./components/BarChart";
+import Empty from "../empty/Empty";
 
 export default {
   name: "DashboardAdmin",
   components: {
     LineChart,
     BarChart,
+    Empty,
   },
   computed: {
     x() {

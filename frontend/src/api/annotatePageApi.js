@@ -4,28 +4,28 @@ import config from "@/api/annotateApiConfig";
  */
 
 export default {
-    /**
+  /**
      *
      * @description 传数据到后台
      * @param  data ==> 数组，四个值对应四个标注的属性
      */
-    postToBackend(data) {
-        return config({
-            url: `upload/`,
-            method: "POST",
-            data,
-        });
-    },
+  postToBackend(data) {
+    return config({
+      url: `upload/`,
+      method: "POST",
+      data,
+    });
+  },
 
-    /**
+  /**
      *
      * @description 翻译，待开发
      * @params text ==> 需要标注的文本
      */
-    translate(text) {
-        return config({
-            url: `translate/?text=${text}`,
-            method: "get",
-        });
-    },
+  translate(text) {
+    return config({
+      url: `translate/?text=${text}`,
+      method: "get",
+    });
+  },
 };

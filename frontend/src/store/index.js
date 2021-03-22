@@ -10,14 +10,14 @@ import user from "./modules/user";
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-    modules: {
-        app,
-        settings,
-        user,
-        annotate,
-        errorAnalysis
-    },
-    getters,
+  modules: {
+    app,
+    settings,
+    user,
+    annotate,
+    errorAnalysis
+  },
+  getters,
 });
 
 export default store;
