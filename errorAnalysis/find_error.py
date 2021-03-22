@@ -7,13 +7,13 @@ A tool of errors analysis for NER tasks
 
 # 按行返回文件内容
 def read_lines(filename):
-    with open(filename, 'r') as f:
+    with open(filename, 'r', encoding='utf-8') as f:
         return f.readlines()
 
 
 # 一次性返回文件内容
 def read_data(filename):
-    with open(filename, 'r') as f:
+    with open(filename, 'r', encoding='utf-8') as f:
         return f.read()
 
 

@@ -26,6 +26,7 @@ def error_analysis_file_upload(request):
         # 实体类型
         entity_type = data.get_entity_type()
         python2json['entity_type'] = entity_type
+        print(entity_type)
 
         # 标准实体个数分布以及预测正确实体分布
         gold, correct = correct_statis(data)
