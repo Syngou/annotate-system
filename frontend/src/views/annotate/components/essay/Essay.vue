@@ -27,7 +27,10 @@
         class="el-message__closeBtn el-icon-close delete-button"
         @click="showTranslateCard = false"
       />
-      <TranslateCard :result="translateResult" />
+      <TranslateCard
+        style="z-index: 1000000000000000;!important"
+        :result="translateResult"
+      />
     </div>
 
     <!-- 定义一个容器 -->
@@ -167,7 +170,7 @@ export default {
       this.showDialog = false;
       let text = window.getSelection().toString();
       request.translate(text).then((res) => {
-        this.translateResult = res;
+        this.translateResult = res.data;
         this.showTranslateCard = true;
       });
     },

@@ -66,6 +66,7 @@ export default {
     essay.removeChild(span);
     store.dispatch("annotate/deleteDataFromList", { type: id, text });
   },
+
   /**
    *
    * @description 机器学习自动化标注
@@ -85,7 +86,8 @@ export default {
           annotate.state.annotateData[i].push(array[j]);
           essay.innerHTML = essay.innerHTML.replaceAll(
             array[j],
-            `<span style='${this.textStyle(i)}'>${array[j]
+            `<span style='${this.textStyle(i)}'>${
+              array[j]
             }<i class='deleteButtonTemp el-icon-close' style='${this.buttonStyle()}'></i> </span>`
           );
 

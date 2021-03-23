@@ -2,8 +2,7 @@
   <div>
     <el-card shadow="hover">
       <ul>
-        <li>{{ result.code }}</li>
-        <li>{{ result.data }}</li>
+        <li>{{ result.text }}</li>
       </ul>
     </el-card>
   </div>
