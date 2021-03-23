@@ -27,10 +27,7 @@
         class="el-message__closeBtn el-icon-close delete-button"
         @click="showTranslateCard = false"
       />
-      <TranslateCard
-        style="z-index: 1000000000000000;!important"
-        :result="translateResult"
-      />
+      <TranslateCard :result="translateResult" />
     </div>
 
     <!-- 定义一个容器 -->
@@ -251,5 +248,10 @@ export default {
 .translate-card {
   width: 200px;
   position: absolute;
+  z-index: 1;
+  .delete-button {
+    top: 10px;
+    right: -40px;
+  }
 }
 </style>

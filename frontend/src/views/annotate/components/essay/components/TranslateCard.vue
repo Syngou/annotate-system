@@ -1,10 +1,6 @@
 <template>
-  <div>
-    <el-card shadow="hover">
-      <ul>
-        <li>{{ result.text }}</li>
-      </ul>
-    </el-card>
+  <div class="card">
+    {{ result.text }}
   </div>
 </template>
 
@@ -22,4 +18,11 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.card {
+  background-color: #fff;
+  width: 250px;
+  min-height: 50px;
+  padding: 10px 20px;
+}
+</style>
