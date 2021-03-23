@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    {{ result.text }}
+    {{ result.result }}
   </div>
 </template>
 
