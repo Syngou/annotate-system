@@ -54,13 +54,9 @@ def translate(request):
         'action': 'FY_BY_REALTlME'
     }
 
-    #获取请求后的列表并输出‘date’这个数据的翻译
-    # print(lts)  #此处输出lts是为了检查lts是符合有道反爬虫机制（时间戳）
-    # print(salt)  #同上
-    # print(sign)  #同上
     response = requests.request("POST", url, headers=header, data=keydata)
-    text = response.json().get("translateResult")[0][0].get("tgt")
-    return JsonResponse(ok({'text': text}))
+    result = response.json().get("translateResult")[0][0].get("tgt")
+    return JsonResponse(ok({'result': result}))
 
 
 # 标注数据上传接口
