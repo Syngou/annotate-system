@@ -4,12 +4,12 @@ const userAnnotateSetting = Cookies.getJSON('annotate-custom-setting')
 const state = {
   typesInfo: userAnnotateSetting ?? [
     // 分类信息
-    { value: '药物', color: '#fa0404' },
-    { value: '医生', color: '#fd0dad' },
-    { value: '器械', color: '#8406f3' },
-    { value: '疾病', color: '#e3fc07' },
-    { value: '患者', color: '#058f32' },
-    { value: '病毒', color: '#1f74c9' }
+    { value: '药物', color: '#fa0404', shortcut: 'm'},
+    { value: '医生', color: '#fd0dad', shortcut: 'd'},
+    { value: '器械', color: '#8406f3', shortcut: 'i'},
+    { value: '疾病', color: '#e3fc07', shortcut: 's'},
+    { value: '患者', color: '#058f32', shortcut: 'p'},
+    { value: '病毒', color: '#1f74c9', shortcut: 'v'}
   ],
   annotateData: [[], [], [], [], [], []], // 存储已标注的词语
   id: 1, // 按钮id，用于查找，添加删除事件
