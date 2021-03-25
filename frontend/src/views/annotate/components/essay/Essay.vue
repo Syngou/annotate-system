@@ -166,11 +166,12 @@ export default {
         let key = $event.key;
         let id = this.$store.state.annotate.id;
         this.showDialog = false;
-        let j;
-        for (j = 0; j < this.$store.state.annotate.typesInfo.length; j++) {
+        let j = 0;
+        for ( ; j < this.$store.state.annotate.typesInfo.length; j++) {
           if (key === this.$store.state.annotate.typesInfo[j].shortcut) {
-            annotateUtils.annotate(String(j) + id, j);
+            annotateUtils.annotate(j + '-' + id, j);
             break;
+            
           }
         }
       };
