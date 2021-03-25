@@ -17,6 +17,17 @@
           <span v-else> {{ scope.row.value }}</span>
         </template>
       </el-table-column>
+
+      <!-- 分类快捷键 -->
+      <el-table-column label="分类快捷键" min-width="200">
+        <template slot-scope="scope">
+          <template v-if="scope.$index == editCurrent">
+            <el-input v-model="editShortcut" size="small" />
+          </template>
+          <span v-else> {{ scope.row.shortcut }}</span>
+        </template>
+      </el-table-column>
+
       <!-- 分类颜色 -->
       <el-table-column label="分类颜色" width="120">
         <span slot-scope="scope">
@@ -56,6 +67,7 @@
               取消
             </el-button>
           </span>
+
           <el-button
             v-else
             type="primary"
@@ -65,6 +77,7 @@
           >
             编辑
           </el-button>
+
         </span>
       </el-table-column>
     </el-table>
@@ -101,6 +114,7 @@ export default {
       inputValue: "", // 输入框的值
       editCurrent: -1,
       editValue: "",
+      editShortcut: "",
     };
   },
   computed: {
@@ -141,6 +155,7 @@ export default {
         this.typesInfo.push({
           value: inputValue,
           color: "red",
+          shortcut: "0",
         });
       }
       this.inputVisible = false;
@@ -152,6 +167,7 @@ export default {
     edit(row, index) {
       this.editValue = row.value;
       this.editCurrent = index;
+      this.editShortcut = row.shortcut;
     },
     /**
      * 取消编辑
@@ -164,7 +180,9 @@ export default {
      */
     confirmEdit(rows) {
       rows.value = this.editValue;
+      rows.shortcut = this.editShortcut;
       this.editValue = "";
+      this.editShortcut = "";
       this.editCurrent = -1;
     },
     /**

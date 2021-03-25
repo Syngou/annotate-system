@@ -15,7 +15,7 @@
         :style="{ backgroundColor: info.color }"
         @click="annotateText(index + '-' + $store.state.annotate.id, index)"
       >
-        {{ info.value }}
+        {{ info.value }}({{ info.shortcut }})
       </button>
       <button @click="translateText">
         翻译
@@ -56,7 +56,7 @@
                     annotateText(index + '-' + $store.state.annotate.id, index)
                   "
                 >
-                  {{ info.value }}
+                  {{ info.value }}({{ info.shortcut }})
                 </button>
                 <br /><br />
                 <router-link to="/text/setting">
@@ -115,6 +115,10 @@ export default {
   computed: {
     ...mapGetters(["typesInfo"]),
   },
+ // 键盘标注，初始化即开始监听
+  created() {
+    this.annotateByShortcut();
+  },
   methods: {
     /**
      * @description 在鼠标位置弹出对话框
@@ -155,6 +159,23 @@ export default {
       this.showDialog = false;
       annotateUtils.annotate(id, index);
     },
+
+    /* 快捷键标注 */
+    annotateByShortcut() {
+      document.onkeydown = ($event) => {
+        let key = $event.key;
+        let id = this.$store.state.annotate.id;
+        this.showDialog = false;
+        let j;
+        for (j = 0; j < this.$store.state.annotate.typesInfo.length ; j++) {
+          if (key === this.$store.state.annotate.typesInfo[j].shortcut) {
+            annotateUtils.annotate(String(j) + id, j);
+            break;
+          }
+        }
+      };
+    },
+
 
     /**
      * @description 翻译
