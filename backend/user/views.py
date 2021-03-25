@@ -57,12 +57,3 @@ def translate(request):
     response = requests.request("POST", url, headers=header, data=keydata)
     result = response.json().get("translateResult")[0][0].get("tgt")
     return JsonResponse(ok({'result': result}))
-
-
-# 标注数据上传接口
-def annotate_data_upload(request):
-    # 上传的数据中每种类型可能会有多个词，所以还要进行分词操作，这里就不做了
-    if request.method == 'POST':
-        data = request.body
-        print(data.decode('utf-8'))
-    return JsonResponse(ok({}))

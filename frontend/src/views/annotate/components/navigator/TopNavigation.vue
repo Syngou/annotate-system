@@ -81,7 +81,9 @@ export default {
      * 暂存标注数据
      */
     // TODO 待开发
-    saveTamporaryData() {},
+    saveTamporaryData() {
+      this.$message.info("待开发");
+    },
   },
 };
 </script>

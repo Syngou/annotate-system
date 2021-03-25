@@ -5,5 +5,4 @@ from . import views
 urlpatterns = [
     # 接口地址按实际情况修改
     path('translate/', views.translate),
-    path('upload/', views.annotate_data_upload),
 ]
