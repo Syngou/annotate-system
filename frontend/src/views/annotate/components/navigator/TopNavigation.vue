@@ -5,7 +5,7 @@
     <!-- <a @click="$bus.$emit('autoAnnotate')">自动化标注</a> -->
     <a @click="exportData">导出数据</a>
     <!-- TODO 等待数据库，待开发功能-->
-    <a @click="saveTemporaryData">暂存数据</a>
+    <a @click="saveTamporaryData">暂存数据</a>
     <router-link v-if="!avatar" to="/login" style="float: right;">
       登录
     </router-link>
@@ -81,7 +81,7 @@ export default {
      * 暂存标注数据
      */
     // TODO 待开发
-    saveTemporaryData() {
+    saveTamporaryData() {
       this.$message.info("待开发");
     },
   },
@@ -94,7 +94,6 @@ export default {
   color: white;
   font-size: 22px;
 }
-
 @media screen and (max-width: 400px) {
   .title {
     display: none;
@@ -129,7 +128,6 @@ export default {
     color: black;
   }
 }
-
 .right-menu {
   float: right;
   height: 100%;

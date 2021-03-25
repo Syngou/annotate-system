@@ -47,7 +47,6 @@ export default {
   box-sizing: border-box;
   color: black;
 }
-
 /* 底部 */
 .footer {
   padding: 20px;

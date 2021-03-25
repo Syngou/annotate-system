@@ -175,7 +175,6 @@ img {
 
   &-box {
     width: 350px;
-
     /* height: 287px; */
     background: rgba(255, 255, 255, 0.9);
     border-radius: 5px;
@@ -194,7 +193,6 @@ img {
       text-align: center;
       border-bottom: 1px solid #312a2a;
     }
-
     &-from {
       width: 100%;
       height: auto;
@@ -205,7 +203,6 @@ img {
         cursor: pointer;
         float: right;
       }
-
       .show-pwd {
         position: absolute;
         right: 10px;

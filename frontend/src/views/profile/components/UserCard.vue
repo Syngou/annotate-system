@@ -86,20 +86,16 @@ export default {
   height: 120px;
   border-radius: 50%;
 }
-
 .user-info {
   padding-left: 0;
   list-style: none;
-
   li {
     border-bottom: 1px solid #f0f3f4;
     padding: 11px 0;
     font-size: 13px;
   }
-
   .user-right {
     float: right;
-
     a {
       color: #317ef3;
     }

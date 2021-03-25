@@ -204,7 +204,6 @@ export default {
 .el-table .success-row {
   background: #ebf0fa;
 }
-
 .start-annotate-button {
   width: 100%;
   display: flex;

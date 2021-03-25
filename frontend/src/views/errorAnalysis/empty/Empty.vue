@@ -18,7 +18,6 @@ export default {};
   display: flex;
   justify-content: center;
   align-items: center;
-
   .empty-text {
     color: rgb(255, 81, 0);
     font-size: 30px;

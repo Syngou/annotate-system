@@ -202,7 +202,6 @@ export default {
       text-align: center;
       border-bottom: 1px solid #766969;
     }
-
     &-from {
       width: 100%;
       height: auto;
@@ -219,7 +218,6 @@ export default {
       cursor: pointer;
       user-select: none;
     }
-
     img {
       margin: 10px 20px 0 0;
       width: 40px;
@@ -231,7 +229,6 @@ export default {
       cursor: pointer;
       float: right;
     }
-
     .register {
       cursor: pointer;
       float: right;
