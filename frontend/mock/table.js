@@ -4,9 +4,8 @@ const data = Mock.mock({
   "items|30": [
     {
       id: "@id",
-      title: "@ctitle",
+      description: "@ctitle",
       "status|1": ["已完成", "未完成"],
-      author: "@cname",
       paragraph: "@cparagraph(300)",
     },
   ],

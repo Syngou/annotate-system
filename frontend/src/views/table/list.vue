@@ -1,75 +1,77 @@
 <template>
   <div class="app-container">
-    <el-table
-      v-loading="listLoading"
-      :data="list"
-      element-loading-text="Loading"
-      :row-class-name="tableRowClassName"
-      border
-      fit
-    >
-      <el-table-column align="center" label="序号" width="50">
-        <template slot-scope="scope">
-          {{ scope.$index + 1 }}
-        </template>
-      </el-table-column>
-      <el-table-column label="论文标题">
-        <template slot-scope="scope">
-          {{ scope.row.title }}
-        </template>
-      </el-table-column>
-      <el-table-column label="作者" width="110" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-        class-name="status-col"
-        label="状态"
-        width="110"
-        align="center"
+    <div class="button-group">
+      <el-button type="primary" @click="inputData">
+        导入数据
+      </el-button>
+      <el-button type="primary" @click="outputData">
+        导出数据
+      </el-button>
+    </div>
+    <!-- 表格 -->
+    <div>
+      <el-table
+        v-loading="listLoading"
+        :data="list"
+        element-loading-text="Loading"
+        :row-class-name="tableRowClassName"
+        border
+        fit
       >
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">
-            {{ scope.row.status }}
-          </el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作" width="210" align="center">
-        <template slot-scope="scope">
-          <el-button
-            size="mini"
-            type="primary"
-            @click="customChoice(scope.$index, list)"
-          >
-            标注
-          </el-button>
-          <el-button
-            size="mini"
-            type="success"
-            @click="handleEdit(scope.$index, list)"
-          >
-            编辑
-          </el-button>
-          <el-button
-            size="mini"
-            type="danger"
-            @click="handleDelete(scope.$index, list)"
-          >
-            删除
-          </el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-
+        <el-table-column align="center" label="序号" width="50">
+          <template slot-scope="scope">
+            {{ scope.$index + 1 }}
+          </template>
+        </el-table-column>
+        <el-table-column label="描述" align="center">
+          <template slot-scope="scope">
+            {{ scope.row.description }}
+          </template>
+        </el-table-column>
+        <el-table-column
+          class-name="status-col"
+          label="状态"
+          width="110"
+          align="center"
+        >
+          <template slot-scope="scope">
+            <el-tag :type="scope.row.status | statusFilter">
+              {{ scope.row.status }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" width="210" align="center">
+          <template slot-scope="scope">
+            <el-button
+              size="mini"
+              type="primary"
+              @click="customChoice(scope.$index, list)"
+            >
+              标注
+            </el-button>
+            <el-button
+              size="mini"
+              type="success"
+              @click="handleEdit(scope.$index, list)"
+            >
+              编辑
+            </el-button>
+            <el-button
+              size="mini"
+              type="danger"
+              @click="handleDelete(scope.$index, list)"
+            >
+              删除
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
     <!-- 编辑框 -->
     <el-dialog :visible.sync="showEditForm" :width="width">
       <el-form label-position="left" label-width="80px" :model="form">
-        <el-form-item label="论文标题">
-          <el-input v-model="form.title"></el-input>
-        </el-form-item>
-        <el-form-item label="作者">
-          <el-input v-model="form.author"></el-input>
+        <el-form-item label="描述">
+          <el-input v-model="form.description"></el-input>
         </el-form-item>
         <el-form-item label="文本">
           <el-input
@@ -114,8 +116,7 @@ export default {
 
       form: {
         //编辑框数据
-        title: "",
-        author: "",
+        description: "",
         paragraph: "",
       },
     };
@@ -130,6 +131,16 @@ export default {
     this.fetchData();
   },
   methods: {
+    /**
+     * 导入数据
+     */
+    //  TODO
+    inputData() {},
+    /**
+     * 导出数据
+     */
+    //  TODO
+    outputData() {},
     /**
      * 获取数据
      */
@@ -158,7 +169,6 @@ export default {
       if (Cookies.get("annotate-custom-setting")) {
         this.$router.push("/annotate");
       } else {
-        this.$store.dispatch("annotate/setTextTitle", list[index].title);
         this.$router.push("setting");
       }
     },
@@ -168,16 +178,14 @@ export default {
     handleEdit(index, rows) {
       this.showEditForm = true;
       this.listEditIndex = index;
-      this.form.author = rows[index].author;
-      this.form.title = rows[index].title;
+      this.form.description = rows[index].description;
       this.form.paragraph = rows[index].paragraph;
     },
     /**
      * 更新数据
      */
     update() {
-      this.list[this.listEditIndex].author = this.form.author;
-      this.list[this.listEditIndex].title = this.form.title;
+      this.list[this.listEditIndex].description = this.form.description;
       this.list[this.listEditIndex].paragraph = this.form.paragraph;
       this.showEditForm = false;
     },
@@ -197,6 +205,11 @@ export default {
 };
 </script>
 <style>
+.button-group {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
 .el-table .success-row {
   background: #ebf0fa;
 }

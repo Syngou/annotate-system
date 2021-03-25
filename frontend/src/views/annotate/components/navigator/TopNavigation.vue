@@ -1,8 +1,9 @@
 <template>
   <div class="topNavigation">
     <span class="title">医疗文本标注和处理系统</span>
-    <a @click="$bus.$emit('autoAnnotate')">自动化标注</a>
-    <a @click="uploadData">上传</a>
+    <!-- TODO 解决起始索引后再打开-->
+    <!-- <a @click="$bus.$emit('autoAnnotate')">自动化标注</a> -->
+    <a @click="uploadData">导出数据</a>
     <!-- TODO 等待数据库，待开发功能-->
     <a @click="saveTamporaryData">暂存数据</a>
     <router-link v-if="!avatar" to="/login" style="float: right;">
@@ -58,6 +59,7 @@ export default {
     /**
      * @description: 标注数据上传后台
      */
+    // TODO 待开发 输出为文件
     uploadData() {
       let data = {};
       for (let i = 0; i < this.annotateData.length; i++) {

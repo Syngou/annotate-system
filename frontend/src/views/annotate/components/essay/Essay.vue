@@ -115,7 +115,7 @@ export default {
   computed: {
     ...mapGetters(["typesInfo"]),
   },
- // 键盘标注，初始化即开始监听
+  // 键盘标注，初始化即开始监听
   created() {
     this.annotateByShortcut();
   },
@@ -167,7 +167,7 @@ export default {
         let id = this.$store.state.annotate.id;
         this.showDialog = false;
         let j;
-        for (j = 0; j < this.$store.state.annotate.typesInfo.length ; j++) {
+        for (j = 0; j < this.$store.state.annotate.typesInfo.length; j++) {
           if (key === this.$store.state.annotate.typesInfo[j].shortcut) {
             annotateUtils.annotate(String(j) + id, j);
             break;
@@ -175,7 +175,6 @@ export default {
         }
       };
     },
-
 
     /**
      * @description 翻译

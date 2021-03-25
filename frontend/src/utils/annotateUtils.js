@@ -22,8 +22,25 @@ export default {
    * @param index 标注颜色索引
    */
   annotate(id, index) {
+    // 获取起始索引和结束索引
+    let essay = document.querySelector("#essay");
+    const range = window.getSelection().getRangeAt(0);
+    const preSelectionRange = range.cloneRange();
+    preSelectionRange.selectNodeContents(essay);
+    preSelectionRange.setEnd(range.startContainer, range.startOffset);
+    let start = [...preSelectionRange.toString()].length;
+    let end = start + [...range.toString()].length;
     let text = window.getSelection().toString();
-    store.dispatch("annotate/addToList", { id, text });
+    let annotateData = {
+      label: id,
+      start_offset: start,
+      end_offset: end,
+      text: text, // 主要是为了删除标注，可以使用其他删除方法
+      user: 1, // TODO 暂时设为1
+      updated_at: new Date(),
+    };
+
+    store.dispatch("annotate/addToList", { id, annotateData });
     // 按钮样式
     // TODO：样式美化
     // 标注文本样式
@@ -72,40 +89,41 @@ export default {
    * @description 机器学习自动化标注
    * @params data ==> 后台传来的数据，一维字符串数组
    */
-  autoAnnotate(data) {
-    let essay = document.getElementById("essay");
-    let array = [];
-    //把字符串分割
-    for (let i = 0; i < data.length; i++) {
-      if (data[i]) {
-        array.push(...data[i].split(" "));
-      }
-      //把分割出来的字符串分别标注
-      for (let j = 0; j < array.length; j++) {
-        if (array[j].length !== 0) {
-          annotate.state.annotateData[i].push(array[j]);
-          essay.innerHTML = essay.innerHTML.replaceAll(
-            array[j],
-            `<span style='${this.textStyle(i)}'>${
-              array[j]
-            }<i class='deleteButtonTemp el-icon-close' style='${this.buttonStyle()}'></i> </span>`
-          );
+  // TODO 获取每个字的起始索引
+  // autoAnnotate(data) {
+  //   let essay = document.getElementById("essay");
+  //   let array = [];
+  //   //把字符串分割
+  //   for (let i = 0; i < data.length; i++) {
+  //     if (data[i]) {
+  //       array.push(...data[i].split(" "));
+  //     }
+  //     //把分割出来的字符串分别标注
+  //     for (let j = 0; j < array.length; j++) {
+  //       if (array[j].length !== 0) {
+  //         annotate.state.annotateData[i].push(array[j]);
+  //         essay.innerHTML = essay.innerHTML.replaceAll(
+  //           array[j],
+  //           `<span style='${this.textStyle(i)}'>${
+  //             array[j]
+  //           }<i class='deleteButtonTemp el-icon-close' style='${this.buttonStyle()}'></i> </span>`
+  //         );
 
-          let buttons = Array.from(
-            document.getElementsByClassName("deleteButtonTemp")
-          );
-          //查找按钮并添加删除事件，这种方法很low，但是有效
-          //如果你有更好的想法，欢迎修改
-          //TODO：优化代码
-          for (let k = 0; k < buttons.length; k++) {
-            buttons[k].id = i + "-" + store.state.annotate.id++;
-            buttons[k].onclick = () => {
-              this.deleteById(buttons[k].id);
-            };
-          }
-        }
-      }
-      array = [];
-    }
-  },
+  //         let buttons = Array.from(
+  //           document.getElementsByClassName("deleteButtonTemp")
+  //         );
+  //         //查找按钮并添加删除事件，这种方法很low，但是有效
+  //         //如果你有更好的想法，欢迎修改
+  //         //TODO：优化代码
+  //         for (let k = 0; k < buttons.length; k++) {
+  //           buttons[k].id = i + "-" + store.state.annotate.id++;
+  //           buttons[k].onclick = () => {
+  //             this.deleteById(buttons[k].id);
+  //           };
+  //         }
+  //       }
+  //     }
+  //     array = [];
+  //   }
+  // },
 };
