@@ -72,7 +72,7 @@ export default {
      */
     textArray() {
       let n = this.currentPage;
-      let data = [];
+      let result = [];
       for (
         let i = this.sentenceCount * n - this.sentenceCount;
         i <= this.sentenceCount * n - 1;

@@ -195,7 +195,9 @@ export default {
 /* 因为是有固定定位，所以要有margin-top */
 #paper {
   margin-top: 48.8px;
+
   /* 标注时对话框的样式 */
+
   .optionDialog {
     position: absolute;
     border-radius: 10px;
@@ -209,7 +211,8 @@ export default {
       border-radius: 10px;
       cursor: pointer;
       outline: none;
-      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+      box-shadow:
+        0 8px 16px 0 rgba(0, 0, 0, 0.2),
         0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
   }
@@ -241,7 +244,8 @@ export default {
       border-radius: 10px;
       cursor: pointer;
       outline: none;
-      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+      box-shadow:
+        0 8px 16px 0 rgba(0, 0, 0, 0.2),
         0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
   }
@@ -263,6 +267,7 @@ export default {
     width: 200px;
     position: absolute;
     z-index: 1;
+
     .delete-button {
       top: 10px;
       right: -40px;

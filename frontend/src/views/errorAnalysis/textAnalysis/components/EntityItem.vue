@@ -62,13 +62,12 @@ export default {
 .highlight.blue {
   background: #edf4fa !important;
 }
+
 .highlight.bottom {
   display: block;
   white-space: normal;
 }
-.highlight:first-child {
-  margin-left: 0;
-}
+
 .highlight {
   border: 2px solid;
   margin: 4px 6px 4px 3px;
@@ -81,23 +80,29 @@ export default {
   display: flex;
 }
 
+.highlight:first-child {
+  margin-left: 0;
+}
+
 .highlight__content {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  padding: 2px 2px 0px 6px;
+  padding: 2px 2px 0 6px;
 }
-.highlight.bottom .highlight__content:after {
+
+.highlight.bottom .highlight__content::after {
   content: " ";
   padding-right: 3px;
 }
+
 .highlight__label {
   line-height: 14px;
+  padding: 0 8px;
   padding-top: 1px;
   align-items: center;
   justify-content: center;
   display: flex;
-  padding: 0 8px;
   text-align: center;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -105,6 +110,7 @@ export default {
   user-select: none;
   color: white;
 }
+
 .highlight__label::after {
   content: attr(data-label);
   display: block;
@@ -112,13 +118,14 @@ export default {
   -webkit-font-smoothing: subpixel-antialiased;
   letter-spacing: 0.1em;
 }
+
 .highlight__standard {
   line-height: 14px;
+  padding: 0 8px;
   padding-top: 1px;
   align-items: center;
   justify-content: center;
   display: flex;
-  padding: 0 8px;
   text-align: center;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -126,6 +133,7 @@ export default {
   user-select: none;
   color: white;
 }
+
 .highlight__standard::after {
   content: attr(data-label);
   display: block;

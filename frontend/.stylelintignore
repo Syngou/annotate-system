@@ -1,0 +1,8 @@
+build/*.css
+src/assets
+public
+dist
+src/styles
+**/*.json
+**/*.svg
+**/*.yml

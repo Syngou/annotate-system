@@ -1,7 +1,7 @@
 
-plugins:
+plugins: -;
+removeattrs:
 
-- removeAttrs:
-    attrs:
-      - 'fill'
-      - 'fill-rule'
+  attrs:
+  - 'fill'
+  -;
