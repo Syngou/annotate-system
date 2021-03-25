@@ -21,13 +21,14 @@
         翻译
       </button>
     </div>
+
     <!-- 翻译结果显示 -->
     <div v-show="showTranslateCard" ref="translateCard" class="translate-card">
       <i
         class="el-message__closeBtn el-icon-close delete-button"
         @click="showTranslateCard = false"
       />
-      <TranslateCard :result="translateResult" />
+      <TranslateCard :data="translateResult" />
     </div>
 
     <!-- 定义一个容器 -->
@@ -133,11 +134,7 @@ export default {
     getSelection(e) {
       if (window.getSelection().toString() !== "") {
         this.selectText = window.getSelection().toString();
-        // 加上滚轮滚动距离才是y轴长度！！！
-        this.setBoxPosition(
-          e.clientX,
-          e.clientY + document.documentElement.scrollTop
-        );
+        this.setBoxPosition(e.pageX, e.pageY);
         this.$refs.showDialog.style.display = "block";
         this.showDialog = true;
       }
@@ -179,79 +176,78 @@ export default {
 /* 因为是有固定定位，所以要有margin-top */
 #paper {
   margin-top: 48.8px;
-}
-
-/* 标注时对话框的样式 */
-.optionDialog {
-  position: absolute;
-  border-radius: 10px;
-  background-color: rgb(147, 121, 121);
-  padding: 5px;
-  z-index: 10; /* 设置堆叠次序，防止被覆盖 */
-
-  button {
-    border: 1px solid black;
-    margin-left: 10px;
+  /* 标注时对话框的样式 */
+  .optionDialog {
+    position: absolute;
     border-radius: 10px;
-    cursor: pointer;
-    outline: none;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
-      0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: rgb(147, 121, 121);
+    padding: 5px;
+    z-index: 10; /* 设置堆叠次序，防止被覆盖 */
+
+    button {
+      border: 1px solid black;
+      margin-left: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      outline: none;
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
   }
-}
 
-.head {
-  font-size: 15px;
-  color: white;
-}
-
-.tip {
-  font-size: 10px;
-  color: white;
-}
-
-/* 面板框样式 */
-.panel > .panel-heading {
-  background-image: none;
-  background-color: #7b8ca3;
-  color: white;
-  font-weight: 400;
-}
-
-/* 侧边栏样式 */
-.side {
-  button {
-    border: 1px solid black;
-    margin-top: 10px;
-    margin-left: 10px;
-    border-radius: 10px;
-    cursor: pointer;
-    outline: none;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
-      0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  .head {
+    font-size: 15px;
+    color: white;
   }
-}
 
-/* 文本样式 */
-.essay-content {
-  margin-top: 50px;
-  overflow: auto;
-  flex: auto;
-  min-height: 1000px;
-  padding: 0 5% 0 5%;
-  white-space: pre-line;
-  word-break: break-all;
-  line-height: 25px;
-  font-family: Microsoft Yahei;
-}
-// 翻译卡片
-.translate-card {
-  width: 200px;
-  position: absolute;
-  z-index: 1;
-  .delete-button {
-    top: 10px;
-    right: -40px;
+  .tip {
+    font-size: 10px;
+    color: white;
+  }
+
+  /* 面板框样式 */
+  .panel > .panel-heading {
+    background-image: none;
+    background-color: #7b8ca3;
+    color: white;
+    font-weight: 400;
+  }
+
+  /* 侧边栏样式 */
+  .side {
+    button {
+      border: 1px solid black;
+      margin-top: 10px;
+      margin-left: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      outline: none;
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+  }
+
+  /* 文本样式 */
+  .essay-content {
+    margin-top: 50px;
+    overflow: auto;
+    flex: auto;
+    min-height: 1000px;
+    padding: 0 5% 0 5%;
+    white-space: pre-line;
+    word-break: break-all;
+    line-height: 25px;
+    font-family: Microsoft Yahei, serif;
+  }
+  // 翻译卡片
+  .translate-card {
+    width: 200px;
+    position: absolute;
+    z-index: 1;
+    .delete-button {
+      top: 10px;
+      right: -40px;
+    }
   }
 }
 </style>
