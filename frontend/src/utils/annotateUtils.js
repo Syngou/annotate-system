@@ -32,7 +32,7 @@ export default {
     let end = start + [...range.toString()].length;
     let text = window.getSelection().toString();
     let annotateData = {
-      label: id,
+      label: id.split("-")[0],
       start_offset: start,
       end_offset: end,
       text: text, // 主要是为了删除标注，可以使用其他删除方法

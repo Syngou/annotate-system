@@ -3,7 +3,7 @@
     <span class="title">医疗文本标注和处理系统</span>
     <!-- TODO 解决起始索引后再打开-->
     <!-- <a @click="$bus.$emit('autoAnnotate')">自动化标注</a> -->
-    <a @click="uploadData">导出数据</a>
+    <a @click="exportData">导出数据</a>
     <!-- TODO 等待数据库，待开发功能-->
     <a @click="saveTamporaryData">暂存数据</a>
     <router-link v-if="!avatar" to="/login" style="float: right;">
@@ -38,7 +38,6 @@
 <script>
 import AutoAnnotate from "./components/AutoAnnotate";
 import { mapGetters } from "vuex";
-import request from "@/api/annotatePageApi";
 
 export default {
   name: "TopNavigation",
@@ -59,16 +58,24 @@ export default {
     /**
      * @description: 标注数据上传后台
      */
-    // TODO 待开发 输出为文件
-    uploadData() {
-      let data = {};
-      for (let i = 0; i < this.annotateData.length; i++) {
-        data[this.typesInfo[i].value] = this.annotateData[i];
-      }
-      request.postToBackend(data).then(() => {
-        this.$message.success("上传成功");
-        this.drawer = false;
-      });
+    exportData() {
+      const url = window.URL.createObjectURL(
+        new Blob([
+          JSON.stringify({
+            id: this.$store.state.annotate.essayId,
+            text: this.$store.state.annotate.annotateText,
+            annotations: this.annotateData,
+          }),
+        ])
+      );
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute(
+        "download",
+        `file${this.$store.state.annotate.essayId}.jsonl`
+      );
+      document.body.appendChild(link);
+      link.click();
     },
     /**
      * 暂存标注数据
