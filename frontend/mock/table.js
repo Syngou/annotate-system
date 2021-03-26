@@ -5,7 +5,7 @@ const data = Mock.mock({
     {
       id: "@id",
       description: "@ctitle",
-      "status|1": ["已完成", "未完成"],
+      "status|1": ["已标注", "未标注"],
       paragraph: "@cparagraph(300)",
     },
   ],

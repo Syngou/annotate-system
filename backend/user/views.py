@@ -57,3 +57,11 @@ def translate(request):
     response = requests.request("POST", url, headers=header, data=keydata)
     result = response.json().get("translateResult")[0][0].get("tgt")
     return JsonResponse(ok({'result': result}))
+
+
+# 导入文本数据
+def file_upload(request):
+    print(request)
+    file = request.FILES.get("file")
+    print(file)
+    return JsonResponse(ok({'fileUpload': "yes"}))

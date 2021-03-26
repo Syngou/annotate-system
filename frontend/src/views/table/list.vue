@@ -1,12 +1,28 @@
 <template>
   <div class="app-container">
     <div class="button-group">
-      <el-button type="primary" @click="inputData">
-        导入数据
-      </el-button>
-      <el-button type="primary" @click="outputData">
-        导出数据
-      </el-button>
+      <div class="button-group-item">
+        <el-upload
+          class="upload-demo"
+          name="file"
+          multiple
+          accept="text/plain"
+          action="http://localhost:8000/user/annotate_text/upload/"
+          :on-success="handleSuccess"
+          :on-error="handleError"
+          :show-file-list="false"
+        >
+          <el-button type="primary">
+            导入数据
+          </el-button>
+        </el-upload>
+      </div>
+
+      <div class="button-group-item">
+        <el-button type="primary" @click="outputData">
+          导出数据
+        </el-button>
+      </div>
     </div>
     <!-- 表格 -->
     <div>
@@ -18,16 +34,19 @@
         border
         fit
       >
+        <!-- 序号 -->
         <el-table-column align="center" label="序号" width="50">
           <template slot-scope="scope">
             {{ scope.$index + 1 }}
           </template>
         </el-table-column>
+        <!-- 描述 -->
         <el-table-column label="描述" align="center">
           <template slot-scope="scope">
             {{ scope.row.description }}
           </template>
         </el-table-column>
+        <!-- 状态 -->
         <el-table-column
           class-name="status-col"
           label="状态"
@@ -40,6 +59,7 @@
             </el-tag>
           </template>
         </el-table-column>
+        <!-- 操作 -->
         <el-table-column label="操作" width="210" align="center">
           <template slot-scope="scope">
             <el-button
@@ -100,8 +120,8 @@ export default {
   filters: {
     statusFilter(status) {
       const statusMap = {
-        已完成: "success",
-        未完成: "gray",
+        已标注: "success",
+        未标注: "gray",
       };
       return statusMap[status];
     },
@@ -132,10 +152,17 @@ export default {
   },
   methods: {
     /**
-     * 导入数据
+     * 上传成功
      */
-    //  TODO 导入数据
-    inputData() {},
+    handleSuccess(response) {
+      console.log(response);
+    },
+    /**
+     * 上传失败
+     */
+    handleError() {
+      this.$message.error("上传失败");
+    },
     /**
      * 导出数据
      */
@@ -204,11 +231,13 @@ export default {
   },
 };
 </script>
-<style>
+<style lang="scss" scoped>
 .button-group {
   display: flex;
-  justify-content: center;
   margin-bottom: 20px;
+  &-item {
+    margin: 0 auto;
+  }
 }
 
 .el-table .success-row {
