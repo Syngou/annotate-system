@@ -210,6 +210,7 @@ export default {
   justify-content: center;
   margin-bottom: 20px;
 }
+
 .el-table .success-row {
   background: #ebf0fa;
 }

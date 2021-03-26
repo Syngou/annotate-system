@@ -67,17 +67,16 @@ export default {
 </script>
 
 <style scoped>
-.highlight-container.highlight-container--bottom-labels {
+.highlight-container .highlight-container--bottom-labels {
   align-items: flex-start;
+  margin-top: 6px;
 }
+
 .highlight-container {
   line-height: 42px !important;
   display: flex;
   flex-wrap: wrap;
   white-space: pre-wrap;
   cursor: default;
-}
-.highlight-container.highlight-container--bottom-labels {
-  margin-top: 6px;
 }
 </style>

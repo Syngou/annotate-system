@@ -42,9 +42,11 @@ export default {
     margin: 30px;
   }
 }
+
 .el-row {
   margin-bottom: 20px;
 }
+
 .user-avatar {
   width: 120px;
   height: 120px;

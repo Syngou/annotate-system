@@ -94,6 +94,7 @@ export default {
   color: white;
   font-size: 22px;
 }
+
 @media screen and (max-width: 400px) {
   .title {
     display: none;
@@ -128,6 +129,7 @@ export default {
     color: black;
   }
 }
+
 .right-menu {
   float: right;
   height: 100%;
