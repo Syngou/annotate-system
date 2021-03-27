@@ -10,7 +10,7 @@
     <!-- 标注选项对话框 -->
     <div v-show="showDialog" ref="showDialog" class="optionDialog">
       <button
-        v-for="(info, index) in typesInfo"
+        v-for="(info, index) in classification"
         :key="index"
         :style="{ backgroundColor: info.color }"
         @click="annotateText(index + '-' + $store.state.annotate.id, index)"
@@ -49,7 +49,7 @@
             <div class="panel-body">
               <div class="side">
                 <button
-                  v-for="(info, index) in typesInfo"
+                  v-for="(info, index) in classification"
                   :key="index"
                   :style="{ backgroundColor: info.color }"
                   @click="
@@ -113,7 +113,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["typesInfo"]),
+    ...mapGetters(["classification"]),
   },
   // 键盘标注，初始化即开始监听
   created() {
@@ -167,11 +167,10 @@ export default {
         let id = this.$store.state.annotate.id;
         this.showDialog = false;
         let j = 0;
-        for ( ; j < this.$store.state.annotate.typesInfo.length; j++) {
-          if (key === this.$store.state.annotate.typesInfo[j].shortcut) {
-            annotateUtils.annotate(j + '-' + id, j);
+        for (; j < this.$store.state.annotate.classification.length; j++) {
+          if (key === this.$store.state.annotate.classification[j].shortcut) {
+            annotateUtils.annotate(j + "-" + id, j);
             break;
-            
           }
         }
       };
@@ -211,8 +210,7 @@ export default {
       border-radius: 10px;
       cursor: pointer;
       outline: none;
-      box-shadow:
-        0 8px 16px 0 rgba(0, 0, 0, 0.2),
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
         0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
   }
@@ -244,8 +242,7 @@ export default {
       border-radius: 10px;
       cursor: pointer;
       outline: none;
-      box-shadow:
-        0 8px 16px 0 rgba(0, 0, 0, 0.2),
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
         0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
   }

@@ -59,6 +59,7 @@ export const constantRoutes = [
       },
     ],
   },
+
   {
     path: "/text",
     component: Layout,
@@ -77,6 +78,19 @@ export const constantRoutes = [
         name: "setting",
         component: () => import("@/views/table/setting"),
         meta: { title: "标注设置", icon: "el-icon-setting" },
+      },
+    ],
+  },
+  {
+    path: "/group",
+    component: Layout,
+    redirect: "index",
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/group/index"),
+        name: "Group",
+        meta: { title: "成员", icon: "group", noCache: true },
       },
     ],
   },

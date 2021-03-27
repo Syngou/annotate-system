@@ -3,13 +3,13 @@
     <!-- 表格 -->
     <el-table
       ref="singleTable"
-      :data="typesInfo"
+      :data="classification"
       :row-class-name="tableRowClassName"
       style="width: 100%;"
     >
       <!-- 分类文字 -->
       <el-table-column type="index" width="50" label="序号" />
-      <el-table-column label="分类文字" min-width="200">
+      <el-table-column label="分类" min-width="200">
         <template slot-scope="scope">
           <template v-if="scope.$index == editCurrent">
             <el-input v-model="editValue" size="small" />
@@ -77,7 +77,6 @@
           >
             编辑
           </el-button>
-
         </span>
       </el-table-column>
     </el-table>
@@ -108,6 +107,7 @@
 import Cookies from "js-cookie";
 import { mapGetters } from "vuex";
 export default {
+  name: "TableSetting",
   data() {
     return {
       inputVisible: false, // 输入框的显隐
@@ -118,7 +118,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["typesInfo"]),
+    ...mapGetters(["classification"]),
   },
   methods: {
     /**
@@ -135,7 +135,7 @@ export default {
      * 删除分类
      */
     handleDelete(index) {
-      this.typesInfo.splice(index, 1);
+      this.classification.splice(index, 1);
     },
     /**
      * 显示输入框
@@ -152,7 +152,7 @@ export default {
     handleInputConfirm() {
       const inputValue = this.inputValue;
       if (inputValue) {
-        this.typesInfo.push({
+        this.classification.push({
           value: inputValue,
           color: "red",
           shortcut: "0",
@@ -190,7 +190,7 @@ export default {
      */
     goToAnnotate() {
       // 存储用户设置
-      Cookies.set("annotate-custom-setting", this.typesInfo, {
+      Cookies.set("annotate-custom-setting", this.classification, {
         expires: 365 * 20,
       });
       this.$store.dispatch("annotate/resetAnnotateData");

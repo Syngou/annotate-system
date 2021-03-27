@@ -17,13 +17,18 @@
           </el-button>
         </el-upload>
       </div>
-
       <div class="button-group-item">
-        <el-button type="primary" @click="outputData">
+        <el-button type="primary" @click="exportData">
           导出数据
         </el-button>
       </div>
+      <div class="button-group-item">
+        <el-button type="danger" @click="removeAll">
+          清空
+        </el-button>
+      </div>
     </div>
+
     <!-- 表格 -->
     <div>
       <el-table
@@ -117,6 +122,7 @@ import { getList } from "@/api/table";
 import Cookies from "js-cookie";
 
 export default {
+  name: "TableList",
   filters: {
     statusFilter(status) {
       const statusMap = {
@@ -167,7 +173,14 @@ export default {
      * 导出数据
      */
     //  TODO 导出数据
-    outputData() {},
+    exportData() {},
+    /**
+     * 清空文本数据
+     */
+    // TODO 在数据库中删除文本数据
+    removeAll() {
+      this.list = [];
+    },
     /**
      * 获取数据
      */
@@ -233,10 +246,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 .button-group {
+  margin: 0 20px 20px 20px;
   display: flex;
-  margin-bottom: 20px;
+  width: 100%;
+
   &-item {
-    margin: 0 auto;
+    margin-right: 20px;
   }
 }
 

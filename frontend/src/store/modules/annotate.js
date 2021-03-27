@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 // 用户标注设置
 const userAnnotateSetting = Cookies.getJSON("annotate-custom-setting");
 const state = {
-  typesInfo: userAnnotateSetting ?? [
+  classification: userAnnotateSetting ?? [
     // 分类信息
     { value: "药物", color: "#fa0404", shortcut: "m" },
     { value: "医生", color: "#fd0dad", shortcut: "d" },
@@ -67,7 +67,7 @@ const mutations = {
   RESET_ANNOTATE_DATA: (state) => {
     // TODO 有没有更好的办法重置呢
     state.annotateData = [];
-    const length = state.typesInfo.length;
+    const length = state.classification.length;
     for (let i = 0; i < length; i++) {
       state.annotateData.push([]);
     }

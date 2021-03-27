@@ -8,7 +8,7 @@ const getters = {
   institution: (state) => state.user.institution,
   account: (state) => state.user.account,
   phone: (state) => state.user.phone,
-  typesInfo: (state) => state.annotate.typesInfo, //分类信息
+  classification: (state) => state.annotate.classification, //分类信息
   annotateData: (state) => state.annotate.annotateData, //标注数据
 };
 export default getters;

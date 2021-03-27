@@ -13,7 +13,7 @@ import TopNavigation from "./components/navigator/TopNavigation";
 import Essay from "./components/essay/Essay";
 
 export default {
-  name: "Home",
+  name: "Annotate",
   components: {
     TopNavigation,
     Essay,
