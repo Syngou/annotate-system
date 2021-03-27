@@ -79,21 +79,21 @@
             <el-button
               size="mini"
               type="primary"
-              @click="customChoice(scope.$index, list)"
+              @click="goToAnnotate(scope.$index)"
             >
               标注
             </el-button>
             <el-button
               size="mini"
               type="success"
-              @click="handleEdit(scope.$index, list)"
+              @click="handleEdit(scope.$index, scope.row)"
             >
               编辑
             </el-button>
             <el-button
               size="mini"
               type="danger"
-              @click="handleDelete(scope.$index, list)"
+              @click="handleDelete(scope.$index)"
             >
               删除
             </el-button>
@@ -150,6 +150,7 @@ export default {
       listLoading: true, //加载效果
       showEditForm: false, //编辑框的显隐
       listEditIndex: 0, // 编辑索引
+      handleItemId: 0, // 操作条目的id
       form: {
         //编辑框数据
         description: "",
@@ -206,7 +207,6 @@ export default {
     /**
      * 搜索
      */
-    // BUG 搜索后 编辑，标注，删除功能 有bug
     search() {
       let keywords = this.keywords.trim();
       this.filterList = this.list.filter((item) =>
@@ -224,10 +224,13 @@ export default {
       return "";
     },
     /**
-     * 自定义设置
+     * 前往标注
      */
-    customChoice(index, list) {
-      this.$store.dispatch("annotate/setAnnotateText", list[index].paragraph);
+    goToAnnotate(index) {
+      this.$store.dispatch(
+        "annotate/setAnnotateText",
+        this.filterList[index].paragraph
+      );
       if (Cookies.get("annotate-custom-setting")) {
         this.$router.push("/annotate");
       } else {
@@ -236,31 +239,45 @@ export default {
     },
     /**
      * 编辑
+     * @param {Object} row 操作当前行数据
      */
-    handleEdit(index, rows) {
+    handleEdit(index, row) {
       this.showEditForm = true;
       this.listEditIndex = index;
-      this.form.description = rows[index].description;
-      this.form.paragraph = rows[index].paragraph;
+      this.form.description = row.description;
+      this.form.paragraph = row.paragraph;
+      this.handleItemId = row.id;
     },
     /**
      * 更新数据
      */
     update() {
-      this.list[this.listEditIndex].description = this.form.description;
-      this.list[this.listEditIndex].paragraph = this.form.paragraph;
+      this.filterList[this.listEditIndex].description = this.form.description;
+      this.filterList[this.listEditIndex].paragraph = this.form.paragraph;
+      this.list.forEach((item) => {
+        if (item.id === this.handleItemId) {
+          item.description = this.form.description;
+          item.paragraph = this.form.paragraph;
+        }
+      });
       this.showEditForm = false;
     },
     /**
      * 删除文本提示
      */
-    handleDelete(index, rows) {
+    handleDelete(index) {
       this.$confirm("确定要删除吗?", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       }).then(() => {
-        rows.splice(index, 1);
+        let id = this.filterList[index].id;
+        this.filterList.splice(index, 1);
+        for (let i = 0; i < this.list.length; i++) {
+          if (this.list[i].id == id) {
+            this.list.splice(i, 1);
+          }
+        }
       });
     },
   },
