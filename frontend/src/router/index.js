@@ -59,7 +59,19 @@ export const constantRoutes = [
       },
     ],
   },
-
+  {
+    path: "/group",
+    component: Layout,
+    redirect: "index",
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/group/index"),
+        name: "Group",
+        meta: { title: "成员", icon: "group", noCache: true },
+      },
+    ],
+  },
   {
     path: "/text",
     component: Layout,
@@ -81,19 +93,7 @@ export const constantRoutes = [
       },
     ],
   },
-  {
-    path: "/group",
-    component: Layout,
-    redirect: "index",
-    children: [
-      {
-        path: "index",
-        component: () => import("@/views/group/index"),
-        name: "Group",
-        meta: { title: "成员", icon: "group", noCache: true },
-      },
-    ],
-  },
+
   {
     path: "/errorAnalysis",
     component: Layout,
