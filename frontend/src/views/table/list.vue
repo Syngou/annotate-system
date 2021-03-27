@@ -266,7 +266,7 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .button-group {
   margin: 0 20px 20px 20px;
   display: flex;
