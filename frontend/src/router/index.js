@@ -28,8 +28,8 @@ export const constantRoutes = [
     hidden: true,
   },
   {
-    path: "/temp",
-    component: () => import("@/views/temp"),
+    path: "/test",
+    component: () => import("@/views/test"),
     hidden: true,
   },
   {

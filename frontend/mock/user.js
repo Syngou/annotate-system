@@ -20,8 +20,7 @@ const users = {
   "editor-token": {
     roles: ["普通用户"],
     introduction: "I am an editor",
-    avatar:
-      "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
+    avatar: "https://w.wallhaven.cc/full/nr/wallhaven-nrjgy7.jpg",
     institution: "xx医院",
     name: "linus",
   },

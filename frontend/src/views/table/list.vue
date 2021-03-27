@@ -28,12 +28,21 @@
         </el-button>
       </div>
     </div>
-
+    <div class="search">
+      <el-input
+        v-model="keywords"
+        placeholder="请搜索关键词"
+        class="input-with-select"
+        @input="search"
+      >
+        <el-button slot="append" icon="el-icon-search" @click="search" />
+      </el-input>
+    </div>
     <!-- 表格 -->
     <div>
       <el-table
         v-loading="listLoading"
-        :data="list"
+        :data="filterList"
         element-loading-text="Loading"
         :row-class-name="tableRowClassName"
         border
@@ -135,11 +144,12 @@ export default {
 
   data() {
     return {
-      list: null, // 数据列表
+      keywords: "", // 搜索关键词
+      filterList: null, //符合条件的数据
+      list: null, // 所有数据列表
       listLoading: true, //加载效果
       showEditForm: false, //编辑框的显隐
       listEditIndex: 0, // 编辑索引
-
       form: {
         //编辑框数据
         description: "",
@@ -180,6 +190,7 @@ export default {
     // TODO 在数据库中删除文本数据
     removeAll() {
       this.list = [];
+      this.filterList = [];
     },
     /**
      * 获取数据
@@ -188,8 +199,19 @@ export default {
       this.listLoading = true;
       getList().then((response) => {
         this.list = response.data.items;
+        this.filterList = response.data.items;
         this.listLoading = false;
       });
+    },
+    /**
+     * 搜索
+     */
+    // BUG 搜索后 编辑，标注，删除功能 有bug
+    search() {
+      let keywords = this.keywords.trim();
+      this.filterList = this.list.filter((item) =>
+        item.description.includes(keywords)
+      );
     },
     /**
      * 表格样式
@@ -253,6 +275,9 @@ export default {
   &-item {
     margin-right: 20px;
   }
+}
+.search {
+  margin-bottom: 20px;
 }
 
 .el-table .success-row {
