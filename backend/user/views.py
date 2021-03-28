@@ -8,6 +8,7 @@ from django.http import JsonResponse
 from .response import ok
 
 
+
 # 翻译接口
 def translate(request):
     text = request.GET.get('text')
@@ -57,3 +58,12 @@ def translate(request):
     response = requests.request("POST", url, headers=header, data=keydata)
     result = response.json().get("translateResult")[0][0].get("tgt")
     return JsonResponse(ok({'result': result}))
+
+
+#获取用户数据接口
+def get_userdata(request):
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    
+
+
