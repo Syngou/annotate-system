@@ -60,15 +60,15 @@ export const constantRoutes = [
     ],
   },
   {
-    path: "/group",
+    path: "/groupManage",
     component: Layout,
     redirect: "index",
     children: [
       {
         path: "index",
-        component: () => import("@/views/group/index"),
+        component: () => import("@/views/groupManage/index"),
         name: "Group",
-        meta: { title: "成员", icon: "group", noCache: true },
+        meta: { title: "成员管理", icon: "group", noCache: true },
       },
     ],
   },
