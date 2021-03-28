@@ -34,23 +34,16 @@ module.exports = {
     },
   },
   chainWebpack(config) {
-    // 它可以提高第一个屏幕的速度，建议打开预加载
     config.plugin("preload").tap(() => [
       {
         rel: "preload",
-        fileBlacklist: [
-          /\.map$/,
-          /hot-update\.js$/,
-          /runtime\..*\.js$/,
-        ],
+        fileBlacklist: [/\.map$/, /hot-update\.js$/, /runtime\..*\.js$/],
         include: "initial",
       },
     ]);
 
-    //当页面很多时，将导致太多毫无意义的请求
     config.plugins.delete("prefetch");
 
-    // 设置svg-sprite-loader
     config.module.rule("svg").exclude.add(resolve("src/icons")).end();
     config.module
       .rule("icons")
@@ -70,7 +63,6 @@ module.exports = {
         .after("html")
         .use("script-ext-html-webpack-plugin", [
           {
-            // `runtime`必须与runtimeChunk名称相同。默认是“运行时”
             inline: /runtime\..*\.js$/,
           },
         ])
@@ -82,17 +74,17 @@ module.exports = {
             name: "chunk-libs",
             test: /[\\/]node_modules[\\/]/,
             priority: 10,
-            chunks: "initial", // 仅打包最初依赖的第三方
+            chunks: "initial",
           },
           elementUI: {
-            name: "chunk-elementUI", // 将elementUI拆分为一个包
-            priority: 20, // 重量需要大于libs和app，否则将被打包到libs or app
-            test: /[\\/]node_modules[\\/]_?element-ui(.*)/, // 为了适应cnpm
+            name: "chunk-elementUI",
+            priority: 20,
+            test: /[\\/]node_modules[\\/]_?element-ui(.*)/,
           },
           commons: {
             name: "chunk-commons",
-            test: resolve("src/components"), // 可以自定义您的规则
-            minChunks: 3, //  最小共同数
+            test: resolve("src/components"),
+            minChunks: 3,
             priority: 5,
             reuseExistingChunk: true,
           },

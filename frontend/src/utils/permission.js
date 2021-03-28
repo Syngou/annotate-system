@@ -8,7 +8,7 @@ import store from "../store";
 
 NProgress.configure({ showSpinner: false }); // NProgress配置
 
-const whiteList = ["/login", "/annotate", "/register", "/temp"]; // 没有重定向白名单
+const whiteList = ["/login", "/annotate", "/register", "/test"]; // 没有重定向白名单
 
 router.beforeEach(async (to, from, next) => {
   // 开始进度条

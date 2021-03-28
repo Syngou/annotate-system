@@ -60,6 +60,7 @@ def translate(request):
     return JsonResponse(ok({'result': result}))
 
 
+<<<<<<< HEAD
 #获取用户数据接口
 def get_userdata(request):
     username = request.POST.get('username')
@@ -67,3 +68,11 @@ def get_userdata(request):
     
 
 
+=======
+# 导入文本数据
+def file_upload(request):
+    print(request)
+    file = request.FILES.get("file")
+    print(file)
+    return JsonResponse(ok({'fileUpload': "yes"}))
+>>>>>>> f0995a04633cd2167dab944cdfd52494ba0c0d80

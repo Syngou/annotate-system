@@ -29,7 +29,7 @@
         </el-collapse-item>
       </el-collapse>
 
-      <div v-for="(type, index) in typesInfo" :key="index">
+      <div v-for="(type, index) in classification" :key="index">
         <el-input v-model="inputValues[index]">
           <span slot="prepend">
             <el-button>
@@ -62,7 +62,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["typesInfo"]),
+    ...mapGetters(["classification"]),
   },
   created() {
     this.$bus.$on("autoAnnotate", () => {

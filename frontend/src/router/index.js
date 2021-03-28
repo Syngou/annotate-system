@@ -28,8 +28,8 @@ export const constantRoutes = [
     hidden: true,
   },
   {
-    path: "/temp",
-    component: () => import("@/views/temp"),
+    path: "/test",
+    component: () => import("@/views/test"),
     hidden: true,
   },
   {
@@ -60,6 +60,19 @@ export const constantRoutes = [
     ],
   },
   {
+    path: "/group",
+    component: Layout,
+    redirect: "index",
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/group/index"),
+        name: "Group",
+        meta: { title: "成员", icon: "group", noCache: true },
+      },
+    ],
+  },
+  {
     path: "/text",
     component: Layout,
     redirect: "/text/list",
@@ -80,6 +93,7 @@ export const constantRoutes = [
       },
     ],
   },
+
   {
     path: "/errorAnalysis",
     component: Layout,

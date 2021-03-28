@@ -45,7 +45,7 @@ export default {
     AutoAnnotate,
   },
   computed: {
-    ...mapGetters(["avatar", "annotateData", "typesInfo"]),
+    ...mapGetters(["avatar", "annotateData", "classification"]),
   },
 
   methods: {

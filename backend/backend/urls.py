@@ -4,7 +4,7 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     # 标注页面api
-    path('', include('user.urls')),
+    path('user/', include('user.urls')),
     # 错误分析
     path('error_analysis/', include('errorAnalysis.urls'))
 ]

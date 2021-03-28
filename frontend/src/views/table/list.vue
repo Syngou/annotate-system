@@ -1,33 +1,66 @@
 <template>
   <div class="app-container">
     <div class="button-group">
-      <el-button type="primary" @click="inputData">
-        导入数据
+      <div class="button-group-item">
+        <el-upload
+          class="upload-demo"
+          name="file"
+          multiple
+          accept="text/plain"
+          action="http://localhost:8000/user/annotate_text/upload/"
+          :on-success="handleSuccess"
+          :on-error="handleError"
+          :show-file-list="false"
+        >
+          <el-button type="primary">
+            导入数据
+          </el-button>
+        </el-upload>
+      </div>
+      <div class="button-group-item">
+        <el-button type="primary" @click="exportData">
+          导出数据
+        </el-button>
+      </div>
+    </div>
+    <div class="clear">
+      <el-button type="danger" @click="removeAll">
+        清空
       </el-button>
-      <el-button type="primary" @click="outputData">
-        导出数据
-      </el-button>
+    </div>
+    <div class="search">
+      <el-input
+        v-model="keywords"
+        placeholder="请搜索关键词"
+        class="input-with-select"
+        @input="search"
+      >
+        <el-button slot="append" icon="el-icon-search" @click="search" />
+      </el-input>
     </div>
     <!-- 表格 -->
     <div>
       <el-table
         v-loading="listLoading"
-        :data="list"
+        :data="filterList"
         element-loading-text="Loading"
         :row-class-name="tableRowClassName"
         border
         fit
       >
+        <!-- 序号 -->
         <el-table-column align="center" label="序号" width="50">
           <template slot-scope="scope">
             {{ scope.$index + 1 }}
           </template>
         </el-table-column>
+        <!-- 描述 -->
         <el-table-column label="描述" align="center">
           <template slot-scope="scope">
             {{ scope.row.description }}
           </template>
         </el-table-column>
+        <!-- 状态 -->
         <el-table-column
           class-name="status-col"
           label="状态"
@@ -40,26 +73,27 @@
             </el-tag>
           </template>
         </el-table-column>
+        <!-- 操作 -->
         <el-table-column label="操作" width="210" align="center">
           <template slot-scope="scope">
             <el-button
               size="mini"
               type="primary"
-              @click="customChoice(scope.$index, list)"
+              @click="goToAnnotate(scope.$index)"
             >
               标注
             </el-button>
             <el-button
               size="mini"
               type="success"
-              @click="handleEdit(scope.$index, list)"
+              @click="handleEdit(scope.$index, scope.row)"
             >
               编辑
             </el-button>
             <el-button
               size="mini"
               type="danger"
-              @click="handleDelete(scope.$index, list)"
+              @click="handleDelete(scope.$index)"
             >
               删除
             </el-button>
@@ -97,11 +131,12 @@ import { getList } from "@/api/table";
 import Cookies from "js-cookie";
 
 export default {
+  name: "TableList",
   filters: {
     statusFilter(status) {
       const statusMap = {
-        已完成: "success",
-        未完成: "gray",
+        已标注: "success",
+        未标注: "gray",
       };
       return statusMap[status];
     },
@@ -109,11 +144,13 @@ export default {
 
   data() {
     return {
-      list: null, // 数据列表
+      keywords: "", // 搜索关键词
+      filterList: null, //符合条件的数据
+      list: null, // 所有数据列表
       listLoading: true, //加载效果
       showEditForm: false, //编辑框的显隐
       listEditIndex: 0, // 编辑索引
-
+      handleItemId: 0, // 操作条目的id
       form: {
         //编辑框数据
         description: "",
@@ -132,15 +169,30 @@ export default {
   },
   methods: {
     /**
-     * 导入数据
+     * 上传成功
      */
-    //  TODO 导入数据
-    inputData() {},
+    handleSuccess(response) {
+      console.log(response);
+    },
+    /**
+     * 上传失败
+     */
+    handleError() {
+      this.$message.error("上传失败");
+    },
     /**
      * 导出数据
      */
     //  TODO 导出数据
-    outputData() {},
+    exportData() {},
+    /**
+     * 清空文本数据
+     */
+    // TODO 在数据库中删除文本数据
+    removeAll() {
+      this.list = [];
+      this.filterList = [];
+    },
     /**
      * 获取数据
      */
@@ -148,8 +200,18 @@ export default {
       this.listLoading = true;
       getList().then((response) => {
         this.list = response.data.items;
+        this.filterList = response.data.items;
         this.listLoading = false;
       });
+    },
+    /**
+     * 搜索
+     */
+    search() {
+      let keywords = this.keywords.trim();
+      this.filterList = this.list.filter((item) =>
+        item.description.includes(keywords)
+      );
     },
     /**
      * 表格样式
@@ -157,15 +219,18 @@ export default {
     tableRowClassName({ row, rowIndex }) {
       row;
       if (rowIndex % 2) {
-        return "success-row";
+        return "highlight-row";
       }
       return "";
     },
     /**
-     * 自定义设置
+     * 前往标注
      */
-    customChoice(index, list) {
-      this.$store.dispatch("annotate/setAnnotateText", list[index].paragraph);
+    goToAnnotate(index) {
+      this.$store.dispatch(
+        "annotate/setAnnotateText",
+        this.filterList[index].paragraph
+      );
       if (Cookies.get("annotate-custom-setting")) {
         this.$router.push("/annotate");
       } else {
@@ -174,44 +239,69 @@ export default {
     },
     /**
      * 编辑
+     * @param {Object} row 操作当前行数据
      */
-    handleEdit(index, rows) {
+    handleEdit(index, row) {
       this.showEditForm = true;
       this.listEditIndex = index;
-      this.form.description = rows[index].description;
-      this.form.paragraph = rows[index].paragraph;
+      this.form.description = row.description;
+      this.form.paragraph = row.paragraph;
+      this.handleItemId = row.id;
     },
     /**
      * 更新数据
      */
     update() {
-      this.list[this.listEditIndex].description = this.form.description;
-      this.list[this.listEditIndex].paragraph = this.form.paragraph;
+      this.filterList[this.listEditIndex].description = this.form.description;
+      this.filterList[this.listEditIndex].paragraph = this.form.paragraph;
+      this.list.forEach((item) => {
+        if (item.id === this.handleItemId) {
+          item.description = this.form.description;
+          item.paragraph = this.form.paragraph;
+        }
+      });
       this.showEditForm = false;
     },
     /**
      * 删除文本提示
      */
-    handleDelete(index, rows) {
+    handleDelete(index) {
       this.$confirm("确定要删除吗?", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       }).then(() => {
-        rows.splice(index, 1);
+        let id = this.filterList[index].id;
+        this.filterList.splice(index, 1);
+        for (let i = 0; i < this.list.length; i++) {
+          if (this.list[i].id == id) {
+            this.list.splice(i, 1);
+          }
+        }
       });
     },
   },
 };
 </script>
-<style>
+<style lang="scss">
 .button-group {
-  display: flex;
-  justify-content: center;
+  width: 100%;
+  display: inline;
+  margin: 0 20px 20px 20px;
+  &-item {
+    margin-right: 20px;
+    display: inline-block;
+  }
+}
+.clear {
+  float: right;
+  margin-bottom: 20px;
+}
+.search {
   margin-bottom: 20px;
 }
 
-.el-table .success-row {
+.el-table .highlight-row {
   background: #ebf0fa;
 }
 </style>

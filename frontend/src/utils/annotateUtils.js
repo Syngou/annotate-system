@@ -13,7 +13,7 @@ export default {
    * @param index 标注颜色索引
    */
   textStyle(index) {
-    return `border:5px solid ${annotate.state.typesInfo[index].color};background-color:${annotate.state.typesInfo[index].color};border-radius: 10px;`;
+    return `border:5px solid ${annotate.state.classification[index].color};background-color:${annotate.state.classification[index].color};border-radius: 10px;`;
   },
   /**
    *
