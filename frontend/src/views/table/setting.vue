@@ -7,7 +7,7 @@
       :row-class-name="tableRowClassName"
       style="width: 100%;"
     >
-      <!-- 分类文字 -->
+      <!-- 分类 -->
       <el-table-column type="index" width="50" label="序号" />
       <el-table-column label="分类" min-width="200">
         <template slot-scope="scope">

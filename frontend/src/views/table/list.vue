@@ -22,11 +22,11 @@
           导出数据
         </el-button>
       </div>
-      <div class="button-group-item">
-        <el-button type="danger" @click="removeAll">
-          清空
-        </el-button>
-      </div>
+    </div>
+    <div class="clear">
+      <el-button type="danger" @click="removeAll">
+        清空
+      </el-button>
     </div>
     <div class="search">
       <el-input
@@ -219,7 +219,7 @@ export default {
     tableRowClassName({ row, rowIndex }) {
       row;
       if (rowIndex % 2) {
-        return "success-row";
+        return "highlight-row";
       }
       return "";
     },
@@ -285,19 +285,23 @@ export default {
 </script>
 <style lang="scss">
 .button-group {
-  margin: 0 20px 20px 20px;
-  display: flex;
   width: 100%;
-
+  display: inline;
+  margin: 0 20px 20px 20px;
   &-item {
     margin-right: 20px;
+    display: inline-block;
   }
+}
+.clear {
+  float: right;
+  margin-bottom: 20px;
 }
 .search {
   margin-bottom: 20px;
 }
 
-.el-table .success-row {
+.el-table .highlight-row {
   background: #ebf0fa;
 }
 </style>
