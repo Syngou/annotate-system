@@ -169,13 +169,13 @@ export default {
   },
   methods: {
     /**
-     * 上传成功
+     * 上传成功的回调函数
      */
     handleSuccess(response) {
       console.log(response);
     },
     /**
-     * 上传失败
+     * 上传失败回调函数
      */
     handleError() {
       this.$message.error("上传失败");
@@ -190,8 +190,14 @@ export default {
      */
     // TODO 在数据库中删除文本数据
     removeAll() {
-      this.list = [];
-      this.filterList = [];
+      this.$confirm("确定要删除吗?", "警告", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(() => {
+        this.list = [];
+        this.filterList = [];
+      });
     },
     /**
      * 获取数据
@@ -224,7 +230,7 @@ export default {
       return "";
     },
     /**
-     * 前往标注
+     * 前往标注页面
      */
     goToAnnotate(index) {
       this.$store.dispatch(
@@ -232,8 +238,10 @@ export default {
         this.filterList[index].paragraph
       );
       if (Cookies.get("annotate-custom-setting")) {
+        // 已经设置分类
         this.$router.push("/annotate");
       } else {
+        //没有设计分类，前往设置页面
         this.$router.push("setting");
       }
     },
@@ -284,6 +292,7 @@ export default {
 };
 </script>
 <style lang="scss">
+// 按钮组
 .button-group {
   width: 100%;
   display: inline;
@@ -293,14 +302,16 @@ export default {
     display: inline-block;
   }
 }
+// 清空按钮
 .clear {
   float: right;
   margin-bottom: 20px;
 }
+// 搜索框
 .search {
   margin-bottom: 20px;
 }
-
+// 表格样式
 .el-table .highlight-row {
   background: #ebf0fa;
 }

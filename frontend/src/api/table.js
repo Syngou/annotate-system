@@ -1,9 +1,11 @@
 import request from "@/utils/request";
 
-export function getList(params) {
+/**
+ *  获取标注文本数据
+ */
+export function getList() {
   return request({
     url: "/mockjs/table/list",
     method: "get",
-    params,
   });
 }
