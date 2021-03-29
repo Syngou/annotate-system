@@ -3,7 +3,7 @@ from .models import Labels, Upload_text
 
 @admin.register(Labels)
 class LabelsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'label_name')
+    list_display = ('id', 'value')
 
 
 @admin.register(Upload_text)
