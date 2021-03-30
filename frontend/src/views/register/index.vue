@@ -9,7 +9,6 @@
         <el-form
           ref="registerForm"
           :model="registerForm"
-          :rules="registerRules"
           class="demo-ruleForm"
           auto-complete="on"
           label-position="left"
@@ -139,7 +138,7 @@ export default {
         if (valid) {
           this.loading = true;
           this.$store
-            .dispatch("user/login", this.registerForm)
+            .dispatch("user/register", this.registerForm)
             .then(() => {
               this.$router.push({
                 path: this.redirect || "/",

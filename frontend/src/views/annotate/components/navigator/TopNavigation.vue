@@ -52,7 +52,7 @@ export default {
       await this.$store.dispatch("user/logout");
     },
     /**
-     * @description: 标注数据上传后台
+     * @description: 标注数据导出为文件
      */
     exportData() {
       const url = window.URL.createObjectURL(
@@ -76,7 +76,7 @@ export default {
     /**
      * 暂存标注数据
      */
-    // TODO 待开发
+    // TODO 待开发 或者说有没有必要开发
     saveTamporaryData() {
       this.$message.info("待开发");
     },

@@ -9,7 +9,6 @@
         <el-form
           ref="loginForm"
           :model="loginForm"
-          :rules="loginRules"
           class="demo-ruleForm"
           auto-complete="on"
           label-position="left"
@@ -99,8 +98,8 @@ export default {
   data() {
     return {
       loginForm: {
-        username: "admin",
-        password: "111111",
+        username: "",
+        password: "",
       },
       loginRules: {
         username: [
@@ -151,25 +150,37 @@ export default {
      * 登录
      */
     handleLogin() {
-      this.$refs.loginForm.validate((valid) => {
-        if (valid) {
-          this.loading = true;
-          this.$store
-            .dispatch("user/login", this.loginForm)
-            .then(() => {
-              this.$router.push({
-                path: this.redirect || "/",
-              });
-              this.loading = false;
-            })
-            .catch(() => {
-              this.loading = false;
-            });
-        } else {
-          console.log("提交发生错误!!");
-          return false;
-        }
-      });
+      // this.$refs.loginForm.validate((valid) => {
+      //   if (valid) {
+      //     this.loading = true;
+      //     this.$store
+      //       .dispatch("user/login", this.loginForm)
+      //       .then(() => {
+      //         this.$router.push({
+      //           path: this.redirect || "/",
+      //         });
+      //         this.loading = false;
+      //       })
+      //       .catch(() => {
+      //         this.loading = false;
+      //       });
+      //   } else {
+      //     console.log("提交发生错误!!");
+      //     return false;
+      //   }
+      // });
+      this.loading = true;
+      this.$store
+        .dispatch("user/login", this.loginForm)
+        .then(() => {
+          this.$router.push({
+            path: this.redirect || "/",
+          });
+          this.loading = false;
+        })
+        .catch(() => {
+          this.loading = false;
+        });
     },
   },
 };

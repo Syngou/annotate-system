@@ -1,4 +1,4 @@
-import { getInfo, login, logout } from "@/api/user";
+import { getInfo, login, logout, register } from "@/api/user";
 import router, { resetRouter } from "@/router";
 import { getToken, removeToken, setToken } from "@/utils/auth";
 
@@ -54,6 +54,23 @@ const actions = {
     const { username, password } = userInfo;
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password })
+        .then((response) => {
+          const { data } = response;
+          commit("SET_TOKEN", data.token);
+          setToken(data.token);
+
+          resolve();
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  },
+  // 注册
+  register({ commit }, userInfo) {
+    const { username, password } = userInfo;
+    return new Promise((resolve, reject) => {
+      register({ username: username.trim(), password: password })
         .then((response) => {
           const { data } = response;
           commit("SET_TOKEN", data.token);
@@ -149,11 +166,9 @@ const actions = {
     resetRouter();
 
     // 根据角色生成可访问的路线图
-    const accessRoutes = await dispatch(
-      "permission/generateRoutes",
-      roles,
-      { root: true }
-    );
+    const accessRoutes = await dispatch("permission/generateRoutes", roles, {
+      root: true,
+    });
     // 动态添加可访问的路线
     router.addRoutes(accessRoutes);
 

@@ -13,6 +13,11 @@
 
 <script>
 export default {
-  methods: {},
+  created() {
+    this.login();
+  },
+  methods: {
+    login() {},
+  },
 };
 </script>
