@@ -8,7 +8,18 @@
         <div>
           <div style="text-align: center;">
             <div class="el-upload">
-              <img :src="user.avatar" class="avatar" alt="" />
+              <el-upload
+                class="avatar-uploader"
+                :headers="{ 'annotate-system-token': token }"
+                name="avatar"
+                action="http://localhost:8000/user/setAvatar/"
+                :show-file-list="false"
+                accept="image/*"
+                :on-success="handleSuccess"
+                :on-error="handleError"
+              >
+                <img :src="user.avatar" class="avatar" alt="" />
+              </el-upload>
             </div>
           </div>
           <ul class="user-info">
@@ -59,6 +70,7 @@
 </template>
 
 <script>
+import { getToken } from "@/utils/auth";
 export default {
   props: {
     user: {
@@ -66,6 +78,20 @@ export default {
       default() {
         return {};
       },
+    },
+  },
+  computed: {
+    token() {
+      return getToken();
+    },
+  },
+  methods: {
+    handleSuccess(response) {
+      let avatar = response.data.avatar;
+      this.$store.dispatch("user/setAvatar", avatar);
+    },
+    handleError() {
+      this.$message.error("上传失败");
     },
   },
 };

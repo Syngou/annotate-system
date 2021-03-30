@@ -154,6 +154,9 @@ const actions = {
     });
   },
 
+  setAvatar({ commit }, avatar) {
+    commit("SET_AVATAR", avatar);
+  },
   // 动态修改权限
   async changeRoles({ commit, dispatch }, role) {
     const token = role + "-token";

@@ -1,3 +1,4 @@
+import { setClassification } from "@/api/user";
 import Cookies from "js-cookie";
 // 用户标注设置
 const userAnnotateSetting = Cookies.getJSON("annotate-custom-setting");
@@ -61,10 +62,13 @@ const mutations = {
     }
   },
   /**
-   * @description 重置已标注数据
+   * @description 设置标注分类
    * @param {*} state
    */
-  RESET_ANNOTATE_DATA: (state) => {
+  SET_CLASSIFICATION: (state, data) => {
+    setClassification(data).then((res) => {
+      console.log(res);
+    });
     // TODO 有没有更好的办法重置呢
     state.annotateData = [];
     const length = state.classification.length;
@@ -87,8 +91,8 @@ const actions = {
   deleteDataFromList({ commit }, info) {
     commit("DELETE_DATA_FROM_LIST", info);
   },
-  resetAnnotateData({ commit }) {
-    commit("RESET_ANNOTATE_DATA");
+  setClassification({ commit }, data) {
+    commit("SET_CLASSIFICATION", data);
   },
   setTextTitle({ commit }, title) {
     commit("SET_TEXT_TITLE", title);

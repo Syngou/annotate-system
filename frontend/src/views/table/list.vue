@@ -7,6 +7,7 @@
           name="file"
           multiple
           accept="text/plain"
+          :headers="{ 'annotate-system-token': token }"
           action="http://localhost:8000/user/annotate_text/upload/"
           :on-success="handleSuccess"
           :on-error="handleError"
@@ -129,6 +130,7 @@
 <script>
 import { getList } from "@/api/table";
 import Cookies from "js-cookie";
+import { getToken } from "@/utils/auth";
 
 export default {
   name: "TableList",
@@ -163,6 +165,9 @@ export default {
     width() {
       return window.innerWidth <= 400 ? "80%" : "30%";
     },
+    token() {
+      return getToken();
+    },
   },
   created() {
     this.fetchData();
@@ -172,6 +177,7 @@ export default {
      * 上传成功的回调函数
      */
     handleSuccess(response) {
+      this.$message.success("上传成功");
       console.log(response);
     },
     /**

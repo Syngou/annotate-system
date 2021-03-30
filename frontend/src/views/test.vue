@@ -36,7 +36,6 @@ import { getToken } from "../utils/auth";
 export default {
   computed: {
     token() {
-      console.log(getToken());
       return getToken();
     },
   },

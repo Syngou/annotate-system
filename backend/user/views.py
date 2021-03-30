@@ -1,5 +1,5 @@
 import json
-
+import os
 import requests
 from django.contrib.auth.hashers import check_password, make_password
 from django.core import signing
@@ -79,13 +79,11 @@ def login(request):
 
     username = data['username']
     password = data['password']
-    print(username, password)
-
-    if username == "Syngou" and password == "111111":
+    user = Userdata.objects.filter(username=username, password=password)
+    if user:
         token = signing.dumps({"username": "Syngou"})
         print(token)
         return ok({"token": token})
-
     else:
         return error("用户名或密码错误")
 
@@ -95,8 +93,12 @@ def register(request):
     data = json.loads(request.body)
     username = data['username']
     password = data['password']
-    if len(password) <= 8:
-        return error("密码长度不能小于8位数")
+    if len(password) < 6:
+        return error("密码长度不能小于6位数")
+    if Userdata.objects.filter(username=username):
+        return error("这个昵称太受欢迎了，请换另一个昵称")
+    user = Userdata(username=username, password=password)
+    user.save()
     token = signing.dumps({"username": username})
     return ok({"token": token})
 
@@ -113,7 +115,7 @@ def get_user_info(request):
         "roles": ["管理员"],  # 用户角色，如果有用户管理就需要
         "introduction": "我是超级管理员",  # 介绍
         "avatar":
-        "https://w.wallhaven.cc/full/nr/wallhaven-nrjgy7.jpg",  # 头像地址
+            "https://w.wallhaven.cc/full/nr/wallhaven-nrjgy7.jpg",  # 头像地址
         "institution": "xx单位",
         "phone": "18888888888",
     })
@@ -134,6 +136,8 @@ def set_avatar(request):
     user = Userdata.objects.filter(username=username)
     if user:
         user.update(avatar=avatar)
+        with open(os.path.join(os.getcwd(), 'upload_file/avatar', avatar.name), 'wb') as fw:
+            fw.write(avatar.read())
     else:
         userdata = Userdata(username=username, avatar=avatar)
         userdata.save()
@@ -146,7 +150,8 @@ def set_labels(request):
     token = signing.loads((request.META.get('HTTP_ANNOTATE_SYSTEM_TOKEN')))
     username = token['username']
     data = json.loads(request.body)
-    print(data)
+    for i in data:
+        print(i)
     # 返回设置好的标注分类
     return ok([
         {

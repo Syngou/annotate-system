@@ -104,8 +104,8 @@
 </template>
 
 <script>
-import Cookies from "js-cookie";
 import { mapGetters } from "vuex";
+
 export default {
   name: "TableSetting",
   data() {
@@ -189,11 +189,7 @@ export default {
      * 前往标注页面
      */
     goToAnnotate() {
-      // 存储用户设置
-      Cookies.set("annotate-custom-setting", this.classification, {
-        expires: 365 * 20,
-      });
-      this.$store.dispatch("annotate/resetAnnotateData");
+      this.$store.dispatch("annotate/setClassification", this.classification);
       this.$router.push("/annotate");
     },
   },

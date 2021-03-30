@@ -1,5 +1,9 @@
 import request from "@/utils/request";
-
+/**
+ * 注册
+ * @param {object} data 注册表单
+ * @returns
+ */
 export function register(data) {
   return request({
     url: "user/register/",
@@ -38,5 +42,17 @@ export function logout() {
   return request({
     url: "user/logout/",
     method: "post",
+  });
+}
+/**
+ * 用户自定义的标注分类
+ * @param {Object} data 自定义的分类信息
+ * @returns
+ */
+export function setClassification(data) {
+  return request({
+    url: "user/setClassification/",
+    method: "post",
+    data,
   });
 }
