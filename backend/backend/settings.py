@@ -59,6 +59,7 @@ MIDDLEWARE = [
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = ('http:*', 'https:*')
+# TODO 这里只允许这些请求头，想要修改尽管改
 CORS_ALLOW_HEADERS = ('annotate-system-token', 'content-type')
 
 ROOT_URLCONF = 'backend.urls'
@@ -74,6 +75,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },

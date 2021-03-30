@@ -17,34 +17,34 @@ from .models import *
 # 翻译接口
 def translate(request):
     text = request.GET.get('text')
-    #请求的有道url
+    # 请求的有道url
     url = 'http://fanyi.youdao.com/translate_o?smartresult=dict&smartresult=rule'
 
-    #请求的header
+    # 请求的header
     header = {
         'Accept': 'application/json, text/javascript, */*; q=0.01',
         'Accept-Encoding': 'gzip, deflate',
         'Accept-Language':
-        'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+            'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
         'Connection': 'keep-alive',
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
         'Cookie':
-        'OUTFOX_SEARCH_USER_ID=1015613889@112.65.124.62;    UM_distinctid=177d76febd41f0-06d8a2243cf94b8-445a68-13c680-177d76febd54f5; YOUDAO_MOBILE_ACCESS_TYPE=1;    OUTFOX_SEARCH_USER_ID_NCOO=716731006.2986639; SESSION_FROM_COOKIE=www.baidu.com;   JSESSIONID=aaavWlNzyVXcxaa16BxFx; ___rl__test__cookies=1614246732786',
+            'OUTFOX_SEARCH_USER_ID=1015613889@112.65.124.62;    UM_distinctid=177d76febd41f0-06d8a2243cf94b8-445a68-13c680-177d76febd54f5; YOUDAO_MOBILE_ACCESS_TYPE=1;    OUTFOX_SEARCH_USER_ID_NCOO=716731006.2986639; SESSION_FROM_COOKIE=www.baidu.com;   JSESSIONID=aaavWlNzyVXcxaa16BxFx; ___rl__test__cookies=1614246732786',
         'Origin': 'http://fanyi.youdao.com',
         'Referer': 'http://fanyi.youdao.com/',
         'User-Agent':
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.   36',
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.   36',
         'X-Requested-With': 'XMLHttpRequest'
     }
 
-    #有道反爬虫机制的破解后
+    # 有道反爬虫机制的破解后
     lts = int(round(time.time() * 1000))
     lts = str(lts)
     salt = lts + str(int(np.random.random() * 10))
     sign = 'fanyideskweb' + text + salt + 'Tbh5E8=q6U3EXe+&L[4c@'
     sign = hashlib.md5(sign.encode(encoding='UTF-8')).hexdigest()
 
-    #请求的date
+    # 请求的date
     keydata = {
         'i': text,
         'from': 'AUTO',
@@ -109,9 +109,9 @@ def file_upload(request):
     print(request)
     file = request.FILES.get("file")
     print(file)
-    newfile = Upload_text(upload_text=file)
-    #newfile = Upload_text(upload_text=file, user=user) 搞定上面之后就改成这句，绑定用户
-    newfile.save()
+    newFile = Upload_text(upload_text=file)
+    # newfile = Upload_text(upload_text=file, user=user) 搞定上面之后就改成这句，绑定用户
+    newFile.save()
     return ok({'fileUpload': "yes"})
 
 
@@ -155,7 +155,7 @@ def get_user_info(request):
         "roles": ["管理员"],  # 用户角色，如果有用户管理就需要
         "introduction": "我是超级管理员",  # 介绍
         "avatar":
-        "https://w.wallhaven.cc/full/nr/wallhaven-nrjgy7.jpg",  # 头像地址
+            "http://localhost:8000/media/avatar/8.jpg",  # 头像地址
         "institution": "xx单位",
         "phone": "18888888888",
     })
@@ -173,9 +173,15 @@ def set_avatar(request):
     username = token['username']
     avatar = request.FILES.get("avatar")
     print(avatar)
+    user = Userdata.objects.filter(username=username)
+    if user:
+        user.update(avatar=avatar)
+    else:
+        userdata = Userdata(username=username, avatar=avatar)
+        userdata.save()
     # 返回头像的链接地址
     return ok(
-        {"avatar": "https://w.wallhaven.cc/full/nr/wallhaven-nrjgy7.jpg"})
+        {"avatar":  "http://localhost:8000/media/avatar/" + avatar.name})
 
 
 # 设置标注分类
