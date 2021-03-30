@@ -1,8 +1,8 @@
-import config from "./annotateApiConfig";
+import request from "@/utils/request";
 
 export function register(data) {
-  return config({
-    url: "register/",
+  return request({
+    url: "user/register/",
     method: "post",
     data,
   });
@@ -13,8 +13,8 @@ export function register(data) {
  * @param {Object} data 登录表单
  */
 export function login(data) {
-  return config({
-    url: "login/",
+  return request({
+    url: "user/login/",
     method: "post",
     data,
   });
@@ -24,11 +24,10 @@ export function login(data) {
  * 获取用户信息
  * @param {String} token token值
  */
-export function getInfo(token) {
-  return config({
-    url: "getUserInfo/",
+export function getInfo() {
+  return request({
+    url: "user/getUserInfo/",
     method: "get",
-    params: { token },
   });
 }
 
@@ -36,8 +35,8 @@ export function getInfo(token) {
  * 注销
  */
 export function logout() {
-  return config({
-    url: "logout/",
+  return request({
+    url: "user/logout/",
     method: "post",
   });
 }

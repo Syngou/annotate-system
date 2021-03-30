@@ -5,7 +5,7 @@ import { Message, MessageBox } from "element-ui";
 
 // 创建一个axios实例
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
+  baseURL: "http://localhost:8000", // url = base url + request url
   // withCredentials：true，//跨域请求时发送cookie
   timeout: 5000, // 请求超时
 });
@@ -16,10 +16,7 @@ service.interceptors.request.use(
     //在发送请求之前先执行一些操作
 
     if (store.getters.token) {
-      //让每个请求都携带令牌
-      // ['X-Token']是自定义标头键
-      //请根据实际情况进行修改
-      config.headers["X-Token"] = getToken();
+      config.headers["annotate-system-token"] = getToken();
     }
     return config;
   },

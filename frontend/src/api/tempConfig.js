@@ -8,7 +8,7 @@ import { Message } from "element-ui";
 
 //配置
 const service = axios.create({
-  baseURL: "http://localhost:8000/user",
+  baseURL: "http://localhost:9528/dev-api",
   timeout: 5000,
 });
 

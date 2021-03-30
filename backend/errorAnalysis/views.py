@@ -1,9 +1,8 @@
 import json
 
 from django.http import JsonResponse
-
-from .find_error import Data, correct_statis, error_statis
-from .response import ok
+from utils.find_error import Data, correct_statis, error_statis
+from utils.response import ok
 
 
 # Create your views here.
@@ -37,4 +36,4 @@ def error_analysis_file_upload(request):
 
         json_str = json.dumps(python2json, ensure_ascii=False)
 
-        return JsonResponse(ok({'data': json_str}))
+        return ok({'data': json_str})
