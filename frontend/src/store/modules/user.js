@@ -6,21 +6,13 @@ const state = {
   token: getToken(),
   name: "",
   avatar: "",
-  introduction: "",
-  institution: "",
   roles: [],
-  phone: "",
-  account: "",
 };
 
 const mutations = {
   //token
   SET_TOKEN: (state, token) => {
     state.token = token;
-  },
-  //介绍
-  SET_INTRODUCTION: (state, introduction) => {
-    state.introduction = introduction;
   },
   //用户名
   SET_NAME: (state, name) => {
@@ -33,18 +25,6 @@ const mutations = {
   //角色，用于权鉴
   SET_ROLES: (state, roles) => {
     state.roles = roles;
-  },
-  //机构，工作单位
-  SET_INSTITUTION: (state, institution) => {
-    state.institution = institution;
-  },
-  //手机号
-  SET_PHONE: (state, phone) => {
-    state.phone = phone;
-  },
-  //账号
-  SET_ACCOUNT: (state, account) => {
-    state.account = account;
   },
 };
 
@@ -95,15 +75,7 @@ const actions = {
             reject("验证失败，请再次登录。");
           }
 
-          const {
-            roles,
-            name,
-            avatar,
-            introduction,
-            institution,
-            phone,
-            account,
-          } = data;
+          const { roles, name, avatar } = data;
 
           // 角色必须是非空数组
           if (!roles || roles.length <= 0) {
@@ -113,10 +85,6 @@ const actions = {
           commit("SET_ROLES", roles);
           commit("SET_NAME", name);
           commit("SET_AVATAR", avatar);
-          commit("SET_INTRODUCTION", introduction);
-          commit("SET_INSTITUTION", institution);
-          commit("SET_PHONE", phone);
-          commit("SET_ACCOUNT", account);
           resolve(data);
         })
         .catch((error) => {

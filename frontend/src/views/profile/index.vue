@@ -38,14 +38,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters([
-      "name",
-      "avatar",
-      "roles",
-      "institution",
-      "phone",
-      "account",
-    ]),
+    ...mapGetters(["name", "avatar", "roles"]),
   },
   created() {
     this.getUser();
@@ -58,11 +51,7 @@ export default {
       this.user = {
         name: this.name,
         role: this.roles.join(" | "),
-        email: "admin@test.com",
         avatar: this.avatar,
-        institution: this.institution,
-        account: this.account,
-        phone: this.phone,
       };
     },
   },

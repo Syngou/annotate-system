@@ -5,9 +5,6 @@ const getters = {
   avatar: (state) => state.user.avatar,
   name: (state) => state.user.name,
   roles: (state) => state.user.roles,
-  institution: (state) => state.user.institution,
-  account: (state) => state.user.account,
-  phone: (state) => state.user.phone,
   classification: (state) => state.annotate.classification, //分类信息
   annotateData: (state) => state.annotate.annotateData, //标注数据
 };

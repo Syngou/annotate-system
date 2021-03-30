@@ -107,17 +107,15 @@ def register(request):
 def get_user_info(request):
     token = signing.loads((request.META.get('HTTP_ANNOTATE_SYSTEM_TOKEN')))
     username = token['username']
+    user = Userdata.objects.get(username=username)
     # 在这里顺便查询数据库，获取用户自定义的标注分类，标注文本，并放入响应数据中
-    # 这里有些信息是不必要的，比如说 手机号码 ，介绍 等，我这里只是举例而已
+    if not user:
+        return error("用户信息不存在")
     return ok({
         "name": username,
-        "account": 182,
-        "roles": ["管理员"],  # 用户角色，如果有用户管理就需要
-        "introduction": "我是超级管理员",  # 介绍
+        "roles": [user.roles],  # 用户角色，如果有用户管理就需要
         "avatar":
-            "https://w.wallhaven.cc/full/nr/wallhaven-nrjgy7.jpg",  # 头像地址
-        "institution": "xx单位",
-        "phone": "18888888888",
+            "http://localhost:8000/media/avatar/" + str(user.avatar),  # 头像地址
     })
 
 

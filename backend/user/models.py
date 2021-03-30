@@ -7,6 +7,7 @@ class Userdata(models.Model):
     username = models.CharField(max_length=30, unique=True)
     password = models.CharField(max_length=20)
     avatar = models.ImageField(upload_to='avatar', max_length=255)
+    roles = models.CharField(max_length=30, default="管理员")
     # labels = models.ManyToManyField(Labels, null=True)
     # upload_text = models.ForeignKey(Upload_text, null=True, on_delete=models.CASCADE)
 
