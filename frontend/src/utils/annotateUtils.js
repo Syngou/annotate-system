@@ -22,31 +22,33 @@ export default {
    * @param index 标注颜色索引
    */
   annotate(id, index) {
-    // 获取起始索引和结束索引
-    let essay = document.querySelector("#essay");
-    const range = window.getSelection().getRangeAt(0);
-    const preSelectionRange = range.cloneRange();
-    preSelectionRange.selectNodeContents(essay);
-    preSelectionRange.setEnd(range.startContainer, range.startOffset);
-    let start = [...preSelectionRange.toString()].length;
-    let end = start + [...range.toString()].length;
     let text = window.getSelection().toString();
-    let annotateData = {
-      label: id.split("-")[0],
-      start_offset: start,
-      end_offset: end,
-      text: text, // 主要是为了删除标注，可以使用其他删除方法
-      user: 1, // TODO 暂时设为1
-      updated_at: new Date(),
-    };
 
-    store.dispatch("annotate/addToList", { id, annotateData });
     // 按钮样式
     // TODO：样式美化
     // 标注文本样式
     let annotatedTestStyle = this.textStyle(index);
     // 选中不为空
     if (text.length > 0) {
+      // 获取起始索引和结束索引
+      let essay = document.querySelector("#essay");
+      const range = window.getSelection().getRangeAt(0);
+      const preSelectionRange = range.cloneRange();
+      preSelectionRange.selectNodeContents(essay);
+      preSelectionRange.setEnd(range.startContainer, range.startOffset);
+      let start = [...preSelectionRange.toString()].length;
+      let end = start + [...range.toString()].length;
+
+      let annotateData = {
+        label: id.split("-")[0],
+        start_offset: start,
+        end_offset: end,
+        text: text, // 主要是为了删除标注，可以使用其他删除方法
+        user: 1, // TODO 暂时设为1
+        updated_at: new Date(),
+      };
+
+      store.dispatch("annotate/addToList", { id, annotateData });
       // 按钮添加事件
       let button = document.createElement("i");
       button.setAttribute("id", id);

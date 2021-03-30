@@ -9,6 +9,7 @@
         <el-upload
           class="upload-demo"
           drag
+          accept="image/*"
           :headers="{ 'annotate-system-token': token }"
           action="http://localhost:8000/user/setAvatar/"
           name="avatar"
