@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { userInfoUpdate } from "@/api/user";
 export default {
   props: {
     user: {
@@ -29,10 +30,12 @@ export default {
      * 更新用户信息
      */
     submit() {
-      this.$message({
-        message: "用户信息更新成功",
-        type: "success",
-        duration: 5 * 1000,
+      userInfoUpdate(this.user).then(() => {
+        this.$message({
+          message: "用户信息更新成功",
+          type: "success",
+          duration: 5 * 1000,
+        });
       });
     },
   },

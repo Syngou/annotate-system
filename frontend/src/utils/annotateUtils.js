@@ -93,6 +93,14 @@ export default {
     essay.insertBefore(textNode, span);
     essay.removeChild(span);
     store.dispatch("annotate/deleteDataFromList", { type: id, text });
+
+    // 上传数据
+    let data = JSON.stringify({
+      id: annotate.state.essayId,
+      text: annotate.state.annotateText,
+      annotations: annotate.state.annotateData,
+    });
+    annotateDataUpload(data);
   },
 
   /**

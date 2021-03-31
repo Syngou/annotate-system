@@ -9,6 +9,7 @@
     <router-link v-if="!avatar" to="/login" style="float: right;">
       登录
     </router-link>
+    <!-- 改变字体大小的按钮放哪里 -->
     <div v-else class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">

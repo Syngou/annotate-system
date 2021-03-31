@@ -5,7 +5,7 @@ import { Message, MessageBox } from "element-ui";
 
 // 创建一个axios实例
 const service = axios.create({
-  baseURL: "http://localhost:8000", // url = base url + request url
+  baseURL: "http://localhost:8000",
   // withCredentials：true，//跨域请求时发送cookie
   timeout: 5000, // 请求超时
 });
@@ -36,8 +36,6 @@ service.interceptors.response.use(
 
   /**
    * 通过自定义代码确定请求状态
-   *这只是一个例子
-   *您也可以通过HTTP状态代码来判断状态
    */
   (response) => {
     const res = response.data;

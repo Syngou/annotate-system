@@ -24,6 +24,14 @@ export function login(data) {
   });
 }
 
+export function userInfoUpdate(data) {
+  return request({
+    url: "user/info/update/",
+    method: "post",
+    data,
+  });
+}
+
 /**
  * 获取用户信息
  * @param {String} token token值

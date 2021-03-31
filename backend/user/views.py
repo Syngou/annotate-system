@@ -23,8 +23,8 @@ def translate(request):
     return ok({'result': result})
 
 
-# 导入文本数据
-def file_upload(request):
+# 导入文本
+def import_annotate_text(request):
     token = signing.loads((request.META.get('HTTP_ANNOTATE_SYSTEM_TOKEN')))
     username = token['username']
     print(request)
@@ -44,7 +44,7 @@ def login(request):
     password = data['password']
     user = UserInfo.objects.get(username=username)
     if user and check_password(password, user.password):
-        token = signing.dumps({"username": username})
+        token = signing.dumps({"username": username, "id": user.id})
         return ok({"token": token})
     else:
         return error("用户名或密码错误")
@@ -62,7 +62,7 @@ def register(request):
     password = make_password(password)
     user = UserInfo(username=username, password=password)
     user.save()
-    token = signing.dumps({"username": username})
+    token = signing.dumps({"username": username, "id": user.id})
     return ok({"token": token})
 
 
@@ -106,7 +106,14 @@ def set_avatar(request):
 
 
 # 更新用户信息
+# 修改用户名后token有所变化，待解决
 def user_info_update(request):
+    token = signing.loads((request.META.get('HTTP_ANNOTATE_SYSTEM_TOKEN')))
+    data = json.loads(request.body)
+    # 这里只更新用户名，想要更新其他的可以添加
+    name = data['name']
+    userId = token['id']
+    UserInfo.objects.filter(id=userId).update(username=name)
     return ok({})
 
 
