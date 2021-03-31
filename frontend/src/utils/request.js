@@ -10,11 +10,8 @@ const service = axios.create({
   timeout: 5000, // 请求超时
 });
 
-// request interceptor
 service.interceptors.request.use(
   (config) => {
-    //在发送请求之前先执行一些操作
-
     if (store.getters.token) {
       config.headers["annotate-system-token"] = getToken();
     }
@@ -27,13 +24,7 @@ service.interceptors.request.use(
   }
 );
 
-// 响应拦截器
 service.interceptors.response.use(
-  /**
-   * 如果您想获取诸如标题或状态之类的http信息
-   *请返回响应=>响应
-   */
-
   /**
    * 通过自定义代码确定请求状态
    */

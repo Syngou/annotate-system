@@ -6,40 +6,12 @@ from django.contrib.auth.hashers import check_password, make_password
 from django.core import signing
 
 from .models import *
-from .utils import error, header, keydata, ok
-
-
-# 翻译接口
-def translate(request):
-    text = request.GET.get('text')
-    # 请求的有道url
-    url = 'http://fanyi.youdao.com/translate_o?smartresult=dict&smartresult=rule'
-
-    response = requests.request("POST",
-                                url,
-                                headers=header(),
-                                data=keydata(text))
-    result = response.json().get("translateResult")[0][0].get("tgt")
-    return ok({'result': result})
-
-
-# 导入文本
-def import_annotate_text(request):
-    token = signing.loads((request.META.get('HTTP_ANNOTATE_SYSTEM_TOKEN')))
-    username = token['username']
-    print(request)
-    file = request.FILES.get("file")
-    print(file)
-    newFile = AnnotateText(upload_text=file)
-    # newfile = Upload_text(upload_text=file, user=user) 搞定上面之后就改成这句，绑定用户
-    newFile.save()
-    return ok({'fileUpload': "yes"})
+from .utils import *
 
 
 # 登录
 def login(request):
     data = json.loads(request.body)
-
     username = data['username']
     password = data['password']
     user = UserInfo.objects.get(username=username)
@@ -85,7 +57,6 @@ def get_user_info(request):
 
 # 注销
 def logout(request):
-    print(request)
     return ok({})
 
 
@@ -106,7 +77,7 @@ def set_avatar(request):
 
 
 # 更新用户信息
-# 修改用户名后token有所变化，待解决
+# TODO 修改用户名后token有所变化，待解决
 def user_info_update(request):
     token = signing.loads((request.META.get('HTTP_ANNOTATE_SYSTEM_TOKEN')))
     data = json.loads(request.body)
@@ -132,6 +103,33 @@ def set_labels(request):
             "shortcut": "m"
         },
     ])
+
+
+# 翻译接口
+def translate(request):
+    text = request.GET.get('text')
+    # 请求的有道url
+    url = 'http://fanyi.youdao.com/translate_o?smartresult=dict&smartresult=rule'
+
+    response = requests.request("POST",
+                                url,
+                                headers=header(),
+                                data=keydata(text))
+    result = response.json().get("translateResult")[0][0].get("tgt")
+    return ok({'result': result})
+
+
+# 导入文本
+def import_annotate_text(request):
+    token = signing.loads((request.META.get('HTTP_ANNOTATE_SYSTEM_TOKEN')))
+    username = token['username']
+    print(request)
+    file = request.FILES.get("file")
+    print(file)
+    newFile = AnnotateText(upload_text=file)
+    # newfile = Upload_text(upload_text=file, user=user) 搞定上面之后就改成这句，绑定用户
+    newFile.save()
+    return ok({'fileUpload': "yes"})
 
 
 # 设置标注文本
