@@ -86,6 +86,7 @@
 </template>
 
 <script>
+import { addMember } from "@/api/group";
 export default {
   name: "Group",
   data() {
@@ -94,24 +95,7 @@ export default {
       showEditForm: false, // 显示编辑对话框
       editName: "", // 编辑的用户名
       editCurrent: -1, // 编辑的行
-      groupList: [
-        {
-          name: "Syngou",
-          role: "管理员",
-        },
-        {
-          name: "Mary",
-          role: "标注员",
-        },
-        {
-          name: "Tom",
-          role: "审核员",
-        },
-        {
-          name: "Tony",
-          role: "标注员",
-        },
-      ],
+      groupList: [],
     };
   },
   computed: {
@@ -135,8 +119,11 @@ export default {
      * 添加成员
      */
     addMember() {
-      this.groupList.push(this.newMember);
       this.showEditForm = false;
+      addMember(this.newMember).then(() => {
+        this.$message.success("添加成功");
+        this.groupList.push(this.newMember);
+      });
     },
     /**
      * 编辑成员信息

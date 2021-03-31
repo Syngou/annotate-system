@@ -95,7 +95,7 @@
 import TranslateCard from "./components/TranslateCard";
 
 import annotateUtils from "@/utils/annotateUtils";
-import {translate} from "@/api/annotatePageApi";
+import { translate } from "@/api/annotate";
 
 import { mapGetters } from "vuex";
 

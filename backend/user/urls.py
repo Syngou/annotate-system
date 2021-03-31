@@ -14,4 +14,5 @@ urlpatterns = [
     path('setClassification/', views.set_labels),
     path("setAnnotateText/", views.set_annotate_text),
     path('annotateDataUpload/', views.annotate_data_upload),
+    path('addMember/', views.add_member)
 ]

@@ -20,10 +20,8 @@ const mutations = {
   },
   //头像
   SET_AVATAR: (state, avatar) => {
-    if (!avatar) {
-      avatar = "https://w.wallhaven.cc/full/nr/wallhaven-nrjgy7.jpg";
-    }
-    state.avatar = avatar;
+    state.avatar =
+      avatar ?? "https://w.wallhaven.cc/full/nr/wallhaven-nrjgy7.jpg";
   },
   //角色，用于权鉴
   SET_ROLES: (state, roles) => {

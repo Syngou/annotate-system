@@ -1,4 +1,4 @@
-import { annotateDataUpload } from "@/api/annotatePageApi";
+import { annotateDataUpload } from "@/api/annotate";
 import store from "@/store/index";
 import annotate from "@/store/modules/annotate";
 export default {
