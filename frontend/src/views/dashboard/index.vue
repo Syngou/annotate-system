@@ -15,10 +15,6 @@
             角色：
             <span>{{ roles[0] }}</span>
           </div>
-          <div class="user-info-list">
-            单位：
-            <span>{{ institution }}</span>
-          </div>
         </el-card>
       </el-col>
     </el-row>
@@ -31,7 +27,7 @@ export default {
   name: "Dashboard",
 
   computed: {
-    ...mapGetters(["name", "avatar", "roles", "institution"]),
+    ...mapGetters(["name", "avatar", "roles"]),
   },
 };
 </script>

@@ -95,7 +95,7 @@
 import TranslateCard from "./components/TranslateCard";
 
 import annotateUtils from "@/utils/annotateUtils";
-import request from "@/api/annotatePageApi";
+import {translate} from "@/api/annotatePageApi";
 
 import { mapGetters } from "vuex";
 
@@ -182,7 +182,7 @@ export default {
     translateText() {
       this.showDialog = false;
       let text = window.getSelection().toString();
-      request.translate(text).then((res) => {
+      translate(text).then((res) => {
         this.translateResult = res.data;
         this.showTranslateCard = true;
       });

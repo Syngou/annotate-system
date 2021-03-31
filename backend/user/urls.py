@@ -13,4 +13,5 @@ urlpatterns = [
     path('setAvatar/', views.set_avatar),
     path('setClassification/', views.set_labels),
     path("setAnnotateText/", views.set_annotate_text),
+    path('annotateDataUpload/', views.annotate_data_upload),
 ]

@@ -1,8 +1,7 @@
 import json
 
-from django.http import JsonResponse
-from utils.find_error import Data, correct_statis, error_statis
-from utils.response import ok
+from .find_error import Data, correct_statis, error_statis
+from .utils import ok
 
 
 # Create your views here.

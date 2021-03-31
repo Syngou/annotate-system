@@ -82,13 +82,13 @@ export const constantRoutes = [
       {
         path: "list",
         name: "list",
-        component: () => import("@/views/table/list"),
+        component: () => import("@/views/annotateText/list"),
         meta: { title: "文本列表", icon: "el-icon-notebook-2" },
       },
       {
         path: "setting",
         name: "setting",
-        component: () => import("@/views/table/setting"),
+        component: () => import("@/views/annotateText/setting"),
         meta: { title: "标注设置", icon: "el-icon-setting" },
       },
     ],

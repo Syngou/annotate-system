@@ -1,12 +1,12 @@
 import json
 import os
+
 import requests
 from django.contrib.auth.hashers import check_password, make_password
 from django.core import signing
-from utils.response import error, ok
-from utils.translate_config import header, keydata
 
 from .models import *
+from .utils import error, header, keydata, ok
 
 
 # 翻译接口
@@ -112,7 +112,8 @@ def get_user_info(request):
     if not user:
         return error("用户信息不存在")
     return ok({
-        "name": username,
+        "name":
+            username,
         "roles": [user.roles],  # 用户角色，如果有用户管理就需要
         "avatar":
             "http://localhost:8000/media/avatar/" + str(user.avatar),  # 头像地址
@@ -134,13 +135,19 @@ def set_avatar(request):
     user = Userdata.objects.filter(username=username)
     if user:
         user.update(avatar=avatar)
-        with open(os.path.join(os.getcwd(), 'upload_file/avatar', avatar.name), 'wb') as fw:
+        with open(os.path.join(os.getcwd(), 'upload_file/avatar', avatar.name),
+                  'wb') as fw:
             fw.write(avatar.read())
     else:
         userdata = Userdata(username=username, avatar=avatar)
         userdata.save()
     # 返回头像的链接地址
     return ok({"avatar": "http://localhost:8000/media/avatar/" + avatar.name})
+
+
+# 更新用户信息
+def user_info_update(request):
+    return ok({})
 
 
 # 设置标注分类
@@ -168,3 +175,41 @@ def set_annotate_text(request):
     print(data)
     # 返回标注文本信息
     return ok([{"text": "text1", "user": "user1"}])
+
+
+# 删除标注文本
+def delete_annotate_text(request):
+    return ok({})
+
+
+# 编辑标注文本
+def edit_annotate_text(request):
+    return ok({})
+
+
+# 添加成员
+def add_member(request):
+    return ok({})
+
+
+# 删除成员
+def delete_member(request):
+    return ok({})
+
+
+# 编辑成员信息
+def edit_member_info(request):
+    return ok({})
+
+
+# 导出数据接口
+def export_annotate_data(request):
+    return ok({})
+
+
+# 标注数据上传
+def annotate_data_upload(request):
+    data = json.loads(request.body)
+    for k, v in data.items():
+        print(k, ' = ', v)
+    return ok({})

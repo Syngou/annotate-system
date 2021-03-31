@@ -128,8 +128,6 @@
 </template>
 
 <script>
-import { getList } from "@/api/table";
-import Cookies from "js-cookie";
 import { getToken } from "@/utils/auth";
 
 export default {
@@ -209,12 +207,7 @@ export default {
      * 获取数据
      */
     fetchData() {
-      this.listLoading = true;
-      getList().then((response) => {
-        this.list = response.data.items;
-        this.filterList = response.data.items;
-        this.listLoading = false;
-      });
+      this.listLoading = false;
     },
     /**
      * 搜索
@@ -243,13 +236,7 @@ export default {
         "annotate/setAnnotateText",
         this.filterList[index].paragraph
       );
-      if (Cookies.get("annotate-custom-setting")) {
-        // 已经设置分类
-        this.$router.push("/annotate");
-      } else {
-        //没有设计分类，前往设置页面
-        this.$router.push("setting");
-      }
+      this.$router.push("setting");
     },
     /**
      * 编辑

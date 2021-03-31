@@ -1,3 +1,4 @@
+import { annotateDataUpload } from "@/api/annotatePageApi";
 import store from "@/store/index";
 import annotate from "@/store/modules/annotate";
 export default {
@@ -67,6 +68,14 @@ export default {
       //移除选中状态，否则很难看
       window.getSelection().removeAllRanges();
       store.state.annotate.id++;
+
+      // 上传数据
+      let data = JSON.stringify({
+        id: annotate.state.essayId,
+        text: annotate.state.annotateText,
+        annotations: annotate.state.annotateData,
+      });
+      annotateDataUpload(data);
     }
   },
 

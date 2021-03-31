@@ -33,8 +33,7 @@
             <li>
               <SvgIcon icon-class="anq" /> 安全设置
               <div class="user-right">
-                <a style="margin-right: 20px;">修改密码</a>
-                <a>修改邮箱</a>
+                <a>修改密码</a>
               </div>
             </li>
           </ul>
