@@ -1,9 +1,7 @@
 import { setClassification } from "@/api/user";
-import Cookies from "js-cookie";
 // 用户标注设置
-const userAnnotateSetting = Cookies.getJSON("annotate-custom-setting");
 const state = {
-  classification: userAnnotateSetting ?? [
+  classification: [
     // 分类信息
     { value: "药物", color: "#fa0404", shortcut: "m" },
     { value: "医生", color: "#fd0dad", shortcut: "d" },
@@ -22,16 +20,6 @@ const state = {
 固体污染物主要是指压缩气体中含有的尘埃微粒。控制微粒的核心技术是使用气体过滤器。过滤器的有效过滤滤径、有效过滤效率和有效工作流量直接影响到固体污染物的预期控制效果，保证过滤器的各项性能参数均符合使用工况状态是十分必要的。同一气体过滤器在不同流量状态下监测的过滤效果，见表1。`,
   // 文本内容
 };
-
-/**
- * 因为用户可能已经自定义了标注分类，所以要判断一下
- */
-if (userAnnotateSetting) {
-  state.annotateData = [];
-  for (let i = 0; i < userAnnotateSetting.length; i++) {
-    state.annotateData.push([]);
-  }
-}
 
 const mutations = {
   /**

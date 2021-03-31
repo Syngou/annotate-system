@@ -111,12 +111,12 @@ def get_user_info(request):
     # 在这里顺便查询数据库，获取用户自定义的标注分类，标注文本，并放入响应数据中
     if not user:
         return error("用户信息不存在")
+    userAvatar = "http://localhost:8000/media/avatar/" + str(user.avatar) if user.avatar else None
     return ok({
         "name":
             username,
         "roles": [user.roles],  # 用户角色，如果有用户管理就需要
-        "avatar":
-            "http://localhost:8000/media/avatar/" + str(user.avatar),  # 头像地址
+        "avatar": userAvatar,  # 头像地址
     })
 
 
@@ -131,7 +131,6 @@ def set_avatar(request):
     token = signing.loads((request.META.get('HTTP_ANNOTATE_SYSTEM_TOKEN')))
     username = token['username']
     avatar = request.FILES.get("avatar")
-    print(avatar)
     user = Userdata.objects.filter(username=username)
     if user:
         user.update(avatar=avatar)
