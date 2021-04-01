@@ -18,8 +18,7 @@
 |node|14.15.3|
 
 
-> 开发环境不一定要一模一样，版本相近即可  
-> 如果想使用yarn的话，可以将package-lock.json文件删除后再运行yarn  
+> 开发环境不一定要一模一样，版本相近即可    
 
 ## 使用方法
 * 下载或克隆源码
@@ -30,9 +29,9 @@ npm install
 npm run serve
 ```
 * 新建终端，进入到 manage.py 文件所在目录
-* 先安装一下这个包
+* 先安装一下包
 ```
-pip3 install django-cors-headers
+pip3 install django-cors-headers requests pillow numpy
 ```
 * 然后执行以下命令运行后端服务器
 ```
