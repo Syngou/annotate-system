@@ -11,7 +11,7 @@ urlpatterns = [
     path("getUserInfo/", views.get_user_info),  # 获取用户信息
     path('logout/', views.logout),  # 注销
     path('setAvatar/', views.set_avatar),  # 用户头像上传
-    path('setClassification/', views.set_labels),  # 设置分类
+    path('setClassification/', views.add_labels),  # 设置分类
     path("setAnnotateText/", views.set_annotate_text),  # 设置
     path('annotateDataUpload/', views.annotate_data_upload),  # 标注数据上传
     path('addMember/', views.add_member),  # 添加成员

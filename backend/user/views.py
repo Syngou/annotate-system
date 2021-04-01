@@ -29,6 +29,11 @@ def register(request):
     password = data['password']
     if len(password) < 6:
         return error("密码长度不能小于6位数")
+    '''
+    用户名也可以不设置为唯一值，
+    这里令其唯一是因为数据库中对用户名做了限制
+    希望用户名可重复的，可以删掉数据库的限制条件
+    '''
     if UserInfo.objects.filter(username=username):
         return error("这个昵称太受欢迎了，请换另一个昵称")
     password = make_password(password)
@@ -73,7 +78,10 @@ def set_avatar(request):
               'wb') as fw:
         fw.write(avatar.read())
     # 返回头像的链接地址
-    return ok({"avatar": str(request.build_absolute_uri('/')) + "media/avatar/" + avatar.name})
+    return ok({
+        "avatar":
+        str(request.build_absolute_uri('/')) + "media/avatar/" + avatar.name
+    })
 
 
 # 更新用户信息
@@ -88,23 +96,6 @@ def user_info_update(request):
     UserInfo.objects.filter(id=userId).update(username=name)
     token = signing.dumps({"username": name, "id": userId})
     return ok({"token": token})
-
-
-# 设置标注分类
-def set_labels(request):
-    token = signing.loads((request.META.get('HTTP_ANNOTATE_SYSTEM_TOKEN')))
-    username = token['username']
-    data = json.loads(request.body)
-    for i in data:
-        print(i)
-    # 返回设置好的标注分类
-    return ok([
-        {
-            "value": "药物",
-            "color": "#fa0404",
-            "shortcut": "m"
-        },
-    ])
 
 
 # 翻译接口
@@ -151,6 +142,27 @@ def delete_annotate_text(request):
 
 # 编辑标注文本
 def edit_annotate_text(request):
+    return ok({})
+
+
+# 添加标注分类
+def add_labels(request):
+    token = signing.loads((request.META.get('HTTP_ANNOTATE_SYSTEM_TOKEN')))
+    username = token['username']
+    data = json.loads(request.body)
+    for i in data:
+        print(i)
+    # 返回设置好的标注分类
+    return ok({})
+
+
+# 编辑标注分类
+def edit_labels(request):
+    return ok({})
+
+
+# 删除标注分类
+def delete_labels(request):
     return ok({})
 
 

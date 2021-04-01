@@ -51,7 +51,7 @@ export default {
     token() {
       return getToken();
     },
-    ...mapGetters(["name", "avatar"]),
+    ...mapGetters(["name", "avatar", "roles"]),
   },
   methods: {
     handleSuccess(response) {
