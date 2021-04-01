@@ -46,7 +46,7 @@ def get_user_info(request):
     # 在这里顺便查询数据库，获取用户自定义的标注分类，标注文本，成员信息 并放入响应数据中
     if not user:
         return error("用户信息不存在")
-    userAvatar = "http://localhost:8000/media/avatar/" + str(
+    userAvatar = str(request.build_absolute_uri('/')) + "media/avatar/" + str(
         user.avatar) if user.avatar else None
     return ok({
         "name": username,
@@ -73,19 +73,21 @@ def set_avatar(request):
               'wb') as fw:
         fw.write(avatar.read())
     # 返回头像的链接地址
-    return ok({"avatar": "http://localhost:8000/media/avatar/" + avatar.name})
+    return ok({"avatar": str(request.build_absolute_uri('/')) + "media/avatar/" + avatar.name})
 
 
 # 更新用户信息
-# TODO 修改用户名后token有所变化，待解决
 def user_info_update(request):
     token = signing.loads((request.META.get('HTTP_ANNOTATE_SYSTEM_TOKEN')))
     data = json.loads(request.body)
     # 这里只更新用户名，想要更新其他的可以添加
     name = data['name']
     userId = token['id']
+    if UserInfo.objects.filter(username=name):
+        return error("这个昵称太受欢迎了，请换另一个")
     UserInfo.objects.filter(id=userId).update(username=name)
-    return ok({})
+    token = signing.dumps({"username": name, "id": userId})
+    return ok({"token": token})
 
 
 # 设置标注分类

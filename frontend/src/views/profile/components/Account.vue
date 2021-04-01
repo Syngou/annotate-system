@@ -14,6 +14,7 @@
 
 <script>
 import { userInfoUpdate } from "@/api/user";
+import { setToken } from "@/utils/auth";
 export default {
   props: {
     user: {
@@ -30,7 +31,9 @@ export default {
      * 更新用户信息
      */
     submit() {
-      userInfoUpdate(this.user).then(() => {
+      userInfoUpdate(this.user).then((res) => {
+        console.log(res.data);
+        setToken(res.data.token);
         this.$message({
           message: "用户信息更新成功",
           type: "success",

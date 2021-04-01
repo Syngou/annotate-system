@@ -18,7 +18,7 @@
                 :on-success="handleSuccess"
                 :on-error="handleError"
               >
-                <img :src="user.avatar" class="avatar" alt="" />
+                <img :src="avatar" class="avatar" alt="" />
               </el-upload>
             </div>
           </div>
@@ -26,7 +26,7 @@
             <li>
               <SvgIcon icon-class="user" /> 用户昵称
               <div class="user-right">
-                {{ user.name }}
+                {{ name }}
               </div>
             </li>
 
@@ -45,23 +45,17 @@
 
 <script>
 import { getToken } from "@/utils/auth";
+import { mapGetters } from "vuex";
 export default {
-  props: {
-    user: {
-      type: Object,
-      default() {
-        return {};
-      },
-    },
-  },
   computed: {
     token() {
       return getToken();
     },
+    ...mapGetters(["name", "avatar"]),
   },
   methods: {
-    handleSuccess() {
-      location.reload();
+    handleSuccess(response) {
+      this.$store.dispatch("user/setAvatar", response.data.avatar);
     },
     handleError() {
       this.$message.error("上传失败");
