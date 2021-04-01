@@ -30,9 +30,9 @@ npm install
 npm run serve
 ```
 * 新建终端，进入到 manage.py 文件所在目录
-* 先安装一下这个包
+* 先安装一下包
 ```
-pip3 install django-cors-headers
+pip3 install django-cors-headers requests pillow numpy
 ```
 * 然后执行以下命令运行后端服务器
 ```
