@@ -14,12 +14,12 @@ def login(request):
     data = json.loads(request.body)
     username = data['username']
     password = data['password']
-    user = UserInfo.objects.get(username=username)
-    if user and check_password(password, user.password):
-        token = signing.dumps({"username": username, "id": user.id})
+    user = UserInfo.objects.filter(username=username)
+    if user and check_password(password, user[0].password):
+        token = signing.dumps({"username": username, "id": user[0].id})
         return ok({"token": token})
     else:
-        return error("用户名或密码错误")
+        return error("用户名或密码错误，请仔细检查后重新输入")
 
 
 # 用户注册
@@ -28,7 +28,7 @@ def register(request):
     username = data['username']
     password = data['password']
     if len(password) < 6:
-        return error("密码长度不能小于6位数")
+        return error("密码长度不可以小于6位数哦")
     '''
     用户名也可以不设置为唯一值，
     这里令其唯一是因为数据库中对用户名做了限制
@@ -47,15 +47,15 @@ def register(request):
 def get_user_info(request):
     token = signing.loads((request.META.get('HTTP_ANNOTATE_SYSTEM_TOKEN')))
     username = token['username']
-    user = UserInfo.objects.get(username=username)
+    user = UserInfo.objects.filter(username=username)
     # 在这里顺便查询数据库，获取用户自定义的标注分类，标注文本，成员信息 并放入响应数据中
     if not user:
         return error("用户信息不存在")
     userAvatar = str(request.build_absolute_uri('/')) + "media/avatar/" + str(
-        user.avatar) if user.avatar else None
+        user[0].avatar) if user[0].avatar else None
     return ok({
         "name": username,
-        "roles": [user.roles],  # 用户角色，如果有用户管理就需要
+        "roles": [user[0].roles],  # 用户角色，如果有用户管理就需要
         "avatar": userAvatar,  # 头像地址
     })
 
@@ -80,7 +80,7 @@ def set_avatar(request):
     # 返回头像的链接地址
     return ok({
         "avatar":
-        str(request.build_absolute_uri('/')) + "media/avatar/" + avatar.name
+            str(request.build_absolute_uri('/')) + "media/avatar/" + avatar.name
     })
 
 

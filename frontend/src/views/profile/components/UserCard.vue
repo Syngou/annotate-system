@@ -26,7 +26,7 @@
             <li>
               <SvgIcon icon-class="user" /> 用户昵称
               <div class="user-right">
-                {{ name }}
+                {{ user.name }}
               </div>
             </li>
 
@@ -47,11 +47,21 @@
 import { getToken } from "@/utils/auth";
 import { mapGetters } from "vuex";
 export default {
+  props: {
+    user: {
+      type: Object,
+      default: () => {
+        return {
+          name: "",
+        };
+      },
+    },
+  },
   computed: {
     token() {
       return getToken();
     },
-    ...mapGetters(["name", "avatar", "roles"]),
+    ...mapGetters(["avatar"]),
   },
   methods: {
     handleSuccess(response) {

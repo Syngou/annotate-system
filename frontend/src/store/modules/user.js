@@ -122,9 +122,13 @@ const actions = {
       resolve();
     });
   },
-
+  // 设置头像
   setAvatar({ commit }, avatar) {
     commit("SET_AVATAR", avatar);
+  },
+  // 设置用户名
+  setName({ commit }, name) {
+    commit("SET_NAME", name);
   },
   // 动态修改权限
   async changeRoles({ commit, dispatch }, role) {

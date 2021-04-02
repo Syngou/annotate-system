@@ -7,7 +7,6 @@
 ## 拟开发的功能
 * 机器学习自动化标注
 * 实体标注  
-* 翻译功能
 
 ## 开发环境一览:
 
@@ -37,6 +36,5 @@ pip3 install django-cors-headers requests pillow numpy
 ```
 python manage.py runserver
 ```
-* 如果还报错的话，看报错信息，缺什么就装什么，之后会补上requirements.txt
 ## License  
 MIT

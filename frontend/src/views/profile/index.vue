@@ -3,16 +3,16 @@
     <div v-if="user">
       <el-row :gutter="20">
         <el-col :span="8" :xs="24">
-          <user-card :user="user" />
+          <UserCard :user="user" />
         </el-col>
         <el-col :span="16" :xs="24">
           <el-card>
             <el-tabs v-model="activeTab">
               <el-tab-pane label="账号信息" name="account">
-                <account :user="user" />
+                <Account :user="user" />
               </el-tab-pane>
               <el-tab-pane label="操作日志" name="timeline">
-                <timeline />
+                <Timeline />
               </el-tab-pane>
             </el-tabs>
           </el-card>
@@ -38,7 +38,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["name", "avatar", "roles"]),
+    ...mapGetters(["name"]),
   },
   created() {
     this.getUser();
@@ -50,8 +50,6 @@ export default {
     getUser() {
       this.user = {
         name: this.name,
-        role: this.roles.join(" | "),
-        avatar: this.avatar,
       };
     },
   },

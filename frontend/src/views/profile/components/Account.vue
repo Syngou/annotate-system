@@ -31,8 +31,8 @@ export default {
      */
     submit() {
       userInfoUpdate(this.user).then((res) => {
-        console.log(res.data);
         setToken(res.data.token);
+        this.$store.dispatch("user/setName", this.user.name);
         this.$message({
           message: "用户信息更新成功",
           type: "success",
