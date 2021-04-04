@@ -1,6 +1,6 @@
 import request from "@/utils/request";
 /**
- * 注册
+ * @description 注册
  * @param {object} data 注册表单
  * @returns
  */
@@ -13,7 +13,7 @@ export function register(data) {
 }
 
 /**
- * 登录
+ * @description 登录
  * @param {Object} data 登录表单
  */
 export function login(data) {
@@ -24,6 +24,11 @@ export function login(data) {
   });
 }
 
+/**
+ * @description 更新用户信息
+ * @param {object} data 用户信息
+ * @returns promise对象
+ */
 export function userInfoUpdate(data) {
   return request({
     url: "user/info/update/",
@@ -33,7 +38,7 @@ export function userInfoUpdate(data) {
 }
 
 /**
- * 获取用户信息
+ * @description 获取用户信息
  * @param {String} token token值
  */
 export function getInfo() {
@@ -44,7 +49,7 @@ export function getInfo() {
 }
 
 /**
- * 注销
+ * @description 注销
  */
 export function logout() {
   return request({
@@ -53,7 +58,7 @@ export function logout() {
   });
 }
 /**
- * 用户自定义的标注分类
+ * @description 用户自定义的标注分类
  * @param {Object} data 自定义的分类信息
  * @returns
  */

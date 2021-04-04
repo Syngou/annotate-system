@@ -15,5 +15,5 @@ urlpatterns = [
     path("setAnnotateText/", views.set_annotate_text),  # 设置
     path('annotateDataUpload/', views.annotate_data_upload),  # 标注数据上传
     path('addMember/', views.add_member),  # 添加成员
-    path('info/update/', views.user_info_update)
+    path('info/update/', views.user_info_update)  # 用户信息更新
 ]

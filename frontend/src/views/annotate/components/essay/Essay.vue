@@ -1,5 +1,6 @@
 <template>
   <div id="paper">
+    <!-- TODO 有空把这里的bootstrap换成原生css -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
@@ -94,7 +95,7 @@
 <script>
 import TranslateCard from "./components/TranslateCard";
 
-import annotateUtils from "@/utils/annotateUtils";
+import { annotate } from "../../../../utils/annotateUtils";
 import { translate } from "@/api/annotate";
 
 import { mapGetters } from "vuex";
@@ -122,6 +123,8 @@ export default {
   methods: {
     /**
      * @description 在鼠标位置弹出对话框
+     * @param X {number} x轴坐标
+     * @param Y {number} y轴坐标
      */
     setBoxPosition(X, Y) {
       this.$refs.showDialog.style.left = X - 100 + "px";
@@ -132,7 +135,7 @@ export default {
 
     /**
      * @description 获取选中文本，鼠标位置加上滚动距离
-     * @param e 事件
+     * @param e  浏览器事件
      */
 
     getSelection(e) {
@@ -151,16 +154,18 @@ export default {
     /**
 
      * @description 标注文本
-     * @param id 给button标签的id，用于删除时查找
-     * @param index 标注颜色索引
+     * @param id {number} 给button标签的id，用于删除时查找
+     * @param index {number} 标注颜色索引
      */
     annotateText(id, index) {
       // 隐藏对话框
       this.showDialog = false;
-      annotateUtils.annotate(id, index);
+      annotate(id, index);
     },
 
-    /* 快捷键标注 */
+    /**
+     *  快捷键标注
+     */
     annotateByShortcut() {
       document.onkeydown = ($event) => {
         let key = $event.key;
@@ -169,7 +174,7 @@ export default {
         let j = 0;
         for (; j < this.$store.state.annotate.classification.length; j++) {
           if (key === this.$store.state.annotate.classification[j].shortcut) {
-            annotateUtils.annotate(j + "-" + id, j);
+            annotate(j + "-" + id, j);
             break;
           }
         }

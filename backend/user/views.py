@@ -7,6 +7,11 @@ from django.core import signing
 
 from .models import *
 from .utils import *
+'''
+这些接口只是临时写的，有些地方可能没有写得很完善
+发现哪里有问题了，或者觉得哪里写得不够好，不够完善
+都可以直接更改
+'''
 
 
 # 登录
@@ -80,7 +85,7 @@ def set_avatar(request):
     # 返回头像的链接地址
     return ok({
         "avatar":
-            str(request.build_absolute_uri('/')) + "media/avatar/" + avatar.name
+        str(request.build_absolute_uri('/')) + "media/avatar/" + avatar.name
     })
 
 

@@ -42,14 +42,13 @@
         slot="footer"
         style="display: flex; justify-content: center; align-items: center;"
       >
-        <el-button type="primary" @click="autoAnnotate">确定</el-button>
+        <el-button type="primary">确定</el-button>
       </span>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import annotateUtils from "@/utils/annotateUtils";
 import { mapGetters } from "vuex";
 
 export default {
@@ -78,16 +77,16 @@ export default {
       this.width = "30%";
     }
   },
-  methods: {
-    /**
-     * @description 自动化标注
-     */
-    autoAnnotate() {
-      this.annotateModal = false;
-      annotateUtils.autoAnnotate(this.inputValues);
-      this.inputValues = [];
-      //清空数据
-    },
-  },
+  // methods: {
+  //   /**
+  //    * @description 自动化标注
+  //    */
+  //   autoAnnotate() {
+  //     this.annotateModal = false;
+  //     autoAnnotate(this.inputValues);
+  //     this.inputValues = [];
+  //     //清空数据
+  //   },
+  // },
 };
 </script>

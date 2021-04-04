@@ -6,8 +6,7 @@ import { Message, MessageBox } from "element-ui";
 // 创建一个axios实例
 const service = axios.create({
   baseURL: "http://localhost:8000",
-  // withCredentials：true，//跨域请求时发送cookie
-  timeout: 5000, // 请求超时
+  timeout: 5000,
 });
 
 service.interceptors.request.use(

@@ -2,7 +2,7 @@ from django.contrib.auth.hashers import check_password, make_password
 from django.db import models
 
 
-#  用户数据
+#  用户信息
 class UserInfo(models.Model):
     username = models.CharField(max_length=30, unique=True)
     password = models.CharField(max_length=20)
@@ -12,7 +12,7 @@ class UserInfo(models.Model):
     # upload_text = models.ForeignKey(Upload_text, null=True, on_delete=models.CASCADE)
 
 
-# 标签模型
+# 用户自定义的标签
 class Labels(models.Model):
     value = models.CharField(max_length=30)
     color = models.CharField(max_length=20, null=True)
@@ -23,7 +23,7 @@ class Labels(models.Model):
         return self.value
 
 
-# 用户上传的文件
+# 用户上传的文本，是否必要有待观察
 class AnnotateText(models.Model):
     upload_text = models.TextField(max_length=1000)
     user = models.ForeignKey(UserInfo, null=True, on_delete=models.CASCADE)

@@ -65,7 +65,7 @@ const mutations = {
     }
   },
   /**
-   * 设置标注文本
+   * @description 设置标注文本
    */
   SET_ANNOTATE_TEXT: (state, text) => {
     state.annotateText = text.trim();

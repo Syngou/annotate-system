@@ -173,6 +173,7 @@ export default {
   methods: {
     /**
      * 上传成功的回调函数
+     * @param response 响应数据
      */
     handleSuccess(response) {
       this.$message.success("上传成功");
