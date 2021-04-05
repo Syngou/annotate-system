@@ -60,7 +60,7 @@
                   {{ info.value }}({{ info.shortcut }})
                 </button>
                 <br /><br />
-                <router-link to="/text/setting">
+                <router-link to="/AnnotateSetting">
                   添加新分类
                 </router-link>
               </div>

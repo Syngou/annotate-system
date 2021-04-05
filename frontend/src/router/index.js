@@ -59,6 +59,33 @@ export const constantRoutes = [
       },
     ],
   },
+
+  {
+    path: "/textList",
+    redirect: "/textList/index",
+    component: Layout,
+    children: [
+      {
+        path: "index",
+        name: "textList",
+        component: () => import("@/views/annotateTextList"),
+        meta: { title: "文本列表", icon: "el-icon-notebook-2" },
+      },
+    ],
+  },
+  {
+    path: "/annotateSetting",
+    redirect: "/annotateSetting/index",
+    component: Layout,
+    children: [
+      {
+        path: "index",
+        name: "annotateSetting",
+        component: () => import("@/views/annotateSetting"),
+        meta: { title: "标注设置", icon: "el-icon-setting" },
+      },
+    ],
+  },
   {
     path: "/groupManage",
     component: Layout,
@@ -72,28 +99,6 @@ export const constantRoutes = [
       },
     ],
   },
-  {
-    path: "/text",
-    component: Layout,
-    redirect: "/text/list",
-    name: "text",
-    meta: { title: "标注文本", icon: "documentation" },
-    children: [
-      {
-        path: "list",
-        name: "list",
-        component: () => import("@/views/annotateText/list"),
-        meta: { title: "文本列表", icon: "el-icon-notebook-2" },
-      },
-      {
-        path: "setting",
-        name: "setting",
-        component: () => import("@/views/annotateText/setting"),
-        meta: { title: "标注设置", icon: "el-icon-setting" },
-      },
-    ],
-  },
-
   {
     path: "/errorAnalysis",
     component: Layout,

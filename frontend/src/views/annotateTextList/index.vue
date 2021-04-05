@@ -241,7 +241,7 @@ export default {
     },
     /**
      * 编辑
-     * @param {Object} row 操作当前行数据
+     * @param {object} row 操作当前行数据
      */
     handleEdit(index, row) {
       this.showEditForm = true;

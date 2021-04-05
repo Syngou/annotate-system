@@ -18,7 +18,7 @@
           <router-link to="/profile">
             <el-dropdown-item> 个人中心 </el-dropdown-item>
           </router-link>
-          <router-link to="/text/setting">
+          <router-link to="/AnnotateSetting">
             <el-dropdown-item> 标注设置 </el-dropdown-item>
           </router-link>
           <el-dropdown-item divided @click.native="logout">

@@ -1,5 +1,5 @@
 import { getInfo, login, logout, register } from "@/api/user";
-import router, { resetRouter } from "@/router";
+import { resetRouter } from "@/router";
 import { getToken, removeToken, setToken } from "@/utils/auth";
 
 const state = {
@@ -129,27 +129,6 @@ const actions = {
   // 设置用户名
   setName({ commit }, name) {
     commit("SET_NAME", name);
-  },
-  // 动态修改权限
-  async changeRoles({ commit, dispatch }, role) {
-    const token = role + "-token";
-
-    commit("SET_TOKEN", token);
-    setToken(token);
-
-    const { roles } = await dispatch("getInfo");
-
-    resetRouter();
-
-    // 根据角色生成可访问的路线图
-    const accessRoutes = await dispatch("permission/generateRoutes", roles, {
-      root: true,
-    });
-    // 动态添加可访问的路线
-    router.addRoutes(accessRoutes);
-
-    // 重置访问的视图和缓存的视图
-    dispatch("tagsView/delAllViews", null, { root: true });
   },
 };
 

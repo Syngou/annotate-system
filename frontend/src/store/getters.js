@@ -1,6 +1,5 @@
 const getters = {
   sidebar: (state) => state.app.sidebar, //侧边栏
-  device: (state) => state.app.device, //设备是电脑还是手机
   token: (state) => state.user.token,
   avatar: (state) => state.user.avatar,
   name: (state) => state.user.name,

@@ -19,7 +19,7 @@
           <router-link to="/">
             <el-dropdown-item> 主控台 </el-dropdown-item>
           </router-link>
-          <router-link to="/text/setting">
+          <router-link to="/annotateSetting">
             <el-dropdown-item> 标注设置 </el-dropdown-item>
           </router-link>
           <el-dropdown-item divided @click.native="logout">
