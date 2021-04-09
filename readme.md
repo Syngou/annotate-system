@@ -28,7 +28,7 @@ npm install
 npm run serve
 ```
 * 新建终端，进入到 manage.py 文件所在目录
-* 先安装一下包
+* 先安装一下依赖
 ```
 pip3 install django-cors-headers requests pillow numpy
 ```

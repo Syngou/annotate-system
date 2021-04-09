@@ -123,8 +123,8 @@ export default {
   methods: {
     /**
      * @description 在鼠标位置弹出对话框
-     * @param X {number} x轴坐标
-     * @param Y {number} y轴坐标
+     * @param {number} X  x轴坐标
+     * @param {number} Y  y轴坐标
      */
     setBoxPosition(X, Y) {
       this.$refs.showDialog.style.left = X - 100 + "px";
@@ -154,8 +154,8 @@ export default {
     /**
 
      * @description 标注文本
-     * @param id {number} 给button标签的id，用于删除时查找
-     * @param index {number} 标注颜色索引
+     * @param {number} id  给button标签的id，用于删除时查找
+     * @param {number} index 标注颜色索引
      */
     annotateText(id, index) {
       // 隐藏对话框
