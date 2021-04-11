@@ -30,15 +30,19 @@ export default {
      * 更新用户信息
      */
     submit() {
-      userInfoUpdate(this.user).then((res) => {
-        setToken(res.data.token);
-        this.$store.dispatch("user/setName", this.user.name);
-        this.$message({
-          message: "用户信息更新成功",
-          type: "success",
-          duration: 5 * 1000,
+      if (this.user.name == "") {
+        this.$message.error("用户名不能为空");
+      } else {
+        userInfoUpdate(this.user).then((res) => {
+          setToken(res.data.token);
+          this.$store.dispatch("user/setName", this.user.name);
+          this.$message({
+            message: "用户信息更新成功",
+            type: "success",
+            duration: 5 * 1000,
+          });
         });
-      });
+      }
     },
   },
 };

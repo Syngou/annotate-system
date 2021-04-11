@@ -8,6 +8,7 @@
       <div class="login-box-from">
         <el-form
           ref="loginForm"
+          :rules="loginRules"
           :model="loginForm"
           class="demo-ruleForm"
           auto-complete="on"
@@ -107,7 +108,7 @@ export default {
             required: true,
             trigger: "blur",
             validator: validateLoginUsername,
-            message: "请输入正确的用户名",
+            message: "请输入用户名",
           },
         ],
         password: [
@@ -150,37 +151,25 @@ export default {
      * 登录
      */
     handleLogin() {
-      // this.$refs.loginForm.validate((valid) => {
-      //   if (valid) {
-      //     this.loading = true;
-      //     this.$store
-      //       .dispatch("user/login", this.loginForm)
-      //       .then(() => {
-      //         this.$router.push({
-      //           path: this.redirect || "/",
-      //         });
-      //         this.loading = false;
-      //       })
-      //       .catch(() => {
-      //         this.loading = false;
-      //       });
-      //   } else {
-      //     console.log("提交发生错误!!");
-      //     return false;
-      //   }
-      // });
-      this.loading = true;
-      this.$store
-        .dispatch("user/login", this.loginForm)
-        .then(() => {
-          this.$router.push({
-            path: this.redirect || "/",
-          });
-          this.loading = false;
-        })
-        .catch(() => {
-          this.loading = false;
-        });
+      this.$refs.loginForm.validate((valid) => {
+        if (valid) {
+          this.loading = true;
+          this.$store
+            .dispatch("user/login", this.loginForm)
+            .then(() => {
+              this.$router.push({
+                path: this.redirect || "/",
+              });
+              this.loading = false;
+            })
+            .catch(() => {
+              this.loading = false;
+            });
+        } else {
+          console.log("提交发生错误!!");
+          return false;
+        }
+      });
     },
   },
 };

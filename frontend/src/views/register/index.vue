@@ -8,6 +8,7 @@
       <div class="register-box-from">
         <el-form
           ref="registerForm"
+          :rules="registerRules"
           :model="registerForm"
           class="demo-ruleForm"
           auto-complete="on"

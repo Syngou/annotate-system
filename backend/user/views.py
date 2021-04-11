@@ -27,15 +27,6 @@ def register(request):
     data = json.loads(request.body)
     username = data['username']
     password = data['password']
-    if len(username) <= 0:
-        return error("用户名不能为空")
-    if len(password) < 6:
-        return error("密码长度不可以小于6位数哦")
-    '''
-    用户名也可以不设置为唯一值，
-    这里令其唯一是因为数据库中对用户名做了限制
-    希望用户名可重复的，可以删掉数据库的限制条件
-    '''
     if UserInfo.objects.filter(username=username):
         return error("这个昵称太受欢迎了，请换另一个昵称")
     password = make_password(password)

@@ -8,8 +8,8 @@ export function isExternal(path) {
 
 export function validateLoginUsername(rule, value, callback) {
   rule;
-  if (value !== "admin" && value !== "editor") {
-    callback(new Error("请输入正确的用户名"));
+  if (value === "") {
+    callback(new Error("请输入用户名"));
   } else {
     callback();
   }
