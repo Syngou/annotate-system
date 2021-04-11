@@ -1,6 +1,6 @@
 # 医疗文本标注和处理系统
 ## 简介
-医疗文本标注，包含标注，后台管理，错误分析等功能，可自定义标注分类及标签颜色
+医疗文本标注和处理系统，包含标注，后台管理，错误分析等功能
 > 本项目目前处于开发阶段  
 > 为避免频繁打包，在开发阶段采用前后端分离，到部署时再合并   
 > 所写接口仅为前后端交互的示例，可以按实际情况进行修改  
@@ -21,13 +21,7 @@
 
 ## 使用方法
 * 下载或克隆源码
-* 在命令行中进入到frontend文件夹中
-* 在命令行中输入以下命令，会打开前端页面
-```
-npm install
-npm run serve
-```
-* 新建终端，进入到 manage.py 文件所在目录
+* 进入到backend文件夹中(manage.py所在目录)
 * 先安装一下依赖
 ```
 pip3 install django-cors-headers requests pillow numpy
@@ -36,5 +30,12 @@ pip3 install django-cors-headers requests pillow numpy
 ```
 python manage.py runserver
 ```
+* 新建终端，进入到frontend文件夹中
+* 在命令行中输入以下命令，会打开前端页面
+```
+npm install
+npm run serve
+```
+
 ## License  
 MIT
