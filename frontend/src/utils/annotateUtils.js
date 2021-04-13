@@ -1,4 +1,3 @@
-import { annotateDataUpload } from "@/api/annotate";
 import store from "@/store/index";
 /**
  *  按钮样式
@@ -39,9 +38,10 @@ function annotate(id, index) {
     let end = start + [...range.toString()].length;
 
     let annotateData = {
-      label: id.split("-")[0],
-      start_offset: start,
-      end_offset: end,
+      id: id.split("-")[1], // 用于删除查找
+      label: id.split("-")[0], // 分类
+      start_offset: start, //起始索引
+      end_offset: end, //结束索引
       text: text, // 主要是为了删除标注，可以使用其他删除方法
       user: 1, // TODO 暂时设为1
       updated_at: new Date(),
@@ -66,14 +66,6 @@ function annotate(id, index) {
     //移除选中状态，否则很难看
     window.getSelection().removeAllRanges();
     store.state.annotate.id++;
-
-    // 上传数据
-    let data = JSON.stringify({
-      id: store.state.annotate.essayId,
-      text: store.state.annotate.annotateText,
-      annotations: store.state.annotate.annotateData,
-    });
-    annotateDataUpload(data);
   }
 }
 
@@ -91,14 +83,6 @@ function deleteById(id) {
   essay.insertBefore(textNode, span);
   essay.removeChild(span);
   store.dispatch("annotate/deleteDataFromList", { type: id, text });
-
-  // 上传数据
-  let data = JSON.stringify({
-    id: store.state.annotate.essayId,
-    text: store.state.annotate.annotateText,
-    annotations: store.state.annotate.annotateData,
-  });
-  annotateDataUpload(data);
 }
 export { annotate };
 

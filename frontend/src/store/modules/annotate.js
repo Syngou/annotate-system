@@ -42,7 +42,7 @@ const mutations = {
     for (let i = state.annotateData.length - 1; i >= 0; i--) {
       if (
         state.annotateData[index][i] &&
-        state.annotateData[index][i].text === info.text
+        state.annotateData[index][i].id === info.type.split("-")[1]
       ) {
         state.annotateData[index].splice(i, 1);
         break;
