@@ -154,7 +154,7 @@ export default {
     /**
 
      * @description 标注文本
-     * @param {number} id  给button标签的id，用于删除时查找
+     * @param {string} id  给button标签的id，用于删除时查找
      * @param {number} index 标注颜色索引
      */
     annotateText(id, index) {

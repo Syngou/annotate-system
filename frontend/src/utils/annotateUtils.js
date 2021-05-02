@@ -11,12 +11,14 @@ function buttonStyle() {
  * @param {number} index 标注颜色索引
  */
 function textStyle(index) {
-  return `border:5px solid ${store.state.annotate.classification[index].color};background-color:${store.state.annotate.classification[index].color};border-radius: 10px;`;
+  return `border:5px solid ${store.state.annotate.classification[index].color};
+          background-color:${store.state.annotate.classification[index].color};
+          border-radius: 10px;`;
 }
 /**
  *
  * @description 标注
- * @param {number} id 给button标签的id，用于删除时查找
+ * @param {string} id 给button标签的id，用于删除时查找
  * @param {number} index 标注颜色索引
  */
 function annotate(id, index) {

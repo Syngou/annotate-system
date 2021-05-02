@@ -18,6 +18,7 @@
           {{ scope.$index + 1 }}
         </template>
       </el-table-column>
+
       <!-- 用户名 -->
       <el-table-column align="center" label="用户名" width="300">
         <template slot-scope="scope">
@@ -87,21 +88,26 @@
 
 <script>
 import { addMember } from "@/api/group";
+import { mapGetters } from "vuex";
 export default {
   name: "Group",
+
   data() {
     return {
       newMember: {}, // 添加的成员信息
       showEditForm: false, // 显示编辑对话框
       editName: "", // 编辑的用户名
       editCurrent: -1, // 编辑的行
-      groupList: [],
     };
   },
   computed: {
     // 编辑框宽度
     width() {
       return window.innerWidth <= 400 ? "80%" : "30%";
+    },
+    ...mapGetters(["name", "roles"]),
+    groupList() {
+      return [{ name: this.name, role: this.roles[0] }];
     },
   },
   methods: {
