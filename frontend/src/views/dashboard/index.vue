@@ -17,15 +17,21 @@
           </div>
         </el-card>
       </el-col>
+      <el-col :xs="24" :sm="12" :lg="12">
+        <TodoList />
+      </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import TodoList from "./TodoList";
 export default {
   name: "Dashboard",
-
+  components: {
+    TodoList,
+  },
   computed: {
     ...mapGetters(["name", "avatar", "roles"]),
   },
