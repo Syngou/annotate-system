@@ -24,7 +24,7 @@
 * 进入到backend文件夹中(manage.py所在目录)
 * 先安装一下依赖
 ```
-pip3 install django-cors-headers requests pillow numpy
+pip3 install django django-cors-headers requests pillow numpy
 ```
 * 然后执行以下命令运行后端服务器
 ```
