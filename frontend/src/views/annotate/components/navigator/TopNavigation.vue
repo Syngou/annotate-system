@@ -47,13 +47,13 @@ export default {
 
   methods: {
     /**
-     * @description 注销登录状态
+     *  注销登录状态
      */
     async logout() {
       await this.$store.dispatch("user/logout");
     },
     /**
-     * @description: 标注数据导出为文件
+     * : 标注数据导出为文件
      */
     exportData() {
       const url = window.URL.createObjectURL(

@@ -22,24 +22,24 @@ export default {
     return {
       timeline: [
         {
-          timestamp: "2019/4/20",
+          timestamp: "2021/4/20",
           title: "标注活动",
-          content: "Syngou committed 2019/4/20 20:46",
+          content: "Syngou committed 2021/4/20 20:46",
         },
         {
-          timestamp: "2019/4/21",
+          timestamp: "2021/4/21",
           title: "标注活动",
-          content: "Syngou committed 2019/4/21 20:46",
+          content: "Syngou committed 2021/4/21 20:46",
         },
         {
-          timestamp: "2019/4/22",
+          timestamp: "2021/4/22",
           title: "登录",
-          content: "Syngou committed 2019/4/22 20:46",
+          content: "Syngou committed 2021/4/22 20:46",
         },
         {
-          timestamp: "2019/4/23",
+          timestamp: "2021/4/23",
           title: "注销登录状态",
-          content: "Syngou committed 2019/4/23 20:46",
+          content: "Syngou committed 2021/4/23 20:46",
         },
       ],
     };

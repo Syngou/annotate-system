@@ -126,10 +126,15 @@ export default {
      */
     addMember() {
       this.showEditForm = false;
-      addMember(this.newMember).then(() => {
-        this.$message.success("添加成功");
-        this.groupList.push(this.newMember);
-      });
+      if (this.newMember.name && this.newMember.role) {
+        // 发送新成员信息
+        addMember(this.newMember).then(() => {
+          this.$message.success("添加成功");
+          this.groupList.push(this.newMember);
+        });
+      }else{
+        this.$message.error("请将成员信息填写完整")
+      }
     },
     /**
      * 编辑成员信息

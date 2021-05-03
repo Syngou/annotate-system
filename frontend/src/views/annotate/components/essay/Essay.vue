@@ -122,7 +122,7 @@ export default {
   },
   methods: {
     /**
-     * @description 在鼠标位置弹出对话框
+     *  在鼠标位置弹出对话框
      * @param {number} X  x轴坐标
      * @param {number} Y  y轴坐标
      */
@@ -134,7 +134,7 @@ export default {
     },
 
     /**
-     * @description 获取选中文本，鼠标位置加上滚动距离
+     *  获取选中文本，鼠标位置加上滚动距离
      * @param e  浏览器事件
      */
 
@@ -153,7 +153,7 @@ export default {
 
     /**
 
-     * @description 标注文本
+     *  标注文本
      * @param {string} id  给button标签的id，用于删除时查找
      * @param {number} index 标注颜色索引
      */
@@ -182,7 +182,7 @@ export default {
     },
 
     /**
-     * @description 翻译
+     *  翻译
      */
     translateText() {
       this.showDialog = false;

@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     /**
-     * @description 判断是否是电脑
+     *  判断是否是电脑
      */
     isPC() {
       let Agents = ["Android", "iPhone", "Windows Phone", "iPad", "iPod"];

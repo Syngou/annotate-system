@@ -26,7 +26,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import TodoList from "./TodoList";
+import TodoList from "./components/TodoList";
 export default {
   name: "Dashboard",
   components: {

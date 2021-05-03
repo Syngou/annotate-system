@@ -23,7 +23,7 @@ const state = {
 
 const mutations = {
   /**
-   * @description 将标注文本添加列表，并上传至后台
+   *  将标注文本添加列表，并上传至后台
    * @param  state
    * @param  info 对象，存id和文本
    */
@@ -33,7 +33,7 @@ const mutations = {
     state.annotateData[index].push(annotateData);
   },
   /**
-   * @description 删除list中的标注记录
+   *  删除list中的标注记录
    * @param  state
    * @param  info 对象，存储需要删除已标注文本的id，文本
    */
@@ -50,7 +50,7 @@ const mutations = {
     }
   },
   /**
-   * @description 设置标注分类
+   *  设置标注分类
    * @param {*} state
    */
   SET_CLASSIFICATION: (state, data) => {
@@ -65,7 +65,7 @@ const mutations = {
     }
   },
   /**
-   * @description 设置标注文本
+   *  设置标注文本
    */
   SET_ANNOTATE_TEXT: (state, text) => {
     state.annotateText = text.trim();

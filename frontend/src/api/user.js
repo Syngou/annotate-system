@@ -1,6 +1,6 @@
 import request from "@/utils/request";
 /**
- * @description 注册
+ *  注册
  * @param {object} data 注册表单
  * @returns
  */
@@ -13,7 +13,7 @@ export function register(data) {
 }
 
 /**
- * @description 登录
+ *  登录
  * @param {object} data 登录表单
  */
 export function login(data) {
@@ -25,7 +25,7 @@ export function login(data) {
 }
 
 /**
- * @description 更新用户信息
+ *  更新用户信息
  * @param {object} data 用户信息
  */
 export function userInfoUpdate(data) {
@@ -37,7 +37,7 @@ export function userInfoUpdate(data) {
 }
 
 /**
- * @description 获取用户信息
+ *  获取用户信息
  */
 export function getInfo() {
   return request({
@@ -47,7 +47,7 @@ export function getInfo() {
 }
 
 /**
- * @description 注销
+ *  注销
  */
 export function logout() {
   return request({
@@ -56,7 +56,7 @@ export function logout() {
   });
 }
 /**
- * @description 用户自定义的标注分类
+ *  用户自定义的标注分类
  * @param {object} data 自定义的分类信息
  * @returns
  */

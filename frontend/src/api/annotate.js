@@ -1,7 +1,7 @@
 import request from "@/utils/request";
 
 /**
- * @description 标注数据上传
+ *  标注数据上传
  * @param {object} data 需要上传的数据，
  */
 export function annotateDataUpload(data) {
@@ -13,7 +13,7 @@ export function annotateDataUpload(data) {
 }
 /**
  *
- * @description 翻译
+ *  翻译
  * @param {string} text  ==> 需要标注的文本
  */
 export function translate(text) {

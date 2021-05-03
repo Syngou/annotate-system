@@ -7,7 +7,7 @@ function buttonStyle() {
 }
 /**
  *
- * @description 返回标注文本样式
+ *  返回标注文本样式
  * @param {number} index 标注颜色索引
  */
 function textStyle(index) {
@@ -17,7 +17,7 @@ function textStyle(index) {
 }
 /**
  *
- * @description 标注
+ *  标注
  * @param {string} id 给button标签的id，用于删除时查找
  * @param {number} index 标注颜色索引
  */
@@ -73,7 +73,7 @@ function annotate(id, index) {
 
 /**
  *
- * @description 删除样式
+ *  删除样式
  * @param {string} id ==> 按钮的id，用于查找
  */
 function deleteById(id) {
@@ -90,7 +90,7 @@ export { annotate };
 
 /**
  *
- * @description 机器学习自动化标注
+ *  机器学习自动化标注
  * @params data ==> 后台传来的数据，一维字符串数组
  */
 // TODO 获取每个字的起始索引

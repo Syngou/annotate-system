@@ -79,7 +79,7 @@ export default {
   },
   // methods: {
   //   /**
-  //    * @description 自动化标注
+  //    *  自动化标注
   //    */
   //   autoAnnotate() {
   //     this.annotateModal = false;
