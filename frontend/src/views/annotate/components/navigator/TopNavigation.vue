@@ -28,21 +28,22 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-    <AutoAnnotate />
+    <output-options ref="outputOptions" />
   </div>
 </template>
 
 <script>
-import AutoAnnotate from "./components/AutoAnnotate";
+import OutputOptions from "./components/OutputOptions";
 import { mapGetters } from "vuex";
 
 export default {
   name: "TopNavigation",
   components: {
-    AutoAnnotate,
+    OutputOptions
   },
+
   computed: {
-    ...mapGetters(["avatar", "annotateData", "classification"]),
+    ...mapGetters(["avatar", "classification"])
   },
 
   methods: {
@@ -56,23 +57,7 @@ export default {
      * : 标注数据导出为文件
      */
     exportData() {
-      const url = window.URL.createObjectURL(
-        new Blob([
-          JSON.stringify({
-            id: this.$store.state.annotate.essayId,
-            text: this.$store.state.annotate.annotateText,
-            annotations: this.annotateData,
-          }),
-        ])
-      );
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute(
-        "download",
-        `file${this.$store.state.annotate.essayId}.jsonl`
-      );
-      document.body.appendChild(link);
-      link.click();
+      this.$refs.outputOptions.dialogVisible = true;
     },
     /**
      * 暂存标注数据
@@ -80,8 +65,8 @@ export default {
     // TODO 待开发 或者说有没有必要开发
     saveTamporaryData() {
       this.$message.info("待开发");
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped lang="scss">
