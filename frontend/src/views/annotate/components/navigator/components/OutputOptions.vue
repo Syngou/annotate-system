@@ -1,20 +1,31 @@
 <template>
   <div>
     <el-dialog
-      title="输出格式"
+      title="输出选项"
       width="fit-content"
       :visible.sync="dialogVisible"
       :modal="false"
     >
-      <el-select v-model="value" placeholder="请选择">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        >
-        </el-option>
-      </el-select>
+      <el-form>
+        <el-form-item label="文件名">
+          <el-input
+            v-model="fileName"
+            placeholder="请输入文件名，默认为 output"
+          />
+        </el-form-item>
+        <el-form-item label="后缀名">
+          <el-select v-model="fileFormat" placeholder="请选择">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+
       <div class="btn-group">
         <el-button type="primary" @click="outputFile">
           确定
@@ -28,11 +39,11 @@
 </template>
 
 <script>
-import {mapGetters }from "vuex";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      dialogVisible: true,
+      dialogVisible: false,
       options: [
         {
           value: "jsonl",
@@ -47,7 +58,8 @@ export default {
           label: "txt"
         }
       ],
-      value: "jsonl"
+      fileName: "output",
+      fileFormat: "jsonl"
     };
   },
   computed: {
@@ -55,6 +67,7 @@ export default {
   },
   methods: {
     outputFile() {
+      this.dialogVisible = false;
       const url = window.URL.createObjectURL(
         new Blob([
           JSON.stringify({
@@ -66,10 +79,7 @@ export default {
       );
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute(
-        "download",
-        `file${this.$store.state.annotate.essayId}.${this.value}`
-      );
+      link.setAttribute("download", `${this.fileName}.${this.fileFormat}`);
       document.body.appendChild(link);
       link.click();
     }
@@ -79,7 +89,7 @@ export default {
 
 <style lang="scss" scoped>
 .btn-group {
-  margin-top: 20px;
-  display:block;
-}
+    margin-top: 20px;
+    display: block;
+  }
 </style>
