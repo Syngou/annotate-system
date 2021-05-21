@@ -7,12 +7,14 @@
       :modal="false"
     >
       <el-form>
+        <!-- 文件名 -->
         <el-form-item label="文件名">
           <el-input
             v-model="fileName"
             placeholder="请输入文件名，默认为 output"
           />
         </el-form-item>
+        <!-- 后缀名 -->
         <el-form-item label="后缀名">
           <el-select v-model="fileFormat" placeholder="请选择">
             <el-option
@@ -25,7 +27,7 @@
           </el-select>
         </el-form-item>
       </el-form>
-
+      <!-- 按钮 -->
       <div class="btn-group">
         <el-button type="primary" @click="outputFile">
           确定
@@ -89,7 +91,7 @@ export default {
 
 <style lang="scss" scoped>
 .btn-group {
-    margin-top: 20px;
-    display: block;
-  }
+  margin-top: 20px;
+  display: block;
+}
 </style>

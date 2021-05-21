@@ -7,7 +7,7 @@ import router from "../router";
 import store from "../store";
 
 NProgress.configure({ showSpinner: false }); // NProgress配置
-
+let firstRequest = true; // 开发阶段使用，首次打开前端页面的标记
 const whiteList = ["/login", "/annotate", "/register", "/test"]; // 没有重定向白名单
 
 router.beforeEach(async (to, from, next) => {
@@ -33,7 +33,6 @@ router.beforeEach(async (to, from, next) => {
         try {
           // 获取用户信息
           await store.dispatch("user/getInfo");
-
           next();
         } catch (error) {
           // 删除令牌并进入登录页面重新登录
@@ -53,6 +52,10 @@ router.beforeEach(async (to, from, next) => {
     } else {
       // 其他无权访问的页面将被重定向到登录页面。
       next(`/annotate`);
+      if (!firstRequest) {
+        Message.error("请先登录！");
+        firstRequest = false;
+      }
       NProgress.done();
     }
   }

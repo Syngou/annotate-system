@@ -9,7 +9,6 @@
     <router-link v-if="!avatar" to="/login" style="float: right;">
       登录
     </router-link>
-    <!-- 改变字体大小的按钮放哪里 -->
     <div v-else class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
@@ -70,19 +69,6 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-/* 标题样式 */
-.title {
-  margin: 0 30px;
-  color: white;
-  font-size: 22px;
-}
-
-@media screen and (max-width: 400px) {
-  .title {
-    display: none;
-  }
-}
-
 /* 导航条 */
 .topNavigation {
   position: fixed;
@@ -94,6 +80,13 @@ export default {
   padding-right: 20px;
   z-index: 50;
   background-color: #68768a;
+
+  /* 标题样式 */
+  .title {
+    margin: 0 30px;
+    color: white;
+    font-size: 22px;
+  }
 
   /* 导航条链接 */
   a {
@@ -121,44 +114,33 @@ export default {
     outline: none;
   }
 
-  .right-menu-item {
-    display: inline-block;
-    padding: 0 8px;
-    height: 100%;
-    font-size: 18px;
-    color: #5a5e66;
-    vertical-align: text-bottom;
+  // 用户头像
+    .avatar-container {
+      margin-right: 5px;
 
-    &.hover-effect {
-      cursor: pointer;
+      .avatar-wrapper {
+        position: relative;
 
-      &:hover {
-        background: rgba(0, 0, 0, 0.025);
+        .user-avatar {
+          cursor: pointer;
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
+        }
+
+        .el-icon-caret-bottom {
+          cursor: pointer;
+          position: absolute;
+          right: -20px;
+          top: 25px;
+          font-size: 12px;
+        }
       }
     }
-  }
-
-  .avatar-container {
-    margin-right: 5px;
-
-    .avatar-wrapper {
-      position: relative;
-
-      .user-avatar {
-        cursor: pointer;
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
-      }
-
-      .el-icon-caret-bottom {
-        cursor: pointer;
-        position: absolute;
-        right: -20px;
-        top: 25px;
-        font-size: 12px;
-      }
-    }
+}
+@media screen and (max-width: 400px) {
+  .title {
+    display: none;
   }
 }
 </style>
