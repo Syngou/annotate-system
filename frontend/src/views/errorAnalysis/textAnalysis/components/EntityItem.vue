@@ -59,9 +59,7 @@ export default {
 </script>
 
 <style scoped>
-.highlight.blue {
-  background: #edf4fa !important;
-}
+
 
 .highlight.bottom {
   display: block;

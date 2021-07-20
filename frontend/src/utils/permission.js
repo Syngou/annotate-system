@@ -51,7 +51,7 @@ router.beforeEach(async (to, from, next) => {
       next();
     } else {
       // 其他无权访问的页面将被重定向到登录页面。
-      next(`/annotate`);
+      next(`/login`);
       if (!firstRequest) {
         Message.error("请先登录！");
         firstRequest = false;

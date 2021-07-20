@@ -129,6 +129,7 @@
 
 <script>
 import { getToken } from "@/utils/auth";
+import { mapGetters } from "vuex";
 
 export default {
   name: "TableList",
@@ -136,17 +137,17 @@ export default {
     statusFilter(status) {
       const statusMap = {
         已标注: "success",
-        未标注: "gray",
+        未标注: "gray"
       };
       return statusMap[status];
-    },
+    }
   },
 
   data() {
     return {
       keywords: "", // 搜索关键词
-      filterList: null, //符合条件的数据
-      list: null, // 所有数据列表
+      filterList: [], //符合条件的数据
+      list: [], // 所有数据列表
       listLoading: true, //加载效果
       showEditForm: false, //编辑框的显隐
       listEditIndex: 0, // 编辑索引
@@ -154,8 +155,8 @@ export default {
       form: {
         //编辑框数据
         description: "",
-        paragraph: "",
-      },
+        paragraph: ""
+      }
     };
   },
   computed: {
@@ -166,9 +167,11 @@ export default {
     token() {
       return getToken();
     },
+    ...mapGetters(["annotateTextList"]),
   },
-  created() {
-    this.fetchData();
+  mounted() {
+    this.list = this.filterList = this.annotateTextList
+    this.listLoading = false;
   },
   methods: {
     /**
@@ -177,7 +180,18 @@ export default {
      */
     handleSuccess(response) {
       this.$message.success("上传成功");
-      console.log(response);
+      console.log(response.data.length);
+      
+      // // TODO 暂时这样添加 , 数据库完善后再改
+      for (let i = 0; i < response.data.length; i++) {
+        this.list.push({
+          index: i,
+          description: "无",
+          status: "未标注",
+          paragraph: response.data[i]
+        });
+      }
+      this.filterList = this.list;
     },
     /**
      * 上传失败回调函数
@@ -198,24 +212,19 @@ export default {
       this.$confirm("确定要删除吗?", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
         this.list = [];
         this.filterList = [];
       });
     },
-    /**
-     * 获取数据
-     */
-    fetchData() {
-      this.listLoading = false;
-    },
+   
     /**
      * 搜索
      */
     search() {
       let keywords = this.keywords.trim();
-      this.filterList = this.list.filter((item) =>
+      this.filterList = this.list.filter(item =>
         item.description.includes(keywords)
       );
     },
@@ -233,11 +242,12 @@ export default {
      * 前往标注页面
      */
     goToAnnotate(index) {
+      // 设置标注文本
       this.$store.dispatch(
         "annotate/setAnnotateText",
         this.filterList[index].paragraph
       );
-      this.$router.push("setting");
+      this.$router.push("/annotate");
     },
     /**
      * 编辑
@@ -256,7 +266,7 @@ export default {
     update() {
       this.filterList[this.listEditIndex].description = this.form.description;
       this.filterList[this.listEditIndex].paragraph = this.form.paragraph;
-      this.list.forEach((item) => {
+      this.list.forEach(item => {
         if (item.id === this.handleItemId) {
           item.description = this.form.description;
           item.paragraph = this.form.paragraph;
@@ -271,7 +281,7 @@ export default {
       this.$confirm("确定要删除吗?", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
         let id = this.filterList[index].id;
         this.filterList.splice(index, 1);
@@ -281,8 +291,8 @@ export default {
           }
         }
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">

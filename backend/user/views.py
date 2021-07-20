@@ -2,14 +2,23 @@ import json
 import os
 
 import requests
+from chardet import detect
+from conllu.parser import serialize
 from django.contrib.auth.hashers import check_password, make_password
-from django.core import signing
+from django.core import signing, serializers
 
 from .models import *
 from .utils import *
 
+'''
+目前是把几乎所有的接口都放在这
+但是为了方便管理和维护，以及更好的逻辑
+可以多弄几个app 使每个app的功能更加细化
+当然要记得同时更改前端请求的地址
+'''
 
-# 登录
+
+# 登录 登录后会在浏览器存储cookie,并且有时长
 def login(request):
     data = json.loads(request.body)
     username = data['username']
@@ -29,7 +38,7 @@ def register(request):
     password = data['password']
     if UserInfo.objects.filter(username=username):
         return error("这个昵称太受欢迎了，请换另一个昵称")
-    password = make_password(password)
+    password = make_password(password)  # 密码加密后再存储
     user = UserInfo(username=username, password=password)
     user.save()
     token = signing.dumps({"username": username, "id": user.id})
@@ -44,16 +53,20 @@ def get_user_info(request):
     # 在这里顺便查询数据库，获取用户自定义的标注分类，标注文本，成员信息 并放入响应数据中
     if not user:
         return error("用户信息不存在")
+    annotate_text_list = serializers.serialize("json", AnnotateText.objects.filter(user_id=user[0].id))
+    print(annotate_text_list)
     userAvatar = str(request.build_absolute_uri('/')) + "media/avatar/" + str(
         user[0].avatar) if user[0].avatar else None
     return ok({
         "name": username,
         "roles": [user[0].roles],  # 用户角色，如果有用户管理就需要
         "avatar": userAvatar,  # 头像地址
+        "annotate_text_list": annotate_text_list
     })
 
 
-# 注销
+# 注销 用户注销后，前端会删除浏览器的cookie,同时会请求这个接口
+# 如果有其他业务逻辑的话，可以在这里进行操作，没有的话就不用管他了
 def logout(request):
     return ok({})
 
@@ -73,7 +86,7 @@ def set_avatar(request):
     # 返回头像的链接地址
     return ok({
         "avatar":
-        str(request.build_absolute_uri('/')) + "media/avatar/" + avatar.name
+            str(request.build_absolute_uri('/')) + "media/avatar/" + avatar.name
     })
 
 
@@ -108,20 +121,24 @@ def translate(request):
 # 导入文本
 def import_annotate_text(request):
     token = signing.loads((request.META.get('HTTP_ANNOTATE_SYSTEM_TOKEN')))
-    username = token['username']
-    print(request)
+    user_id = token['id']
     file = request.FILES.get("file")
-    print(file)
-    newFile = AnnotateText(upload_text=file)
-    # newfile = Upload_text(upload_text=file, user=user) 搞定上面之后就改成这句，绑定用户
-    newFile.save()
-    return ok({'fileUpload': "yes"})
+    # 把上传文件的每一行作为一条数据存入数据库
+    arr = []
+    for line in file.readlines():
+        line_content = line.decode("utf-8").strip()
+        # 返回的数据集, 如果有更简单的方法可以改
+        # 这里只有文本信息,还应有 标注者(可能有多个标注者参与), 标注状态(是否已经标注), 描述(非必要) 等信息
+        arr.append(line_content)
+        newFile = AnnotateText(upload_text=line_content, user_id=user_id)
+        newFile.save()
+    # 返回上传的数据集
+    return ok(arr)
 
 
 # 设置标注文本
 def set_annotate_text(request):
     token = signing.loads((request.META.get('HTTP_ANNOTATE_SYSTEM_TOKEN')))
-    username = token['username']
     data = json.loads(request.body)
     print(data)
     # 返回标注文本信息

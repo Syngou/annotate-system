@@ -12,7 +12,7 @@ def error_analysis_file_upload(request):
     if not os.path.exists('upload_file'):
         os.mkdir('upload_file')
     with open(os.path.join(os.getcwd(), 'upload_file', file.name), 'wb') as fw:
-        fw.write(file.read())
+
         data = Data(os.path.join(os.getcwd(), 'upload_file', file.name))
 
         python2json = {}

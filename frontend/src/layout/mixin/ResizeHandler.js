@@ -1,7 +1,7 @@
 import store from '@/store'
 
 const { body } = document
-const WIDTH = 992 // refer to Bootstrap's responsive design
+const WIDTH = 992 // 参考Bootstrap的响应式设计
 
 export default {
   watch: {

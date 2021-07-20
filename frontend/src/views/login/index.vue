@@ -14,6 +14,7 @@
           auto-complete="on"
           label-position="left"
         >
+          <!-- 用户名 -->
           <el-form-item prop="username">
             <el-input
               ref="username"
@@ -28,6 +29,7 @@
               <el-button slot="prepend" icon="el-icon-user" />
             </el-input>
           </el-form-item>
+          <!-- 密码 -->
           <el-form-item prop="password">
             <el-input
               :key="passwordType"
@@ -49,6 +51,7 @@
               />
             </span>
           </el-form-item>
+          <!-- 登录按钮 -->
           <el-form-item>
             <el-button
               type="primary"
@@ -60,11 +63,14 @@
               登录
             </el-button>
           </el-form-item>
-          <div class="account-other">
-            <span>其它登录方式</span>
+          <!-- 其他选项 -->
+          <div>
+            <el-checkbox v-model="rememberMe">
+              记住我
+            </el-checkbox>
             <span class="pwd">忘记密码？</span>
-
-            <div>
+            <div class="thirdParty">
+              <div>其他登录方式</div>
               <img
                 src="https://file.iviewui.com/admin-pro-dist/img/icon-social-wechat.c69ec08c.svg"
                 alt="wechat"
@@ -91,16 +97,17 @@
 <script>
 import {
   validateLoginUsername,
-  validateLoginPassword,
+  validateLoginPassword
 } from "@/utils/validate.js";
 export default {
   name: "Login",
 
   data() {
     return {
+      rememberMe: false, // 记住登录状态
       loginForm: {
         username: "",
-        password: "",
+        password: ""
       },
       loginRules: {
         username: [
@@ -108,30 +115,30 @@ export default {
             required: true,
             trigger: "blur",
             validator: validateLoginUsername,
-            message: "请输入用户名",
-          },
+            message: "请输入用户名"
+          }
         ],
         password: [
           {
             required: true,
             trigger: "blur",
             validator: validateLoginPassword,
-            message: "请输入密码",
-          },
-        ],
+            message: "请输入密码"
+          }
+        ]
       },
       loading: false,
       passwordType: "password",
-      redirect: undefined,
+      redirect: undefined
     };
   },
   watch: {
     $route: {
-      handler: function (route) {
+      handler: function(route) {
         this.redirect = route.query && route.query.redirect;
       },
-      immediate: true,
-    },
+      immediate: true
+    }
   },
   methods: {
     /**
@@ -151,14 +158,14 @@ export default {
      * 登录
      */
     handleLogin() {
-      this.$refs.loginForm.validate((valid) => {
+      this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true;
           this.$store
             .dispatch("user/login", this.loginForm)
             .then(() => {
               this.$router.push({
-                path: this.redirect || "/",
+                path: this.redirect || "/"
               });
               this.loading = false;
             })
@@ -170,8 +177,8 @@ export default {
           return false;
         }
       });
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -231,7 +238,9 @@ export default {
       cursor: pointer;
       float: right;
     }
-
+    .thirdParty {
+      margin-top: 5px;
+    }
     .register {
       cursor: pointer;
       float: right;

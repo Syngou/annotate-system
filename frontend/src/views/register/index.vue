@@ -14,6 +14,7 @@
           auto-complete="on"
           label-position="left"
         >
+          <!-- 用户名 -->
           <el-form-item prop="username">
             <el-input
               ref="username"
@@ -28,6 +29,7 @@
               <el-button slot="prepend" icon="el-icon-user" />
             </el-input>
           </el-form-item>
+          <!-- 密码 -->
           <el-form-item prop="password">
             <el-input
               :key="passwordType"
@@ -49,6 +51,7 @@
               />
             </span>
           </el-form-item>
+          <!-- 注册按钮 -->
           <el-form-item>
             <el-button
               type="primary"
@@ -72,7 +75,7 @@
 <script>
 import {
   validateRegisterUsername,
-  validateRegisterPassword,
+  validateRegisterPassword
 } from "@/utils/validate.js";
 
 export default {
@@ -83,7 +86,7 @@ export default {
       //表单数据
       registerForm: {
         username: "",
-        password: "",
+        password: ""
       },
       //表单验证
       registerRules: {
@@ -92,30 +95,30 @@ export default {
             required: true,
             trigger: "blur",
             validator: validateRegisterUsername,
-            message: "请输入您的昵称",
-          },
+            message: "请输入您的昵称"
+          }
         ],
         password: [
           {
             required: true,
             trigger: "blur",
             validator: validateRegisterPassword,
-            message: "密码不能小于6位数",
-          },
-        ],
+            message: "密码不能小于6位数"
+          }
+        ]
       },
       loading: false,
       passwordType: "password",
-      redirect: undefined,
+      redirect: undefined
     };
   },
   watch: {
     $route: {
-      handler: function (route) {
+      handler: function(route) {
         this.redirect = route.query && route.query.redirect;
       },
-      immediate: true,
-    },
+      immediate: true
+    }
   },
   methods: {
     /**
@@ -135,14 +138,14 @@ export default {
      * 注册
      */
     handleRegister() {
-      this.$refs.registerForm.validate((valid) => {
+      this.$refs.registerForm.validate(valid => {
         if (valid) {
           this.loading = true;
           this.$store
             .dispatch("user/register", this.registerForm)
             .then(() => {
               this.$router.push({
-                path: this.redirect || "/",
+                path: this.redirect || "/"
               });
               this.loading = false;
             })
@@ -154,8 +157,8 @@ export default {
           return false;
         }
       });
-    },
-  },
+    }
+  }
 };
 </script>
 

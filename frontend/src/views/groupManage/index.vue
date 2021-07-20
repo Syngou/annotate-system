@@ -114,8 +114,8 @@ export default {
     /**
      * 表格样式
      */
+    // eslint-disable-next-line no-unused-vars
     tableRowClassName({ row, rowIndex }) {
-      row;
       if (rowIndex % 2) {
         return "highlight-row";
       }

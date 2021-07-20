@@ -114,7 +114,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["classification"]),
+    ...mapGetters(["classification"]), // 分类
   },
   // 键盘标注，初始化即开始监听
   created() {
@@ -127,10 +127,10 @@ export default {
      * @param {number} Y  y轴坐标
      */
     setBoxPosition(X, Y) {
-      this.$refs.showDialog.style.left = X - 100 + "px";
-      this.$refs.showDialog.style.top = Y + 20 + "px";
-      this.$refs.translateCard.style.left = X + 10 + "px";
-      this.$refs.translateCard.style.top = Y + 10 + "px";
+      this.$refs.showDialog.style.left = `${X-100}px`;
+      this.$refs.showDialog.style.top = `${Y+20}px`;
+      this.$refs.translateCard.style.left = `${X+10}px`;
+      this.$refs.translateCard.style.top = `${Y+10}px`;
     },
 
     /**
@@ -152,7 +152,6 @@ export default {
     },
 
     /**
-
      *  标注文本
      * @param {string} id  给button标签的id，用于删除时查找
      * @param {number} index 标注颜色索引
@@ -187,6 +186,7 @@ export default {
     translateText() {
       this.showDialog = false;
       let text = window.getSelection().toString();
+      // 调用翻译api
       translate(text).then((res) => {
         this.translateResult = res.data;
         this.showTranslateCard = true;

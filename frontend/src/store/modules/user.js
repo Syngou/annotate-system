@@ -7,6 +7,8 @@ const state = {
   name: "",
   avatar: "",
   roles: [],
+  // 所有的标注文本
+  annotateTextList: []
 };
 
 const mutations = {
@@ -27,6 +29,17 @@ const mutations = {
   SET_ROLES: (state, roles) => {
     state.roles = roles;
   },
+  /**
+  * 设置所有的标注文本
+  */
+  SET_ANNOTATE_TEXT_LIST: (state, annotateTextList) => {
+    let list = JSON.parse(annotateTextList);
+    // TODO 暂时这样添加,等数据库完善后再更改
+    for (let i = 0; i < list.length; i++){
+      state.annotateTextList.push({ index: i, paragraph: list[i].fields.upload_text,description:"无",status:"未标注"});
+    }
+    
+  }
 };
 
 const actions = {
@@ -71,12 +84,13 @@ const actions = {
       getInfo()
         .then((response) => {
           const { data } = response;
+          console.log("data ==> ", data);
 
           if (!data) {
             reject("验证失败，请再次登录。");
           }
 
-          const { roles, name, avatar } = data;
+          const { roles, name, avatar, annotate_text_list } = data;
 
           // 角色必须是非空数组
           if (!roles || roles.length <= 0) {
@@ -86,6 +100,7 @@ const actions = {
           commit("SET_ROLES", roles);
           commit("SET_NAME", name);
           commit("SET_AVATAR", avatar);
+          commit("SET_ANNOTATE_TEXT_LIST", annotate_text_list);
           resolve(data);
         })
         .catch((error) => {
@@ -130,6 +145,10 @@ const actions = {
   setName({ commit }, name) {
     commit("SET_NAME", name);
   },
+  setAnnotateTextList({ commit }, textList) {
+   
+    commit("SET_ANNOTATE_TEXT_LIST", textList);
+  }
 };
 
 export default {

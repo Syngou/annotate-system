@@ -23,7 +23,9 @@ class Labels(models.Model):
         return self.value
 
 
-# 用户上传的文本，是否必要有待观察
+# 用户上传的文本
+# 使用用户的id作为外键 即可
+# 还需要添加 描述 状态(是否已经标注) 列
 class AnnotateText(models.Model):
     upload_text = models.TextField(max_length=1000)
     user = models.ForeignKey(UserInfo, null=True, on_delete=models.CASCADE)
