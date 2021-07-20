@@ -53,15 +53,16 @@ def get_user_info(request):
     # 在这里顺便查询数据库，获取用户自定义的标注分类，标注文本，成员信息 并放入响应数据中
     if not user:
         return error("用户信息不存在")
-    annotate_text_list = serializers.serialize("json", AnnotateText.objects.filter(user_id=user[0].id))
-    print(annotate_text_list)
+    text_list = []
+    for text in AnnotateText.objects.filter(user_id=user[0].id):
+        text_list.append({"id": text.id, "paragraph": text.upload_text, "status": "未标注", "description": "无"})
     userAvatar = str(request.build_absolute_uri('/')) + "media/avatar/" + str(
         user[0].avatar) if user[0].avatar else None
     return ok({
         "name": username,
         "roles": [user[0].roles],  # 用户角色，如果有用户管理就需要
         "avatar": userAvatar,  # 头像地址
-        "annotate_text_list": annotate_text_list
+        "annotate_text_list": text_list
     })
 
 
@@ -124,30 +125,25 @@ def import_annotate_text(request):
     user_id = token['id']
     file = request.FILES.get("file")
     # 把上传文件的每一行作为一条数据存入数据库
-    arr = []
     for line in file.readlines():
         line_content = line.decode("utf-8").strip()
-        # 返回的数据集, 如果有更简单的方法可以改
-        # 这里只有文本信息,还应有 标注者(可能有多个标注者参与), 标注状态(是否已经标注), 描述(非必要) 等信息
-        arr.append(line_content)
         newFile = AnnotateText(upload_text=line_content, user_id=user_id)
         newFile.save()
-    # 返回上传的数据集
-    return ok(arr)
-
-
-# 设置标注文本
-def set_annotate_text(request):
-    token = signing.loads((request.META.get('HTTP_ANNOTATE_SYSTEM_TOKEN')))
-    data = json.loads(request.body)
-    print(data)
-    # 返回标注文本信息
-    return ok([{"text": "text1", "user": "user1"}])
+    # 返回数据集
+    text_list = []
+    for text in AnnotateText.objects.filter(user_id=user_id):
+        text_list.append({"id": text.id, "paragraph": text.upload_text, "status": "未标注", "description": "无"})
+    return ok(text_list)
 
 
 # 删除标注文本
 def delete_annotate_text(request):
-    return ok({})
+    id = json.loads(request.body)['id']
+    target = AnnotateText.objects.filter(id=id).first()
+    if target:
+        target.delete()
+        return ok({})
+    return error("这条记录不存在")
 
 
 # 编辑标注文本

@@ -33,12 +33,13 @@ const mutations = {
   * 设置所有的标注文本
   */
   SET_ANNOTATE_TEXT_LIST: (state, annotateTextList) => {
-    let list = JSON.parse(annotateTextList);
     // TODO 暂时这样添加,等数据库完善后再更改
-    for (let i = 0; i < list.length; i++){
-      state.annotateTextList.push({ index: i, paragraph: list[i].fields.upload_text,description:"无",status:"未标注"});
+
+    if (annotateTextList.length) {
+      for (let i of annotateTextList) {
+        state.annotateTextList.push(i)
+      }
     }
-    
   }
 };
 
@@ -100,6 +101,7 @@ const actions = {
           commit("SET_ROLES", roles);
           commit("SET_NAME", name);
           commit("SET_AVATAR", avatar);
+
           commit("SET_ANNOTATE_TEXT_LIST", annotate_text_list);
           resolve(data);
         })
@@ -146,7 +148,7 @@ const actions = {
     commit("SET_NAME", name);
   },
   setAnnotateTextList({ commit }, textList) {
-   
+
     commit("SET_ANNOTATE_TEXT_LIST", textList);
   }
 };

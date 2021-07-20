@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+    <!-- 按钮组 -->
     <div class="button-group">
       <div class="button-group-item">
         <el-upload
@@ -29,6 +30,7 @@
         清空
       </el-button>
     </div>
+    <!-- 搜索框 -->
     <div class="search">
       <el-input
         v-model="keywords"
@@ -36,6 +38,10 @@
         class="input-with-select"
         @input="search"
       >
+        <el-select slot="prepend" v-model="searchTarget">
+          <el-option label="描述" value="description"></el-option>
+          <el-option label="文本" value="paragraph"></el-option>
+        </el-select>
         <el-button slot="append" icon="el-icon-search" @click="search" />
       </el-input>
     </div>
@@ -58,7 +64,16 @@
         <!-- 描述 -->
         <el-table-column label="描述" align="center">
           <template slot-scope="scope">
-            {{ scope.row.description }}
+            <p class="single-line">
+              {{ scope.row.description }}
+            </p>
+          </template>
+        </el-table-column>
+        <el-table-column label="文本" align="center">
+          <template slot-scope="scope">
+            <p class="single-line">
+              {{ scope.row.paragraph }}
+            </p>
           </template>
         </el-table-column>
         <!-- 状态 -->
@@ -128,6 +143,7 @@
 </template>
 
 <script>
+import { deleteAnnotateText } from "@/api/annotateText";
 import { getToken } from "@/utils/auth";
 import { mapGetters } from "vuex";
 
@@ -145,6 +161,8 @@ export default {
 
   data() {
     return {
+      searchTarget: "描述", // 搜索对象
+
       keywords: "", // 搜索关键词
       filterList: [], //符合条件的数据
       list: [], // 所有数据列表
@@ -167,10 +185,10 @@ export default {
     token() {
       return getToken();
     },
-    ...mapGetters(["annotateTextList"]),
+    ...mapGetters(["annotateTextList"])
   },
   mounted() {
-    this.list = this.filterList = this.annotateTextList
+    this.list = this.filterList = this.annotateTextList;
     this.listLoading = false;
   },
   methods: {
@@ -181,17 +199,8 @@ export default {
     handleSuccess(response) {
       this.$message.success("上传成功");
       console.log(response.data.length);
-      
-      // // TODO 暂时这样添加 , 数据库完善后再改
-      for (let i = 0; i < response.data.length; i++) {
-        this.list.push({
-          index: i,
-          description: "无",
-          status: "未标注",
-          paragraph: response.data[i]
-        });
-      }
-      this.filterList = this.list;
+
+      this.filterList = this.list = response.data;
     },
     /**
      * 上传失败回调函数
@@ -218,15 +227,22 @@ export default {
         this.filterList = [];
       });
     },
-   
+
     /**
-     * 搜索
+     * 搜索文本
      */
     search() {
       let keywords = this.keywords.trim();
-      this.filterList = this.list.filter(item =>
-        item.description.includes(keywords)
-      );
+
+      if (this.searchTarget == "描述") {
+        this.filterList = this.list.filter(item =>
+          item.description.includes(keywords)
+        );
+      } else {
+        this.filterList = this.list.filter(item =>
+          item[this.searchTarget].includes(keywords)
+        );
+      }
     },
     /**
      * 表格样式
@@ -284,6 +300,7 @@ export default {
         type: "warning"
       }).then(() => {
         let id = this.filterList[index].id;
+        deleteAnnotateText(id);
         this.filterList.splice(index, 1);
         for (let i = 0; i < this.list.length; i++) {
           if (this.list[i].id == id) {
@@ -314,9 +331,18 @@ export default {
 // 搜索框
 .search {
   margin-bottom: 20px;
+  .el-select {
+    width: 150px;
+  }
 }
 // 表格样式
 .el-table .highlight-row {
   background: #ebf0fa;
+}
+// 单行显示文本
+.single-line {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 </style>
