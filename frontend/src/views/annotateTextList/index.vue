@@ -198,7 +198,7 @@ export default {
      */
     handleSuccess(response) {
       this.$message.success("上传成功");
-      console.log(response.data.length);
+      this.$store.dispatch("user/setAnnotateTextList",response.data);
 
       this.filterList = this.list = response.data;
     },

@@ -18,13 +18,13 @@ def read_data(filename):
 
 
 class Data(object):
-    def __init__(self, data_file):
-        self.data_file = data_file
+    def __init__(self, data_file_lines):
+        self.data_file_lines = data_file_lines
         self.sentences, self.entity_type = self.get_data_sens()
 
     # 切分句子，返回句子以及每个句子中的gold和pre标签，返回实体类型
     def get_data_sens(self):
-        lines = read_lines(self.data_file)
+        lines = self.data_file_lines
         sentences = []
         entity_type = []
         sen = []
@@ -50,7 +50,7 @@ class Data(object):
 
     # 按句子返回每个字的实际标签和预测标签
     def get_word_info(self):
-        lines = read_lines(self.data_file)
+        lines = self.data_file_lines
         sentences = []
         sentence = []
         for line in lines:

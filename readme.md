@@ -16,8 +16,18 @@
 |django|3.1.7|
 |node|14.15.3|
 
-
 > 开发环境不一定要一模一样，版本相近即可    
+
+## 部分功能演示(只完成了部分接口，所以有些功能还用不了)
+- 上传标注文本
+<p align="center">
+  <img width="900" src="image/upload.gif">
+</p>
+
+- 错误分析
+<p align="center">
+  <img width="900" src="image/error_analysis.gif">
+</p>
 
 ## 使用方法
 * 下载或克隆源码

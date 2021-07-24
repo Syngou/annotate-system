@@ -10,6 +10,7 @@ urlpatterns = [
     path('user/', include('user.urls')),
     # 错误分析
     path('error_analysis/', include('errorAnalysis.urls')),
+    # 媒体资源, 静态文件
     re_path(r'^media/(?P<path>.*)$',
             static.serve, {'document_root': MEDIA_ROOT},
             name='static')
