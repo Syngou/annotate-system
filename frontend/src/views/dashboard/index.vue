@@ -4,7 +4,20 @@
       <el-col :xs="24" :sm="12" :lg="6">
         <el-card shadow="hover" class="mgb20" style="height: 252px;">
           <div class="user-info">
-            <img :src="avatar" class="user-avatar" alt />
+            <div class="el-upload">
+              <el-upload
+                class="avatar-uploader"
+                :headers="{ 'annotate-system-token': token }"
+                name="avatar"
+                action="http://localhost:8000/api/setAvatar/"
+                :show-file-list="false"
+                accept="image/*"
+                :on-success="handleSuccess"
+                :on-error="handleError"
+              >
+                <img :src="avatar" class="avatar" alt="" />
+              </el-upload>
+            </div>
             <div class="user-info-cont">
               <div class="user-info-name">
                 {{ name }}
@@ -49,6 +62,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { getToken } from "@/utils/auth";
 import TodoList from "./components/TodoList";
 export default {
   name: "Dashboard",
@@ -56,8 +70,19 @@ export default {
     TodoList
   },
   computed: {
+    token() {
+      return getToken();
+    },
     ...mapGetters(["name", "avatar", "roles"])
-  }
+  },
+  methods: {
+    handleSuccess(response) {
+      this.$store.dispatch("user/setAvatar", response.data.avatar);
+    },
+    handleError() {
+      this.$message.error("上传失败");
+    },
+  },
 };
 </script>
 
@@ -72,7 +97,7 @@ export default {
   margin-bottom: 20px;
 }
 
-.user-avatar {
+.avatar {
   width: 120px;
   height: 120px;
   border-radius: 50%;

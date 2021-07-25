@@ -26,4 +26,5 @@ urlpatterns = [
 
     # 其他
     path('translate/', views.translate),  # 翻译
+    path('error_analysis/',views.error_analysis_file_upload) # 错误分析
 ]

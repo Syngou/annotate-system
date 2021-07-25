@@ -2,16 +2,15 @@ import json
 import os
 
 import requests
-from chardet import detect
-from conllu.parser import serialize
 from django.contrib.auth.hashers import check_password, make_password
-from django.core import signing, serializers
+from django.core import  signing
 
 from .models import *
 from .utils import *
+from .find_error import Data,correct_statis, error_statis
 
 '''
-目前是把几乎所有的接口都放在这
+目前是把所有的接口都放在这
 但是为了方便管理和维护，以及更好的逻辑
 可以多弄几个app 使每个app的功能更加细化
 当然要记得同时更改前端请求的地址
@@ -55,7 +54,7 @@ def get_user_info(request):
         return error("用户信息不存在")
     text_list = []
     for text in AnnotateText.objects.filter(user_id=user[0].id):
-        text_list.append({"id": text.id, "paragraph": text.upload_text, "status": "未标注", "description": "无"})
+        text_list.append({"id": text.id, "text": text.text, "status": text.status, "description": text.description})
     userAvatar = str(request.build_absolute_uri('/')) + "media/avatar/" + str(
         user[0].avatar) if user[0].avatar else None
     return ok({
@@ -127,12 +126,12 @@ def import_annotate_text(request):
     # 把上传文件的每一行作为一条数据存入数据库
     for line in file.readlines():
         line_content = line.decode("utf-8").strip()
-        newFile = AnnotateText(upload_text=line_content, user_id=user_id)
+        newFile = AnnotateText(text=line_content, user_id=user_id)
         newFile.save()
     # 返回数据集
     text_list = []
     for text in AnnotateText.objects.filter(user_id=user_id):
-        text_list.append({"id": text.id, "paragraph": text.upload_text, "status": "未标注", "description": "无"})
+        text_list.append({"id": text.id, "text": text.text, "status": text.status, "description": text.description})
     return ok(text_list)
 
 
@@ -198,3 +197,35 @@ def annotate_data_upload(request):
     for k, v in data.items():
         print(k, ' = ', v)
     return ok({})
+
+# 错误分析
+# 文本分析文件上传
+def error_analysis_file_upload(request):
+    file = request.FILES.get('analysis_file')
+    lines = []
+    temp_lines = file.readlines()
+    for each_line in temp_lines:
+        lines.append(each_line.decode('utf-8'))
+
+    data = Data(lines)
+    python2json = {}
+
+    # 得到所有句子每个词信息
+    sen_info = data.get_word_info()
+    python2json['sentences'] = sen_info
+
+    # 实体类型
+    entity_type = data.get_entity_type()
+    python2json['entity_type'] = entity_type
+
+    # 标准实体个数分布以及预测正确实体分布
+    gold, correct = correct_statis(data)
+    python2json['line_graph'] = [gold, correct]
+
+    # 错误类型个数统计
+    error_type = error_statis(data)
+    python2json['chart_graph'] = error_type
+
+    json_str = json.dumps(python2json, ensure_ascii=False)
+
+    return ok({'data': json_str})

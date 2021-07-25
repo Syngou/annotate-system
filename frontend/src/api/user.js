@@ -6,7 +6,7 @@ import request from "@/utils/request";
  */
 export function register(data) {
   return request({
-    url: "user/register/",
+    url: "api/register/",
     method: "post",
     data,
   });
@@ -18,7 +18,7 @@ export function register(data) {
  */
 export function login(data) {
   return request({
-    url: "user/login/",
+    url: "api/login/",
     method: "post",
     data,
   });
@@ -30,7 +30,7 @@ export function login(data) {
  */
 export function userInfoUpdate(data) {
   return request({
-    url: "user/info/update/",
+    url: "api/info/update/",
     method: "post",
     data,
   });
@@ -41,7 +41,7 @@ export function userInfoUpdate(data) {
  */
 export function getInfo() {
   return request({
-    url: "user/getUserInfo/",
+    url: "api/getUserInfo/",
     method: "get",
   });
 }
@@ -51,7 +51,7 @@ export function getInfo() {
  */
 export function logout() {
   return request({
-    url: "user/logout/",
+    url: "api/logout/",
     method: "post",
   });
 }
@@ -62,7 +62,7 @@ export function logout() {
  */
 export function setClassification(data) {
   return request({
-    url: "user/setClassification/",
+    url: "api/setClassification/",
     method: "post",
     data,
   });

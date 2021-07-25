@@ -6,8 +6,8 @@ import request from "@/utils/request";
  */
 export function deleteAnnotateText(id) {
   return request({
-    url: "user/annotate_text/delete/",
+    url: "api/annotate_text/delete/",
     method: "DELETE",
-    data: { id: id }
+    data: { id: id },
   });
 }

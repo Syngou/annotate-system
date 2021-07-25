@@ -5,18 +5,6 @@ A tool of errors analysis for NER tasks
 '''
 
 
-# 按行返回文件内容
-def read_lines(filename):
-    with open(filename, 'r', encoding='utf-8') as f:
-        return f.readlines()
-
-
-# 一次性返回文件内容
-def read_data(filename):
-    with open(filename, 'r', encoding='utf-8') as f:
-        return f.read()
-
-
 class Data(object):
     def __init__(self, data_file_lines):
         self.data_file_lines = data_file_lines
@@ -190,14 +178,14 @@ def error_class(data):
                     gold_tag[i] = 1
                     pre_tag[j] = 1
                 elif gold_tag[i] == 0 and pre_tag[j] == 0 and (
-                        (p_st >= g_st and p_ed < g_ed) or
-                        (p_st > g_st and p_ed <= g_ed)):  # 少预测
+                    (p_st >= g_st and p_ed < g_ed) or
+                    (p_st > g_st and p_ed <= g_ed)):  # 少预测
                     less_pred.append([g_e, p_e])
                     gold_tag[i] = 1
                     pre_tag[j] = 1
                 elif gold_tag[i] == 0 and pre_tag[j] == 0 and (
-                        (p_st <= g_st and p_ed > g_ed) or
-                        (p_st < g_st and p_ed >= g_ed)):  # 多预测
+                    (p_st <= g_st and p_ed > g_ed) or
+                    (p_st < g_st and p_ed >= g_ed)):  # 多预测
                     more_pred.append([g_e, p_e])
                     gold_tag[i] = 1
                     pre_tag[j] = 1
@@ -208,8 +196,8 @@ def error_class(data):
                     gold_tag[i] = 1
                     pre_tag[j] = 1
                 elif gold_tag[i] == 0 and pre_tag[j] == 0 and (
-                        (p_st < g_st and p_ed > g_st and p_ed < g_ed) or
-                        (p_st > g_st and p_st < g_ed and p_ed < g_ed)):  # 预测交叉
+                    (p_st < g_st and p_ed > g_st and p_ed < g_ed) or
+                    (p_st > g_st and p_st < g_ed and p_ed < g_ed)):  # 预测交叉
                     mix_error.append([g_e, p_e])
                     gold_tag[i] = 1
                     pre_tag[j] = 1

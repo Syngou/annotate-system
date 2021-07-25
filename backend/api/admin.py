@@ -9,4 +9,4 @@ class LabelsAdmin(admin.ModelAdmin):
 
 @admin.register(AnnotateText)
 class UploadTextAdmin(admin.ModelAdmin):
-    list_display = ('id', 'upload_text')
+    list_display = ('id', 'text')

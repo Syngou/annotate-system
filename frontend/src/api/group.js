@@ -6,7 +6,7 @@ import request from "@/utils/request";
  */
 export function addMember(data) {
   return request({
-    url: "user/addMember/",
+    url: "api/addMember/",
     method: "POST",
     data,
   });

@@ -12,7 +12,7 @@
                 class="avatar-uploader"
                 :headers="{ 'annotate-system-token': token }"
                 name="avatar"
-                action="http://localhost:8000/user/setAvatar/"
+                action="http://localhost:8000/api/setAvatar/"
                 :show-file-list="false"
                 accept="image/*"
                 :on-success="handleSuccess"

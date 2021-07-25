@@ -9,7 +9,7 @@
           multiple
           accept="text/plain"
           :headers="{ 'annotate-system-token': token }"
-          action="http://localhost:8000/user/annotate_text/upload/"
+          action="http://localhost:8000/api/annotate_text/upload/"
           :on-success="handleSuccess"
           :on-error="handleError"
           :show-file-list="false"
@@ -40,7 +40,7 @@
       >
         <el-select slot="prepend" v-model="searchTarget">
           <el-option label="描述" value="description"></el-option>
-          <el-option label="文本" value="paragraph"></el-option>
+          <el-option label="文本" value="text"></el-option>
         </el-select>
         <el-button slot="append" icon="el-icon-search" @click="search" />
       </el-input>
@@ -72,7 +72,7 @@
         <el-table-column label="文本" align="center">
           <template slot-scope="scope">
             <p class="single-line">
-              {{ scope.row.paragraph }}
+              {{ scope.row.text }}
             </p>
           </template>
         </el-table-column>
@@ -125,7 +125,7 @@
         </el-form-item>
         <el-form-item label="文本">
           <el-input
-            v-model="form.paragraph"
+            v-model="form.text"
             type="textarea"
             :autosize="{ minRows: 3, maxRows: 5 }"
             placeholder="请输入内容"
@@ -173,7 +173,7 @@ export default {
       form: {
         //编辑框数据
         description: "",
-        paragraph: ""
+        text: ""
       }
     };
   },
@@ -261,7 +261,7 @@ export default {
       // 设置标注文本
       this.$store.dispatch(
         "annotate/setAnnotateText",
-        this.filterList[index].paragraph
+        this.filterList[index].text
       );
       this.$router.push("/annotate");
     },
@@ -273,7 +273,7 @@ export default {
       this.showEditForm = true;
       this.listEditIndex = index;
       this.form.description = row.description;
-      this.form.paragraph = row.paragraph;
+      this.form.text = row.text;
       this.handleItemId = row.id;
     },
     /**
@@ -281,11 +281,11 @@ export default {
      */
     update() {
       this.filterList[this.listEditIndex].description = this.form.description;
-      this.filterList[this.listEditIndex].paragraph = this.form.paragraph;
+      this.filterList[this.listEditIndex].text = this.form.text;
       this.list.forEach(item => {
         if (item.id === this.handleItemId) {
           item.description = this.form.description;
-          item.paragraph = this.form.paragraph;
+          item.text = this.form.text;
         }
       });
       this.showEditForm = false;

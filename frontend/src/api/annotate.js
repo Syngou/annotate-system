@@ -6,7 +6,7 @@ import request from "@/utils/request";
  */
 export function annotateDataUpload(data) {
   return request({
-    url: "user/annotateDataUpload/",
+    url: "api/annotateDataUpload/",
     method: "POST",
     data,
   });
@@ -18,7 +18,7 @@ export function annotateDataUpload(data) {
  */
 export function translate(text) {
   return request({
-    url: `user/translate/?text=${text}`,
+    url: `api/translate/?text=${text}`,
     method: "get",
   });
 }

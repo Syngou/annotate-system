@@ -5,7 +5,7 @@
       class="upload-demo"
       drag
       accept="text/plain"
-      action="http://localhost:8000/error_analysis/file_upload/"
+      action="http://localhost:8000/api/error_analysis/"
       name="analysis_file"
       :on-success="handleSuccess"
       :on-error="handleError"
