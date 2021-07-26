@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { userInfoUpdate } from "@/api/user";
+import { userInfoUpdateApi } from "@/api/user";
 import { setToken } from "@/utils/auth";
 export default {
   props: {
@@ -33,7 +33,7 @@ export default {
       if (this.user.name == "") {
         this.$message.error("用户名不能为空");
       } else {
-        userInfoUpdate(this.user).then((res) => {
+        userInfoUpdateApi(this.user).then((res) => {
           setToken(res.data.token);
           this.$store.dispatch("user/setName", this.user.name);
           this.$message({

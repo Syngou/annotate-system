@@ -3,12 +3,11 @@ import os
 
 import requests
 from django.contrib.auth.hashers import check_password, make_password
-from django.core import  signing
+from django.core import signing
 
 from .models import *
 from .utils import *
-from .find_error import Data,correct_statis, error_statis
-
+from .find_error import Data, correct_statis, error_statis
 '''
 目前是把所有的接口都放在这
 但是为了方便管理和维护，以及更好的逻辑
@@ -22,9 +21,9 @@ def login(request):
     data = json.loads(request.body)
     username = data['username']
     password = data['password']
-    user = UserInfo.objects.filter(username=username)
-    if user and check_password(password, user[0].password):
-        token = signing.dumps({"username": username, "id": user[0].id})
+    user = UserInfo.objects.filter(username=username).first()
+    if user and check_password(password, user.password):
+        token = signing.dumps({"username": username, "id": user.id})
         return ok({"token": token})
     else:
         return error("用户名或密码错误，请仔细检查后重新输入")
@@ -49,12 +48,17 @@ def get_user_info(request):
     token = signing.loads((request.META.get('HTTP_ANNOTATE_SYSTEM_TOKEN')))
     username = token['username']
     user = UserInfo.objects.filter(username=username)
-    # 在这里顺便查询数据库，获取用户自定义的标注分类，标注文本，成员信息 并放入响应数据中
     if not user:
         return error("用户信息不存在")
+    # 在这里顺便查询数据库，获取用户自定义的标注分类，标注文本，成员信息 并放入响应数据中
     text_list = []
     for text in AnnotateText.objects.filter(user_id=user[0].id):
-        text_list.append({"id": text.id, "text": text.text, "status": text.status, "description": text.description})
+        text_list.append({
+            "id": text.id,
+            "text": text.text,
+            "status": text.status,
+            "description": text.description
+        })
     userAvatar = str(request.build_absolute_uri('/')) + "media/avatar/" + str(
         user[0].avatar) if user[0].avatar else None
     return ok({
@@ -86,7 +90,7 @@ def set_avatar(request):
     # 返回头像的链接地址
     return ok({
         "avatar":
-            str(request.build_absolute_uri('/')) + "media/avatar/" + avatar.name
+        str(request.build_absolute_uri('/')) + "media/avatar/" + avatar.name
     })
 
 
@@ -131,7 +135,12 @@ def import_annotate_text(request):
     # 返回数据集
     text_list = []
     for text in AnnotateText.objects.filter(user_id=user_id):
-        text_list.append({"id": text.id, "text": text.text, "status": text.status, "description": text.description})
+        text_list.append({
+            "id": text.id,
+            "text": text.text,
+            "status": text.status,
+            "description": text.description
+        })
     return ok(text_list)
 
 
@@ -145,9 +154,11 @@ def delete_annotate_text(request):
     return error("这条记录不存在")
 
 
-# 编辑标注文本
-def edit_annotate_text(request):
-    return ok({})
+# 更新标注文本信息
+def update_annotate_text_info(request):
+    text_info = json.loads(request.body)['textInfo']
+    AnnotateText.objects.filter(id=text_info['id']).update(text=text_info['text'],description=text_info['description'],status=text_info['status'])
+    return ok({'message': "修改成功"})
 
 
 # 添加标注分类
@@ -197,6 +208,7 @@ def annotate_data_upload(request):
     for k, v in data.items():
         print(k, ' = ', v)
     return ok({})
+
 
 # 错误分析
 # 文本分析文件上传

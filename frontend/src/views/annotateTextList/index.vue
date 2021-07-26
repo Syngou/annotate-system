@@ -143,7 +143,7 @@
 </template>
 
 <script>
-import { deleteAnnotateText } from "@/api/annotateText";
+import { deleteAnnotateTextApi,updateAnnotateTextInfoApi,removeAllAnnotateTextApi } from "@/api/annotateText";
 import { getToken } from "@/utils/auth";
 import { mapGetters } from "vuex";
 
@@ -216,13 +216,14 @@ export default {
     /**
      * 清空文本数据
      */
-    // TODO 在数据库中删除文本数据
     removeAll() {
       this.$confirm("确定要删除吗?", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
+        removeAllAnnotateTextApi(this.token);
+        this.$store.dispatch("user/setAnnotateTextList",[]);
         this.list = [];
         this.filterList = [];
       });
@@ -282,6 +283,7 @@ export default {
     update() {
       this.filterList[this.listEditIndex].description = this.form.description;
       this.filterList[this.listEditIndex].text = this.form.text;
+      updateAnnotateTextInfoApi(this.filterList[this.listEditIndex]);
       this.list.forEach(item => {
         if (item.id === this.handleItemId) {
           item.description = this.form.description;
@@ -291,7 +293,7 @@ export default {
       this.showEditForm = false;
     },
     /**
-     * 删除文本提示
+     * 删除文本
      */
     handleDelete(index) {
       this.$confirm("确定要删除吗?", "警告", {
@@ -300,11 +302,12 @@ export default {
         type: "warning"
       }).then(() => {
         let id = this.filterList[index].id;
-        deleteAnnotateText(id);
+        deleteAnnotateTextApi(id);
         this.filterList.splice(index, 1);
         for (let i = 0; i < this.list.length; i++) {
           if (this.list[i].id == id) {
             this.list.splice(i, 1);
+            this.$store.dispatch("user/setAnnotateTextList",this.list);
           }
         }
       });

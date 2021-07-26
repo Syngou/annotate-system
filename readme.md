@@ -37,6 +37,11 @@
 ```
 pip3 install -r requirements.txt
 ```
+* 设置数据库
+```
+python manage.py makemigrations api
+python manage.py migrate
+```
 * 然后执行以下命令运行后端服务器
 ```
 python manage.py runserver

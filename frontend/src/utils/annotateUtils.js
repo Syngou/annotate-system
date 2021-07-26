@@ -21,7 +21,7 @@ function textStyle(index) {
  * @param {string} id 给button标签的id，用于删除时查找
  * @param {number} index 标注颜色索引
  */
-function annotate(id, index) {
+export function annotateUtil(id, index) {
   let text = window.getSelection().toString();
 
   // 按钮样式
@@ -31,10 +31,10 @@ function annotate(id, index) {
   // 选中不为空
   if (text.length > 0) {
     // 获取起始索引和结束索引
-    let essay = document.querySelector("#essay");
+    let annotateContent = document.querySelector("#annotateContent");
     const range = window.getSelection().getRangeAt(0);
     const preSelectionRange = range.cloneRange();
-    preSelectionRange.selectNodeContents(essay);
+    preSelectionRange.selectNodeContents(annotateContent);
     preSelectionRange.setEnd(range.startContainer, range.startOffset);
     let start = [...preSelectionRange.toString()].length;
     let end = start + [...range.toString()].length;
@@ -77,16 +77,15 @@ function annotate(id, index) {
  * @param {string} id ==> 按钮的id，用于查找
  */
 function deleteById(id) {
-  let essay = document.getElementById("essay");
+  let annotateContent = document.getElementById("annotateContent");
   let span = document.getElementById(id).parentNode;
   // 获取文本，将其插入当前节点前，再删除节点
   let textNode = document.createTextNode(span.innerText.trim());
   let text = span.innerText.trim();
-  essay.insertBefore(textNode, span);
-  essay.removeChild(span);
+  annotateContent.insertBefore(textNode, span);
+  annotateContent.removeChild(span);
   store.dispatch("annotate/deleteDataFromList", { type: id, text });
 }
-export { annotate };
 
 /**
  *
@@ -95,7 +94,7 @@ export { annotate };
  */
 // TODO 获取每个字的起始索引
 // function autoAnnotate(data) {
-//   let essay = document.getElementById("essay");
+//   let annotateContent = document.getElementById("annotateContent");
 //   let array = [];
 //   //把字符串分割
 //   for (let i = 0; i < data.length; i++) {
@@ -106,7 +105,7 @@ export { annotate };
 //     for (let j = 0; j < array.length; j++) {
 //       if (array[j].length !== 0) {
 //         store.state.annotate.annotateData[i].push(array[j]);
-//         essay.innerHTML = essay.innerHTML.replaceAll(
+//         annotateContent.innerHTML = annotateContent.innerHTML.replaceAll(
 //           array[j],
 //           `<span style='${this.textStyle(i)}'>${
 //             array[j]

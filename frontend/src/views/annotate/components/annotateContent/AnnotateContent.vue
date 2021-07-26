@@ -78,8 +78,8 @@
             </div>
             <div class="panel-body">
               <pre
-                id="essay"
-                class="essay-content"
+                id="annotateContent"
+                class="annotate-content"
                 :style="'font-size:' + $store.state.annotate.fontSize + 'px'"
                 @mouseup="getSelection($event)"
                 v-text="$store.state.annotate.annotateText"
@@ -95,8 +95,8 @@
 <script>
 import TranslateCard from "./components/TranslateCard";
 
-import { annotate } from "../../../../utils/annotateUtils";
-import { translate } from "@/api/annotate";
+import { annotateUtil } from "../../../../utils/annotateUtils";
+import { translateApi } from "@/api/annotate";
 
 import { mapGetters } from "vuex";
 
@@ -159,7 +159,7 @@ export default {
     annotateText(id, index) {
       // 隐藏对话框
       this.showDialog = false;
-      annotate(id, index);
+      annotateUtil(id, index);
     },
 
     /**
@@ -171,9 +171,9 @@ export default {
         let id = this.$store.state.annotate.id;
         this.showDialog = false;
         let j = 0;
-        for (; j < this.$store.state.annotate.classification.length; j++) {
-          if (key === this.$store.state.annotate.classification[j].shortcut) {
-            annotate(j + "-" + id, j);
+        for (; j < this.classification.length; j++) {
+          if (key === this.classification[j].shortcut) {
+            annotateUtil(j + "-" + id, j);
             break;
           }
         }
@@ -187,7 +187,7 @@ export default {
       this.showDialog = false;
       let text = window.getSelection().toString();
       // 调用翻译api
-      translate(text).then((res) => {
+      translateApi(text).then((res) => {
         this.translateResult = res.data;
         this.showTranslateCard = true;
       });
@@ -253,7 +253,7 @@ export default {
   }
 
   /* 文本样式 */
-  .essay-content {
+  .annotate-content {
     margin-top: 50px;
     overflow: auto;
     flex: auto;

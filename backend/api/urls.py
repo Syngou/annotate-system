@@ -14,6 +14,7 @@ urlpatterns = [
     # 标注文本
     path('annotate_text/upload/', views.import_annotate_text),  # 上传标注文本
     path('annotate_text/delete/', views.delete_annotate_text),  # 删除标注文本(一条)
+    path('annotate_text/edit/', views.update_annotate_text_info), # 更新标注文本信息
 
     # 标签管理
     path('setClassification/', views.add_labels),  # 设置分类

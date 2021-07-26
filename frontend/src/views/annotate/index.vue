@@ -1,7 +1,7 @@
 <template>
   <div>
     <TopNavigation />
-    <Essay />
+    <AnnotateContent />
     <div class="footer">
       Copyright &copy; Syngou
     </div>
@@ -10,13 +10,13 @@
 
 <script>
 import TopNavigation from "./components/navigator/TopNavigation";
-import Essay from "./components/essay/Essay";
+import AnnotateContent from "./components/annotateContent/AnnotateContent";
 
 export default {
   name: "Annotate",
   components: {
     TopNavigation,
-    Essay,
+    AnnotateContent,
   },
   mounted() {
     this.isPC();
@@ -53,6 +53,6 @@ export default {
   padding: 20px;
   background: #68768a;
   color: white;
-  text-align: center;
+  AnnotateContent-align: center;
 }
 </style>

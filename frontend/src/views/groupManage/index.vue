@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import { addMember } from "@/api/group";
+import { addMemberApi } from "@/api/group";
 import { mapGetters } from "vuex";
 export default {
   name: "Group",
@@ -128,7 +128,7 @@ export default {
       this.showEditForm = false;
       if (this.newMember.name && this.newMember.role) {
         // 发送新成员信息
-        addMember(this.newMember).then(() => {
+        addMemberApi(this.newMember).then(() => {
           this.$message.success("添加成功");
           this.groupList.push(this.newMember);
         });

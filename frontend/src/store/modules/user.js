@@ -1,4 +1,4 @@
-import { getInfo, login, logout, register } from "@/api/user";
+import { getInfoApi, loginApi, logoutApi, registerApi } from "@/api/user";
 import { resetRouter } from "@/router";
 import { getToken, removeToken, setToken } from "@/utils/auth";
 
@@ -44,7 +44,7 @@ const actions = {
   login({ commit }, userInfo) {
     const { username, password } = userInfo;
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password })
+      loginApi({ username: username.trim(), password: password })
         .then((response) => {
           const { data } = response;
           commit("SET_TOKEN", data.token);
@@ -61,7 +61,7 @@ const actions = {
   register({ commit }, userInfo) {
     const { username, password } = userInfo;
     return new Promise((resolve, reject) => {
-      register({ username: username.trim(), password: password })
+      registerApi({ username: username.trim(), password: password })
         .then((response) => {
           const { data } = response;
           commit("SET_TOKEN", data.token);
@@ -78,10 +78,9 @@ const actions = {
   // 获取用户信息
   getInfo({ commit }) {
     return new Promise((resolve, reject) => {
-      getInfo()
+      getInfoApi()
         .then((response) => {
           const { data } = response;
-          console.log("data ==> ", data);
 
           if (!data) {
             reject("验证失败，请再次登录。");
@@ -110,7 +109,7 @@ const actions = {
   // 用户注销
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
-      logout(state.token)
+      logoutApi(state.token)
         .then(() => {
           commit("SET_TOKEN", "");
           commit("SET_ROLES", []);

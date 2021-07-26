@@ -1,4 +1,4 @@
-import { setClassification } from "@/api/user";
+import { setClassificationApi } from "@/api/user";
 // 用户标注设置
 const state = {
   classification: [
@@ -55,7 +55,7 @@ const mutations = {
    * @param {*} state
    */
   SET_CLASSIFICATION: (state, data) => {
-    setClassification(data).then((res) => {
+    setClassificationApi(data).then((res) => {
       console.log(res);
     });
     // TODO 有没有更好的办法重置呢
@@ -71,7 +71,7 @@ const mutations = {
   SET_ANNOTATE_TEXT: (state, text) => {
     state.annotateText = text.trim(); // TODO 这里要不要trim()呢？
   },
- 
+
 };
 
 const actions = {
@@ -90,7 +90,7 @@ const actions = {
   setAnnotateText({ commit }, text) {
     commit("SET_ANNOTATE_TEXT", text);
   },
- 
+
 };
 
 export default {

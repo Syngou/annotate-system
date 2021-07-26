@@ -4,7 +4,7 @@ import request from "@/utils/request";
  * @param {object} data 注册表单
  * @returns
  */
-export function register(data) {
+export function registerApi(data) {
   return request({
     url: "api/register/",
     method: "post",
@@ -16,7 +16,7 @@ export function register(data) {
  *  登录
  * @param {object} data 登录表单
  */
-export function login(data) {
+export function loginApi(data) {
   return request({
     url: "api/login/",
     method: "post",
@@ -28,7 +28,7 @@ export function login(data) {
  *  更新用户信息
  * @param {object} data 用户信息
  */
-export function userInfoUpdate(data) {
+export function userInfoUpdateApi(data) {
   return request({
     url: "api/info/update/",
     method: "post",
@@ -39,7 +39,7 @@ export function userInfoUpdate(data) {
 /**
  *  获取用户信息
  */
-export function getInfo() {
+export function getInfoApi() {
   return request({
     url: "api/getUserInfo/",
     method: "get",
@@ -49,7 +49,7 @@ export function getInfo() {
 /**
  *  注销
  */
-export function logout() {
+export function logoutApi() {
   return request({
     url: "api/logout/",
     method: "post",
@@ -60,7 +60,7 @@ export function logout() {
  * @param {object} data 自定义的分类信息
  * @returns
  */
-export function setClassification(data) {
+export function setClassificationApi(data) {
   return request({
     url: "api/setClassification/",
     method: "post",
