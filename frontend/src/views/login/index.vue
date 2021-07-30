@@ -57,7 +57,7 @@
               type="primary"
               size="medium"
               :loading="loading"
-              style="width: 100%;"
+              style="width: 100%"
               @click.native.prevent="handleLogin"
             >
               登录
@@ -71,18 +71,9 @@
             <span class="pwd">忘记密码？</span>
             <div class="thirdParty">
               <div>其他登录方式</div>
-              <img
-                src="https://file.iviewui.com/admin-pro-dist/img/icon-social-wechat.c69ec08c.svg"
-                alt="wechat"
-              />
-              <img
-                src="https://file.iviewui.com/admin-pro-dist/img/icon-social-qq.2cf4276d.svg"
-                alt="qq"
-              />
-              <img
-                src="https://file.iviewui.com/admin-pro-dist/img/icon-social-weibo.cbf658a0.svg"
-                alt="weibo"
-              />
+              <SvgIcon icon-class="qq" />
+              <SvgIcon icon-class="weixin" />
+              <SvgIcon icon-class="weibo" />
               <router-link to="/register">
                 <span class="register"> 注册 </span>
               </router-link>
@@ -97,7 +88,7 @@
 <script>
 import {
   validateLoginUsername,
-  validateLoginPassword
+  validateLoginPassword,
 } from "@/utils/validate.js";
 export default {
   name: "Login",
@@ -107,7 +98,7 @@ export default {
       rememberMe: false, // 记住登录状态
       loginForm: {
         username: "",
-        password: ""
+        password: "",
       },
       loginRules: {
         username: [
@@ -115,30 +106,30 @@ export default {
             required: true,
             trigger: "blur",
             validator: validateLoginUsername,
-            message: "请输入用户名"
-          }
+            message: "请输入用户名",
+          },
         ],
         password: [
           {
             required: true,
             trigger: "blur",
             validator: validateLoginPassword,
-            message: "请输入密码"
-          }
-        ]
+            message: "请输入密码",
+          },
+        ],
       },
       loading: false,
       passwordType: "password",
-      redirect: undefined
+      redirect: undefined,
     };
   },
   watch: {
     $route: {
-      handler: function(route) {
+      handler: function (route) {
         this.redirect = route.query && route.query.redirect;
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
   methods: {
     /**
@@ -158,14 +149,14 @@ export default {
      * 登录
      */
     handleLogin() {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate((valid) => {
         if (valid) {
           this.loading = true;
           this.$store
             .dispatch("user/login", this.loginForm)
             .then(() => {
               this.$router.push({
-                path: this.redirect || "/"
+                path: this.redirect || "/",
               });
               this.loading = false;
             })
@@ -177,8 +168,8 @@ export default {
           return false;
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -227,19 +218,17 @@ export default {
       user-select: none;
     }
 
-    img {
-      margin: 10px 20px 0 0;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-    }
-
     .pwd {
       cursor: pointer;
       float: right;
     }
     .thirdParty {
       margin-top: 5px;
+      svg {
+        margin: 5px;
+        font-size: 30px;
+        cursor: pointer;
+      }
     }
     .register {
       cursor: pointer;

@@ -5,9 +5,9 @@ import requests
 from django.contrib.auth.hashers import check_password, make_password
 from django.core import signing
 
+from .find_error import Data, correct_statis, error_statis
 from .models import *
 from .utils import *
-from .find_error import Data, correct_statis, error_statis
 '''
 目前是把所有的接口都放在这
 但是为了方便管理和维护，以及更好的逻辑
@@ -157,8 +157,11 @@ def delete_annotate_text(request):
 # 更新标注文本信息
 def update_annotate_text_info(request):
     text_info = json.loads(request.body)['textInfo']
-    AnnotateText.objects.filter(id=text_info['id']).update(text=text_info['text'],description=text_info['description'],status=text_info['status'])
-    return ok({'message': "修改成功"})
+    AnnotateText.objects.filter(id=text_info['id']).update(
+        text=text_info['text'],
+        description=text_info['description'],
+        status=text_info['status'])
+    return ok({})
 
 
 # 添加标注标签

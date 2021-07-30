@@ -53,6 +53,6 @@ export default {
   padding: 20px;
   background: #68768a;
   color: white;
-  AnnotateContent-align: center;
+  text-align: center;
 }
 </style>

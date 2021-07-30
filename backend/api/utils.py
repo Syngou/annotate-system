@@ -10,7 +10,7 @@ import numpy as np
 
 
 def ok(data: object):
-    return JsonResponse({'code': 20000, 'data': data,'message': '操作成功'})
+    return JsonResponse({'code': 20000, 'message': '操作成功', 'data': data})
 
 
 # 操作失败时只返回状态码code和错误信息message

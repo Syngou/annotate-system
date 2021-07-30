@@ -2,7 +2,7 @@
   <div class="dashboard-container">
     <el-row :gutter="20">
       <el-col :xs="24" :sm="12" :lg="6">
-        <el-card shadow="hover" class="mgb20" style="height: 252px;">
+        <el-card shadow="hover" class="mgb20" style="height: 252px">
           <div class="user-info">
             <div class="el-upload">
               <el-upload
@@ -33,12 +33,7 @@
           <h1>使用说明</h1>
           <h3>接口尚未完善,凑合着用</h3>
           <ol>
-            <li>
-              设置标注标签
-              <ul>
-                <li>已经预设了一些</li>
-              </ul>
-            </li>
+            <li>设置标注标签</li>
             <li>
               导入标注文本数据
               <ul>
@@ -67,13 +62,13 @@ import TodoList from "./components/TodoList";
 export default {
   name: "Dashboard",
   components: {
-    TodoList
+    TodoList,
   },
   computed: {
     token() {
       return getToken();
     },
-    ...mapGetters(["name", "avatar", "roles"])
+    ...mapGetters(["name", "avatar", "roles"]),
   },
   methods: {
     handleSuccess(response) {

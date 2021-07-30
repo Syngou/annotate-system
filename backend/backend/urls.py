@@ -6,7 +6,6 @@ from .settings import MEDIA_ROOT
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # 标注页面api
     path('api/', include('api.urls')),
     # 媒体资源, 静态文件
     re_path(r'^media/(?P<path>.*)$',
