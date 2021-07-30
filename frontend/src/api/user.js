@@ -56,13 +56,13 @@ export function logoutApi() {
   });
 }
 /**
- *  用户自定义的标注分类
- * @param {object} data 自定义的分类信息
+ *  用户自定义的标签
+ * @param {object} data 自定义标签数据
  * @returns
  */
-export function setClassificationApi(data) {
+export function addLabelsApi(data) {
   return request({
-    url: "api/setClassification/",
+    url: "api/addLabel/",
     method: "post",
     data,
   });

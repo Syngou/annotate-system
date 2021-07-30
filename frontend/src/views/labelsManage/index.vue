@@ -3,13 +3,13 @@
     <!-- 表格 -->
     <el-table
       ref="singleTable"
-      :data="classification"
+      :data="labels"
       :row-class-name="tableRowClassName"
-      style="width: 100%;"
+      style="width: 100%"
     >
-      <!-- 分类 -->
+      <!-- 标签 -->
       <el-table-column type="index" width="50" label="序号" />
-      <el-table-column label="分类" min-width="200">
+      <el-table-column label="标签" min-width="200">
         <template slot-scope="scope">
           <template v-if="scope.$index == editCurrent">
             <el-input v-model="editValue" size="small" />
@@ -18,8 +18,8 @@
         </template>
       </el-table-column>
 
-      <!-- 分类快捷键 -->
-      <el-table-column label="分类快捷键" min-width="200">
+      <!-- 标签快捷键 -->
+      <el-table-column label="标签快捷键" min-width="200">
         <template slot-scope="scope">
           <template v-if="scope.$index == editCurrent">
             <el-input v-model="editShortcut" size="small" />
@@ -28,8 +28,8 @@
         </template>
       </el-table-column>
 
-      <!-- 分类颜色 -->
-      <el-table-column label="分类颜色" width="120">
+      <!-- 标签颜色 -->
+      <el-table-column label="标签颜色" width="120">
         <span slot-scope="scope">
           <el-color-picker
             v-model="scope.row.color"
@@ -50,7 +50,7 @@
           </el-button>
           <span v-if="scope.$index == editCurrent">
             <el-button
-              style="margin-left: 10px;"
+              style="margin-left: 10px"
               type="success"
               size="mini"
               icon="el-icon-circle-check-outline"
@@ -80,8 +80,8 @@
         </span>
       </el-table-column>
     </el-table>
-    <!-- 添加分类 -->
-    <div style="margin-top: 20px;">
+    <!-- 添加标签 -->
+    <div style="margin-top: 20px">
       <el-input
         v-if="inputVisible"
         ref="saveTagInput"
@@ -92,7 +92,7 @@
         @blur="handleInputConfirm"
       />
       <el-button class="button-new-tag" size="small" @click="showInput">
-        添加新分类（按回车键添加）
+        添加新标签（按回车键添加）
       </el-button>
     </div>
     <div class="start-annotate-button">
@@ -118,7 +118,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["classification"]),
+    ...mapGetters(["labels"]),
   },
   methods: {
     /**
@@ -132,10 +132,10 @@ export default {
       return "";
     },
     /**
-     * 删除分类
+     * 删除标签
      */
     handleDelete(index) {
-      this.classification.splice(index, 1);
+      this.labels.splice(index, 1);
     },
     /**
      * 显示输入框
@@ -147,12 +147,12 @@ export default {
       });
     },
     /**
-     * 添加分类
+     * 添加标签
      */
     handleInputConfirm() {
       const inputValue = this.inputValue;
       if (inputValue) {
-        this.classification.push({
+        this.labels.push({
           value: inputValue,
           color: "red",
           shortcut: "0",
@@ -189,7 +189,7 @@ export default {
      * 前往标注页面
      */
     goToAnnotate() {
-      this.$store.dispatch("annotate/setClassification", this.classification);
+      this.$store.dispatch("annotate/addLabels", this.labels);
       this.$router.push("/annotate");
     },
   },

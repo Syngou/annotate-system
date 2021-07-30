@@ -5,7 +5,7 @@ const getters = {
   name: (state) => state.user.name,
   roles: (state) => state.user.roles,
   annotateTextList: (state) => state.user.annotateTextList,
-  classification: (state) => state.annotate.classification, //分类信息
+  labels: (state) => state.annotate.labels, //标签信息
   annotateData: (state) => state.annotate.annotateData, //标注数据
 };
 export default getters;

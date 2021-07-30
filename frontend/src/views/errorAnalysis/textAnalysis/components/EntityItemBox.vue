@@ -20,7 +20,7 @@ export default {
   },
   props: {
     // 所有的标签
-    labels: {
+    tags: {
       type: Array,
       default: () => [],
       required: true,
@@ -55,9 +55,9 @@ export default {
      * @returns {string|*} 颜色
      */
     pickColor(type) {
-      for (const label of this.labels) {
-        if (label.text && label.text == type) {
-          return label.color;
+      for (const tag of this.tags) {
+        if (tag.text && tag.text == type) {
+          return tag.color;
         }
       }
       return "#ffffff";

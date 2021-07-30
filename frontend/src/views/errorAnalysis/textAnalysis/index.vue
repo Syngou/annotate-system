@@ -24,7 +24,7 @@
         class="entity-item-box"
       >
         <entity-item-box
-          :labels="types"
+          :tags="types"
           :entities="
             annotationArray[currentPage * sentenceCount + index - sentenceCount]
           "

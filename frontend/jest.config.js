@@ -16,7 +16,7 @@ module.exports = {
   collectCoverageFrom: [
     "src/utils/**/*.{js,vue}",
     "!src/utils/auth.js",
-    "!src/utils/annotate.js",
+    "!src/utils/annotateUtils.js",
     "src/components/**/*.{js,vue}",
   ],
   coverageDirectory: "<rootDir>/tests/unit/coverage",

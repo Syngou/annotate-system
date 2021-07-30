@@ -10,7 +10,7 @@ export const constantRoutes = [
   {
     path: "/annotate",
     component: () => import("@/views/annotate/index"),
-    hidden:true,
+    hidden: true,
     meta: { title: "标注页面", icon: "edit" },
   },
   {
@@ -77,15 +77,15 @@ export const constantRoutes = [
     ],
   },
   {
-    path: "/annotateSetting",
-    redirect: "/annotateSetting/index",
+    path: "/labelsManage",
+    redirect: "/labelsManage/index",
     component: Layout,
     children: [
       {
         path: "index",
-        name: "annotateSetting",
-        component: () => import("@/views/annotateSetting"),
-        meta: { title: "标注设置", icon: "el-icon-setting" },
+        name: "labelsManage",
+        component: () => import("@/views/labelsManage"),
+        meta: { title: "标签管理", icon: "el-icon-setting" },
       },
     ],
   },

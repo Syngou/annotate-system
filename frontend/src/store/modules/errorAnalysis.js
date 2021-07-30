@@ -1,7 +1,7 @@
 const state = {
   // TODO 是不是也可以自定义颜色
   colorArray: [
-    // 错误分析分类颜色
+    // 错误分析标签颜色
     "#fa0404",
     "#fd0dad",
     "#8406f3",

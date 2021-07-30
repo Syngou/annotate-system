@@ -11,8 +11,8 @@ function buttonStyle() {
  * @param {number} index 标注颜色索引
  */
 function textStyle(index) {
-  return `border:5px solid ${store.state.annotate.classification[index].color};
-          background-color:${store.state.annotate.classification[index].color};
+  return `border:5px solid ${store.state.annotate.labels[index].color};
+          background-color:${store.state.annotate.labels[index].color};
           border-radius: 10px;`;
 }
 /**

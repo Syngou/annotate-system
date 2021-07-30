@@ -13,14 +13,12 @@
           </div>
           <hr />
           <div>
-            如果每种类型有多个值，请用<span
-              style="color: red; font-size: 20px;"
-            >
+            如果每种类型有多个值，请用<span style="color: red; font-size: 20px">
               一个
             </span>
             空格隔开<br />
             <hr />
-            <span style="color: red; font-size: 20px;">
+            <span style="color: red; font-size: 20px">
               需在最开始时使用（即还未进行标注时），否则会有奇怪的结果
             </span>
             <hr />
@@ -29,7 +27,7 @@
         </el-collapse-item>
       </el-collapse>
 
-      <div v-for="(type, index) in classification" :key="index">
+      <div v-for="(type, index) in labels" :key="index">
         <el-input v-model="inputValues[index]">
           <span slot="prepend">
             <el-button>
@@ -40,7 +38,7 @@
       </div>
       <span
         slot="footer"
-        style="display: flex; justify-content: center; align-items: center;"
+        style="display: flex; justify-content: center; align-items: center"
       >
         <el-button type="primary">确定</el-button>
       </span>
@@ -61,7 +59,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["classification"]),
+    ...mapGetters(["labels"]),
   },
   created() {
     this.$bus.$on("autoAnnotate", () => {

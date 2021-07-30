@@ -11,7 +11,7 @@
     <!-- 标注选项对话框 -->
     <div v-show="showDialog" ref="showDialog" class="optionDialog">
       <button
-        v-for="(info, index) in classification"
+        v-for="(info, index) in labels"
         :key="index"
         :style="{ backgroundColor: info.color }"
         @click="annotateText(index + '-' + $store.state.annotate.id, index)"
@@ -50,7 +50,7 @@
             <div class="panel-body">
               <div class="side">
                 <button
-                  v-for="(info, index) in classification"
+                  v-for="(info, index) in labels"
                   :key="index"
                   :style="{ backgroundColor: info.color }"
                   @click="
@@ -60,8 +60,8 @@
                   {{ info.value }}({{ info.shortcut }})
                 </button>
                 <br /><br />
-                <router-link to="/AnnotateSetting">
-                  添加新分类
+                <router-link to="/labelsManage">
+                  添加新标签
                 </router-link>
               </div>
             </div>
@@ -95,8 +95,8 @@
 <script>
 import TranslateCard from "./components/TranslateCard";
 
-import { annotateUtil } from "../../../../utils/annotateUtils";
-import { translateApi } from "@/api/annotate";
+import { annotateUtil } from "@/utils/annotateUtils";
+import { translateApi } from "@/api/annotateData";
 
 import { mapGetters } from "vuex";
 
@@ -114,7 +114,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["classification"]), // 分类
+    ...mapGetters(["labels"]), // 标签
   },
   // 键盘标注，初始化即开始监听
   created() {
@@ -127,10 +127,10 @@ export default {
      * @param {number} Y  y轴坐标
      */
     setBoxPosition(X, Y) {
-      this.$refs.showDialog.style.left = `${X-100}px`;
-      this.$refs.showDialog.style.top = `${Y+20}px`;
-      this.$refs.translateCard.style.left = `${X+10}px`;
-      this.$refs.translateCard.style.top = `${Y+10}px`;
+      this.$refs.showDialog.style.left = `${X - 100}px`;
+      this.$refs.showDialog.style.top = `${Y + 20}px`;
+      this.$refs.translateCard.style.left = `${X + 10}px`;
+      this.$refs.translateCard.style.top = `${Y + 10}px`;
     },
 
     /**
@@ -171,8 +171,8 @@ export default {
         let id = this.$store.state.annotate.id;
         this.showDialog = false;
         let j = 0;
-        for (; j < this.classification.length; j++) {
-          if (key === this.classification[j].shortcut) {
+        for (; j < this.labels.length; j++) {
+          if (key === this.labels[j].shortcut) {
             annotateUtil(j + "-" + id, j);
             break;
           }

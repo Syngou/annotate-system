@@ -50,7 +50,7 @@ def get_user_info(request):
     user = UserInfo.objects.filter(username=username)
     if not user:
         return error("用户信息不存在")
-    # 在这里顺便查询数据库，获取用户自定义的标注分类，标注文本，成员信息 并放入响应数据中
+    # 在这里顺便查询数据库，获取用户自定义的标注标签，标注文本，成员信息 并放入响应数据中
     text_list = []
     for text in AnnotateText.objects.filter(user_id=user[0].id):
         text_list.append({
@@ -161,23 +161,23 @@ def update_annotate_text_info(request):
     return ok({'message': "修改成功"})
 
 
-# 添加标注分类
+# 添加标注标签
 def add_labels(request):
     token = signing.loads((request.META.get('HTTP_ANNOTATE_SYSTEM_TOKEN')))
     username = token['username']
     data = json.loads(request.body)
     for i in data:
         print(i)
-    # 返回设置好的标注分类
+    # 返回设置好的标注标签
     return ok({})
 
 
-# 编辑标注分类
+# 编辑标注标签
 def edit_labels(request):
     return ok({})
 
 
-# 删除标注分类
+# 删除标注标签
 def delete_labels(request):
     return ok({})
 

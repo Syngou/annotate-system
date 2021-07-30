@@ -1,14 +1,8 @@
-import { setClassificationApi } from "@/api/user";
+import { addLabelsApi } from "@/api/user";
 // 用户标注设置
 const state = {
-  classification: [
-    // 分类信息
-    { value: "药物", color: "#fa0404", shortcut: "m" },
-    { value: "医生", color: "#fd0dad", shortcut: "d" },
-    { value: "器械", color: "#8406f3", shortcut: "i" },
-    { value: "疾病", color: "#e3fc07", shortcut: "s" },
-    { value: "患者", color: "#058f32", shortcut: "p" },
-    { value: "病毒", color: "#1f74c9", shortcut: "v" },
+  labels: [
+    // 标签信息
   ],
   // 存储已标注的词语
   annotateData: [[], [], [], [], [], []],
@@ -18,8 +12,6 @@ const state = {
   id: 1,
   // 当前文本内容
   annotateText: `还没有设置标注文本哦`,
-
-
 };
 
 const mutations = {
@@ -51,16 +43,16 @@ const mutations = {
     }
   },
   /**
-   *  设置标注分类
+   *  设置标注标签
    * @param {*} state
    */
-  SET_CLASSIFICATION: (state, data) => {
-    setClassificationApi(data).then((res) => {
+  ADD_LABELS: (state, data) => {
+    addLabelsApi(data).then((res) => {
       console.log(res);
     });
     // TODO 有没有更好的办法重置呢
     state.annotateData = [];
-    const length = state.classification.length;
+    const length = state.labels.length;
     for (let i = 0; i < length; i++) {
       state.annotateData.push([]);
     }
@@ -71,7 +63,6 @@ const mutations = {
   SET_ANNOTATE_TEXT: (state, text) => {
     state.annotateText = text.trim(); // TODO 这里要不要trim()呢？
   },
-
 };
 
 const actions = {
@@ -81,8 +72,8 @@ const actions = {
   deleteDataFromList({ commit }, info) {
     commit("DELETE_DATA_FROM_LIST", info);
   },
-  setClassification({ commit }, data) {
-    commit("SET_CLASSIFICATION", data);
+  addLabels({ commit }, data) {
+    commit("ADD_LABELS", data);
   },
   setTextTitle({ commit }, title) {
     commit("SET_TEXT_TITLE", title);
@@ -90,7 +81,6 @@ const actions = {
   setAnnotateText({ commit }, text) {
     commit("SET_ANNOTATE_TEXT", text);
   },
-
 };
 
 export default {

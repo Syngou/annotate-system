@@ -42,7 +42,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["avatar", "classification"])
+    ...mapGetters(["avatar"])
   },
 
   methods: {
