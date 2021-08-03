@@ -222,14 +222,17 @@ export default {
       cursor: pointer;
       float: right;
     }
+    // 其他登录方式
     .thirdParty {
       margin-top: 5px;
+      // 图标
       svg {
         margin: 5px;
         font-size: 30px;
         cursor: pointer;
       }
     }
+    // 注册文字
     .register {
       cursor: pointer;
       float: right;
