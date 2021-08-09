@@ -167,11 +167,13 @@ def update_annotate_text_info(request):
 # 添加标注标签
 def add_labels(request):
     token = signing.loads((request.META.get('HTTP_ANNOTATE_SYSTEM_TOKEN')))
-    username = token['username']
-    data = json.loads(request.body)
-    for i in data:
-        print(i)
-    # 返回设置好的标注标签
+    user_id = token['id']
+    labels = json.loads(request.body)
+    for label in labels:
+        Labels(text=label['text'],
+               color=label['color'],
+               shortcut=label['shortcut'],
+               user_id=user_id).save()
     return ok({})
 
 

@@ -17,7 +17,7 @@ urlpatterns = [
     path('annotate_text/edit/', views.update_annotate_text_info), # 更新标注文本信息
 
     # 标签管理
-    path('addLabel/', views.add_labels),  # 设置标签
+    path('labels/add/', views.add_labels),  # 添加标签
 
     # 标注数据
     path('annotateDataUpload/', views.annotate_data_upload),  # 上传标注数据

@@ -14,7 +14,7 @@
           <template v-if="scope.$index == editCurrent">
             <el-input v-model="editValue" size="small" />
           </template>
-          <span v-else> {{ scope.row.value }}</span>
+          <span v-else> {{ scope.row.text }}</span>
         </template>
       </el-table-column>
 
@@ -96,16 +96,14 @@
       </el-button>
     </div>
     <div class="start-annotate-button">
-      <el-button type="primary" @click="goToAnnotate">
-        开始标注
-      </el-button>
+      <el-button type="primary" @click="saveLabels"> 保存 </el-button>
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-
+import { addLabelsApi } from "@/api/annotateData";
 export default {
   name: "TableSetting",
   data() {
@@ -153,7 +151,7 @@ export default {
       const inputValue = this.inputValue;
       if (inputValue) {
         this.labels.push({
-          value: inputValue,
+          text: inputValue,
           color: "red",
           shortcut: "0",
         });
@@ -165,7 +163,7 @@ export default {
      * 编辑
      */
     edit(row, index) {
-      this.editValue = row.value;
+      this.editValue = row.text;
       this.editCurrent = index;
       this.editShortcut = row.shortcut;
     },
@@ -179,18 +177,19 @@ export default {
      * 确认编辑内容
      */
     confirmEdit(rows) {
-      rows.value = this.editValue;
+      rows.text = this.editValue;
       rows.shortcut = this.editShortcut;
       this.editValue = "";
       this.editShortcut = "";
       this.editCurrent = -1;
     },
     /**
-     * 前往标注页面
+     * 保存标签至后台
      */
-    goToAnnotate() {
-      this.$store.dispatch("annotate/addLabels", this.labels);
-      this.$router.push("/annotate");
+    saveLabels() {
+      addLabelsApi(this.labels).then(_=>{
+this.$message.success("保存成功")
+      });
     },
   },
 };

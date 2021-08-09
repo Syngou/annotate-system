@@ -4,7 +4,7 @@ from .models import Labels, AnnotateText
 
 @admin.register(Labels)
 class LabelsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'value')
+    list_display = ('id', 'text','color','shortcut','user_id')
 
 
 @admin.register(AnnotateText)

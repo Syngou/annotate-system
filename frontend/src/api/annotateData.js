@@ -1,4 +1,16 @@
 import request from "@/utils/request";
+/**
+ * 添加标签
+ * @param {object} labels 要添加的标签
+ * @returns 
+ */
+export function addLabelsApi(labels) {
+  return request({
+    url: "api/labels/add/",
+    method: "POST",
+    data: labels,
+  });
+}
 
 /**
  *  标注数据上传
