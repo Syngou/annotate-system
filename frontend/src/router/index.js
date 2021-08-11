@@ -11,7 +11,7 @@ export const constantRoutes = [
     path: "/entityAnnotate",
     component: () => import("@/views/entityAnnotate/index"),
     hidden: true,
-    meta: { title: "标注页面", icon: "edit" },
+    meta: { title: "实体标注", icon: "edit" },
   },
   {
     path: "/login",
