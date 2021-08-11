@@ -168,13 +168,39 @@ def update_annotate_text_info(request):
 def add_labels(request):
     token = signing.loads((request.META.get('HTTP_ANNOTATE_SYSTEM_TOKEN')))
     user_id = token['id']
-    labels = json.loads(request.body)
-    for label in labels:
-        Labels(text=label['text'],
-               color=label['color'],
-               shortcut=label['shortcut'],
-               user_id=user_id).save()
-    return ok({})
+    label = json.loads(request.body)
+    Labels(text=label['text'],
+           color=label['color'],
+           shortcut=label['shortcut'],
+           user_id=user_id).save()
+    # 返回所有的标签数据(因为删除标签需要标签id,新添加的标签只有加入数据库才有id,所以需要返回新的所有标签数据)
+    # 如果有更好的方法也可以改
+    data = Labels.objects.filter(user_id=user_id)
+    labels = []
+    for label in data:
+        labels.append({
+            'id': label.id,
+            'text': label.text,
+            'color': label.color,
+            'shortcut': label.shortcut,
+        })
+    return ok({"labels": labels})
+
+
+# 获取所有标签
+def get_labels(request):
+    token = signing.loads((request.META.get('HTTP_ANNOTATE_SYSTEM_TOKEN')))
+    user_id = token['id']
+    data = Labels.objects.filter(user_id=user_id)
+    labels = []
+    for label in data:
+        labels.append({
+            'id': label.id,
+            'text': label.text,
+            'color': label.color,
+            'shortcut': label.shortcut,
+        })
+    return ok({"labels": labels})
 
 
 # 编辑标注标签

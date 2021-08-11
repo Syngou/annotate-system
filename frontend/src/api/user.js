@@ -55,15 +55,4 @@ export function logoutApi() {
     method: "post",
   });
 }
-/**
- *  用户自定义的标签
- * @param {object} data 自定义标签数据
- * @returns
- */
-export function addLabelsApi(data) {
-  return request({
-    url: "api/addLabel/",
-    method: "post",
-    data,
-  });
-}
+

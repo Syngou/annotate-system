@@ -14,10 +14,11 @@ urlpatterns = [
     # 标注文本
     path('annotate_text/upload/', views.import_annotate_text),  # 上传标注文本
     path('annotate_text/delete/', views.delete_annotate_text),  # 删除标注文本(一条)
-    path('annotate_text/edit/', views.update_annotate_text_info), # 更新标注文本信息
+    path('annotate_text/edit/', views.update_annotate_text_info),  # 更新标注文本信息
 
     # 标签管理
     path('labels/add/', views.add_labels),  # 添加标签
+    path('labels/get/', views.get_labels),  # 获取标签
 
     # 标注数据
     path('annotateDataUpload/', views.annotate_data_upload),  # 上传标注数据
@@ -27,5 +28,5 @@ urlpatterns = [
 
     # 其他
     path('translate/', views.translate),  # 翻译
-    path('error_analysis/',views.error_analysis_file_upload) # 错误分析
+    path('error_analysis/', views.error_analysis_file_upload)  # 错误分析
 ]

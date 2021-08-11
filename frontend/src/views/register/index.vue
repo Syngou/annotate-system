@@ -174,7 +174,7 @@ img {
   width: 100%;
   height: 100%;
   position: relative;
-  background-image: url("../../assets/user/login.png");
+  background-image: url("../../assets/login.png");
 
   &-box {
     width: 350px;

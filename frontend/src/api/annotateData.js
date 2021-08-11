@@ -2,13 +2,21 @@ import request from "@/utils/request";
 /**
  * 添加标签
  * @param {object} labels 要添加的标签
- * @returns 
+ * @returns
  */
 export function addLabelsApi(labels) {
   return request({
     url: "api/labels/add/",
     method: "POST",
     data: labels,
+  });
+}
+/**
+ * 获取标签
+ */
+export function getLabelsApi() {
+  return request({
+    url: "api/labels/get/",
   });
 }
 
@@ -31,6 +39,5 @@ export function annotateDataUploadApi(data) {
 export function translateApi(text) {
   return request({
     url: `api/translate/?text=${text}`,
-    method: "get",
   });
 }

@@ -95,15 +95,12 @@
         添加新标签（按回车键添加）
       </el-button>
     </div>
-    <div class="start-annotate-button">
-      <el-button type="primary" @click="saveLabels"> 保存 </el-button>
-    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import { addLabelsApi } from "@/api/annotateData";
+import { addLabelsApi, getLabelsApi } from "@/api/annotateData";
 export default {
   name: "TableSetting",
   data() {
@@ -117,6 +114,11 @@ export default {
   },
   computed: {
     ...mapGetters(["labels"]),
+  },
+  created() {
+    getLabelsApi().then((res) => {
+      this.$store.dispatch("annotate/setLabels", res.data.labels);
+    });
   },
   methods: {
     /**
@@ -142,6 +144,7 @@ export default {
       this.inputVisible = true;
       this.$nextTick(() => {
         this.$refs.saveTagInput.$refs.input.focus();
+       
       });
     },
     /**
@@ -150,14 +153,20 @@ export default {
     handleInputConfirm() {
       const inputValue = this.inputValue;
       if (inputValue) {
-        this.labels.push({
+        const newLabel = {
           text: inputValue,
           color: "red",
           shortcut: "0",
+        };
+        addLabelsApi(newLabel).then(res=>{
+        this.$store.dispatch("annotate/setLabels", res.data.labels);
+          
         });
+        
       }
       this.inputVisible = false;
       this.inputValue = "";
+      
     },
     /**
      * 编辑
@@ -183,14 +192,7 @@ export default {
       this.editShortcut = "";
       this.editCurrent = -1;
     },
-    /**
-     * 保存标签至后台
-     */
-    saveLabels() {
-      addLabelsApi(this.labels).then(_=>{
-this.$message.success("保存成功")
-      });
-    },
+   
   },
 };
 </script>
@@ -200,10 +202,5 @@ this.$message.success("保存成功")
   background: #ebf0fa;
 }
 
-.start-annotate-button {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 30px;
-}
+
 </style>

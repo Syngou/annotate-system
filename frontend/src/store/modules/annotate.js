@@ -1,4 +1,3 @@
-import { addLabelsApi } from "@/api/user";
 // 用户标注设置
 const state = {
   labels: [
@@ -46,17 +45,15 @@ const mutations = {
    *  设置标注标签
    * @param {*} state
    */
-  ADD_LABELS: (state, data) => {
-    addLabelsApi(data).then((res) => {
-      console.log(res);
-    });
-    // TODO 有没有更好的办法重置呢
+  SET_LABELS: (state, data) => {
+    state.labels = data;
     state.annotateData = [];
     const length = state.labels.length;
     for (let i = 0; i < length; i++) {
       state.annotateData.push([]);
     }
   },
+ 
   /**
    *  设置标注文本
    */
@@ -72,9 +69,10 @@ const actions = {
   deleteDataFromList({ commit }, info) {
     commit("DELETE_DATA_FROM_LIST", info);
   },
-  addLabels({ commit }, data) {
-    commit("ADD_LABELS", data);
+  setLabels({ commit }, data) {
+    commit("SET_LABELS", data);
   },
+ 
   setTextTitle({ commit }, title) {
     commit("SET_TEXT_TITLE", title);
   },

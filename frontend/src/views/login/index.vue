@@ -178,7 +178,7 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
-  background-image: url("../../assets/user/login.png");
+  background-image: url("../../assets/login.png");
   background-size: cover;
   // 登录框
   &-box {

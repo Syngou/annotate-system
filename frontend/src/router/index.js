@@ -8,8 +8,8 @@ Vue.use(Router);
 
 export const constantRoutes = [
   {
-    path: "/annotate",
-    component: () => import("@/views/annotate/index"),
+    path: "/entityAnnotate",
+    component: () => import("@/views/entityAnnotate/index"),
     hidden: true,
     meta: { title: "标注页面", icon: "edit" },
   },

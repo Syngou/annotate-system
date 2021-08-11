@@ -16,7 +16,7 @@
         :style="{ backgroundColor: info.color }"
         @click="annotateText(index + '-' + $store.state.annotate.id, index)"
       >
-        {{ info.value }}({{ info.shortcut }})
+        {{ info.text }}({{ info.shortcut }})
       </button>
       <button @click="translateText">
         翻译
@@ -57,7 +57,7 @@
                     annotateText(index + '-' + $store.state.annotate.id, index)
                   "
                 >
-                  {{ info.value }}({{ info.shortcut }})
+                  {{ info.text }}({{ info.shortcut }})
                 </button>
                 <br /><br />
                 <router-link to="/labelsManage">

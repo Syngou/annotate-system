@@ -14,21 +14,15 @@
           :on-error="handleError"
           :show-file-list="false"
         >
-          <el-button type="primary">
-            导入数据
-          </el-button>
+          <el-button type="primary"> 导入数据 </el-button>
         </el-upload>
       </div>
       <div class="button-group-item">
-        <el-button type="primary" @click="exportData">
-          导出数据
-        </el-button>
+        <el-button type="primary" @click="exportData"> 导出数据 </el-button>
       </div>
     </div>
     <div class="clear">
-      <el-button type="danger" @click="removeAll">
-        清空
-      </el-button>
+      <el-button type="danger" @click="removeAll"> 清空 </el-button>
     </div>
     <!-- 搜索框 -->
     <div class="search">
@@ -44,6 +38,9 @@
         </el-select>
         <el-button slot="append" icon="el-icon-search" @click="search" />
       </el-input>
+    </div>
+    <div>
+      <p>注意:您需要在<strong>标注之前</strong>设置好标签,在标注未完成时添加标签会<strong>清空标注数据</strong></p>
     </div>
     <!-- 表格 -->
     <div>
@@ -134,16 +131,18 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="update()">
-          更新
-        </el-button>
+        <el-button type="primary" @click="update()"> 更新 </el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { deleteAnnotateTextApi,updateAnnotateTextInfoApi,removeAllAnnotateTextApi } from "@/api/annotateText";
+import {
+  deleteAnnotateTextApi,
+  updateAnnotateTextInfoApi,
+  removeAllAnnotateTextApi,
+} from "@/api/annotateText";
 import { getToken } from "@/utils/auth";
 import { mapGetters } from "vuex";
 
@@ -153,10 +152,10 @@ export default {
     statusFilter(status) {
       const statusMap = {
         已标注: "success",
-        未标注: "gray"
+        未标注: "gray",
       };
       return statusMap[status];
-    }
+    },
   },
 
   data() {
@@ -173,8 +172,8 @@ export default {
       form: {
         //编辑框数据
         description: "",
-        text: ""
-      }
+        text: "",
+      },
     };
   },
   computed: {
@@ -185,7 +184,7 @@ export default {
     token() {
       return getToken();
     },
-    ...mapGetters(["annotateTextList"])
+    ...mapGetters(["annotateTextList"]),
   },
   mounted() {
     this.list = this.filterList = this.annotateTextList;
@@ -198,7 +197,7 @@ export default {
      */
     handleSuccess(response) {
       this.$message.success("上传成功");
-      this.$store.dispatch("user/setAnnotateTextList",response.data);
+      this.$store.dispatch("user/setAnnotateTextList", response.data);
 
       this.filterList = this.list = response.data;
     },
@@ -220,10 +219,10 @@ export default {
       this.$confirm("确定要删除吗?", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       }).then(() => {
         removeAllAnnotateTextApi(this.token);
-        this.$store.dispatch("user/setAnnotateTextList",[]);
+        this.$store.dispatch("user/setAnnotateTextList", []);
         this.list = [];
         this.filterList = [];
       });
@@ -236,11 +235,11 @@ export default {
       let keywords = this.keywords.trim();
 
       if (this.searchTarget == "描述") {
-        this.filterList = this.list.filter(item =>
+        this.filterList = this.list.filter((item) =>
           item.description.includes(keywords)
         );
       } else {
-        this.filterList = this.list.filter(item =>
+        this.filterList = this.list.filter((item) =>
           item[this.searchTarget].includes(keywords)
         );
       }
@@ -264,7 +263,7 @@ export default {
         "annotate/setAnnotateText",
         this.filterList[index].text
       );
-      this.$router.push("/annotate");
+      this.$router.push("/entityAnnotate");
     },
     /**
      * 编辑
@@ -284,7 +283,7 @@ export default {
       this.filterList[this.listEditIndex].description = this.form.description;
       this.filterList[this.listEditIndex].text = this.form.text;
       updateAnnotateTextInfoApi(this.filterList[this.listEditIndex]);
-      this.list.forEach(item => {
+      this.list.forEach((item) => {
         if (item.id === this.handleItemId) {
           item.description = this.form.description;
           item.text = this.form.text;
@@ -296,23 +295,17 @@ export default {
      * 删除文本
      */
     handleDelete(index) {
-      this.$confirm("确定要删除吗?", "警告", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      }).then(() => {
-        let id = this.filterList[index].id;
-        deleteAnnotateTextApi(id);
-        this.filterList.splice(index, 1);
-        for (let i = 0; i < this.list.length; i++) {
-          if (this.list[i].id == id) {
-            this.list.splice(i, 1);
-            this.$store.dispatch("user/setAnnotateTextList",this.list);
-          }
+      let id = this.filterList[index].id;
+      deleteAnnotateTextApi(id);
+      this.filterList.splice(index, 1);
+      for (let i = 0; i < this.list.length; i++) {
+        if (this.list[i].id == id) {
+          this.list.splice(i, 1);
+          this.$store.dispatch("user/setAnnotateTextList", this.list);
         }
-      });
-    }
-  }
+      }
+    },
+  },
 };
 </script>
 <style lang="scss">
