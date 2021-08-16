@@ -57,15 +57,15 @@
     </el-table>
     <el-dialog :visible.sync="showDialog" width="30%" center>
       <EditLabel
-        @closeDialog="showDialog = false"
-        :isAddLabel="isAddLabel"
-        :labelInfo="labelInfo"
+        :is-add-label="isAddLabel"
+        :label-info="labelInfo"
+        @closeDialog="closeDialog"
       />
     </el-dialog>
     <!-- 添加标签 -->
     <div class="addLabelButton">
       <el-button type="primary" size="small" @click="addLabel">
-        添加新标签（按回车键添加）
+        添加标签
       </el-button>
     </div>
   </div>
@@ -73,10 +73,17 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { getLabelsApi, updateLabelColorApi,deleteLabelApi } from "@/api/annotateData";
+import {
+  getLabelsApi,
+  updateLabelColorApi,
+  deleteLabelApi,
+} from "@/api/annotateData";
 import EditLabel from "./components/EditLabel";
 export default {
   name: "TableSetting",
+  components: {
+    EditLabel,
+  },
   data() {
     return {
       showDialog: false, // 输入框的显隐
@@ -86,9 +93,6 @@ export default {
       editValue: "",
       editShortcut: "",
     };
-  },
-  components: {
-    EditLabel,
   },
   computed: {
     ...mapGetters(["labels"]),
@@ -109,16 +113,16 @@ export default {
       }
       return "";
     },
-    addLabel(){
+    addLabel() {
       this.isAddLabel = true;
-     this.showDialog = true
+      this.showDialog = true;
     },
     /**
      * 删除标签
      * @param {number} id 当前标签id
      * @param {number} index 标签序号
      */
-    handleDelete(id,index) {
+    handleDelete(id, index) {
       deleteLabelApi(id);
       this.labels.splice(index, 1);
     },
@@ -138,6 +142,17 @@ export default {
       this.labelInfo = currentLabelInfo;
       this.isAddLabel = false;
       this.showDialog = true;
+    },
+    /**
+     * 关闭对话框
+     */
+    closeDialog() {
+      this.showDialog = false;
+      this.labelInfo = {
+        text: "",
+        color: "#ff0000",
+        shortcut: "",
+      };
     },
   },
 };

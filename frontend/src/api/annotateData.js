@@ -50,11 +50,11 @@ export function updateLabelColorApi(id, color) {
  * @returns 
  */
 export function deleteLabelApi(id) {
-   return request({
-     url: "api/labels/delete/",
-     method: "POST",
-     data: { id },
-   });
+  return request({
+    url: "api/labels/delete/",
+    method: "POST",
+    data: { id },
+  });
 }
 /**
  *  标注数据上传
