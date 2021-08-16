@@ -4,15 +4,24 @@
     <div>
       <p>测试</p>
 
-      <div></div>
+     
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+    
+    };
+  },
   computed: {},
   created() {},
-  methods: {},
+  methods: {
+  },
 };
 </script>
+<style lang="scss" scoped>
+
+</style>

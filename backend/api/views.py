@@ -203,8 +203,20 @@ def get_labels(request):
     return ok({"labels": labels})
 
 
-# 编辑标注标签
-def edit_labels(request):
+# 更新标注标签
+def update_labels(request):
+    labelInfo = json.loads(request.body)
+    Labels.objects.filter(id=labelInfo['id']).update(
+        text=labelInfo['text'],
+        color=labelInfo['color'],
+        shortcut=labelInfo['shortcut'])
+    return ok({})
+
+
+# 更新标签颜色
+def update_label_color(request):
+    labelInfo = json.loads(request.body)
+    Labels.objects.filter(id=labelInfo['id']).update(color=labelInfo['color'])
     return ok({})
 
 
