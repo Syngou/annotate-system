@@ -221,7 +221,9 @@ def update_label_color(request):
 
 
 # 删除标注标签
-def delete_labels(request):
+def delete_label(request):
+    labelInfo = json.loads(request.body)
+    Labels.objects.filter(id=labelInfo['id']).delete()
     return ok({})
 
 

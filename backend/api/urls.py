@@ -22,6 +22,7 @@ urlpatterns = [
     path('labels/get/', views.get_labels),  # 获取标签
     path('labels/update/', views.update_labels),  #更新标签
     path('labels/updateColor/', views.update_label_color),  #更新标签颜色
+    path('labels/delete/', views.delete_label),  #更新标签颜色
 
     # 标注数据
     path('annotateDataUpload/', views.annotate_data_upload),  # 上传标注数据

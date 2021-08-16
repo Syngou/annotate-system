@@ -45,6 +45,18 @@ export function updateLabelColorApi(id, color) {
   });
 }
 /**
+ * 删除标签
+ * @param {number} id 标签id
+ * @returns 
+ */
+export function deleteLabelApi(id) {
+   return request({
+     url: "api/labels/delete/",
+     method: "POST",
+     data: { id },
+   });
+}
+/**
  *  标注数据上传
  * @param {object} data 需要上传的数据，
  */

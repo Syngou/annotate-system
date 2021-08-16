@@ -39,7 +39,7 @@
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.$index)"
+            @click="handleDelete(scope.row.id, scope.$index)"
           >
             删除
           </el-button>
@@ -73,7 +73,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { getLabelsApi, updateLabelColorApi } from "@/api/annotateData";
+import { getLabelsApi, updateLabelColorApi,deleteLabelApi } from "@/api/annotateData";
 import EditLabel from "./components/EditLabel";
 export default {
   name: "TableSetting",
@@ -115,8 +115,11 @@ export default {
     },
     /**
      * 删除标签
+     * @param {number} id 当前标签id
+     * @param {number} index 标签序号
      */
-    handleDelete(index) {
+    handleDelete(id,index) {
+      deleteLabelApi(id);
       this.labels.splice(index, 1);
     },
     /**
