@@ -1,6 +1,7 @@
 from django.urls import path
 
 from . import views
+
 # 接口地址按实际情况修改
 urlpatterns = [
     # 用户信息
@@ -19,6 +20,9 @@ urlpatterns = [
     # 标签管理
     path('labels/add/', views.add_labels),  # 添加标签
     path('labels/get/', views.get_labels),  # 获取标签
+    path('labels/update/', views.update_labels),  #更新标签
+    path('labels/updateColor/', views.update_label_color),  #更新标签颜色
+    path('labels/delete/', views.delete_label),  #更新标签颜色
 
     # 标注数据
     path('annotateDataUpload/', views.annotate_data_upload),  # 上传标注数据

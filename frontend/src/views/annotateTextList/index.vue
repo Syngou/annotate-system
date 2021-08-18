@@ -14,15 +14,21 @@
           :on-error="handleError"
           :show-file-list="false"
         >
-          <el-button type="primary"> 导入数据 </el-button>
+          <el-button type="primary">
+            导入数据
+          </el-button>
         </el-upload>
       </div>
       <div class="button-group-item">
-        <el-button type="primary" @click="exportData"> 导出数据 </el-button>
+        <el-button type="primary" @click="exportData">
+          导出数据
+        </el-button>
       </div>
     </div>
     <div class="clear">
-      <el-button type="danger" @click="removeAll"> 清空 </el-button>
+      <el-button type="danger" @click="removeAll">
+        清空
+      </el-button>
     </div>
     <!-- 搜索框 -->
     <div class="search">
@@ -131,7 +137,9 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="update()"> 更新 </el-button>
+        <el-button type="primary" @click="update()">
+          更新
+        </el-button>
       </div>
     </el-dialog>
   </div>

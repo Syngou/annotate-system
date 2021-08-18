@@ -11,20 +11,14 @@
       <el-table-column type="index" width="50" label="序号" />
       <el-table-column label="标签" min-width="200">
         <template slot-scope="scope">
-          <template v-if="scope.$index == editCurrent">
-            <el-input v-model="editValue" size="small" />
-          </template>
-          <span v-else> {{ scope.row.text }}</span>
+          <span> {{ scope.row.text }}</span>
         </template>
       </el-table-column>
 
       <!-- 标签快捷键 -->
       <el-table-column label="标签快捷键" min-width="200">
         <template slot-scope="scope">
-          <template v-if="scope.$index == editCurrent">
-            <el-input v-model="editShortcut" size="small" />
-          </template>
-          <span v-else> {{ scope.row.shortcut }}</span>
+          <span> {{ scope.row.shortcut }}</span>
         </template>
       </el-table-column>
 
@@ -35,6 +29,7 @@
             v-model="scope.row.color"
             show-alpha
             :predefine="$store.state.errorAnalysis.colorArray"
+            @change="updateColor(scope.row.color, scope.row.id)"
           />
         </span>
       </el-table-column>
@@ -44,55 +39,33 @@
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.$index)"
+            @click="handleDelete(scope.row.id, scope.$index)"
           >
             删除
           </el-button>
-          <span v-if="scope.$index == editCurrent">
-            <el-button
-              style="margin-left: 10px"
-              type="success"
-              size="mini"
-              icon="el-icon-circle-check-outline"
-              @click="confirmEdit(scope.row)"
-            >
-              确定
-            </el-button>
-            <el-button
-              size="mini"
-              icon="el-icon-refresh"
-              type="warning"
-              @click="cancelEdit(scope.row)"
-            >
-              取消
-            </el-button>
-          </span>
 
           <el-button
-            v-else
             type="primary"
             size="small"
             icon="el-icon-edit"
-            @click="edit(scope.row, scope.$index)"
+            @click="updateLabelInfo(scope.row)"
           >
             编辑
           </el-button>
         </span>
       </el-table-column>
     </el-table>
-    <!-- 添加标签 -->
-    <div style="margin-top: 20px">
-      <el-input
-        v-if="inputVisible"
-        ref="saveTagInput"
-        v-model="inputValue"
-        class="input-new-tag"
-        size="small"
-        @keyup.enter.native="handleInputConfirm"
-        @blur="handleInputConfirm"
+    <el-dialog :visible.sync="showDialog" width="30%" center>
+      <EditLabel
+        :is-add-label="isAddLabel"
+        :label-info="labelInfo"
+        @closeDialog="closeDialog"
       />
-      <el-button class="button-new-tag" size="small" @click="showInput">
-        添加新标签（按回车键添加）
+    </el-dialog>
+    <!-- 添加标签 -->
+    <div class="addLabelButton">
+      <el-button type="primary" size="small" @click="addLabel">
+        添加标签
       </el-button>
     </div>
   </div>
@@ -100,13 +73,22 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { addLabelsApi, getLabelsApi } from "@/api/annotateData";
+import {
+  getLabelsApi,
+  updateLabelColorApi,
+  deleteLabelApi,
+} from "@/api/annotateData";
+import EditLabel from "./components/EditLabel";
 export default {
   name: "TableSetting",
+  components: {
+    EditLabel,
+  },
   data() {
     return {
-      inputVisible: false, // 输入框的显隐
-      inputValue: "", // 输入框的值
+      showDialog: false, // 输入框的显隐
+      isAddLabel: true, // 是否是添加标签,不是的话就是更新标签
+      labelInfo: { text: "", color: "#ff0000", shortcut: "" }, // 添加或更新时对应标签的信息
       editCurrent: -1,
       editValue: "",
       editShortcut: "",
@@ -131,68 +113,47 @@ export default {
       }
       return "";
     },
+    addLabel() {
+      this.isAddLabel = true;
+      this.showDialog = true;
+    },
     /**
      * 删除标签
+     * @param {number} id 当前标签id
+     * @param {number} index 标签序号
      */
-    handleDelete(index) {
+    handleDelete(id, index) {
+      deleteLabelApi(id);
       this.labels.splice(index, 1);
     },
     /**
-     * 显示输入框
+     * 更新标签颜色
+     * @param {string} color 当前标签颜色
+     * @param {number} id 当前标签id
      */
-    showInput() {
-      this.inputVisible = true;
-      this.$nextTick(() => {
-        this.$refs.saveTagInput.$refs.input.focus();
-       
-      });
+    updateColor(color, id) {
+      updateLabelColorApi(id, color);
     },
     /**
-     * 添加标签
+     * 更新标签信息
+     * @param {object} currentLabelInfo 当前标签信息
      */
-    handleInputConfirm() {
-      const inputValue = this.inputValue;
-      if (inputValue) {
-        const newLabel = {
-          text: inputValue,
-          color: "red",
-          shortcut: "0",
-        };
-        addLabelsApi(newLabel).then(res=>{
-        this.$store.dispatch("annotate/setLabels", res.data.labels);
-          
-        });
-        
-      }
-      this.inputVisible = false;
-      this.inputValue = "";
-      
+    updateLabelInfo(currentLabelInfo) {
+      this.labelInfo = currentLabelInfo;
+      this.isAddLabel = false;
+      this.showDialog = true;
     },
     /**
-     * 编辑
+     * 关闭对话框
      */
-    edit(row, index) {
-      this.editValue = row.text;
-      this.editCurrent = index;
-      this.editShortcut = row.shortcut;
+    closeDialog() {
+      this.showDialog = false;
+      this.labelInfo = {
+        text: "",
+        color: "#ff0000",
+        shortcut: "",
+      };
     },
-    /**
-     * 取消编辑
-     */
-    cancelEdit() {
-      this.editCurrent = -1;
-    },
-    /**
-     * 确认编辑内容
-     */
-    confirmEdit(rows) {
-      rows.text = this.editValue;
-      rows.shortcut = this.editShortcut;
-      this.editValue = "";
-      this.editShortcut = "";
-      this.editCurrent = -1;
-    },
-   
   },
 };
 </script>
@@ -202,5 +163,10 @@ export default {
   background: #ebf0fa;
 }
 
-
+.addLabelButton {
+  width: 100%;
+  display: flex;
+  margin-top: 30px;
+  justify-content: center;
+}
 </style>
