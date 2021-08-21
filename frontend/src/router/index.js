@@ -51,11 +51,10 @@ export const constantRoutes = [
 
   {
     path: "/profile",
-    redirect: "profile/index",
     component: Layout,
     children: [
       {
-        path: "index",
+        path: "",
         component: () => import("@/views/profile/index"),
         name: "Profile",
         meta: { title: "个人中心", icon: "user", noCache: true },
@@ -65,11 +64,10 @@ export const constantRoutes = [
 
   {
     path: "/textList",
-    redirect: "/textList/index",
     component: Layout,
     children: [
       {
-        path: "index",
+        path: "",
         name: "textList",
         component: () => import("@/views/annotateTextList"),
         meta: { title: "文本列表", icon: "el-icon-notebook-2" },
@@ -78,11 +76,10 @@ export const constantRoutes = [
   },
   {
     path: "/labelsManage",
-    redirect: "/labelsManage/index",
     component: Layout,
     children: [
       {
-        path: "index",
+        path: "",
         name: "labelsManage",
         component: () => import("@/views/labelsManage"),
         meta: { title: "标签管理", icon: "el-icon-setting" },
@@ -95,7 +92,7 @@ export const constantRoutes = [
     redirect: "index",
     children: [
       {
-        path: "index",
+        path: "",
         component: () => import("@/views/groupManage/index"),
         name: "Group",
         meta: { title: "成员管理", icon: "group", noCache: true },
@@ -105,12 +102,11 @@ export const constantRoutes = [
   {
     path: "/errorAnalysis",
     component: Layout,
-    redirect: "/errorAnalysis/fileUpload",
     name: "errorAnalysis",
     meta: { title: "错误分析", icon: "bug" },
     children: [
       {
-        path: "fileUpload",
+        path: "",
         name: "fileUpload",
         component: () => import("@/views/errorAnalysis/fileUpload"),
         meta: { title: "文件上传", icon: "el-icon-upload" },

@@ -25,12 +25,12 @@
         <SvgIcon icon-class="success" />
       </div>
       <div>文件上传成功了，现在您可以选择</div>
-      <router-link to="text">
+      <router-link to="errorAnalysis/text">
         <el-button type="primary" style="margin-right: 20px;">
           文本分析
         </el-button>
       </router-link>
-      <router-link to="charts">
+      <router-link to="errorAnalysis/charts">
         <el-button type="primary">
           图表分析
         </el-button>

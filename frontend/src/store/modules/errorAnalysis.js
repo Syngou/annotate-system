@@ -23,15 +23,15 @@ const state = {
   ],
   entity_type: [], // 实体分类
   line_graph: [], //折线图数据
-  chart_graph: {}, // 柱形图数据
+  bar_graph: {}, // 柱形图数据
   sentences: {}, // 文本分析数据
 };
 
 const mutations = {
-  SET_DATA(state, { entity_type, line_graph, chart_graph, sentences }) {
+  SET_DATA(state, { entity_type, line_graph, bar_graph, sentences }) {
     state.entity_type = entity_type;
     state.line_graph = line_graph;
-    state.chart_graph = chart_graph;
+    state.bar_graph = bar_graph;
     state.sentences = sentences;
   },
 };

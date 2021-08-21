@@ -2,7 +2,7 @@
   <div>
     <div v-if="lineXAxis.length" class="dashboard-editor-container">
       <el-row
-        style="background: #fff; padding: 16px 16px 0; margin-bottom: 32px;"
+        style="background: #fff; padding: 16px 16px 0; margin-bottom: 32px"
       >
         <line-chart :line-x-data="lineXData" :line-x-axis="lineXAxis" />
       </el-row>
@@ -45,7 +45,7 @@ export default {
     init() {
       const expectedData = this.$store.state.errorAnalysis.line_graph[0];
       const actualData = this.$store.state.errorAnalysis.line_graph[1];
-      const barData = this.$store.state.errorAnalysis.chart_graph;
+      const barData = this.$store.state.errorAnalysis.bar_graph;
       for (let key in expectedData) {
         this.lineXAxis.push(key);
         this.lineXData[0].push(expectedData[key]);

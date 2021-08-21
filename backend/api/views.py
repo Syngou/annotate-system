@@ -281,7 +281,7 @@ def error_analysis_file_upload(request):
 
     # 错误类型个数统计
     error_type = error_statis(data)
-    python2json['chart_graph'] = error_type
+    python2json['bar_graph'] = error_type
 
     json_str = json.dumps(python2json, ensure_ascii=False)
 

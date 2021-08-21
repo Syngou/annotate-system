@@ -1,6 +1,6 @@
 <template>
   <div class="empty-container">
-    <router-link to="/errorAnalysis/fileUpload">
+    <router-link to="/errorAnalysis">
       <span class="empty-text">
         点击上传文件
       </span>
