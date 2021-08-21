@@ -4,7 +4,7 @@ const state = {
     // 标签信息
   ],
   // 存储已标注的词语
-  annotateData: [[], [], [], [], [], []],
+  entityAnnotateData: [[], [], [], [], [], []],
   // 文本id
   essayId: 0,
   // 按钮id，用于查找，添加删除事件
@@ -20,9 +20,9 @@ const mutations = {
    * @param  info 对象，存id和文本
    */
   ADD_TO_LIST: (state, info) => {
-    const annotateData = info.annotateData;
+    const entityAnnotateData = info.entityAnnotateData;
     const index = parseInt(info.id.split("-")[0]);
-    state.annotateData[index].push(annotateData);
+    state.entityAnnotateData[index].push(entityAnnotateData);
   },
   /**
    *  删除list中的标注记录
@@ -31,12 +31,12 @@ const mutations = {
    */
   DELETE_DATA_FROM_LIST: (state, info) => {
     const index = parseInt(info.type.split("-")[0]);
-    for (let i = state.annotateData.length - 1; i >= 0; i--) {
+    for (let i = state.entityAnnotateData.length - 1; i >= 0; i--) {
       if (
-        state.annotateData[index][i] &&
-        state.annotateData[index][i].id === info.type.split("-")[1]
+        state.entityAnnotateData[index][i] &&
+        state.entityAnnotateData[index][i].id === info.type.split("-")[1]
       ) {
-        state.annotateData[index].splice(i, 1);
+        state.entityAnnotateData[index].splice(i, 1);
         break;
       }
     }
@@ -47,13 +47,13 @@ const mutations = {
    */
   SET_LABELS: (state, data) => {
     state.labels = data;
-    state.annotateData = [];
+    state.entityAnnotateData = [];
     const length = state.labels.length;
     for (let i = 0; i < length; i++) {
-      state.annotateData.push([]);
+      state.entityAnnotateData.push([]);
     }
   },
- 
+
   /**
    *  设置标注文本
    */
@@ -72,7 +72,7 @@ const actions = {
   setLabels({ commit }, data) {
     commit("SET_LABELS", data);
   },
- 
+
   setTextTitle({ commit }, title) {
     commit("SET_TEXT_TITLE", title);
   },

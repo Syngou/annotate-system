@@ -1,6 +1,7 @@
 <template>
   <div class="dashboard-container">
     <el-row :gutter="20">
+      <!-- 个人信息卡 -->
       <el-col :xs="24" :sm="12" :lg="6">
         <el-card shadow="hover" class="mgb20" style="height: 252px">
           <div class="user-info">
@@ -29,6 +30,7 @@
             <span>{{ roles[0] }}</span>
           </div>
         </el-card>
+        <!-- 使用说明 -->
         <el-card>
           <h1>使用说明</h1>
           <h3>接口尚未完善,凑合着用</h3>
@@ -48,6 +50,7 @@
           </ol>
         </el-card>
       </el-col>
+      <!-- todolist -->
       <el-col :xs="24" :sm="12" :lg="12">
         <TodoList />
       </el-col>

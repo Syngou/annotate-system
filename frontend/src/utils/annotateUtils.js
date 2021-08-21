@@ -41,10 +41,8 @@ export function relationAnnotateUtil(id, order) {
 
     let span = document.createElement("span");
     span.setAttribute("style", annotatedTestStyle);
-    if(order)
-      span.setAttribute("id", toString(id[1])+"second")
-    else
-      span.setAttribute("id", toString(id[0])+"first")
+    if (order) span.setAttribute("id", toString(id[1]) + "second");
+    else span.setAttribute("id", toString(id[0]) + "first");
 
     let TextRange = window.getSelection().getRangeAt(0);
     TextRange.surroundContents(span);
@@ -60,34 +58,30 @@ export function relationMatchingUtil(position1, position2, id) {
   console.log(position1);
   console.log(position2);
   let posXmin, posYmin;
-  if(position1[0] <= position2[0])
-    posXmin = position1[0];
-  else
-    posXmin = position2[0];
-  if(position1[1] <= position2[1])
-    posYmin = position1[1];
-  else
-    posYmin = position2[1];
+  if (position1[0] <= position2[0]) posXmin = position1[0];
+  else posXmin = position2[0];
+  if (position1[1] <= position2[1]) posYmin = position1[1];
+  else posYmin = position2[1];
 
-  let node = document.getElementById(toString(id[0])+"first");
-  console.log(node)
+  let node = document.getElementById(toString(id[0]) + "first");
+  console.log(node);
   node.appendChild(draw);
   draw.style.position = "relative";
   draw.style.zIndex = 5;
   draw.style.left = `0px`;
   draw.style.top = `0px`;
-  draw.style.width = `${position2[0]+position1[0]-2*posXmin}px`;
-  draw.style.height = `${position2[1]+position1[1]-2*posYmin+40}px`;
+  draw.style.width = `${position2[0] + position1[0] - 2 * posXmin}px`;
+  draw.style.height = `${position2[1] + position1[1] - 2 * posYmin + 40}px`;
   let oneLine = draw.getContext("2d");
   //console.log(position1);
   oneLine.moveTo(10, 100);
   oneLine.lineTo(10, 5);
   oneLine.stroke();
   oneLine.moveTo(10, 5);
-  oneLine.lineTo(position2[0]+position1[0]-2*posXmin, 5);
+  oneLine.lineTo(position2[0] + position1[0] - 2 * posXmin, 5);
   oneLine.stroke();
-  oneLine.moveTo(position2[0]+position1[0]-2*posXmin, 5);
-  oneLine.lineTo(position2[0]+position1[0]-2*posXmin, 100);
+  oneLine.moveTo(position2[0] + position1[0] - 2 * posXmin, 5);
+  oneLine.lineTo(position2[0] + position1[0] - 2 * posXmin, 100);
   oneLine.stroke();
 
   //console.log("hhhhh")
@@ -98,7 +92,7 @@ export function relationMatchingUtil(position1, position2, id) {
  * @param {string} id 给button标签的id，用于删除时查找
  * @param {number} index 标注颜色索引
  */
-export function annotateUtil(id, index) {
+export function entityAnnotateUtil(id, index) {
   let text = window.getSelection().toString();
 
   // 按钮样式
@@ -116,7 +110,7 @@ export function annotateUtil(id, index) {
     let start = [...preSelectionRange.toString()].length;
     let end = start + [...range.toString()].length;
 
-    let annotateData = {
+    let entityAnnotateData = {
       id: id.split("-")[1], // 用于删除查找
       label: id.split("-")[0], // 分类
       start_offset: start, //起始索引
@@ -126,7 +120,7 @@ export function annotateUtil(id, index) {
       updated_at: new Date(),
     };
 
-    store.dispatch("annotate/addToList", { id, annotateData });
+    store.dispatch("annotate/addToList", { id, entityAnnotateData });
     // 按钮添加事件
     let button = document.createElement("i");
     button.setAttribute("id", id);
@@ -138,7 +132,6 @@ export function annotateUtil(id, index) {
     button.setAttribute("style", buttonStyle());
     let span = document.createElement("span");
     span.setAttribute("style", annotatedTestStyle);
-    
 
     let TextRange = window.getSelection().getRangeAt(0);
     TextRange.surroundContents(span);
@@ -182,7 +175,7 @@ function deleteById(id) {
 //     //把分割出来的字符串分别标注
 //     for (let j = 0; j < array.length; j++) {
 //       if (array[j].length !== 0) {
-//         store.state.annotate.annotateData[i].push(array[j]);
+//         store.state.annotate.entityAnnotateData[i].push(array[j]);
 //         annotateContent.innerHTML = annotateContent.innerHTML.replaceAll(
 //           array[j],
 //           `<span style='${this.textStyle(i)}'>${

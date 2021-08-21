@@ -8,14 +8,15 @@
       crossorigin="anonymous"
     />
     <!-- 选择实体标注还是关系标注 -->
-    <div v-show="showFunctionDialog" ref="showFunctionDialog" class="optionDialog">
-      <button @click="chooseEntityAnnotate"> 实体标注 </button>
-      <button @click="chooseRelationAnnotate"> 关系标注 </button>
-      <button @click="chooseAttributeAnnotate"> 属性标注 </button>
+    <div
+      v-show="showFunctionDialog"
+      ref="showFunctionDialog"
+      class="optionDialog"
+    >
+      <button @click="chooseEntityAnnotate">实体标注</button>
+      <button @click="chooseRelationAnnotate">关系标注</button>
+      <button @click="chooseAttributeAnnotate">属性标注</button>
     </div>
-
-
-
 
     <!-- 标注选项对话框 -->
     <div v-show="showDialog" ref="showDialog" class="optionDialog">
@@ -27,9 +28,7 @@
       >
         {{ info.text }}({{ info.shortcut }})
       </button>
-      <button @click="translateText">
-        翻译
-      </button>
+      <button @click="translateText">翻译</button>
     </div>
 
     <!-- 翻译结果显示 -->
@@ -48,13 +47,9 @@
         <div class="col-md-2">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <div class="head">
-                现有标签
-              </div>
+              <div class="head">现有标签</div>
               <hr />
-              <div class="tip">
-                (选中文本后单击任一标签即可标注)
-              </div>
+              <div class="tip">(选中文本后单击任一标签即可标注)</div>
             </div>
             <div class="panel-body">
               <div class="side">
@@ -69,9 +64,7 @@
                   {{ info.text }}({{ info.shortcut }})
                 </button>
                 <br /><br />
-                <router-link to="/labelsManage">
-                  添加新标签
-                </router-link>
+                <router-link to="/labelsManage"> 添加新标签 </router-link>
               </div>
             </div>
           </div>
@@ -81,9 +74,7 @@
         <div class="col-md-10">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <div class="head">
-                文章如下
-              </div>
+              <div class="head">文章如下</div>
             </div>
             <div class="panel-body" id="panel-body">
               <pre
@@ -104,7 +95,11 @@
 <script>
 import TranslateCard from "./components/TranslateCard";
 
-import { annotateUtil, relationAnnotateUtil, relationMatchingUtil } from "@/utils/annotateUtils";
+import {
+  entityAnnotateUtil,
+  relationAnnotateUtil,
+  relationMatchingUtil,
+} from "@/utils/annotateUtils";
 import { translateApi } from "@/api/annotateData";
 
 import { mapGetters } from "vuex";
@@ -122,9 +117,9 @@ export default {
       showTranslateCard: false, //显示翻译卡片
       translateResult: {}, //翻译结果
       flag: false, // 标记上一次选择的是实体标注还是关系标注
-      position1: [[], []],  // 关系标注的第一段文本位置
-      position2: [[], []],  // 关系标注的第二段文本位置
-      id: [0, 0] , // 选中文本的id值
+      position1: [[], []], // 关系标注的第一段文本位置
+      position2: [[], []], // 关系标注的第二段文本位置
+      id: [0, 0], // 选中文本的id值
     };
   },
   computed: {
@@ -156,8 +151,7 @@ export default {
 
     getSelection(e) {
       if (window.getSelection().toString() !== "") {
-
-        if(!this.flag) {
+        if (!this.flag) {
           this.selectText = window.getSelection().toString();
           this.setBoxPosition(e.pageX, e.pageY);
 
@@ -166,13 +160,17 @@ export default {
           this.showDialog = false;
           this.showFunctionDialog = true;
           // this.position1[0] = e.pageX;
-          // this.position1[1] = e.pageY;          
-
-        }
-        else {
+          // this.position1[1] = e.pageY;
+        } else {
           // 若上次选择的是关系标注，则直接标注并传回两次标注文本的位置
-          this.position2[0] = window.getSelection().getRangeAt(0).getClientRects()['0'].x
-          this.position2[1] = window.getSelection().getRangeAt(0).getClientRects()['0'].y
+          this.position2[0] = window
+            .getSelection()
+            .getRangeAt(0)
+            .getClientRects()["0"].x;
+          this.position2[1] = window
+            .getSelection()
+            .getRangeAt(0)
+            .getClientRects()["0"].y;
           // this.position2[0] = e.pageX;
           // this.position2[1] = e.pageY;
           relationAnnotateUtil(this.id, 1);
@@ -180,7 +178,6 @@ export default {
           relationMatchingUtil(this.position1, this.position2, this.id);
           this.flag = false;
         }
-
       }
       //点击空白处取消标注
       else {
@@ -206,24 +203,26 @@ export default {
      */
     chooseRelationAnnotate() {
       this.showFunctionDialog = false;
-      this.position1[0] = window.getSelection().getRangeAt(0).getClientRects()['0'].x
-      this.position1[1] = window.getSelection().getRangeAt(0).getClientRects()['0'].y
+      this.position1[0] = window.getSelection().getRangeAt(0).getClientRects()[
+        "0"
+      ].x;
+      this.position1[1] = window.getSelection().getRangeAt(0).getClientRects()[
+        "0"
+      ].y;
       //console.log(window.getSelection().getRangeAt(0).getClientRects());
       relationAnnotateUtil(this.id, 0);
       this.id[0]++;
 
- 
       // 下一次选中别的文本时直接标注，不用跳出功能选择框
       this.flag = true;
       console.log(this.flag);
-
     },
 
     /**
      *  选择属性标注
      */
     chooseAttributeAnnotate() {
-        // TODO
+      // TODO
     },
 
     /**
@@ -235,7 +234,7 @@ export default {
       // 隐藏对话框
       this.showDialog = false;
       //console.log(this.showDialog);
-      annotateUtil(id, index);
+      entityAnnotateUtil(id, index);
     },
 
     /**
@@ -249,7 +248,7 @@ export default {
         let j = 0;
         for (; j < this.labels.length; j++) {
           if (key === this.labels[j].shortcut) {
-            annotateUtil(j + "-" + id, j);
+            entityAnnotateUtil(j + "-" + id, j);
             break;
           }
         }
@@ -277,7 +276,6 @@ export default {
 #paper {
   margin-top: 48.8px;
 
-
   /* 标注时对话框的样式 */
   .optionDialog {
     position: absolute;
@@ -285,7 +283,6 @@ export default {
     background-color: rgb(147, 121, 121);
     padding: 5px;
     z-index: 10; /* 设置堆叠次序，防止被覆盖 */
-    
 
     button {
       border: 1px solid black;

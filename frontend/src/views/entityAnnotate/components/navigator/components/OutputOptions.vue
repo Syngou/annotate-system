@@ -29,9 +29,7 @@
       </el-form>
       <!-- 按钮 -->
       <div class="btn-group">
-        <el-button type="primary" @click="outputFile">
-          确定
-        </el-button>
+        <el-button type="primary" @click="outputFile"> 确定 </el-button>
         <el-button type="danger" @click="dialogVisible = false">
           取消
         </el-button>
@@ -49,23 +47,23 @@ export default {
       options: [
         {
           value: "jsonl",
-          label: "jsonl"
+          label: "jsonl",
         },
         {
           value: "json",
-          label: "json"
+          label: "json",
         },
         {
           value: "txt",
-          label: "txt"
-        }
+          label: "txt",
+        },
       ],
       fileName: "output",
-      fileFormat: "jsonl"
+      fileFormat: "jsonl",
     };
   },
   computed: {
-    ...mapGetters(["annotateData"])
+    ...mapGetters(["entityAnnotateData"]),
   },
   methods: {
     outputFile() {
@@ -75,8 +73,8 @@ export default {
           JSON.stringify({
             id: this.$store.state.annotate.essayId,
             text: this.$store.state.annotate.annotateText,
-            annotations: this.annotateData
-          })
+            annotations: this.entityAnnotateData,
+          }),
         ])
       );
       const link = document.createElement("a");
@@ -84,8 +82,8 @@ export default {
       link.setAttribute("download", `${this.fileName}.${this.fileFormat}`);
       document.body.appendChild(link);
       link.click();
-    }
-  }
+    },
+  },
 };
 </script>
 
