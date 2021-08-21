@@ -7,6 +7,15 @@
       integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
       crossorigin="anonymous"
     />
+    <!-- 选择实体标注还是关系标注 -->
+    <div v-show="showFunctionDialog" ref="showFunctionDialog" class="optionDialog">
+      <button @click="chooseEntityAnnotate"> 实体标注 </button>
+      <button @click="chooseRelationAnnotate"> 关系标注 </button>
+      <button @click="chooseAttributeAnnotate"> 属性标注 </button>
+    </div>
+
+
+
 
     <!-- 标注选项对话框 -->
     <div v-show="showDialog" ref="showDialog" class="optionDialog">
@@ -76,7 +85,7 @@
                 文章如下
               </div>
             </div>
-            <div class="panel-body">
+            <div class="panel-body" id="panel-body">
               <pre
                 id="annotateContent"
                 class="annotate-content"
@@ -95,7 +104,7 @@
 <script>
 import TranslateCard from "./components/TranslateCard";
 
-import { annotateUtil } from "@/utils/annotateUtils";
+import { annotateUtil, relationAnnotateUtil, relationMatchingUtil } from "@/utils/annotateUtils";
 import { translateApi } from "@/api/annotateData";
 
 import { mapGetters } from "vuex";
@@ -107,10 +116,15 @@ export default {
   },
   data() {
     return {
+      showFunctionDialog: false,
       showDialog: false, //显示标注对话框
       selectText: "", // 选中文本
       showTranslateCard: false, //显示翻译卡片
       translateResult: {}, //翻译结果
+      flag: false, // 标记上一次选择的是实体标注还是关系标注
+      position1: [[], []],  // 关系标注的第一段文本位置
+      position2: [[], []],  // 关系标注的第二段文本位置
+      id: [0, 0] , // 选中文本的id值
     };
   },
   computed: {
@@ -129,6 +143,8 @@ export default {
     setBoxPosition(X, Y) {
       this.$refs.showDialog.style.left = `${X - 100}px`;
       this.$refs.showDialog.style.top = `${Y + 20}px`;
+      this.$refs.showFunctionDialog.style.left = `${X - 100}px`;
+      this.$refs.showFunctionDialog.style.top = `${Y + 20}px`;
       this.$refs.translateCard.style.left = `${X + 10}px`;
       this.$refs.translateCard.style.top = `${Y + 10}px`;
     },
@@ -140,15 +156,74 @@ export default {
 
     getSelection(e) {
       if (window.getSelection().toString() !== "") {
-        this.selectText = window.getSelection().toString();
-        this.setBoxPosition(e.pageX, e.pageY);
-        this.$refs.showDialog.style.display = "block";
-        this.showDialog = true;
+
+        if(!this.flag) {
+          this.selectText = window.getSelection().toString();
+          this.setBoxPosition(e.pageX, e.pageY);
+
+          //this.$refs.showDialog.style.display = "block";
+          //this.showDialog = true
+          this.showDialog = false;
+          this.showFunctionDialog = true;
+          // this.position1[0] = e.pageX;
+          // this.position1[1] = e.pageY;          
+
+        }
+        else {
+          // 若上次选择的是关系标注，则直接标注并传回两次标注文本的位置
+          this.position2[0] = window.getSelection().getRangeAt(0).getClientRects()['0'].x
+          this.position2[1] = window.getSelection().getRangeAt(0).getClientRects()['0'].y
+          // this.position2[0] = e.pageX;
+          // this.position2[1] = e.pageY;
+          relationAnnotateUtil(this.id, 1);
+          this.id[1]++;
+          relationMatchingUtil(this.position1, this.position2, this.id);
+          this.flag = false;
+        }
+
       }
       //点击空白处取消标注
       else {
         this.showDialog = false;
+        // 得加下面这句才能让标注对话框消失，不清楚为什么
+        this.$refs.showDialog.style.display = "none";
+
+        this.showFunctionDialog = false;
       }
+    },
+
+    /**
+     *  选择实体标注
+     */
+    chooseEntityAnnotate() {
+      this.showFunctionDialog = false;
+      this.$refs.showDialog.style.display = "block";
+      this.showDialog = true;
+    },
+
+    /**
+     *  选择关系标注
+     */
+    chooseRelationAnnotate() {
+      this.showFunctionDialog = false;
+      this.position1[0] = window.getSelection().getRangeAt(0).getClientRects()['0'].x
+      this.position1[1] = window.getSelection().getRangeAt(0).getClientRects()['0'].y
+      //console.log(window.getSelection().getRangeAt(0).getClientRects());
+      relationAnnotateUtil(this.id, 0);
+      this.id[0]++;
+
+ 
+      // 下一次选中别的文本时直接标注，不用跳出功能选择框
+      this.flag = true;
+      console.log(this.flag);
+
+    },
+
+    /**
+     *  选择属性标注
+     */
+    chooseAttributeAnnotate() {
+        // TODO
     },
 
     /**
@@ -159,6 +234,7 @@ export default {
     annotateText(id, index) {
       // 隐藏对话框
       this.showDialog = false;
+      //console.log(this.showDialog);
       annotateUtil(id, index);
     },
 
@@ -201,6 +277,7 @@ export default {
 #paper {
   margin-top: 48.8px;
 
+
   /* 标注时对话框的样式 */
   .optionDialog {
     position: absolute;
@@ -208,6 +285,7 @@ export default {
     background-color: rgb(147, 121, 121);
     padding: 5px;
     z-index: 10; /* 设置堆叠次序，防止被覆盖 */
+    
 
     button {
       border: 1px solid black;
