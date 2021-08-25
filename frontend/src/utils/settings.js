@@ -1,5 +1,5 @@
 module.exports = {
-  title: "医疗文本标注系统",
+  title: "文本标注系统",
 
   /**
    * @type {boolean} true | false

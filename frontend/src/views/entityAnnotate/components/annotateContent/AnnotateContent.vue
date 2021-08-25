@@ -28,6 +28,7 @@
       >
         {{ info.text }}({{ info.shortcut }})
       </button>
+      <!-- 翻译按钮 -->
       <button @click="translateText">翻译</button>
     </div>
 

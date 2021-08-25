@@ -127,7 +127,7 @@ export function entityAnnotateUtil(id, index) {
     button.addEventListener("click", () => {
       deleteById(id);
     });
-
+    // 按钮样式
     button.setAttribute("class", "el-icon-close");
     button.setAttribute("style", buttonStyle());
     let span = document.createElement("span");

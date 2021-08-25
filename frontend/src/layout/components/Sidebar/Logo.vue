@@ -33,7 +33,7 @@ export default {
   },
   data() {
     return {
-      title: "医疗文本标注系统",
+      title: "文本标注系统",
       logo: "http://localhost:9528/doctor.svg",
     };
   },

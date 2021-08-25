@@ -1,12 +1,12 @@
 <template>
   <div class="topNavigation">
-    <span class="title">医疗文本标注和处理系统</span>
+    <span class="title">文本标注和处理系统</span>
     <!-- TODO 解决起始索引后再打开-->
     <!-- <a @click="$bus.$emit('autoAnnotate')">自动化标注</a> -->
     <a @click="exportData">导出数据</a>
     <!-- TODO 等待数据库，待开发功能-->
     <a @click="saveTamporaryData">暂存数据</a>
-    <router-link v-if="!avatar" to="/login" style="float: right;">
+    <router-link v-if="!avatar" to="/login" style="float: right">
       登录
     </router-link>
     <div v-else class="right-menu">
@@ -22,7 +22,7 @@
             <el-dropdown-item> 标签管理 </el-dropdown-item>
           </router-link>
           <el-dropdown-item divided @click.native="logout">
-            <span style="display: block;">注销</span>
+            <span style="display: block">注销</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -38,11 +38,11 @@ import { mapGetters } from "vuex";
 export default {
   name: "TopNavigation",
   components: {
-    OutputOptions
+    OutputOptions,
   },
 
   computed: {
-    ...mapGetters(["avatar"])
+    ...mapGetters(["avatar"]),
   },
 
   methods: {
@@ -64,8 +64,8 @@ export default {
     // TODO 待开发 或者说有没有必要开发
     saveTamporaryData() {
       this.$message.info("待开发");
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped lang="scss">
@@ -115,28 +115,28 @@ export default {
   }
 
   // 用户头像
-    .avatar-container {
-      margin-right: 5px;
+  .avatar-container {
+    margin-right: 5px;
 
-      .avatar-wrapper {
-        position: relative;
+    .avatar-wrapper {
+      position: relative;
 
-        .user-avatar {
-          cursor: pointer;
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
-        }
+      .user-avatar {
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+      }
 
-        .el-icon-caret-bottom {
-          cursor: pointer;
-          position: absolute;
-          right: -20px;
-          top: 25px;
-          font-size: 12px;
-        }
+      .el-icon-caret-bottom {
+        cursor: pointer;
+        position: absolute;
+        right: -20px;
+        top: 25px;
+        font-size: 12px;
       }
     }
+  }
 }
 @media screen and (max-width: 400px) {
   .title {
