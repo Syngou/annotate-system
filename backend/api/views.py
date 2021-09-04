@@ -8,6 +8,7 @@ from django.core import signing
 from .find_error import Data, correct_statis, error_statis
 from .models import *
 from .utils import *
+
 '''
 目前是把所有的接口都放在这
 但是为了方便管理和维护，以及更好的逻辑
@@ -46,13 +47,13 @@ def register(request):
 # 获取用户信息
 def get_user_info(request):
     token = signing.loads((request.META.get('HTTP_ANNOTATE_SYSTEM_TOKEN')))
-    username = token['username']
-    user = UserInfo.objects.filter(username=username)
+    userId = token['id']
+    user = UserInfo.objects.filter(id=userId).first()
     if not user:
         return error("用户信息不存在")
     # 在这里顺便查询数据库，获取用户自定义的标注标签，标注文本，成员信息 并放入响应数据中
     text_list = []
-    for text in AnnotateText.objects.filter(user_id=user[0].id):
+    for text in AnnotateText.objects.filter(user_id=user.id):
         text_list.append({
             "id": text.id,
             "text": text.text,
@@ -60,10 +61,10 @@ def get_user_info(request):
             "description": text.description
         })
     userAvatar = str(request.build_absolute_uri('/')) + "media/avatar/" + str(
-        user[0].avatar) if user[0].avatar else None
+        user.avatar) if user.avatar else None
     return ok({
-        "name": username,
-        "roles": [user[0].roles],  # 用户角色，如果有用户管理就需要
+        "name": user.username,
+        "roles": [user.roles],  # 用户角色，如果有用户管理就需要
         "avatar": userAvatar,  # 头像地址
         "annotate_text_list": text_list
     })
@@ -90,7 +91,7 @@ def set_avatar(request):
     # 返回头像的链接地址
     return ok({
         "avatar":
-        str(request.build_absolute_uri('/')) + "media/avatar/" + avatar.name
+            str(request.build_absolute_uri('/')) + "media/avatar/" + avatar.name
     })
 
 
@@ -106,6 +107,11 @@ def user_info_update(request):
     UserInfo.objects.filter(id=userId).update(username=name)
     token = signing.dumps({"username": name, "id": userId})
     return ok({"token": token})
+
+
+# 修改密码
+def modify_password(request):
+    return ok({})
 
 
 # 翻译接口

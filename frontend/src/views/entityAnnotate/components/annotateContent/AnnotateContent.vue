@@ -13,9 +13,15 @@
       ref="showFunctionDialog"
       class="optionDialog"
     >
-      <button @click="chooseEntityAnnotate">实体标注</button>
-      <button @click="chooseRelationAnnotate">关系标注</button>
-      <button @click="chooseAttributeAnnotate">属性标注</button>
+      <button @click="chooseEntityAnnotate">
+        实体标注
+      </button>
+      <button @click="chooseRelationAnnotate">
+        关系标注
+      </button>
+      <button @click="chooseAttributeAnnotate">
+        属性标注
+      </button>
     </div>
 
     <!-- 标注选项对话框 -->
@@ -29,7 +35,9 @@
         {{ info.text }}({{ info.shortcut }})
       </button>
       <!-- 翻译按钮 -->
-      <button @click="translateText">翻译</button>
+      <button @click="translateText">
+        翻译
+      </button>
     </div>
 
     <!-- 翻译结果显示 -->
@@ -48,9 +56,13 @@
         <div class="col-md-2">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <div class="head">现有标签</div>
+              <div class="head">
+                现有标签
+              </div>
               <hr />
-              <div class="tip">(选中文本后单击任一标签即可标注)</div>
+              <div class="tip">
+                (选中文本后单击任一标签即可标注)
+              </div>
             </div>
             <div class="panel-body">
               <div class="side">
@@ -65,7 +77,9 @@
                   {{ info.text }}({{ info.shortcut }})
                 </button>
                 <br /><br />
-                <router-link to="/labelsManage"> 添加新标签 </router-link>
+                <router-link to="/labelsManage">
+                  添加新标签
+                </router-link>
               </div>
             </div>
           </div>
@@ -75,9 +89,11 @@
         <div class="col-md-10">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <div class="head">文章如下</div>
+              <div class="head">
+                文章如下
+              </div>
             </div>
-            <div class="panel-body" id="panel-body">
+            <div id="panel-body" class="panel-body">
               <pre
                 id="annotateContent"
                 class="annotate-content"

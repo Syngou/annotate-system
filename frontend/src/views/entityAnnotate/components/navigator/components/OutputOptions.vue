@@ -29,7 +29,9 @@
       </el-form>
       <!-- 按钮 -->
       <div class="btn-group">
-        <el-button type="primary" @click="outputFile"> 确定 </el-button>
+        <el-button type="primary" @click="outputFile">
+          确定
+        </el-button>
         <el-button type="danger" @click="dialogVisible = false">
           取消
         </el-button>

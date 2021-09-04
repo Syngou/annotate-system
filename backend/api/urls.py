@@ -9,6 +9,7 @@ urlpatterns = [
     path('logout/', views.logout),  # 注销
     path('register/', views.register),  # 用户注册
     path("getUserInfo/", views.get_user_info),  # 获取用户信息
+    path('modify_password/',views.modify_password), # 修改密码
     path('info/update/', views.user_info_update),  # 更新用户信息
     path('setAvatar/', views.set_avatar),  # 上传用户头像
 

@@ -6,7 +6,7 @@
           <span>个人信息</span>
         </div>
         <div>
-          <div style="text-align: center;">
+          <div style="text-align: center">
             <div class="el-upload">
               <el-upload
                 class="avatar-uploader"
@@ -33,27 +33,45 @@
             <li>
               <SvgIcon icon-class="anq" /> 安全设置
               <div class="user-right">
-                <el-button type="text" @click="dialogFormVisible=true">
+                <el-button type="text" @click="dialogFormVisible = true">
                   修改密码
                 </el-button>
 
                 <el-dialog title="修改密码" :visible.sync="dialogFormVisible">
                   <el-form :model="pwdOptions">
                     <el-form-item label="旧密码" :label-width="formLabelWidth">
-                      <el-input v-model="pwdOptions.oldPassword" placeholder="请输入旧密码" autocomplete="off"></el-input>
+                      <el-input
+                        v-model="pwdOptions.oldPassword"
+                        placeholder="请输入旧密码"
+                        autocomplete="off"
+                      ></el-input>
                     </el-form-item>
                     <el-form-item label="新密码" :label-width="formLabelWidth">
-                      <el-input v-model="pwdOptions.newPassword" placeholder="请输入新密码" autocomplete="off"></el-input>
+                      <el-input
+                        v-model="pwdOptions.newPassword"
+                        placeholder="请输入新密码"
+                        autocomplete="off"
+                      ></el-input>
                     </el-form-item>
-                    <el-form-item label="确认密码" :label-width="formLabelWidth">
-                      <el-input v-model="pwdOptions.checkPassword" placeholder="请再次确认" autocomplete="off"></el-input>
+                    <el-form-item
+                      label="确认密码"
+                      :label-width="formLabelWidth"
+                    >
+                      <el-input
+                        v-model="pwdOptions.checkPassword"
+                        placeholder="请再次确认"
+                        autocomplete="off"
+                      ></el-input>
                     </el-form-item>
                   </el-form>
                   <div class="dialog-footer">
                     <el-button @click="dialogFormVisible = false">
                       取 消
                     </el-button>
-                    <el-button type="primary" @click="dialogFormVisible = false">
+                    <el-button
+                      type="primary"
+                      @click="dialogFormVisible = false"
+                    >
                       确 定
                     </el-button>
                   </div>
@@ -81,16 +99,16 @@ export default {
       },
     },
   },
-  data(){
-    return{
-      dialogFormVisible:false,
-      pwdOptions:{
-        oldPassword:"",
-        newPassword:"",
-        checkPassword:""
+  data() {
+    return {
+      dialogFormVisible: false,
+      pwdOptions: {
+        oldPassword: "",
+        newPassword: "",
+        checkPassword: "",
       },
-      formLabelWidth:'80px'
-    }
+      formLabelWidth: "80px",
+    };
   },
   computed: {
     token() {
@@ -138,10 +156,10 @@ export default {
   .user-right {
     float: right;
 
-  .dialog-footer{
-    position: relative;
-    left: 275px;
-  }
+    .dialog-footer {
+      position: relative;
+      left: 275px;
+    }
   }
 }
 </style>
