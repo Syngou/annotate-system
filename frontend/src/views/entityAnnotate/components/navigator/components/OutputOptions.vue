@@ -29,9 +29,7 @@
       </el-form>
       <!-- 按钮 -->
       <div class="btn-group">
-        <el-button type="primary" @click="outputFile">
-          确定
-        </el-button>
+        <el-button type="primary" @click="outputFile"> 确定 </el-button>
         <el-button type="danger" @click="dialogVisible = false">
           取消
         </el-button>
@@ -61,11 +59,11 @@ export default {
         },
       ],
       fileName: "output",
-      fileFormat: "jsonl",
+      fileFormat: "json",
     };
   },
   computed: {
-    ...mapGetters(["entityAnnotateData"]),
+    ...mapGetters(["annotateData"]),
   },
   methods: {
     outputFile() {
@@ -75,7 +73,7 @@ export default {
           JSON.stringify({
             id: this.$store.state.annotate.essayId,
             text: this.$store.state.annotate.annotateText,
-            annotations: this.entityAnnotateData,
+            annotations: this.annotateData,
           }),
         ])
       );

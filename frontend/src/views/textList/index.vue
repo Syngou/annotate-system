@@ -14,21 +14,15 @@
           :on-error="handleError"
           :show-file-list="false"
         >
-          <el-button type="primary">
-            导入数据
-          </el-button>
+          <el-button type="primary"> 导入数据 </el-button>
         </el-upload>
       </div>
       <div class="button-group-item">
-        <el-button type="primary" @click="exportData">
-          导出数据
-        </el-button>
+        <el-button type="primary" @click="exportData"> 导出数据 </el-button>
       </div>
     </div>
     <div class="clear">
-      <el-button type="danger" @click="removeAll">
-        清空
-      </el-button>
+      <el-button type="danger" @click="removeAll"> 清空 </el-button>
     </div>
     <!-- 搜索框 -->
     <div class="search">
@@ -46,7 +40,11 @@
       </el-input>
     </div>
     <div>
-      <p>注意:您需要在<strong>标注之前</strong>设置好标签,在标注未完成时添加标签会<strong>清空标注数据</strong></p>
+      <p>
+        注意:您需要在<strong>标注之前</strong>设置好标签,在标注未完成时添加标签会<strong
+          >清空标注数据</strong
+        >
+      </p>
     </div>
     <!-- 表格 -->
     <div>
@@ -137,9 +135,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="update()">
-          更新
-        </el-button>
+        <el-button type="primary" @click="update()"> 更新 </el-button>
       </div>
     </el-dialog>
   </div>
@@ -271,7 +267,8 @@ export default {
         "annotate/setAnnotateText",
         this.filterList[index].text
       );
-      this.$router.push("/entityAnnotate");
+      // 把索引传过去，便于根据索引获取文本
+      this.$router.push("/entityAnnotate?textIndex=" + index);
     },
     /**
      * 编辑

@@ -9,7 +9,7 @@ urlpatterns = [
     path('logout/', views.logout),  # 注销
     path('register/', views.register),  # 用户注册
     path("getUserInfo/", views.get_user_info),  # 获取用户信息
-    path('modify_password/',views.modify_password), # 修改密码
+    path('modify_password/', views.modify_password),  # 修改密码
     path('info/update/', views.user_info_update),  # 更新用户信息
     path('setAvatar/', views.set_avatar),  # 上传用户头像
 
@@ -17,6 +17,7 @@ urlpatterns = [
     path('annotate_text/upload/', views.import_annotate_text),  # 上传标注文本
     path('annotate_text/delete/', views.delete_annotate_text),  # 删除标注文本(一条)
     path('annotate_text/edit/', views.update_annotate_text_info),  # 更新标注文本信息
+    path('annotate_text/get_by_index/', views.get_annotate_text_by_index), # 根据索引获取文本
 
     # 标签管理
     path('labels/add/', views.add_labels),  # 添加标签

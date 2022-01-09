@@ -6,6 +6,6 @@ const getters = {
   roles: (state) => state.user.roles,
   annotateTextList: (state) => state.user.annotateTextList,
   labels: (state) => state.annotate.labels, //标签信息
-  entityAnnotateData: (state) => state.annotate.entityAnnotateData, //标注数据
+  annotateData: (state) => state.annotate.annotateData, //标注数据
 };
 export default getters;

@@ -35,3 +35,12 @@ export function updateAnnotateTextInfoApi(textInfo) {
     data: { textInfo: textInfo },
   });
 }
+/**
+ * 根据index 获取 标注文本
+ * @param index 文本下标
+ */
+export function fetchAnnotationTextByIndexApi(index) {
+  return request({
+    url: `api/annotate_text/get_by_index/?index=${index}`,
+  });
+}

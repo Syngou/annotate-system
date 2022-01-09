@@ -8,7 +8,6 @@ from django.core import signing
 from .find_error import Data, correct_statis, error_statis
 from .models import *
 from .utils import *
-
 '''
 目前是把所有的接口都放在这
 但是为了方便管理和维护，以及更好的逻辑
@@ -91,7 +90,7 @@ def set_avatar(request):
     # 返回头像的链接地址
     return ok({
         "avatar":
-            str(request.build_absolute_uri('/')) + "media/avatar/" + avatar.name
+        str(request.build_absolute_uri('/')) + "media/avatar/" + avatar.name
     })
 
 
@@ -168,6 +167,20 @@ def update_annotate_text_info(request):
         description=text_info['description'],
         status=text_info['status'])
     return ok({})
+
+
+# 根据用户id和文本索引获取文本
+def get_annotate_text_by_index(request):
+    token = signing.loads((request.META.get('HTTP_ANNOTATE_SYSTEM_TOKEN')))
+    user_id = token['id']
+    user = UserInfo.objects.filter(id=user_id).first()
+    if not user:
+        return error("用户信息不存在")
+    index = request.GET.get('index')
+    return ok({
+        'data':
+        str(AnnotateText.objects.filter(user_id=user_id)[int(index)])
+    })
 
 
 # 添加标注标签

@@ -69,7 +69,7 @@ export const constantRoutes = [
       {
         path: "",
         name: "textList",
-        component: () => import("@/views/annotateTextList"),
+        component: () => import("@/views/textList"),
         meta: { title: "文本列表", icon: "el-icon-notebook-2" },
       },
     ],
